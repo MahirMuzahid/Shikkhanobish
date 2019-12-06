@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Shikkhanobish.VerifyPhonenumber">
+    <Grid Padding="15" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height=".7*"/>
+            <RowDefinition Height=".6*"/>
+            <RowDefinition Height=".6*"/>
+            <RowDefinition Height=".5*"/>
+            <RowDefinition Height=".5*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Label Text="We will send verification code 01954052025" Grid.Row="1" FontSize="Title"/>
+        <Button Text="Send Code" Grid.Row="2" HorizontalOptions="End"/>
+        <Entry Placeholder="Write Code" Grid.Row="3" IsEnabled="{Binding MakeEnable}"/>
+        <Button Text="Confirm" Grid.Row="4"/>
+        <Button Text="Skip" Grid.Row="5" Clicked="Button_Clicked_1"/>
+    </Grid>
+</ContentPage>

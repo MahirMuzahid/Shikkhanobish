@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Shikkhanobish.RegisterStudent">
+    <Grid BackgroundColor="White" Padding="20">
+        <Grid.RowDefinitions>
+            
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height=".7*"/>
+            <RowDefinition Height=".7*"/>
+            <RowDefinition Height=".7*"/>
+            <RowDefinition Height=".7*"/>
+            <RowDefinition Height=".7*"/>
+            <RowDefinition Height=".7*"/>
+            <RowDefinition Height=".7*"/>
+            <RowDefinition Height=".7*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <Image Source="onlylogo.png"
+               Grid.Row="0"
+               HorizontalOptions="CenterAndExpand"/>
+        <Entry Placeholder="UserName" Grid.Row="1" Text="{Binding UserName}"></Entry>
+        <Entry Placeholder="Password(At least 6 character, one uppercase and one integer(0-9)" Grid.Row="2" Text="{Binding Password}" ></Entry>
+        <Entry Placeholder="Phone Number" Grid.Row="3" Text="{Binding PhoneNumber}" ></Entry>
+        <Entry Placeholder="Name" Grid.Row="4" Text="{Binding Name}" ></Entry>
+        <Entry Placeholder="Age" Grid.Row="5" Text="{Binding Age}" ></Entry>
+        <Entry Placeholder="Class(6-12 or Year or Semester)" Grid.Row="6" Text="{Binding Class}" ></Entry>
+        <Entry Placeholder="Institution Name" Grid.Row="7" Text="{Binding InstitutionName}" ></Entry>
+        <Button Text="{Binding BindButtonText}" Grid.Row="8" Command="{Binding RegisterStudent}" BackgroundColor="#B0FFD2"
+                 VerticalOptions="Start"></Button>
+        <Label Text="Everyone must be register as a student before teacher registration" TextColor="Black" Grid.Row="9"/>
+
+        <Label Text="{Binding ConfirmationText}" Grid.Row="10" HorizontalOptions="CenterAndExpand" TextColor="Red"></Label>
+      
+
+    </Grid>
+    
+</ContentPage>
