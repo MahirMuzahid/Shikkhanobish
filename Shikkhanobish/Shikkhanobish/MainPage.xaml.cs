@@ -23,5 +23,19 @@ namespace Shikkhanobish
             var image = new Image { Source = "loginwindowtext.png" };
             BindingContext = new MainPageViewModel();
         }
+         protected override bool OnBackButtonPressed()
+        {
+            giveAlert();
+            return true;
+        }
+        public async void giveAlert()
+        {
+            bool answer =  await DisplayAlert("Alert", "Would you like to quit?", "Yes", "No").ConfigureAwait(true);
+            if (answer == true)
+            {
+                System.Environment.Exit(0);
+            }
+        }
     }
+
 }

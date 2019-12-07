@@ -26,17 +26,18 @@
             <RowDefinition Height=".6*"/>
         </Grid.RowDefinitions>
         
-        <Image Source="BackColor.jpg" Grid.Row="0" Grid.RowSpan="9" Aspect="AspectFill"/>
+        <Image Source="BackColor.jpg" Grid.Row="0" Grid.RowSpan="9" Aspect="AspectFill" />
         
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Padding="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width=".3*"/>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width=".5*"/>
                 <ColumnDefinition Width=".5*"/>
                 <ColumnDefinition Width=".3*"/>
             </Grid.ColumnDefinitions>
             <Button Text="Teacher Registretion" FontSize="9" Grid.Column="1" CornerRadius="15" BackgroundColor="#A1F776" TextColor="#0F6F00" Clicked="Button_Clicked"/>
+            <Button Text="Settings" FontSize="9" Grid.Column="2" CornerRadius="15" BackgroundColor="#292929" TextColor="White" Clicked="Button_Clicked" HorizontalOptions="Center" />
             <Switch IsToggled="True" Grid.Column="3" IsEnabled="{Binding IsEnableTeacher}"/>
         </Grid>
         <Label Text="{Binding  Name}" TextColor="White" Grid.Row="3" HorizontalOptions="Center" FontSize="Title"/>
@@ -72,8 +73,10 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Button Text="Take Tuition" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"/>
+
+            <Button ImageSource="Button.png" Grid.Row="0"  Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Scale=".4" Margin="0,30,0,0" />
         </Grid>
         
         <Grid Grid.Row="10">
