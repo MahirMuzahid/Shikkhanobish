@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,6 +7,7 @@ using System.ComponentModel;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Shikkhanobish
@@ -29,23 +31,33 @@ namespace Shikkhanobish
             get
             {
                 return new Command( () =>
-                {                  
-                    if(UserName == null && Password == null)
+                {
+                    var current = Connectivity.NetworkAccess;
+
+                    if (current == NetworkAccess.Internet)
                     {
-                        ErrorText = "User Name and Password is empty!";
-                    }
-                    if(UserName == null)
-                    {
-                        ErrorText = "User Name is empty!";
-                    }
-                    else if(Password == null)
-                    {
-                        ErrorText = "Password is empty!";
+                        if (UserName == null && Password == null)
+                        {
+                            ErrorText = "User Name and Password is empty!";
+                        }
+                        else if (UserName == null)
+                        {
+                            ErrorText = "User Name is empty!";
+                        }
+                        else if (Password == null)
+                        {
+                            ErrorText = "Password is empty!";
+                        }
+                        else
+                        {
+                            LoginByUserNameAndPassword();
+                        }
                     }
                     else
                     {
-                        LoginByUserNameAndPassword();
+                        ErrorText = "Check Internet Connection";
                     }
+                    
 
                     
                 });

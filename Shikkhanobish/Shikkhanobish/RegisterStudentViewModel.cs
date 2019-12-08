@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Shikkhanobish
@@ -42,41 +43,50 @@ namespace Shikkhanobish
             {
                 return new Command(async () =>
                 {
-                    
-                    checkStudent.UserName = UserName;
-                    checkStudent.Password = Password;
-                    checkStudent.PhoneNumber = PhoneNumber;
-                    checkStudent.Name = Name;
-                    checkStudent.Age = Age;
-                    checkStudent.Class = Class;
-                    checkStudent.InstitutionName = InstitutionName;
-                    checkStudent.RechargedAmount = RechargedAmount;
-                    checkStudent.IsPending = IsPending;
-                    checkStudent.TotalTuitionTIme = 0;
-                    checkStudent.TotalTeacherCount = 0;
-                    checkStudent.AvarageRating = 0;
+                var current = Connectivity.NetworkAccess;
 
-                    try
+                    if (current == NetworkAccess.Internet)
                     {
-                        checkInfo();
-                        if (ConfirmationText == txt)
+                        checkStudent.UserName = UserName;
+                        checkStudent.Password = Password;
+                        checkStudent.PhoneNumber = PhoneNumber;
+                        checkStudent.Name = Name;
+                        checkStudent.Age = Age;
+                        checkStudent.Class = Class;
+                        checkStudent.InstitutionName = InstitutionName;
+                        checkStudent.RechargedAmount = RechargedAmount;
+                        checkStudent.IsPending = IsPending;
+                        checkStudent.TotalTuitionTIme = 0;
+                        checkStudent.TotalTeacherCount = 0;
+                        checkStudent.AvarageRating = 0;
+
+                        try
                         {
-                            
-                            string url = "https://api.shikkhanobish.com/api/Masters/RegisterStudent";
-                            HttpClient client = new HttpClient();
-                            string jsonData = JsonConvert.SerializeObject(checkStudent);
-                            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-                            HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
-                            string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
-                            Response responseData = JsonConvert.DeserializeObject<Response>(result);
-                            ConfirmationText = responseData.Massage;
-                            await Application.Current.MainPage.Navigation.PushModalAsync(new VerifyPhonenumber(checkStudent)).ConfigureAwait(true);
-                        }                                                
+                            checkInfo();
+                            if (ConfirmationText == txt)
+                            {
+
+                                string url = "https://api.shikkhanobish.com/api/Masters/RegisterStudent";
+                                HttpClient client = new HttpClient();
+                                string jsonData = JsonConvert.SerializeObject(checkStudent);
+                                StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                                HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
+                                string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
+                                Response responseData = JsonConvert.DeserializeObject<Response>(result);
+                                ConfirmationText = responseData.Massage;
+                                await Application.Current.MainPage.Navigation.PushModalAsync(new VerifyPhonenumber(checkStudent)).ConfigureAwait(true);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            ConfirmationText = ex.Message;
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        _confirmationText = ex.Message;
-                    }            
+                        ConfirmationText = "Check internet connection";
+                    }
+                          
                 });
             }
         }
