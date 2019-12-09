@@ -16,9 +16,11 @@ namespace Shikkhanobish
     internal class RegisterStudentViewModel : INotifyPropertyChanged
     {
         public string _confirmationText;
+        public string ConfirmPass;
         public string confirm;
         public static string _userName;
         public static string _password;
+        public string _confirmPassword;
         public string _phoneNumber;
         public string _name;
         public int _age;
@@ -34,7 +36,7 @@ namespace Shikkhanobish
         public RegisterStudentViewModel(INavigation navigation)
         {
             this.navigation = navigation;
-            BindButtonText = "Check Info";
+            BindButtonText = "Register";
         }
         public Command RegisterStudent
         {
@@ -43,12 +45,14 @@ namespace Shikkhanobish
             {
                 return new Command(async () =>
                 {
-                var current = Connectivity.NetworkAccess;
+                    BindButtonText = "Checking Info. Wait...";
+                    var current = Connectivity.NetworkAccess;
 
                     if (current == NetworkAccess.Internet)
                     {
                         checkStudent.UserName = UserName;
                         checkStudent.Password = Password;
+                        ConfirmPass = ConfirmPassword;
                         checkStudent.PhoneNumber = PhoneNumber;
                         checkStudent.Name = Name;
                         checkStudent.Age = Age;
@@ -59,23 +63,9 @@ namespace Shikkhanobish
                         checkStudent.TotalTuitionTIme = 0;
                         checkStudent.TotalTeacherCount = 0;
                         checkStudent.AvarageRating = 0;
-
                         try
                         {
-                            checkInfo();
-                            if (ConfirmationText == txt)
-                            {
-
-                                string url = "https://api.shikkhanobish.com/api/Masters/RegisterStudent";
-                                HttpClient client = new HttpClient();
-                                string jsonData = JsonConvert.SerializeObject(checkStudent);
-                                StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-                                HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
-                                string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
-                                Response responseData = JsonConvert.DeserializeObject<Response>(result);
-                                ConfirmationText = responseData.Massage;
-                                await Application.Current.MainPage.Navigation.PushModalAsync(new VerifyPhonenumber(checkStudent)).ConfigureAwait(true);
-                            }
+                            checkUserNamenadPhoneNumber();
                         }
                         catch (Exception ex)
                         {
@@ -91,65 +81,100 @@ namespace Shikkhanobish
             }
         }
 
-        public async void checkInfo()
+        public async void checkUserNamenadPhoneNumber()
         {
-            
-            string url = "https://api.shikkhanobish.com/api/Masters/GetInfoByLogin";
+            string url = "https://api.shikkhanobish.com/api/Masters/SearchUserName";
             HttpClient client = new HttpClient();
-            string jsonData = JsonConvert.SerializeObject(new { UserName = UserName, Password = Password });
+            string jsonData = JsonConvert.SerializeObject(new { UserName = UserName, PhoneNumber = PhoneNumber });
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
             string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
-            Student resultStudent = new Student();
-            resultStudent = JsonConvert.DeserializeObject<Student>(result);
-            if(resultStudent.UserName != null)
+            var RUserName = JsonConvert.DeserializeObject<Student>(result);
+            if (RUserName.UserName != UserName)
             {
                 ConfirmationText = "Username already exist!";
+                BindButtonText = "Try Again";
             }
-            else if(resultStudent.PhoneNumber != null)
+            else if (RUserName.PhoneNumber != PhoneNumber)
             {
-                ConfirmationText = "You can use only one acount with one phone number";
+                ConfirmationText = "You can use only one phonenumber per account";
+                BindButtonText = "Try Again";
             }
-            else if (checkStudent.UserName == null)
+            else
+            {
+                checkInfo();
+            }
+        }
+        public async void checkInfo()
+        { 
+            if (checkStudent.UserName == null)
             {
                 ConfirmationText = "Empty Username!";
+                BindButtonText = "Try Again";
+            }
+            else if (checkStudent.UserName.Contains(" "))
+            {
+                ConfirmationText = "Can't use \"Space\" in user name";
+                BindButtonText = "Try Again";
             }
             else if (checkStudent.Password == null)
             {
                 ConfirmationText = "Empty Password!";
+                BindButtonText = "Try Again";
+            }
+            else if (ConfirmPass == null)
+            {
+                ConfirmationText = "Password Doesn't match!";
+                BindButtonText = "Try Again";
             }
             else if (checkStudent.PhoneNumber.Length != 11 || checkStudent.PhoneNumber == null )
             {
                 ConfirmationText = "Enter valid Phone Number!";
+                BindButtonText = "Try Again";
             }
             else if (checkStudent.Name == null)
             {
                 ConfirmationText = "Empty Name!";
+                BindButtonText = "Try Again";
             }
             else if (checkStudent.Class == null)
             {
                 ConfirmationText = "Empty Class!";
+                BindButtonText = "Try Again";
             }
             else if (checkStudent.InstitutionName == null)
             {
                 ConfirmationText = "Empty Institution Name!";
-            }
-            else if (checkStudent.UserName == resultStudent.UserName)
-            {
-                ConfirmationText = "Username already exist! Try another";
+                BindButtonText = "Try Again";
             }
             else if (checkStudent.Password.Length < 6 || !checkStudent.Password.Any(char.IsUpper) || !checkStudent.Password.Any(char.IsDigit))
             {
-                ConfirmationText = "Password length shoulld be at least 6 and must be one Uppercase character and must be one integer(0-9)";
+                ConfirmationText = "Password length must be at least 6 and must be one Uppercase character and must be one integer(0-9)";
+                BindButtonText = "Try Again";
+            }
+            else if(checkStudent.Password != ConfirmPass)
+            {
+                ConfirmationText = "Password doesn't match";
+                BindButtonText = "Try Again";
             }
             else if(checkStudent.Age < 10 || checkStudent.Age > 100)
             {
                 ConfirmationText = "Enter Valid Age";
+                BindButtonText = "Try Again";
             }
             else
             {
+                BindButtonText = "Completing Registration...";
                 ConfirmationText = txt;
-                BindButtonText = "Complete Registration";
+                string url = "https://api.shikkhanobish.com/api/Masters/RegisterStudent";
+                HttpClient client = new HttpClient();
+                string jsonData = JsonConvert.SerializeObject(checkStudent);
+                StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
+                string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
+                Response responseData = JsonConvert.DeserializeObject<Response>(result);
+                ConfirmationText = responseData.Massage;
+                await Application.Current.MainPage.Navigation.PushModalAsync(new VerifyPhonenumber(checkStudent)).ConfigureAwait(true);
             }
         }
 
@@ -183,6 +208,22 @@ namespace Shikkhanobish
                     _password = value;
                     OnPropertyChanged();
                 }
+            }
+        }
+        public string ConfirmPassword
+        {
+            get
+            {
+                return _confirmPassword;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    _confirmPassword = value;
+                    OnPropertyChanged();
+                }
+
             }
         }
         public string PhoneNumber
@@ -225,7 +266,7 @@ namespace Shikkhanobish
             }
             set
             {
-                if (value != 0)
+                if (value != null)
                 {
                     _age = value;
                     OnPropertyChanged();

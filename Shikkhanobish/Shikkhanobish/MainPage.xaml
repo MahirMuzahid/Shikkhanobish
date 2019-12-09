@@ -19,13 +19,14 @@
         <BoxView BackgroundColor="#4F4F4F" Grid.Row="0"/>
         <Image Source="loginwindowtext.png" Grid.Row="0"/>
         <Label Text="{Binding ErrorText}" Grid.Row="1" TextColor="Red"/>
-        <Entry Placeholder="User Name" 
+        <Entry x:Name="Username" Placeholder="User Name" 
                HorizontalOptions="FillAndExpand"
                Text="{Binding UserName}"
                Grid.Row="2"/>
-        <Entry Placeholder="Password"               
+        <Entry x:Name="Password" Placeholder="Password"               
                HorizontalOptions="FillAndExpand"    
                Text="{Binding Password}"
+               IsPassword="True"
                Grid.Row="3" ScaleX="1" />
         <Label HorizontalOptions="End" Grid.Row="4">
             <Label.FormattedText>

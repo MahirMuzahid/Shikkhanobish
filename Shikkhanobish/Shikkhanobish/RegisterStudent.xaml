@@ -9,32 +9,53 @@
         <Grid.RowDefinitions>
             
             <RowDefinition Height="1*"/>
+            <RowDefinition Height=".28*"/>
+            <RowDefinition Height=".66*"/>
+            <RowDefinition Height=".28*"/>
+            <RowDefinition Height=".66*"/>
+            <RowDefinition Height=".28*"/>
+            <RowDefinition Height=".66*"/>
+            <RowDefinition Height=".28*"/>
+            <RowDefinition Height=".66*"/>
+            <RowDefinition Height=".28*"/>
+            <RowDefinition Height=".66*"/>
+            <RowDefinition Height=".28*"/>
+            <RowDefinition Height=".66*"/>
+            <RowDefinition Height=".28*"/>
+            <RowDefinition Height=".66*"/>
             <RowDefinition Height=".7*"/>
-            <RowDefinition Height=".7*"/>
-            <RowDefinition Height=".7*"/>
-            <RowDefinition Height=".7*"/>
-            <RowDefinition Height=".7*"/>
-            <RowDefinition Height=".7*"/>
-            <RowDefinition Height=".7*"/>
-            <RowDefinition Height=".7*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1.4*"/>
+            <RowDefinition Height=".4*"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
         <Image Source="onlylogo.png"
                Grid.Row="0"
-               HorizontalOptions="CenterAndExpand"/>
-        <Entry Placeholder="UserName" Grid.Row="1" Text="{Binding UserName}"></Entry>
-        <Entry Placeholder="Password(At least 6 character, one uppercase and one integer(0-9)" Grid.Row="2" Text="{Binding Password}" ></Entry>
-        <Entry Placeholder="Phone Number" Grid.Row="3" Text="{Binding PhoneNumber}" ></Entry>
-        <Entry Placeholder="Name" Grid.Row="4" Text="{Binding Name}" ></Entry>
-        <Entry Placeholder="Age" Grid.Row="5" Text="{Binding Age}" ></Entry>
-        <Entry Placeholder="Class(6-12 or Year or Semester)" Grid.Row="6" Text="{Binding Class}" ></Entry>
-        <Entry Placeholder="Institution Name" Grid.Row="7" Text="{Binding InstitutionName}" ></Entry>
-        <Button Text="{Binding BindButtonText}" Grid.Row="8" Command="{Binding RegisterStudent}" BackgroundColor="#B0FFD2"
+               HorizontalOptions="CenterAndExpand" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <Label Text="User Name" Grid.Row="1" FontSize="13" FontAttributes="Bold"/>
+        <Label Text="Password" Grid.Row="3" FontSize="13" FontAttributes="Bold"/>
+        <Label Text="Confirm Password" Grid.Row="3" Grid.Column="1" FontSize="13" FontAttributes="Bold"/>
+        <Label Text="Phonenumber" Grid.Row="5" FontSize="13" FontAttributes="Bold"/>
+        <Label Text="Name" Grid.Row="7" FontSize="13" FontAttributes="Bold"/>
+        <Label Text="Age" Grid.Row="9" FontSize="13" FontAttributes="Bold"/>
+        <Label Text="Class" Grid.Row="11" FontSize="13" FontAttributes="Bold"/>
+        <Label Text="Institution Name" Grid.Row="13" FontSize="14" FontAttributes="Bold"/>
+        <Entry x:Name="UsernameEntry" Grid.Column="0" FontSize="15" Grid.ColumnSpan="2" Placeholder="You will use it to login" Grid.Row="2" Text="{Binding UserName}"></Entry>
+        <Entry x:Name="PasswordEntry" Grid.Column="0" FontSize="15"  Placeholder="Ex: Shikkhanobish01" Grid.Row="4" IsPassword="True" Text="{Binding Password}" ></Entry>
+        <Entry x:Name="ConfirmPasswordEntry" Grid.Column="1" FontSize="15"  Grid.Row="4" IsPassword="True" Text="{Binding ConfirmPassword}" ></Entry>
+        <Entry x:Name="PhoneNumberEntry" Grid.Column="0" Grid.ColumnSpan="2" FontSize="15" Grid.Row="6" Text="{Binding PhoneNumber}" ></Entry>
+        <Entry x:Name="NameEntry" Grid.Column="0" Grid.ColumnSpan="2" FontSize="15" Grid.Row="8" Text="{Binding Name}" ></Entry>
+        <Entry x:Name="AgeEntry" Grid.Column="0" Grid.ColumnSpan="2" FontSize="15" Grid.Row="10" Text="{Binding Age}" ></Entry>
+        <Entry x:Name="ClassEntry" Grid.Column="0" Grid.ColumnSpan="2" FontSize="15" Placeholder="Ex: 9th Grade or 1st Year or 2nd Semester" Grid.Row="12" Text="{Binding Class}" ></Entry>
+        <Entry x:Name="INameEntry" Grid.Column="0" Grid.ColumnSpan="2" FontSize="15" Grid.Row="14" Text="{Binding InstitutionName}" ></Entry>
+        <Button x:Name="RegisterButton" Text="{Binding BindButtonText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="15" Command="{Binding RegisterStudent}" BackgroundColor="#B0FFD2"
                  VerticalOptions="Start"></Button>
-        <Label Text="Everyone must be register as a student before teacher registration" TextColor="Black" Grid.Row="9"/>
+        <Label Grid.Column="0" Grid.ColumnSpan="2" Text="Everyone must be register as a student before teacher registration. Password must be at least 6 character, one capital letter and one integer(0-9). You can use only one phonenumber to create one account." TextColor="Black" Grid.Row="16"/>
 
-        <Label Text="{Binding ConfirmationText}" Grid.Row="10" HorizontalOptions="CenterAndExpand" TextColor="Red"></Label>
+        <Label Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding ConfirmationText}" Grid.Row="17" HorizontalOptions="CenterAndExpand" TextColor="Red"></Label>
       
 
     </Grid>

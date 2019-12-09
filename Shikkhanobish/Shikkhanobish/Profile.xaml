@@ -37,7 +37,7 @@
                 <ColumnDefinition Width=".3*"/>
             </Grid.ColumnDefinitions>
             <Button Text="Teacher Registretion" FontSize="9" Grid.Column="1" CornerRadius="15" BackgroundColor="#A1F776" TextColor="#0F6F00" Clicked="Button_Clicked"/>
-            <Button Text="Settings" FontSize="9" Grid.Column="2" CornerRadius="15" BackgroundColor="#292929" TextColor="White" Clicked="Button_Clicked" HorizontalOptions="Center" />
+            <Button Text="Settings" FontSize="9" Grid.Column="2" CornerRadius="15" BackgroundColor="#292929" TextColor="White" Clicked="Button_Clicked_4" HorizontalOptions="Center" />
             <Switch IsToggled="True" Grid.Column="3" IsEnabled="{Binding IsEnableTeacher}"/>
         </Grid>
         <Label Text="{Binding  Name}" TextColor="White" Grid.Row="3" HorizontalOptions="Center" FontSize="Title"/>

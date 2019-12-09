@@ -79,7 +79,6 @@ namespace Shikkhanobish
             }
             else
             {
-                ActivityIndicator indicator = new ActivityIndicator { IsRunning = true };
                 await Application.Current.MainPage.Navigation.PushModalAsync(new Profile(student)).ConfigureAwait(true);
 
             }

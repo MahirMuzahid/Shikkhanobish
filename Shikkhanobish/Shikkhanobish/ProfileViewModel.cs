@@ -40,7 +40,7 @@ namespace Shikkhanobish
             Age = "Age: " + student.Age;
             Class = "Class: "+ student.Class;
             InstitutionName = "Institution Name: " + student.InstitutionName;
-            IsTeacherorStudent = "Studnet";
+            IsTeacherorStudent = "Student";
             Amount ="Balance: " + student.RechargedAmount;
             Fee = "NTY";
             Avarage = 0;

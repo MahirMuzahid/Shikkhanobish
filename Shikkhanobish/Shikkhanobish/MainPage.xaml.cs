@@ -16,12 +16,28 @@ namespace Shikkhanobish
         MainPageViewModel getTeacher = new MainPageViewModel();
         private INavigation navigation;
 
-        public MainPage()
+        public  MainPage()
         {
             
             InitializeComponent();
             var image = new Image { Source = "loginwindowtext.png" };
-            BindingContext = new MainPageViewModel();
+            var vm = new MainPageViewModel();
+            this.BindingContext = vm;
+            Automate();
+
+
+        }
+        public void Automate()
+        {
+            Username.Completed += (object sender, EventArgs e) =>
+            {
+                Password.Focus();
+            };
+            Password.Completed += (object sender, EventArgs e) =>
+            {
+                var vm = new MainPageViewModel();
+                vm.Login.Execute(null);
+            };
         }
          protected override bool OnBackButtonPressed()
         {
