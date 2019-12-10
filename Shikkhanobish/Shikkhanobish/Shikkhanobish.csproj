@@ -28,9 +28,18 @@
     <EmbeddedResource Update="ForgotPasswordWindow.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="MasterDetailPage1.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="MasterDetailPage1Master.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Profile.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    </EmbeddedResource>
+    <EmbeddedResource Update="ProfileMasterDetail.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="RegisterAsTeacher.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

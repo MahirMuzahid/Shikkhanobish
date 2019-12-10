@@ -87,7 +87,7 @@ namespace Shikkhanobish
             }
             else
             {
-                await Application.Current.MainPage.Navigation.PushModalAsync(new Profile(student)).ConfigureAwait(true);
+                await Application.Current.MainPage.Navigation.PushModalAsync(new ProfileMasterDetail(student)).ConfigureAwait(true);
 
             }
         }

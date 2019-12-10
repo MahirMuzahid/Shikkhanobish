@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Shikkhanobish.ProfileMasterDetail"
+             Title="Profile">
+    <MasterDetailPage.Master>
+        <ContentPage Title="Master">
+            <Grid BackgroundColor="#FFFFFF">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" BackgroundColor="#BBF5FF" Padding="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height=".4*"/>
+                        <RowDefinition Height=".8*"/>
+                        <RowDefinition Height=".4*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Total Balance" VerticalOptions="End" HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+                    <Label Text="1000 Taka" FontSize="40" TextColor="#005299" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Button Text="Recharge" FontSize="12" Grid.Row="2" Grid.Column="0"  BackgroundColor="#9BDEFF"/>
+                    <Button Text="Withdraw" Grid.Row="2" FontSize="12" Grid.Column="1" BackgroundColor="#9BDEFF" />
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Button Text="Teacher Registretion" FontSize="9" Grid.Row="0" BackgroundColor="#94FEBD" TextColor="black" Clicked="Button_Clicked_1"/>
+                    <Button Text="Student History" TextColor="Black" BackgroundColor="#F0F0F0"   Grid.Row="1" FontSize="10" Clicked="Button_Clicked_2"  />
+                    <Button Text="Teacher History" TextColor="Black" BackgroundColor="#F0F0F0"   Grid.Row="2" FontSize="10" Clicked="Button_Clicked_3"  />
+                    <Button Text="Logout" TextColor="Black" BackgroundColor="#FF9696"  Grid.Row="3" FontSize="10" Clicked="Button_Clicked_4"  />
+                </Grid>
+            </Grid>
+        </ContentPage>
+    </MasterDetailPage.Master>
+
+    <MasterDetailPage.Detail>
+        <ContentPage NavigationPage.HasNavigationBar="True" Title="gg">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height=".3*"/>
+                    <RowDefinition Height=".35*"/>
+                    <RowDefinition Height=".35*"/>
+                    <RowDefinition Height=".35*"/>
+                    <RowDefinition Height=".25*"/>
+                    <RowDefinition Height=".25*"/>
+                    <RowDefinition Height=".35*"/>
+                    <RowDefinition Height=".7*"/>
+                    <RowDefinition Height=".3*"/>
+                    <RowDefinition Height=".3*"/>
+                    <RowDefinition Height=".5*"/>
+                    <RowDefinition Height=".1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Image Source="BackColor.jpg" Grid.Row="0" Grid.RowSpan="9" Aspect="AspectFill" />
+                <Grid Grid.Row="1" Padding="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width=".5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Text="Manu" CornerRadius="10" Grid.Column="0" HorizontalOptions ="Center" BackgroundColor="#6FFED3" Clicked="Button_Clicked_5"/>
+                    <Switch IsToggled="False" Grid.Column="2" IsEnabled="{Binding IsEnableTeacher}"/>
+                </Grid>
+                <Label Text="{Binding  Name}" TextColor="White" Grid.Row="3" HorizontalOptions="Center" FontSize="Title"/>
+                <Label Text="{Binding  Age}" TextColor="White" Grid.Row="4" HorizontalOptions="Center" FontSize="15"/>
+                <Label Text="{Binding  Class}" TextColor="White" Grid.Row="5" HorizontalOptions="Center" FontSize="15"/>
+                <Label Text="{Binding  InstitutionName}" TextColor="White" Grid.Row="6" HorizontalOptions="Center" FontSize="15"/>
+                <Grid Grid.Row="7" Padding="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="8*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width=".01*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width=".01*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="{Binding  IsTeacherorStudent}" Grid.Row="1" Grid.Column="0" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <BoxView BackgroundColor="White" Grid.Row="1" Grid.Column="1"/>
+                    <Label Text="{Binding  Amount}" Grid.Row="1" Grid.Column="2" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <BoxView BackgroundColor="White" Grid.Row="1" Grid.Column="3"/>
+                    <Label Text="{Binding Fee}" Grid.Row="1" Grid.Column="4" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Grid>
+
+                <Grid Grid.Row="8" Grid.RowSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button ImageSource="Button.png" Grid.Row="0"  Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Scale=".4" Margin="0,30,0,0" />
+                </Grid>
+
+                <Grid Grid.Row="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height=".4*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2.5*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="{Binding  Avarage}" FontSize="25" TextColor="#004370" Grid.Row="0"  Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="{Binding  Subject}" FontSize="25" TextColor="#004370" Grid.Row="0"  Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="{Binding TuitionPoint}" FontSize="25" TextColor="#004370" Grid.Row="0"  Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="Avarrage Rating" FontSize="11" TextColor="#4a4a4a" Grid.Row="1"  Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="Subject" FontSize="11" TextColor="#4a4a4a" Grid.Row="1"  Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="Tution Poinr" FontSize="11" TextColor="#4a4a4a" Grid.Row="1"  Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Grid>
+
+                <Grid Grid.Row="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width=".02*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <BoxView BackgroundColor="#e4e4e4" Grid.Column="1" Grid.Row="0" Grid.RowSpan="5"/>
+                    <Label Text="Student Info" TextColor="Black" FontSize="14" Grid.Column="0" Grid.Row="0" HorizontalOptions="Center"/>
+                    <Label Text="{Binding TotalTaken}" Grid.Column="0" Grid.Row="1" HorizontalOptions="Center"/>
+                    <Label Text="{Binding TotalTeacher}" Grid.Column="0" Grid.Row="2" HorizontalOptions="Center"/>
+                    <Label Text="{Binding TotalSpent}" Grid.Column="0" Grid.Row="3" HorizontalOptions="Center"/>
+
+                    <Label Text="Teacher Info" TextColor="Black" FontSize="14" Grid.Column="2" Grid.Row="0" HorizontalOptions="Center"/>
+                    <Label Text="{Binding  OffredTuitionTime}" Grid.Column="2" Grid.Row="1" HorizontalOptions="Center"/>
+                    <Label Text="{Binding TotalTuitionCount}" Grid.Column="2" Grid.Row="2" HorizontalOptions="Center"/>
+                    <Label Text="{Binding TeacherRank}" Grid.Column="2" Grid.Row="3" HorizontalOptions="Center"/>
+                </Grid>
+
+            </Grid>
+        </ContentPage>
+    </MasterDetailPage.Detail>
+</MasterDetailPage>

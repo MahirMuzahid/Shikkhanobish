@@ -41,7 +41,7 @@ namespace Shikkhanobish
             Class = "Class: "+ student.Class;
             InstitutionName = "Institution Name: " + student.InstitutionName;
             IsTeacherorStudent = "Student";
-            Amount ="Balance: " + student.RechargedAmount;
+            Amount ="Available Minute: " + student.RechargedAmount;
             Fee = "NTY";
             Avarage = 0;
             Subject = "NTY";

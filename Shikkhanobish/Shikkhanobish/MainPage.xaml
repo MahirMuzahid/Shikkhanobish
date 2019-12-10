@@ -5,7 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              BackgroundImageSource="loginwindow.jpg"
-             x:Class="Shikkhanobish.MainPage">
+             x:Class="Shikkhanobish.MainPage"
+             >
 
     <Grid Padding="40">
         <Grid.RowDefinitions>
