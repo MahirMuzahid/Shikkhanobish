@@ -4,20 +4,20 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             BackgroundImageSource="loginwindow.jpg"
              x:Class="Shikkhanobish.MainPage">
 
-    <Grid >
+    <Grid Padding="40">
         <Grid.RowDefinitions>
-            <RowDefinition Height="5.5*"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height=".3*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height=".7*"/>
-            <RowDefinition Height=".7*"/>
-            <RowDefinition Height=".15*"/>
+            <RowDefinition Height=".6*"/>
+            <RowDefinition Height=".6*"/>
+            <RowDefinition Height=".4*"/>
+            <RowDefinition Height=".5*"/>
+            <RowDefinition Height=".5*"/>
         </Grid.RowDefinitions>
-        <BoxView BackgroundColor="#4F4F4F" Grid.Row="0"/>
-        <Image Source="loginwindowtext.png" Grid.Row="0"/>
+
         <Label Text="{Binding ErrorText}" Grid.Row="1" TextColor="Red"/>
         <Entry x:Name="Username" Placeholder="User Name" 
                HorizontalOptions="FillAndExpand"
@@ -39,15 +39,19 @@
                 </FormattedString>
             </Label.FormattedText>
         </Label>
-        <Button Text="Login" HorizontalOptions="Center"
-                 Command="{Binding Login}"
-                Grid.Row="4"
+        <Button Text="{Binding loginText}" 
+                Command="{Binding Login}"
+                Grid.Row="5"
+                BackgroundColor="White"
+                BorderWidth="1"
+                BorderColor="#626262"
+                CornerRadius="35"
                 />
         <Button x:Name="RegisterStudent" 
                 Text="Register" 
                 Command="{Binding RegisterStudent}"
-                Grid.Row="5"
-                HorizontalOptions= "End"
+                Grid.Row="6"
+                CornerRadius="35"
                 BackgroundColor="#A6D94D"></Button>
         
     </Grid>

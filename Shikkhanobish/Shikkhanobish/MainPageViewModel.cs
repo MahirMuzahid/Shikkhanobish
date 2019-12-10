@@ -17,6 +17,7 @@ namespace Shikkhanobish
   
         public static string _userName;
         public static string _password;
+        public string _loginText;
         public Student student = new Student();
         private INavigation navigation;
         public string text;
@@ -24,6 +25,7 @@ namespace Shikkhanobish
 
         public MainPageViewModel()
         {
+            loginText = "Login";
         }
 
         public Command Login
@@ -32,6 +34,7 @@ namespace Shikkhanobish
             {
                 return new Command( () =>
                 {
+                    loginText = "Wait...";
                     var current = Connectivity.NetworkAccess;
 
                     if (current == NetworkAccess.Internet)
@@ -39,14 +42,17 @@ namespace Shikkhanobish
                         if (UserName == null && Password == null)
                         {
                             ErrorText = "User Name and Password is empty!";
+                            loginText = "Login";
                         }
                         else if (UserName == null)
                         {
                             ErrorText = "User Name is empty!";
+                            loginText = "Login";
                         }
                         else if (Password == null)
                         {
                             ErrorText = "Password is empty!";
+                            loginText = "Login";
                         }
                         else
                         {
@@ -56,6 +62,7 @@ namespace Shikkhanobish
                     else
                     {
                         ErrorText = "Check Internet Connection";
+                        loginText = "Login";
                     }
                     
 
@@ -76,6 +83,7 @@ namespace Shikkhanobish
             if (student.Name == null)
             {
                 ErrorText = "Wrong User Name or Password!";
+                loginText = "Login";
             }
             else
             {
@@ -147,6 +155,21 @@ namespace Shikkhanobish
                 if (value != null)
                 {
                     _password = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string loginText
+        {
+            get
+            {
+                return _loginText;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    _loginText = value;
                     OnPropertyChanged();
                 }
             }

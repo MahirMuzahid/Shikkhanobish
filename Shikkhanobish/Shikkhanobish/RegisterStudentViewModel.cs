@@ -75,6 +75,7 @@ namespace Shikkhanobish
                     else
                     {
                         ConfirmationText = "Check internet connection";
+                        BindButtonText = "Try Again";
                     }
                           
                 });
