@@ -4,10 +4,10 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Shikkhanobish.UpdateAccount">
+             x:Class="Shikkhanobish.TakeTuition">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Here student can update their info"
+            <Label Text="Class and subject selection page "
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
         </StackLayout>
