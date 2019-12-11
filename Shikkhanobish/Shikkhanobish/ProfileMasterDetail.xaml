@@ -8,7 +8,7 @@
              Title="Profile">
     <MasterDetailPage.Master>
         <ContentPage Title="Master">
-            <Grid BackgroundColor="#FFFFFF">
+            <Grid RowSpacing="0" BackgroundColor="White">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
@@ -30,17 +30,25 @@
                     <Button Text="Recharge" FontSize="12" Grid.Row="2" Grid.Column="0"  BackgroundColor="#9BDEFF"/>
                     <Button Text="Withdraw" Grid.Row="2" FontSize="12" Grid.Column="1" BackgroundColor="#9BDEFF" />
                 </Grid>
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="1" RowSpacing="0" Padding="20">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <Button Text="Teacher Registretion" FontSize="9" Grid.Row="0" BackgroundColor="#94FEBD" TextColor="black" Clicked="Button_Clicked_1"/>
-                    <Button Text="Student History" TextColor="Black" BackgroundColor="#F0F0F0"   Grid.Row="1" FontSize="10" Clicked="Button_Clicked_2"  />
-                    <Button Text="Teacher History" TextColor="Black" BackgroundColor="#F0F0F0"   Grid.Row="2" FontSize="10" Clicked="Button_Clicked_3"  />
-                    <Button Text="Logout" TextColor="Black" BackgroundColor="#FF9696"  Grid.Row="3" FontSize="10" Clicked="Button_Clicked_4"  />
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="7*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="registerbuttononly.png" Grid.Row="0" Grid.Column="0" Aspect="AspectFit"/>
+                    <Image Source="studenthistorybutton.png" Grid.Row="1" Grid.Column="0" Aspect="AspectFit" />
+                    <Image Source="teacherhistorybutton.png" Grid.Row="2" Grid.Column="0" Aspect="AspectFit"/>
+                    <Image Source="logout.png" Grid.Row="3" Grid.Column="0" Aspect="AspectFit"/>
+                    <Button Text="Teacher Registretion" Grid.Column="1"  FontSize="14" BackgroundColor="White" Grid.Row="0"  TextColor="black" Clicked="Button_Clicked_1"/>
+                    <Button Text="Student History" Grid.Column="1"  TextColor="Black" BackgroundColor="White"   Grid.Row="1" FontSize="14" Clicked="Button_Clicked_2"  />
+                    <Button Text="Teacher History" Grid.Column="1"  TextColor="Black" BackgroundColor="White"   Grid.Row="2" FontSize="14" Clicked="Button_Clicked_3"  />
+                    <Button Text="Logout" Grid.Column="1" TextColor="Black" BackgroundColor="#FF9696"  Grid.Row="3" FontSize="14" Clicked="Button_Clicked_4"  />
                 </Grid>
             </Grid>
         </ContentPage>
