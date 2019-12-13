@@ -34,7 +34,7 @@ namespace Shikkhanobish
             {
                 return new Command( () =>
                 {
-                    loginText = "Wait...";
+
                     var current = Connectivity.NetworkAccess;
 
                     if (current == NetworkAccess.Internet)
@@ -73,6 +73,7 @@ namespace Shikkhanobish
 
         public async void LoginByUserNameAndPassword()
         {
+            loginText = "Wait...";
             string url = "https://api.shikkhanobish.com/api/Masters/GetInfoByLogin";
             HttpClient client = new HttpClient();
             string jsonData = JsonConvert.SerializeObject(new { UserName = UserName, Password = Password });
@@ -87,7 +88,7 @@ namespace Shikkhanobish
             }
             else
             {
-                await Application.Current.MainPage.Navigation.PushModalAsync(new ProfileMasterDetail(student)).ConfigureAwait(true);
+                await Application.Current.MainPage.Navigation.PushModalAsync(new StudentProfile(student)).ConfigureAwait(true);
 
             }
         }

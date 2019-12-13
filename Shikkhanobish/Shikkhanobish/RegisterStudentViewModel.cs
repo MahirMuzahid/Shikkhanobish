@@ -45,7 +45,7 @@ namespace Shikkhanobish
             {
                 return new Command(async () =>
                 {
-                    BindButtonText = "Checking Info. Wait...";
+                    BindButtonText = "Checking Info...";
                     var current = Connectivity.NetworkAccess;
 
                     if (current == NetworkAccess.Internet)
@@ -91,16 +91,23 @@ namespace Shikkhanobish
             HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
             string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
             var RUserName = JsonConvert.DeserializeObject<Student>(result);
-            if (RUserName.UserName != UserName)
+            if (RUserName.UserName != null)
             {
-                ConfirmationText = "Username already exist!";
-                BindButtonText = "Try Again";
-            }
-            else if (RUserName.PhoneNumber != PhoneNumber)
-            {
-                ConfirmationText = "You can use only one phonenumber per account";
-                BindButtonText = "Try Again";
-            }
+                if(RUserName.UserName == UserName)
+                {
+                    ConfirmationText = "User Name already exist";
+                    BindButtonText = "Try Again";
+                }              
+                else if (RUserName.PhoneNumber == PhoneNumber)
+                {
+                    ConfirmationText = "You can use only one phonenumber per account";
+                    BindButtonText = "Try Again";
+                }             
+                else
+                {
+                    checkInfo();
+                }
+            }            
             else
             {
                 checkInfo();

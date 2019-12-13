@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Shikkhanobish.ProfileMasterDetail"
+             x:Class="Shikkhanobish.StudentProfile"
              Title="Profile">
     <MasterDetailPage.Master>
         <ContentPage Title="Master">
@@ -27,7 +27,6 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Text="TeacherID: 1087001" FontSize="16" FontAttributes="Bold" VerticalOptions="End" HorizontalOptions="Start" Grid.Row="0" Grid.Column="0"/>
                     <Label Text="{Binding StudentIDTxt}" FontSize="16" FontAttributes="Bold" VerticalOptions="End" HorizontalOptions="End" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
                     <Label Text="Total Balance" VerticalOptions="End" HorizontalOptions="Center" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
                     <Label Text="{Binding AmountTxt}" FontSize="40" TextColor="#005299" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center"/>
@@ -40,7 +39,6 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
@@ -48,14 +46,14 @@
                     </Grid.ColumnDefinitions>
                     <Image Source="registerbuttononly.png" Grid.Row="0" Grid.Column="0" Aspect="AspectFit"/>
                     <Image Source="studenthistorybutton.png" Grid.Row="1" Grid.Column="0" Aspect="AspectFit" />
-                    <Image Source="teacherhistorybutton.png" Grid.Row="2" Grid.Column="0" Aspect="AspectFit"/>
-                    <Image Source="updatebutton.png" Grid.Row="3" Grid.Column="0" Aspect="AspectFit"/>
-                    <Image Source="logout.png" Grid.Row="4" Grid.Column="0" Aspect="AspectFit"/>
+                    
+                    <Image Source="updatebutton.png" Grid.Row="2" Grid.Column="0" Aspect="AspectFit"/>
+                    <Image Source="logout.png" Grid.Row="3" Grid.Column="0" Aspect="AspectFit"/>
                     <Button Text="Teacher Registretion" Grid.Column="1" HorizontalOptions="Start"  FontSize="14" BackgroundColor="White" Grid.Row="0"  TextColor="black" Clicked="Button_Clicked_1"/>
                     <Button Text="Student History" Grid.Column="1" HorizontalOptions="Start" TextColor="Black" BackgroundColor="White"   Grid.Row="1" FontSize="14" Clicked="Button_Clicked_2"  />
-                    <Button Text="Teacher History" Grid.Column="1" HorizontalOptions="Start" TextColor="Black" BackgroundColor="White"   Grid.Row="2" FontSize="14" Clicked="Button_Clicked_3"  />
-                    <Button Text="Update Info" Grid.Column="1" HorizontalOptions="Start" TextColor="Black" BackgroundColor="White"   Grid.Row="3" FontSize="14" Clicked="Button_Clicked_6"  />
-                    <Button Text="Logout" Grid.Column="1" HorizontalOptions="Start" TextColor="Black" BackgroundColor="White"  Grid.Row="4" FontSize="14" Clicked="Button_Clicked_4"  />
+                   
+                    <Button Text="Update Info" Grid.Column="1" HorizontalOptions="Start" TextColor="Black" BackgroundColor="White"   Grid.Row="2" FontSize="14" Clicked="Button_Clicked_6"  />
+                    <Button Text="Logout" Grid.Column="1" HorizontalOptions="Start" TextColor="Black" BackgroundColor="White"  Grid.Row="3" FontSize="14" Clicked="Button_Clicked_4"  />
                 </Grid>
                 <Grid Grid.Row="4">
                     <Grid.RowDefinitions>
@@ -101,7 +99,7 @@
                         <ColumnDefinition Width=".5*"/>
                     </Grid.ColumnDefinitions>
                     <Button Text="Manu" CornerRadius="10" Grid.Column="0" HorizontalOptions ="Center" BackgroundColor="#6FFED3" Clicked="Button_Clicked_5"/>
-                    <Switch IsToggled="False" Grid.Column="2" IsEnabled="{Binding IsEnableTeacher}"/>
+                    
                 </Grid>
                 <Label Text="{Binding  Name}" TextColor="White" Grid.Row="3" HorizontalOptions="Center" FontSize="Title"/>
                 <Label Text="{Binding  Age}" TextColor="White" Grid.Row="4" HorizontalOptions="Center" FontSize="15"/>
@@ -141,26 +139,9 @@
                     <Button  ImageSource="Button.png" Grid.Row="0"  Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Scale=".4" Margin="0,30,0,0" Clicked="Button_Clicked_7" VerticalOptions="StartAndExpand" />
                 </Grid>
 
-                <Grid Grid.Row="10">
+                <Grid Grid.Row="10" Grid.RowSpan="3">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
-                        <RowDefinition Height=".4*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="2.5*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Text="{Binding  Avarage}" FontSize="25" TextColor="#004370" Grid.Row="0"  Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <Label Text="{Binding  Subject}" FontSize="25" TextColor="#004370" Grid.Row="0"  Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <Label Text="{Binding TuitionPoint}" FontSize="25" TextColor="#004370" Grid.Row="0"  Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <Label Text="Avarrage Rating" FontSize="11" TextColor="#4a4a4a" Grid.Row="1"  Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <Label Text="Subject" FontSize="11" TextColor="#4a4a4a" Grid.Row="1"  Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <Label Text="Tution Poinr" FontSize="11" TextColor="#4a4a4a" Grid.Row="1"  Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center"/>
-                </Grid>
-
-                <Grid Grid.Row="12">
-                    <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
@@ -169,19 +150,12 @@
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width=".02*"/>
-                        <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <BoxView BackgroundColor="#e4e4e4" Grid.Column="1" Grid.Row="0" Grid.RowSpan="5"/>
                     <Label Text="Student Info" TextColor="Black" FontSize="14" Grid.Column="0" Grid.Row="0" HorizontalOptions="Center"/>
                     <Label Text="{Binding TotalTaken}" Grid.Column="0" Grid.Row="1" HorizontalOptions="Center"/>
                     <Label Text="{Binding TotalTeacher}" Grid.Column="0" Grid.Row="2" HorizontalOptions="Center"/>
                     <Label Text="{Binding TotalSpent}" Grid.Column="0" Grid.Row="3" HorizontalOptions="Center"/>
-
-                    <Label Text="Teacher Info" TextColor="Black" FontSize="14" Grid.Column="2" Grid.Row="0" HorizontalOptions="Center"/>
-                    <Label Text="{Binding  OffredTuitionTime}" Grid.Column="2" Grid.Row="1" HorizontalOptions="Center"/>
-                    <Label Text="{Binding TotalTuitionCount}" Grid.Column="2" Grid.Row="2" HorizontalOptions="Center"/>
-                    <Label Text="{Binding TeacherRank}" Grid.Column="2" Grid.Row="3" HorizontalOptions="Center"/>
+                    <Label Text="{Binding Avarage}" Grid.Column="0" Grid.Row="4" HorizontalOptions="Center"/>
                 </Grid>
 
             </Grid>
