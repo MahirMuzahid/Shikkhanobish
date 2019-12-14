@@ -22,10 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Balance.xaml">
+    <EmbeddedResource Update="ContentPages\Balance.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="ForgotPasswordWindow.xaml">
+    <EmbeddedResource Update="ContentPages\ForgotPasswordWindow.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="MasterDetailPage1.xaml">
@@ -34,38 +34,38 @@
     <EmbeddedResource Update="MasterDetailPage1Master.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Profile.xaml">
+    <EmbeddedResource Update="ContentPages\Profile.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     </EmbeddedResource>
-    <EmbeddedResource Update="ProfileMasterDetail.xaml">
+    <EmbeddedResource Update="ContentPages\ProfileMasterDetail.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="RegisterAsTeacher.xaml">
+    <EmbeddedResource Update="ContentPages\RegisterAsTeacher.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="RegisterStudent.xaml">
+    <EmbeddedResource Update="ContentPages\RegisterStudent.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Settings.xaml">
+    <EmbeddedResource Update="ContentPages\Settings.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="StudentHistory.xaml">
+    <EmbeddedResource Update="ContentPages\StudentHistory.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="StudentProfile.xaml">
+    <EmbeddedResource Update="ContentPages\StudentProfile.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="TakeTuition.xaml">
+    <EmbeddedResource Update="ContentPages\TakeTuition.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="TeacherHistory.xaml">
+    <EmbeddedResource Update="ContentPages\TeacherHistory.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="UpdateAccount.xaml">
+    <EmbeddedResource Update="ContentPages\UpdateAccount.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="VerifyPhonenumber.xaml">
+    <EmbeddedResource Update="ContentPages\VerifyPhonenumber.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
