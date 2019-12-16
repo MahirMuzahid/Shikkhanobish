@@ -6,11 +6,16 @@
              xmlns:gradient="clr-namespace:Syncfusion.XForms.Graphics;assembly=Syncfusion.Core.XForms"
              mc:Ignorable="d"
              x:Class="Shikkhanobish.StudentHistory">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Student Tuition History"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+
+    <ListView x:Name="StudentHistoryListView" IsEnabled="False">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout HorizontalOptions="Center" Orientation="Vertical">
+                        <Label Text="{Binding  StundentID}" FontSize=" 16"/>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
 </ContentPage>
