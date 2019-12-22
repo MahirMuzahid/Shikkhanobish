@@ -20,10 +20,6 @@ namespace Shikkhanobish
         {
             InitializeComponent();
             ShowTuitionSistoryAsync();
-
-           
-
-
         }
         public async void ShowTuitionSistoryAsync()
         {
