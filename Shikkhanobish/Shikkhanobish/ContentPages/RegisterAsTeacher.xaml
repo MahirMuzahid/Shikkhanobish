@@ -5,11 +5,340 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Shikkhanobish.RegisterAsTeacher">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Register as teacher window"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+    <Grid RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height=".2*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="19*"/>
+            <RowDefinition Height="1.4*"/>
+            <RowDefinition Height=".4*"/>
+        </Grid.RowDefinitions>
+        <BoxView BackgroundColor="#C2FF8C" Grid.Row="0"/>
+        <Label Text="Teacher Registration Form" FontSize="13" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold"/>
+        <Grid Grid.Row="2" BackgroundColor="#FFFFFF">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".2*"/>
+                <ColumnDefinition Width=".8*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <CheckBox x:Name="STchbx" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="End"/>
+            <Label Text="Class 6-8" Grid.Column="1" VerticalOptions="Center" FontSize="9" />
+            <Label Text="[All subject of Class 6-8]" Grid.Column="2" HorizontalOptions="Start" FontSize="9" VerticalOptions="Center"/>
+        </Grid>
+        
+        
+        
+        
+        <!-- Subject Choos start....................................................................................................................-->
+        <Grid Grid.Row="3" BackgroundColor="White" Padding="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height=".5*"/>
+                    <RowDefinition Height=".5*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".35*"/>
+                    <ColumnDefinition Width=".8*"/>
+                    <ColumnDefinition Width=".35*"/>
+                    <ColumnDefinition Width=".8*"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="[Can't select more than 4]" Grid.Column="0" Grid.ColumnSpan="4" FontSize="9" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Label Text="Class 9-10 (Common Subjects)" FontAttributes="Bold" Grid.Column="0" Grid.ColumnSpan="4" FontSize="10" Grid.Row="1" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <CheckBox x:Name="NTB1chbx" Grid.Row="2" Grid.Column="0"/>
+                <CheckBox x:Name="NTB2chbx" Grid.Row="3" Grid.Column="0"/>
+                <CheckBox x:Name="NTE1chbx" Grid.Row="4" Grid.Column="0"/>
+                <CheckBox x:Name="NTE2chbx" Grid.Row="5" Grid.Column="0"/>
+                <CheckBox x:Name="NTGMchbx" Grid.Row="6" Grid.Column="0"/>
+                <CheckBox x:Name="NTRchbx" Grid.Row="2" Grid.Column="2"/>
+                <CheckBox x:Name="NTICTchbx" Grid.Row="3" Grid.Column="2"/>
+                <CheckBox x:Name="NTBGSchbx" Grid.Row="4" Grid.Column="2"/>
+                <Label Text="Bangla 1st Papaer " Grid.Row="2" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Label Text="Bangla 2nd Papaer " Grid.Row="3" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Label Text="English 1st Papaer " Grid.Row="4" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Label Text="English 2nd Papaer " Grid.Row="5" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Label Text="General Math " Grid.Row="6" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Label Text="Religion " Grid.Row="2" Grid.Column="3" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Label Text="ICT " Grid.Row="3" Grid.Column="3" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Label Text="Bangladesh and Global Studies" Grid.Row="4" Grid.Column="3" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+            </Grid>
+            <Grid Grid.Column="1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height=".5*"/>
+                    <RowDefinition Height=".5*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".35*"/>
+                    <ColumnDefinition Width=".8*"/>
+                    <ColumnDefinition Width=".35*"/>
+                    <ColumnDefinition Width=".8*"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="[Can't select more than 3]" Grid.Column="0" Grid.ColumnSpan="4" FontSize="9" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Label Text="Class 11-12 (Common Subjects)" FontAttributes="Bold" Grid.Column="0" Grid.ColumnSpan="4" FontSize="10" Grid.Row="1" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <CheckBox x:Name="ETB1chbx" Grid.Row="2" Grid.Column="0"/>
+                <CheckBox x:Name="ETB2chbx" Grid.Row="3" Grid.Column="0"/>
+                <CheckBox x:Name="ETE1chbx" Grid.Row="4" Grid.Column="0"/>
+                <CheckBox x:Name="ETE2chbx" Grid.Row="2" Grid.Column="2"/>
+                <CheckBox x:Name="ETICTchbx" Grid.Row="3" Grid.Column="2"/>
+                
+                <Label Text="Bangla 1st Papaer" Grid.Row="2" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Label Text="Bangla 2nd Papaer" Grid.Row="3" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Label Text="English 1st Papaer" Grid.Row="4" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Label Text="" Grid.Row="5" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Label Text=" " Grid.Row="6" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Label Text="English 2nd Paper" Grid.Row="2" Grid.Column="3" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Label Text="ICT " Grid.Row="3" Grid.Column="3" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Label Text="" Grid.Row="4" Grid.Column="3" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+            </Grid>
+            
+            
+            
+            
+        </Grid>
+        <!-- Group Subject Choos start....................................................................................................................-->
+        <Grid Grid.Row="4" BackgroundColor="White" Padding="6">
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".08*"/>
+                <RowDefinition Height=".06*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Label Text="[Can't select more than 3 from one group]" Grid.Column="0" FontSize="9" Grid.Row="0"  HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label Text="Class 9-10 (Group Subject)" FontSize="11" Grid.Row="1" Grid.Column="0" FontAttributes="Bold" />
+            <Label Text="[Can't select more than 6 from science or any 3 from commerce]" Grid.Column="1" FontSize="9" Grid.Row="0"  HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label Text="Class 11-12 (Group Subject)" FontSize="11" Grid.Row="1" Grid.Column="1" FontAttributes="Bold" />
+            
+            
+            
+            
+            <!-- Science 9-10....................................................................................................................-->
+            <Grid Grid.Row="2" Grid.Column="0"  RowSpacing="7" BackgroundColor="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".6*"/>
+                        <ColumnDefinition Width="1.3*"/>
+                        <ColumnDefinition Width=".6*"/>
+                        <ColumnDefinition Width="1.3*"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox x:Name="NTSciencechbx" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" IsChecked="{Binding Check}"/>
+                    <Label Text="Science" FontAttributes="Bold" Grid.Row="0" FontSize="9" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="Center" VerticalOptions="Center"/>
+
+                    <CheckBox x:Name="NTPhychbx" Grid.Row="1" Grid.Column="0"/>
+                    <CheckBox x:Name="NTChechbx" Grid.Row="2" Grid.Column="0"/>
+                    <CheckBox x:Name="NTBiochbx" Grid.Row="3" Grid.Column="0"/>
+                    <CheckBox x:Name="NTHMchbx" Grid.Row="4" Grid.Column="0"/>
+
+                    <Label Text="Physics" Grid.Row="1" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="Chemistry" Grid.Row="2" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="Biology" Grid.Row="3" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="Higher Math" Grid.Row="4" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                </Grid>
+                
+                
+                
+                
+                <!-- Commerce 9-10....................................................................................................................-->
+                <Grid  Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".6*"/>
+                        <ColumnDefinition Width="1.4*"/>
+                        <ColumnDefinition Width=".6*"/>
+                        <ColumnDefinition Width="1.3*"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox x:Name="NTCommercchbx" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center"/>
+                    <Label Text="Commerce" FontAttributes="Bold" Grid.Row="0" FontSize="9" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="Center" VerticalOptions="Center"/>
+
+                    <CheckBox x:Name="NTEcochbx" Grid.Row="1" Grid.Column="0"/>
+                    <CheckBox x:Name="NTAcochbx" Grid.Row="2" Grid.Column="0"/>
+                    <CheckBox x:Name="NTFBchbx" Grid.Row="3" Grid.Column="0"/>
+                    <CheckBox x:Name="NTBEchbx" Grid.Row="4" Grid.Column="0"/>
+
+                    <Label Text="Economics" Grid.Row="1" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="Acounting" Grid.Row="2" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="Finance and Banking" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="Enterprenership" Grid.Row="4" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                </Grid>
+                
+                
+                
+                
+                <!-- Arts 9-10....................................................................................................................-->
+                <Grid  Grid.Row="2" Grid.Column="0"  Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".6*"/>
+                        <ColumnDefinition Width="1.4*"/>
+                        <ColumnDefinition Width=".6*"/>
+                        <ColumnDefinition Width="1.3*"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox x:Name="NTArtschbx" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center"/>
+                    <Label Text="Arts" FontAttributes="Bold" Grid.Row="0" FontSize="9" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="Center" VerticalOptions="Center"/>
+
+                    <CheckBox x:Name="NTCEchbx" Grid.Row="1" Grid.Column="0"/>
+                    <CheckBox x:Name="NTGeochbx" Grid.Row="2" Grid.Column="0"/>
+
+                    <Label Text="Career Education" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="Geology" Grid.Row="2" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                </Grid>
+            </Grid>
+            
+            
+            
+            
+            <!-- Science 11-12....................................................................................................................-->
+            <Grid Grid.Row="2" Grid.Column="1"  RowSpacing="7" BackgroundColor="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width="1.3*"/>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width="1.3*"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox x:Name="ETSciencechbx" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" IsEnabled="False" />
+                    <Label Text="Science" FontAttributes="Bold" Grid.Row="0" FontSize="9" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="Center" VerticalOptions="Center"/>
+
+                    <CheckBox x:Name="ETPhy1chbx" Grid.Row="1" Grid.Column="0"/>
+                    <CheckBox x:Name="ETPhy2chbx" Grid.Row="2" Grid.Column="0"/>
+                    <CheckBox x:Name="ETChe1chbx" Grid.Row="3" Grid.Column="0"/>
+                    <CheckBox x:Name="ETChe2chbx" Grid.Row="4" Grid.Column="0"/>
+                    <CheckBox x:Name="ETBio1chbx" Grid.Row="1" Grid.Column="2"/>
+                    <CheckBox x:Name="ETBio2chbx" Grid.Row="2" Grid.Column="2"/>
+                    <CheckBox x:Name="ETM1chbx" Grid.Row="3" Grid.Column="2"/>
+                    <CheckBox x:Name="ETM2chbx" Grid.Row="4" Grid.Column="2"/>
+
+                    <Label Text="Physics 1st" Grid.Row="1" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="Physics 2nd" Grid.Row="2" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="Chemistry 1st" Grid.Row="3" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="Chemistry 2nd" Grid.Row="4" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="Biology 1st" Grid.Row="1" Grid.Column="3" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="Biology 2nd" Grid.Row="2" Grid.Column="3" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="Math 1st" Grid.Row="3" Grid.Column="3" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="Math 2nd" Grid.Row="4" Grid.Column="3" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                </Grid>
+                
+                
+                
+                
+                <!-- Commerce 11-12....................................................................................................................-->
+                <Grid  Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".6*"/>
+                        <ColumnDefinition Width="1.4*"/>
+                        <ColumnDefinition Width=".6*"/>
+                        <ColumnDefinition Width="1.3*"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox x:Name="ETCommercchbx" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center"/>
+                    <Label Text="Comerce" FontAttributes="Bold" Grid.Row="0" FontSize="9" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="Center" VerticalOptions="Center"/>
+
+                    <CheckBox x:Name="ETSttchbx" Grid.Row="1" Grid.Column="0"/>
+                    <CheckBox x:Name="ETAcochbx" Grid.Row="2" Grid.Column="0"/>
+                    <CheckBox x:Name="ETFBchbx" Grid.Row="3" Grid.Column="0"/>
+                    <CheckBox x:Name="ETEcochbx" Grid.Row="4" Grid.Column="0"/>
+
+                    <Label Text="Statistic" Grid.Row="1" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="Acounting" Grid.Row="2" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="Finance and Banking" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="Economics" Grid.Row="4" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                </Grid>
+                
+                
+                
+                <!-- Arts 11-12....................................................................................................................-->
+                <Grid  Grid.Row="2" Grid.Column="0"  Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".6*"/>
+                        <ColumnDefinition Width="1.4*"/>
+                        <ColumnDefinition Width=".6*"/>
+                        <ColumnDefinition Width="1.3*"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox x:Name="ETArtschbx" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center"/>
+                    <Label Text="Arts" FontAttributes="Bold" Grid.Row="0" FontSize="9" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="Center" VerticalOptions="Center"/>
+
+                    <CheckBox x:Name="ETZukchbx" Grid.Row="1" Grid.Column="0"/>
+
+
+                    <Label Text="Zuktibidda" Grid.Row="1" Grid.Column="1" FontSize="9" HorizontalOptions="Start" VerticalOptions="Center"/>
+                   
+                </Grid>
+            </Grid>
+
+            
+        </Grid>
+        <Button Text="Register Now" BackgroundColor="#BEFF7A" FontSize="8" Grid.Row="5" HorizontalOptions="Center" VerticalOptions="Center"/>
+    </Grid>
 </ContentPage>

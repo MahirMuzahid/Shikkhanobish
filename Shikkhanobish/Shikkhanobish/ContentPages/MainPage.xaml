@@ -40,13 +40,14 @@
                 </FormattedString>
             </Label.FormattedText>
         </Label>
-        <Button Text="{Binding loginText}" 
+        <Button x:Name="Loginbtn" Text="{Binding loginText}" 
                 Command="{Binding Login}"
                 Grid.Row="5"
                 BackgroundColor="White"
                 BorderWidth="1"
                 BorderColor="#626262"
                 CornerRadius="35"
+                Clicked="Button_Clicked"
                 />
         <Button x:Name="RegisterStudent" 
                 Text="Register" 

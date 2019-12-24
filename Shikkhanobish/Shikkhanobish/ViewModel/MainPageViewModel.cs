@@ -26,6 +26,7 @@ namespace Shikkhanobish
         public MainPageViewModel()
         {
             loginText = "Login";
+            
         }
 
         public Command Login

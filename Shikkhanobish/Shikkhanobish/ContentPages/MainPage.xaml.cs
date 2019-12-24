@@ -13,7 +13,6 @@ namespace Shikkhanobish
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
-        MainPageViewModel getTeacher = new MainPageViewModel();
         private INavigation navigation;
 
         public  MainPage()
@@ -50,6 +49,15 @@ namespace Shikkhanobish
             if (answer == true)
             {
                 System.Environment.Exit(0);
+            }
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            Loginbtn.IsEnabled = false;
+            if(Loginbtn.Text != "Wait")
+            {
+                Loginbtn.IsEnabled = true;
             }
         }
     }
