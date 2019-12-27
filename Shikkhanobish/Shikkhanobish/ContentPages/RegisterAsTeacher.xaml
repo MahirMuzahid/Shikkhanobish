@@ -152,7 +152,7 @@
                         <ColumnDefinition Width=".6*"/>
                         <ColumnDefinition Width="1.3*"/>
                     </Grid.ColumnDefinitions>
-                    <CheckBox x:Name="NTSciencechbx" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" IsChecked="{Binding Check}"/>
+                    <CheckBox x:Name="NTSciencechbx" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" CheckedChanged="NTSciencechbx_CheckedChanged"/>
                     <Label Text="Science" FontAttributes="Bold" Grid.Row="0" FontSize="9" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="Center" VerticalOptions="Center"/>
 
                     <CheckBox x:Name="NTPhychbx" Grid.Row="1" Grid.Column="0"/>
@@ -184,7 +184,7 @@
                         <ColumnDefinition Width=".6*"/>
                         <ColumnDefinition Width="1.3*"/>
                     </Grid.ColumnDefinitions>
-                    <CheckBox x:Name="NTCommercchbx" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center"/>
+                    <CheckBox x:Name="NTCommercchbx" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" CheckedChanged="NTCommercchbx_CheckedChanged"/>
                     <Label Text="Commerce" FontAttributes="Bold" Grid.Row="0" FontSize="9" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="Center" VerticalOptions="Center"/>
 
                     <CheckBox x:Name="NTEcochbx" Grid.Row="1" Grid.Column="0"/>
@@ -216,7 +216,7 @@
                         <ColumnDefinition Width=".6*"/>
                         <ColumnDefinition Width="1.3*"/>
                     </Grid.ColumnDefinitions>
-                    <CheckBox x:Name="NTArtschbx" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center"/>
+                    <CheckBox x:Name="NTArtschbx" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center"  CheckedChanged="NTArtschbx_CheckedChanged"/>
                     <Label Text="Arts" FontAttributes="Bold" Grid.Row="0" FontSize="9" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="Center" VerticalOptions="Center"/>
 
                     <CheckBox x:Name="NTCEchbx" Grid.Row="1" Grid.Column="0"/>
@@ -255,7 +255,7 @@
                         <ColumnDefinition Width=".5*"/>
                         <ColumnDefinition Width="1.3*"/>
                     </Grid.ColumnDefinitions>
-                    <CheckBox x:Name="ETSciencechbx" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" IsEnabled="False" />
+                    <CheckBox x:Name="ETSciencechbx" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" CheckedChanged="ETSciencechbx_CheckedChanged"/>
                     <Label Text="Science" FontAttributes="Bold" Grid.Row="0" FontSize="9" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="Center" VerticalOptions="Center"/>
 
                     <CheckBox x:Name="ETPhy1chbx" Grid.Row="1" Grid.Column="0"/>
@@ -295,7 +295,7 @@
                         <ColumnDefinition Width=".6*"/>
                         <ColumnDefinition Width="1.3*"/>
                     </Grid.ColumnDefinitions>
-                    <CheckBox x:Name="ETCommercchbx" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center"/>
+                    <CheckBox x:Name="ETCommercchbx" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" CheckedChanged="ETCommercchbx_CheckedChanged"/>
                     <Label Text="Comerce" FontAttributes="Bold" Grid.Row="0" FontSize="9" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="Center" VerticalOptions="Center"/>
 
                     <CheckBox x:Name="ETSttchbx" Grid.Row="1" Grid.Column="0"/>
@@ -326,7 +326,7 @@
                         <ColumnDefinition Width=".6*"/>
                         <ColumnDefinition Width="1.3*"/>
                     </Grid.ColumnDefinitions>
-                    <CheckBox x:Name="ETArtschbx" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center"/>
+                    <CheckBox x:Name="ETArtschbx" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" CheckedChanged="ETArtschbx_CheckedChanged"/>
                     <Label Text="Arts" FontAttributes="Bold" Grid.Row="0" FontSize="9" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="Center" VerticalOptions="Center"/>
 
                     <CheckBox x:Name="ETZukchbx" Grid.Row="1" Grid.Column="0"/>
@@ -339,6 +339,7 @@
 
             
         </Grid>
-        <Button Text="Register Now" BackgroundColor="#BEFF7A" FontSize="8" Grid.Row="5" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <Label x:Name="ErrorText" Text="" TextColor="Red" Grid.Row="5" FontSize="10" HorizontalOptions="Start" VerticalOptions="Center"/>
+        <Button Text="Register Now" BackgroundColor="#BEFF7A" FontSize="8" Grid.Row="5" HorizontalOptions="End" VerticalOptions="Center" Clicked="Button_Clicked"/>
     </Grid>
 </ContentPage>
