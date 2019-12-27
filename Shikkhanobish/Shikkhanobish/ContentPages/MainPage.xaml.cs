@@ -19,6 +19,7 @@ namespace Shikkhanobish
         {
             
             InitializeComponent();
+            
             var image = new Image { Source = "loginwindowtext.png" };
             var vm = new MainPageViewModel();
             this.BindingContext = vm;

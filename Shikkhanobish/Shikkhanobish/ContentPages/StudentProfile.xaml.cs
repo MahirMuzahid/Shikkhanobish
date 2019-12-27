@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shikkhanobish.ContentPages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,15 +13,17 @@ namespace Shikkhanobish
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class StudentProfile : MasterDetailPage
     {
+        public int StudentID;
         public StudentProfile( Student student)
         {
+            StudentID = student.StundentID;
             this.IsPresented = false;
             InitializeComponent();
             BindingContext = new StudentProfileVideoModel(student);
         }
         private async void Button_Clicked_1(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterAsTeacher()).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new GetInstIDandRules(StudentID)).ConfigureAwait(true);
         }
 
         private async void Button_Clicked_2(object sender, EventArgs e)

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Shikkhanobish.ContentPages.GetInstIDandRules">
+    <Grid BackgroundColor="White">
+        <Grid.RowDefinitions >
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <BoxView BackgroundColor="#C2FF8C" Grid.Row="0"/>
+        <Label Text="Teacher Registration" Grid.Row="0" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <Entry x:Name="InstitutionIDEntry" Placeholder="Institution ID" Grid.Row="1" VerticalOptions="Center"/>
+        <Label Text="Enter you college or university ID number. If you didnt pass SSC, you can't apply for teacher" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Start"/>
+        <Label Text="Rules of Teachers" Grid.Row="3"/>
+        <Button Text="Choose Subject" Grid.Row="4" Clicked="Button_Clicked"/>
+    </Grid>
+</ContentPage>

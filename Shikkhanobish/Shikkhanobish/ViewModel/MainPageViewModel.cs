@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Plugin.Connectivity;
+using Shikkhanobish.ContentPages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

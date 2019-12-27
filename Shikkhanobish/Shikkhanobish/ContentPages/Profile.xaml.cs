@@ -22,7 +22,7 @@ namespace Shikkhanobish
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterAsTeacher()).ConfigureAwait(true);
+            
         }
 
         private async void Button_Clicked_1(object sender, EventArgs e)
