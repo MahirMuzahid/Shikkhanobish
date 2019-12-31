@@ -17,12 +17,13 @@ namespace Shikkhanobish
     {
         RegisterTeacher registerteacher =  new RegisterTeacher();
         Teacher teacher = new Teacher();
-        int taken = 10000000, studentID;
+        int taken = 10000000;
+        Student Student;
         string institutionID;
-        public RegisterAsTeacher(int StudentID, string InstitutionID)
+        public RegisterAsTeacher(Student student, string InstitutionID)
         {
-            studentID = StudentID;
-            institutionID = institutionID;
+            Student = student;
+            institutionID = InstitutionID;
             InitializeComponent();
             BindingContext = new RegisterAsTeacherViewModel();
             DisableCheckkBox();
@@ -349,13 +350,39 @@ namespace Shikkhanobish
             bool checkGroup = CheckGroup();
             CheckHighSchool();
             teacher.InstitutionID = institutionID;
-            teacher.StudentID = studentID;
-            if(checkCommon == true && checkGroup == true)
+            teacher.StudentID = Student.StundentID;
+            if (checkCommon == true && checkGroup == true)
             {
-                registerteacher.TeacherID = studentID + 100000 ; 
+                int add = 0;
+                if(SEchbx.IsChecked == true)
+                {
+                    add += 100000;
+                }
+                if(NTB1chbx.IsChecked == true || NTB2chbx.IsChecked == true || NTE1chbx.IsChecked == true || NTE2chbx.IsChecked == true || NTICTchbx.IsChecked == true)
+                {
+                    add += 10000;
+                }
+                if (ETB1chbx.IsChecked == true || ETB2chbx.IsChecked == true || ETE1chbx.IsChecked == true || ETE2chbx.IsChecked == true || ETICTchbx.IsChecked == true)
+                {
+                    add += 1000;
+                }
+                if (NTSciencechbx.IsChecked == true || ETSciencechbx.IsChecked == true)
+                {
+                    add += 100;
+                }
+                if(NTCommercchbx.IsChecked == true || ETCommercchbx.IsChecked == true)
+                {
+                    add += 10;
+                }
+                if (NTArtschbx.IsChecked == true || ETArtschbx.IsChecked == true)
+                {
+                    add += 1;
+                }
+                registerteacher.TeacherID = (Student.StundentID * 1000000) + add ; 
                 string url = "https://api.shikkhanobish.com/api/Masters/RegisterTeacher";
                 HttpClient client = new HttpClient();
-                string jsonData = JsonConvert.SerializeObject(new {
+                string jsonData = JsonConvert.SerializeObject(new
+                {
                     TeacherID = registerteacher.TeacherID,
                     LSBAN01 = registerteacher.LSBAN01,
                     LSBAN02 = registerteacher.LSBAN02,
@@ -378,7 +405,7 @@ namespace Shikkhanobish
                     SPHY = registerteacher.SPHY,
                     SCHE = registerteacher.SCHE,
                     SBIO = registerteacher.SBIO,
-                    SHMATH = registerteacher.LSMATH,
+                    SHMATH = registerteacher.SHMATH,
                     SECO = registerteacher.SECO,
                     SACC = registerteacher.SACC,
                     SFIN = registerteacher.SFIN,
@@ -407,22 +434,31 @@ namespace Shikkhanobish
                     HSFOOD = registerteacher.HSFOOD,
                     HSFIN = registerteacher.HSFIN,
                     HSACC = registerteacher.HSACC,
-                    HSECO = registerteacher.HSECO
+                    HSECO = registerteacher.HSECO,
+                    StudentID = Student.StundentID,
+                    InstitutionID = institutionID
                 });
-                StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
-                string result = await response.Content.ReadAsStringAsync();
-                var responsE = JsonConvert.DeserializeObject<Response>(result);
-                if(responsE.Status == 1)
+                if(add != 0)
                 {
-                    ErrorText.Text = responsE.Massage;
-                }
-                else if (responsE.Status == 0)
-                {
-                    ErrorText.Text = responsE.Massage;
-                    //await Application.Current.MainPage.Navigation.PushModalAsync(new TeacherProfile()).ConfigureAwait(true);
-                }
+                    StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
+                    string result = await response.Content.ReadAsStringAsync();
+                    var responsE = JsonConvert.DeserializeObject<Response>(result);
+                    if (responsE.Status == 0)
+                    {
+                        ErrorText.Text = responsE.Massage;
+                        await Application.Current.MainPage.Navigation.PushModalAsync(new TeacherProfile(Student, registerteacher.TeacherID)).ConfigureAwait(true);
+                    }
+                    else if (responsE.Status == 1)
+                    {
+                        ErrorText.Text = responsE.Massage;
 
+                    }
+                }
+                else
+                {
+                    ErrorText.Text = "Select Something!!!";
+                }
             }
         }
 

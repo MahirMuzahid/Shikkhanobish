@@ -12,18 +12,18 @@ namespace Shikkhanobish.ContentPages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class GetInstIDandRules : ContentPage
     {
-        public int Studentid;
-        public string InstitutionID;
-        public GetInstIDandRules(int StudentID)
+        private Student Student;
+        private string InstitutionID;
+        public GetInstIDandRules(Student student)
         {
             InitializeComponent();
-            Studentid = StudentID;
+            Student =  student;
         }
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
             InstitutionID = InstitutionIDEntry.Text;
-            await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterAsTeacher(Studentid, InstitutionID)).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterAsTeacher(Student, InstitutionID)).ConfigureAwait(true);
         }
     }
 }

@@ -33,6 +33,10 @@ namespace Shikkhanobish
             var hisotyList = JsonConvert.DeserializeObject<List<TuitionHistoryStudent>>(result);
             studentHistory = hisotyList;
             StudentHistoryListView.ItemsSource = studentHistory;
+            if (studentHistory == null)
+            {
+
+            }
         }
     }
 }
