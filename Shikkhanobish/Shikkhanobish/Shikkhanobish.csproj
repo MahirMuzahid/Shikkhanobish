@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="ContentPages\Profile\TeacherProfile.xaml.cs">
+    <Compile Update="ContentPages\TeacherProfile.xaml.cs">
       <DependentUpon>TeacherProfile.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -51,7 +51,7 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     </EmbeddedResource>
-    <EmbeddedResource Update="ContentPages\Profile\TeacherProfile.xaml">
+    <EmbeddedResource Update="ContentPages\TeacherProfile.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="ContentPages\RegisterAsTeacher.xaml">
@@ -63,16 +63,16 @@
     <EmbeddedResource Update="ContentPages\Settings.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="ContentPages\History\StudentHistory.xaml">
+    <EmbeddedResource Update="ContentPages\StudentHistory.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="ContentPages\Profile\StudentProfile.xaml">
+    <EmbeddedResource Update="ContentPages\StudentProfile.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="ContentPages\TakeTuition.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="ContentPages\History\TeacherHistory.xaml">
+    <EmbeddedResource Update="ContentPages\TeacherHistory.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="ContentPages\UpdateAccount.xaml">

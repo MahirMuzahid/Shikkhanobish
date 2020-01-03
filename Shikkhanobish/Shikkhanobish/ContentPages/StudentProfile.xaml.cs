@@ -13,17 +13,17 @@ namespace Shikkhanobish
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class StudentProfile : MasterDetailPage
     {
-       private Student Student;
+        public int StudentID;
         public StudentProfile( Student student)
         {
-            Student = student;
+            StudentID = student.StundentID;
             this.IsPresented = false;
             InitializeComponent();
             BindingContext = new StudentProfileVideoModel(student);
         }
         private async void Button_Clicked_1(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new GetInstIDandRules(Student)).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new GetInstIDandRules(StudentID)).ConfigureAwait(true);
         }
 
         private async void Button_Clicked_2(object sender, EventArgs e)

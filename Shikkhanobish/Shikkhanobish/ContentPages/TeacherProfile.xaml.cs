@@ -1,5 +1,4 @@
-﻿using Shikkhanobish.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,15 +14,25 @@ namespace Shikkhanobish
 
     public partial class TeacherProfile : MasterDetailPage
     {
-        public TeacherProfile(Student student, int teacherID)
+        public TeacherProfile(Student student)
         {
             this.IsPresented = false;
             InitializeComponent();
-            TeacherSttLabel.Text = "Teacher Status: OFF";
+
             var image = new Image { Source = "BackColor.jpg" };
-            BindingContext = new TeacherProfileViewModel(student, teacherID);
+            BindingContext = new ProfileViewModel(student);
             MasterBehavior = MasterBehavior.Popover;
 
+        }
+        private  void Button_Clicked(object sender, EventArgs e)
+        {
+            //await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterAsTeacher()).ConfigureAwait(true);
+            //this.IsPresented = true;
+        }
+
+        private async void Button_Clicked_1(object sender, EventArgs e)
+        {
+            
         }
 
         private async void Button_Clicked_2(object sender, EventArgs e)
@@ -66,18 +75,6 @@ namespace Shikkhanobish
         private async void Button_Clicked_7(object sender, EventArgs e)
         {
             await Application.Current.MainPage.Navigation.PushModalAsync(new TakeTuition()).ConfigureAwait(true);
-        }
-
-        private void Switch_Toggled(object sender, ToggledEventArgs e)
-        {
-            if(TeachetToggle.IsToggled == true)
-            {
-                TeacherSttLabel.Text = "Teacher Status: ON";
-            }
-            if (TeachetToggle.IsToggled == false)
-            {
-                TeacherSttLabel.Text = "Teacher Status: OFF";
-            }
         }
     }
 }

@@ -26,7 +26,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Text="{Binding TeacherIDtxt}" FontSize="11" FontAttributes="Bold" VerticalOptions="End" HorizontalOptions="Start" Grid.Row="0" Grid.Column="0"/>
+                    <Label Text="TeacherID: 1087001" FontSize="11" FontAttributes="Bold" VerticalOptions="End" HorizontalOptions="Start" Grid.Row="0" Grid.Column="0"/>
                     <Label Text="{Binding StudentIDTxt}" FontSize="11" FontAttributes="Bold" VerticalOptions="End" HorizontalOptions="End" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
                     <Label Text="Total Balance" VerticalOptions="End" HorizontalOptions="Center" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
                     <Label Text="{Binding AmountTxt}" FontSize="40" TextColor="#005299" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center"/>
@@ -39,21 +39,22 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="7*"/>
                     </Grid.ColumnDefinitions>
-                   
-                    <Image Source="studenthistorybutton.png" Grid.Row="0" Grid.Column="0" Aspect="AspectFit" />
-                    <Image Source="teacherhistorybutton.png" Grid.Row="1" Grid.Column="0" Aspect="AspectFit"/>
-                    <Image Source="updatebutton.png" Grid.Row="2" Grid.Column="0" Aspect="AspectFit"/>
-                    <Image Source="logout.png" Grid.Row="3" Grid.Column="0" Aspect="AspectFit"/>
-                    
-                    <Button Text="Student History" Grid.Column="1" HorizontalOptions="Start" TextColor="Black" BackgroundColor="White"   Grid.Row="0" FontSize="14" Clicked="Button_Clicked_2"  />
-                    <Button Text="Teacher History" Grid.Column="1" HorizontalOptions="Start" TextColor="Black" BackgroundColor="White"   Grid.Row="1" FontSize="14" Clicked="Button_Clicked_3"  />
-                    <Button Text="Update Info" Grid.Column="1" HorizontalOptions="Start" TextColor="Black" BackgroundColor="White"   Grid.Row="2" FontSize="14" Clicked="Button_Clicked_6"  />
-                    <Button Text="Logout" Grid.Column="1" HorizontalOptions="Start" TextColor="Black" BackgroundColor="White"  Grid.Row="3" FontSize="14" Clicked="Button_Clicked_4"  />
+                    <Image Source="registerbuttononly.png" Grid.Row="0" Grid.Column="0" Aspect="AspectFit"/>
+                    <Image Source="studenthistorybutton.png" Grid.Row="1" Grid.Column="0" Aspect="AspectFit" />
+                    <Image Source="teacherhistorybutton.png" Grid.Row="2" Grid.Column="0" Aspect="AspectFit"/>
+                    <Image Source="updatebutton.png" Grid.Row="3" Grid.Column="0" Aspect="AspectFit"/>
+                    <Image Source="logout.png" Grid.Row="4" Grid.Column="0" Aspect="AspectFit"/>
+                    <Button Text="Teacher Registretion" Grid.Column="1" HorizontalOptions="Start"  FontSize="14" BackgroundColor="White" Grid.Row="0"  TextColor="black" Clicked="Button_Clicked_1"/>
+                    <Button Text="Student History" Grid.Column="1" HorizontalOptions="Start" TextColor="Black" BackgroundColor="White"   Grid.Row="1" FontSize="14" Clicked="Button_Clicked_2"  />
+                    <Button Text="Teacher History" Grid.Column="1" HorizontalOptions="Start" TextColor="Black" BackgroundColor="White"   Grid.Row="2" FontSize="14" Clicked="Button_Clicked_3"  />
+                    <Button Text="Update Info" Grid.Column="1" HorizontalOptions="Start" TextColor="Black" BackgroundColor="White"   Grid.Row="3" FontSize="14" Clicked="Button_Clicked_6"  />
+                    <Button Text="Logout" Grid.Column="1" HorizontalOptions="Start" TextColor="Black" BackgroundColor="White"  Grid.Row="4" FontSize="14" Clicked="Button_Clicked_4"  />
                 </Grid>
                 <Grid Grid.Row="4">
                     <Grid.RowDefinitions>
@@ -98,9 +99,8 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width=".5*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Text ="__________&#x0a;__________&#x0a;__________" TextColor="White" CornerRadius="10" FontSize="6" FontAttributes="Bold" Grid.Column="0" VerticalOptions="Center"  HorizontalOptions ="Center" BackgroundColor="#0D7BD9FF" Clicked="Button_Clicked_5"/>
-                    <Switch x:Name="TeachetToggle" IsToggled="False" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="True" Toggled="Switch_Toggled"/>
-                    <Label x:Name="TeacherSttLabel" Grid.Column="1" FontSize="15" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Button Text="Manu" CornerRadius="10" Grid.Column="0" HorizontalOptions ="Center" BackgroundColor="#6FFED3" Clicked="Button_Clicked_5"/>
+                    <Switch IsToggled="False" Grid.Column="2" IsEnabled="{Binding IsEnableTeacher}"/>
                 </Grid>
                 <Label Text="{Binding  Name}" TextColor="White" Grid.Row="3" HorizontalOptions="Center" FontSize="Title"/>
                 <Label Text="{Binding  Age}" TextColor="White" Grid.Row="4" HorizontalOptions="Center" FontSize="15"/>
@@ -119,7 +119,7 @@
                         <ColumnDefinition Width=".01*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Text="Student/Teacher" Grid.Row="1" Grid.Column="0" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="{Binding  IsTeacherorStudent}" Grid.Row="1" Grid.Column="0" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
                     <BoxView BackgroundColor="White" Grid.Row="1" Grid.Column="1"/>
                     <Label Text="{Binding  AvailableMintxt}" Grid.Row="1" Grid.Column="2" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
                     <BoxView BackgroundColor="White" Grid.Row="1" Grid.Column="3"/>
