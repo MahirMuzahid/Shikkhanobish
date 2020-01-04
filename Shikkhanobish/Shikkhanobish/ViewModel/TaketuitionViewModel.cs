@@ -7,4 +7,9 @@ namespace Shikkhanobish
     class TaketuitionViewModel
     {
     }
+
+    public class Class
+    {
+        public string _class { get; set; }
+    } 
 }
