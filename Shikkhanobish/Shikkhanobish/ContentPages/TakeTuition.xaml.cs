@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shikkhanobish.ContentPages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,14 +13,21 @@ namespace Shikkhanobish
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TakeTuition : ContentPage
     {
-        List<string> subject = new List<string>();
         private string selectedClass;
         private string selectedGroup;
         private string selectedSubject;
-        public TakeTuition()
+        private int studentID;
+        private string studentName;
+        private string subject;
+        public TakeTuition( int StudentID, string StudentName)
         {
             InitializeComponent();
+            studentID = StudentID;
             BindingContext = new TaketuitionViewModel();
+            StudentIDTxt.Text = "" + StudentID;
+            studentID = StudentID;
+            StudentNameTxt.Text = "" + StudentName;
+            studentName = StudentName;
             ClassPicker.SelectedIndex = 7;
             ClassPicker.Items.Add("Class 6");
             ClassPicker.Items.Add("Class 7");
@@ -30,14 +38,18 @@ namespace Shikkhanobish
             ClassPicker.Items.Add("Class 12");
             GroupPicker.IsEnabled = false;
             GroupBoxView.BackgroundColor = Color.FromHex("#CDCDCD");
+            GroupTxt.TextColor = Color.FromHex("#808080");
+            SearchBtn.IsEnabled = false;
         }
 
         private void ClassPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
+            SubjectPicker.Items.Clear();
+            GroupPicker.Items.Clear();
             selectedClass = ClassPicker.Items[ClassPicker.SelectedIndex];
             if (selectedClass == "Class 6")
             {
-                SubjectPicker.SelectedIndex = 4;
+                SubjectPicker.SelectedIndex = 5;
                 SubjectPicker.Items.Add("Bangla 1st Paper");
                 SubjectPicker.Items.Add("Bangla 2nd Paper");
                 SubjectPicker.Items.Add("Englist 1st Paper");
@@ -45,10 +57,11 @@ namespace Shikkhanobish
                 SubjectPicker.Items.Add("Math");
                 GroupPicker.IsEnabled = false;
                 GroupBoxView.BackgroundColor = Color.FromHex("#CDCDCD");
+                GroupTxt.TextColor = Color.FromHex("#808080");
             }
             else if (selectedClass == "Class 7")
             {
-                SubjectPicker.SelectedIndex = 4;
+                SubjectPicker.SelectedIndex = 5;
                 SubjectPicker.Items.Add("Bangla 1st Paper");
                 SubjectPicker.Items.Add("Bangla 2nd Paper");
                 SubjectPicker.Items.Add("Englist 1st Paper");
@@ -56,10 +69,11 @@ namespace Shikkhanobish
                 SubjectPicker.Items.Add("Math");
                 GroupPicker.IsEnabled = false;
                 GroupBoxView.BackgroundColor = Color.FromHex("#CDCDCD");
+                GroupTxt.TextColor = Color.FromHex("#808080");
             }
             else if (selectedClass == "Class 8")
             {
-                SubjectPicker.SelectedIndex = 4;
+                SubjectPicker.SelectedIndex = 5;
                 SubjectPicker.Items.Add("Bangla 1st Paper");
                 SubjectPicker.Items.Add("Bangla 2nd Paper");
                 SubjectPicker.Items.Add("Englist 1st Paper");
@@ -67,6 +81,7 @@ namespace Shikkhanobish
                 SubjectPicker.Items.Add("Math");
                 GroupPicker.IsEnabled = false;
                 GroupBoxView.BackgroundColor = Color.FromHex("#CDCDCD");
+                GroupTxt.TextColor = Color.FromHex("#808080");
             }
             else if( selectedClass == "Class 9" || selectedClass == "Class 10" || selectedClass == "Class 11" || selectedClass == "Class 12")
             {
@@ -76,96 +91,298 @@ namespace Shikkhanobish
                 GroupPicker.Items.Add("Arts");
                 GroupPicker.IsEnabled = true;
                 GroupBoxView.BackgroundColor = Color.FromHex("#FFFFFF");
+                GroupTxt.TextColor = Color.FromHex("#00203F");
             }
             
         }
 
         private void GroupPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            selectedGroup = GroupPicker.Items[GroupPicker.SelectedIndex];
-            if ((selectedClass == "Class 9" || selectedClass == "Class 10") & selectedGroup == "Science")
+            SubjectPicker.Items.Clear();
+            if(GroupPicker.Items.Count != 0)
             {
-                SubjectPicker.SelectedIndex = 9;
-                SubjectPicker.Items.Add("Bangla 1st Paper");
-                SubjectPicker.Items.Add("Bangla 2nd Paper");
-                SubjectPicker.Items.Add("Englist 1st Paper");
-                SubjectPicker.Items.Add("English 2nd Paper");
-                SubjectPicker.Items.Add("ICT");
-                SubjectPicker.Items.Add("Physics");
-                SubjectPicker.Items.Add("Cheistry");
-                SubjectPicker.Items.Add("Biology");
-                SubjectPicker.Items.Add("Math");
+                selectedGroup = GroupPicker.Items[GroupPicker.SelectedIndex];
+                if ((selectedClass == "Class 9" || selectedClass == "Class 10") & selectedGroup == "Science")
+                {
+                    SubjectPicker.SelectedIndex = 9;
+                    SubjectPicker.Items.Add("Bangla 1st Paper");
+                    SubjectPicker.Items.Add("Bangla 2nd Paper");
+                    SubjectPicker.Items.Add("Englist 1st Paper");
+                    SubjectPicker.Items.Add("English 2nd Paper");
+                    SubjectPicker.Items.Add("ICT");
+                    SubjectPicker.Items.Add("Physics");
+                    SubjectPicker.Items.Add("Cheistry");
+                    SubjectPicker.Items.Add("Biology");
+                    SubjectPicker.Items.Add("Math");
+                }
+                if ((selectedClass == "Class 9" || selectedClass == "Class 10") & selectedGroup == "Commerce")
+                {
+                    SubjectPicker.SelectedIndex = 4;
+                    SubjectPicker.Items.Add("Bangla 1st Paper");
+                    SubjectPicker.Items.Add("Bangla 2nd Paper");
+                    SubjectPicker.Items.Add("Englist 1st Paper");
+                    SubjectPicker.Items.Add("English 2nd Paper");
+                    SubjectPicker.Items.Add("ICT");
+                    SubjectPicker.Items.Add("Economics");
+                    SubjectPicker.Items.Add("Accounting");
+                    SubjectPicker.Items.Add("Finance & Banking");
+                    SubjectPicker.Items.Add("Business Entrepreneurship");
+                }
+                if ((selectedClass == "Class 9" || selectedClass == "Class 10") & selectedGroup == "Arts")
+                {
+                    SubjectPicker.SelectedIndex = 7;
+                    SubjectPicker.Items.Add("Bangla 1st Paper");
+                    SubjectPicker.Items.Add("Bangla 2nd Paper");
+                    SubjectPicker.Items.Add("Englist 1st Paper");
+                    SubjectPicker.Items.Add("English 2nd Paper");
+                    SubjectPicker.Items.Add("ICT");
+                    SubjectPicker.Items.Add("Geology");
+                    SubjectPicker.Items.Add("Career Education");
+                }
+                if ((selectedClass == "Class 11" || selectedClass == "Class 12") & selectedGroup == "Science")
+                {
+                    SubjectPicker.SelectedIndex = 13;
+                    SubjectPicker.Items.Add("Bangla 1st Paper");
+                    SubjectPicker.Items.Add("Bangla 2nd Paper");
+                    SubjectPicker.Items.Add("Englist 1st Paper");
+                    SubjectPicker.Items.Add("English 2nd Paper");
+                    SubjectPicker.Items.Add("ICT");
+                    SubjectPicker.Items.Add("Physics 1st Paper");
+                    SubjectPicker.Items.Add("Physics 2nd Paper");
+                    SubjectPicker.Items.Add("Cheistry 1st Paper");
+                    SubjectPicker.Items.Add("Cheistry 2nd Paper");
+                    SubjectPicker.Items.Add("Biology 1st Paper");
+                    SubjectPicker.Items.Add("Biology 2nd Paper");
+                    SubjectPicker.Items.Add("Math 1st Paper");
+                    SubjectPicker.Items.Add("Math 2nd Paper");
+                }
+                if ((selectedClass == "Class 11" || selectedClass == "Class 12") & selectedGroup == "Commerce")
+                {
+                    SubjectPicker.SelectedIndex = 9;
+                    SubjectPicker.Items.Add("Bangla 1st Paper");
+                    SubjectPicker.Items.Add("Bangla 2nd Paper");
+                    SubjectPicker.Items.Add("Englist 1st Paper");
+                    SubjectPicker.Items.Add("English 2nd Paper");
+                    SubjectPicker.Items.Add("ICT");
+                    SubjectPicker.Items.Add("Economics");
+                    SubjectPicker.Items.Add("Accounting");
+                    SubjectPicker.Items.Add("Finance & Banking");
+                    SubjectPicker.Items.Add("Statistics");
+                }
+                if ((selectedClass == "Class 11" || selectedClass == "Class 12") & selectedGroup == "Arts")
+                {
+                    SubjectPicker.SelectedIndex = 6;
+                    SubjectPicker.Items.Add("Bangla 1st Paper");
+                    SubjectPicker.Items.Add("Bangla 2nd Paper");
+                    SubjectPicker.Items.Add("Englist 1st Paper");
+                    SubjectPicker.Items.Add("English 2nd Paper");
+                    SubjectPicker.Items.Add("ICT");
+                    SubjectPicker.Items.Add("Zuktibidda");
+                }
             }
-            if ((selectedClass == "Class 9" || selectedClass == "Class 10") & selectedGroup == "Commerce")
-            {
-                SubjectPicker.SelectedIndex = 4;
-                SubjectPicker.Items.Add("Bangla 1st Paper");
-                SubjectPicker.Items.Add("Bangla 2nd Paper");
-                SubjectPicker.Items.Add("Englist 1st Paper");
-                SubjectPicker.Items.Add("English 2nd Paper");
-                SubjectPicker.Items.Add("ICT");
-                SubjectPicker.Items.Add("Economics");
-                SubjectPicker.Items.Add("Accounting");
-                SubjectPicker.Items.Add("Finance & Banking");
-                SubjectPicker.Items.Add("Business Entrepreneurship");
-            }
-            if ((selectedClass == "Class 9" || selectedClass == "Class 10") & selectedGroup == "Arts")
-            {
-                SubjectPicker.SelectedIndex = 7;
-                SubjectPicker.Items.Add("Bangla 1st Paper");
-                SubjectPicker.Items.Add("Bangla 2nd Paper");
-                SubjectPicker.Items.Add("Englist 1st Paper");
-                SubjectPicker.Items.Add("English 2nd Paper");
-                SubjectPicker.Items.Add("ICT");
-                SubjectPicker.Items.Add("Geology");
-                SubjectPicker.Items.Add("Career Education");
-            }
-            if ((selectedClass == "Class 11" || selectedClass == "Class 12") & selectedGroup == "Science")
-            {
-                SubjectPicker.SelectedIndex = 13;
-                SubjectPicker.Items.Add("Bangla 1st Paper");
-                SubjectPicker.Items.Add("Bangla 2nd Paper");
-                SubjectPicker.Items.Add("Englist 1st Paper");
-                SubjectPicker.Items.Add("English 2nd Paper");
-                SubjectPicker.Items.Add("ICT");
-                SubjectPicker.Items.Add("Physics 1st Paper");
-                SubjectPicker.Items.Add("Physics 2nd Paper");
-                SubjectPicker.Items.Add("Cheistry 1st Paper");
-                SubjectPicker.Items.Add("Cheistry 2nd Paper");
-                SubjectPicker.Items.Add("Biology 1st Paper");
-                SubjectPicker.Items.Add("Biology 2nd Paper");
-                SubjectPicker.Items.Add("Math 1st Paper");
-                SubjectPicker.Items.Add("Math 2nd Paper");
-            }
-            if ((selectedClass == "Class 11" || selectedClass == "Class 12") & selectedGroup == "Commerce")
-            {
-                SubjectPicker.SelectedIndex = 9;
-                SubjectPicker.Items.Add("Bangla 1st Paper");
-                SubjectPicker.Items.Add("Bangla 2nd Paper");
-                SubjectPicker.Items.Add("Englist 1st Paper");
-                SubjectPicker.Items.Add("English 2nd Paper");
-                SubjectPicker.Items.Add("ICT");
-                SubjectPicker.Items.Add("Economics");
-                SubjectPicker.Items.Add("Accounting");
-                SubjectPicker.Items.Add("Finance & Banking");
-                SubjectPicker.Items.Add("Statistics");
-            }
-            if ((selectedClass == "Class 11" || selectedClass == "Class 12") & selectedGroup == "Arts")
-            {
-                SubjectPicker.SelectedIndex = 6;
-                SubjectPicker.Items.Add("Bangla 1st Paper");
-                SubjectPicker.Items.Add("Bangla 2nd Paper");
-                SubjectPicker.Items.Add("Englist 1st Paper");
-                SubjectPicker.Items.Add("English 2nd Paper");
-                SubjectPicker.Items.Add("ICT");
-                SubjectPicker.Items.Add("Zuktibidda");
-            }
-        }
-        private void SubjectPicker_SelectedIndexChanged(object sender, EventArgs e)
-        {
             
         }
+        private async void SubjectPicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SearchBtn.IsEnabled = true;
+            selectedSubject = SubjectPicker.Items[SubjectPicker.SelectedIndex];
+        }
 
-       
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            string Class = null, sub = null, paper = null;
+            if (selectedClass == "Class 6" || selectedClass == "Class 7" || selectedClass == "Class 8")
+            {
+                Class = "LS";
+                if (selectedSubject[0] == 'B')
+                {
+                    sub = "BAN";
+                }
+                else if (selectedSubject[0] == 'E')
+                {
+                    sub = "ENG";
+                }
+                else if (selectedSubject[0] == 'M')
+                {
+                    sub = "MATH";
+                }
+                else if (selectedSubject[0] == 'I')
+                {
+                    sub = "ICT";
+                }
+                for (int i = 0; i < selectedSubject.Length; i++)
+                {
+                    if (selectedSubject[i] == ' ')
+                    {
+                        if (selectedSubject[i + 1] == '1')
+                        {
+                            paper = "01";
+                        }
+                        else if (selectedSubject[i + 1] == '2')
+                        {
+                            paper = "02";
+                        }
+                    }
+                    subject = Class + sub + paper;
+                }
+                //------------------------------------------------------------------------------------------------------
+                
+            }
+            if (selectedClass == "Class 9" || selectedClass == "Class 10")
+            {
+                Class = "S";
+                if (selectedSubject[0] == 'B')
+                {
+                    sub = "BAN";
+                }
+                else if (selectedSubject[0] == 'E')
+                {
+                    sub = "ENG";
+                }
+                else if (selectedSubject[0] == 'M')
+                {
+                    sub = "MATH";
+                }
+                else if (selectedSubject[0] == 'I')
+                {
+                    sub = "ICT";
+                }
+                else if (selectedSubject[0] == 'P')
+                {
+                    sub = "PHY";
+                }
+                else if (selectedSubject[0] == 'C')
+                {
+                    sub = "CHE";
+                }
+                else if (selectedSubject[0] == 'B' && selectedSubject[1] == 'i')
+                {
+                    sub = "BIO";
+                }
+                else if (selectedSubject[0] == 'H')
+                {
+                    sub = "HMATH";
+                }
+                //--------------------------------------
+                else if (selectedSubject[0] == 'E' && selectedSubject[1] == 'c')
+                {
+                    sub = "ECO";
+                }
+                else if (selectedSubject[0] == 'A')
+                {
+                    sub = "ACC";
+                }
+                else if (selectedSubject[0] == 'F')
+                {
+                    sub = "FIN";
+                }
+                else if (selectedSubject[0] == 'B' && selectedSubject[1] == 'u')
+                {
+                    sub = "BENT";
+                }
+                //------------------------------------
+                else if (selectedSubject[0] == 'C' && selectedSubject[1] == 'a')
+                {
+                    sub = "CRE";
+                }
+                else if (selectedSubject[0] == 'G')
+                {
+                    sub = "GEO";
+                }
+                for (int i = 0; i < selectedSubject.Length; i++)
+                {
+                    if (selectedSubject[i] == ' ')
+                    {
+                        if (selectedSubject[i + 1] == '1')
+                        {
+                            paper = "01";
+                        }
+                        else if (selectedSubject[i + 1] == '2')
+                        {
+                            paper = "02";
+                        }
+                    }
+                    subject = Class + sub + paper;
+                }
+            }            
+            if (selectedClass == "Class 11" || selectedClass == "Class 12")
+            {
+                Class = "HS";
+                if (selectedSubject[0] == 'B')
+                {
+                    sub = "BAN";
+                }
+                else if (selectedSubject[0] == 'E')
+                {
+                    sub = "ENG";
+                }
+                else if (selectedSubject[0] == 'M')
+                {
+                    sub = "MATH";
+                }
+                else if (selectedSubject[0] == 'I')
+                {
+                    sub = "ICT";
+                }
+                else if (selectedSubject[0] == 'P')
+                {
+                    sub = "PHY";
+                }
+                else if (selectedSubject[0] == 'C')
+                {
+                    sub = "CHE";
+                }
+                else if (selectedSubject[0] == 'B' && selectedSubject[1] == 'i')
+                {
+                    sub = "BIO";
+                }
+                else if (selectedSubject[0] == 'H')
+                {
+                    sub = "HMATH";
+                }
+                //--------------------------------------
+                else if (selectedSubject[0] == 'E' && selectedSubject[1] == 'c')
+                {
+                    sub = "ECO";
+                }
+                else if (selectedSubject[0] == 'A')
+                {
+                    sub = "ACC";
+                }
+                else if (selectedSubject[0] == 'F')
+                {
+                    sub = "FIN";
+                }
+                else if (selectedSubject[0] == 'S')
+                {
+                    sub = "STAT";
+                }
+                //------------------------------------
+                else if (selectedSubject[0] == 'Z')
+                {
+                    sub = "LOG";
+                }
+                for (int i = 0; i < selectedSubject.Length; i++)
+                {
+                    if (selectedSubject[i] == ' ')
+                    {
+                        if (selectedSubject[i + 1] == '1')
+                        {
+                            paper = "01";
+                        }
+                        else if (selectedSubject[i + 1] == '2')
+                        {
+                            paper = "02";
+                        }
+                    }
+                    subject = Class + sub + paper;              
+                }
+            }
+            if(sub != null)
+            {
+                SearchBtn.Text = "We are searching best teacher for you";
+                await Application.Current.MainPage.Navigation.PushModalAsync( new SearchedTeacher(studentID, subject)).ConfigureAwait(true);
+            }
+        }
     }
 }

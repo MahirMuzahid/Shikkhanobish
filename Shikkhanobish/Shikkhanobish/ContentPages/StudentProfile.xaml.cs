@@ -14,10 +14,12 @@ namespace Shikkhanobish
     public partial class StudentProfile : MasterDetailPage
     {
         public int StudentID;
+        private Student _Student;
         public StudentProfile( Student student)
         {
             StudentID = student.StundentID;
             this.IsPresented = false;
+            _Student = student;
             InitializeComponent();
             BindingContext = new StudentProfileVideoModel(student);
         }
@@ -62,7 +64,7 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_7(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new TakeTuition()).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new TakeTuition(StudentID, _Student.Name)).ConfigureAwait(true);
         }
     }
 }

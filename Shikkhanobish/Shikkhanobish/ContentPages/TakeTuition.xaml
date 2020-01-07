@@ -26,8 +26,8 @@
             </Grid.ColumnDefinitions>
             <Label Text="Choose Subject" Grid.Row="0" Grid.RowSpan="4" TextColor="#707070" FontSize="25" HorizontalOptions="Center" VerticalOptions="Center"/>
             <BoxView BackgroundColor="#CACACA" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"/>
-            <Label Text="Mahir Muzahid" Grid.Row="1" FontSize="20" FontAttributes="Bold" VerticalOptions="End" HorizontalOptions="Center" Grid.Column="2" TextColor="#676767"/>
-            <Label Text="Studnet ID: 1017" Grid.Row="2" FontSize="15" VerticalOptions="Start" HorizontalOptions="Center" Grid.Column="2"/>
+            <Label x:Name="StudentNameTxt" Grid.Row="1" FontSize="20" FontAttributes="Bold" VerticalOptions="End" HorizontalOptions="Center" Grid.Column="2" TextColor="#676767"/>
+            <Label x:Name="StudentIDTxt" Grid.Row="2" FontSize="15" VerticalOptions="Start" HorizontalOptions="Center" Grid.Column="2"/>
         </Grid>
 
         <Grid Grid.Row="1" BackgroundColor="White" ColumnSpacing="0">
@@ -51,11 +51,11 @@
             <BoxView BackgroundColor="White" Grid.Row="3" Grid.Column="0" VerticalOptions="Center" CornerRadius="25"/>
             <Label Text="Class" Grid.Row="1" FontSize="20" TextColor="#00203F" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"/>
             <Picker x:Name="ClassPicker" Title="Choose Class" Grid.Row="1" Grid.Column="1" VerticalOptions="Center" SelectedIndexChanged="ClassPicker_SelectedIndexChanged"/>
-            <Label Text="Group" Grid.Row="2" FontSize="20" TextColor="#00203F" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label x:Name="GroupTxt" Text="Group" Grid.Row="2" FontSize="20" TextColor="#00203F" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"/>
             <Picker x:Name="GroupPicker" Title="Choose Group" SelectedIndex="2" Grid.Row="2" Grid.Column="1" VerticalOptions="Center" SelectedIndexChanged="GroupPicker_SelectedIndexChanged"/>
             <Label Text="Subject" Grid.Row="3" FontSize="20" TextColor="#00203F" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"/>
             <Picker x:Name="SubjectPicker" Title="Choose Subject" SelectedIndex="3" Grid.Row="3" Grid.Column="1" VerticalOptions="Center" SelectedIndexChanged="SubjectPicker_SelectedIndexChanged"/>
-            <Button Text="Search Teacher" TextColor="#00203F" Grid.Row="5" Grid.ColumnSpan="2" VerticalOptions="Center" CornerRadius="25" BackgroundColor="#7CF0C2"/>
+            <Button x:Name="SearchBtn" Text="Search Teacher" TextColor="#00203F" Grid.Row="5" Grid.ColumnSpan="2" VerticalOptions="Center" CornerRadius="25" BackgroundColor="#7CF0C2" Clicked="Button_Clicked"/>
 
         </Grid>
     </Grid>

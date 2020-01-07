@@ -58,5 +58,7 @@ namespace Shikkhanobish.Model
         public int HSFIN { get; set; }
         public int HSACC { get; set; }
         public int HSECO { get; set; }
+        public int StudentID { get; set; }
+        public string InstitutionID { get; set; }
     }
 }

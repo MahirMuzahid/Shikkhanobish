@@ -14,9 +14,13 @@ namespace Shikkhanobish
 
     public partial class TeacherProfile : MasterDetailPage
     {
+        public int StudentID;
+        private Student _Student;
         public TeacherProfile(Student student)
         {
+            StudentID = student.StundentID;
             this.IsPresented = false;
+            _Student = student;
             InitializeComponent();
 
             var image = new Image { Source = "BackColor.jpg" };
@@ -74,7 +78,7 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_7(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new TakeTuition()).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new TakeTuition(StudentID, _Student.Name)).ConfigureAwait(true);
         }
     }
 }

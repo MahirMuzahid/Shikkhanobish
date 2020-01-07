@@ -22,7 +22,7 @@ namespace Shikkhanobish
         public RegisterAsTeacher(int StudentID, string InstitutionID)
         {
             studentID = StudentID;
-            institutionID = institutionID;
+            institutionID = InstitutionID;
             InitializeComponent();
             BindingContext = new RegisterAsTeacherViewModel();
             DisableCheckkBox();
@@ -378,7 +378,7 @@ namespace Shikkhanobish
                     SPHY = registerteacher.SPHY,
                     SCHE = registerteacher.SCHE,
                     SBIO = registerteacher.SBIO,
-                    SHMATH = registerteacher.LSMATH,
+                    SHMATH = registerteacher.SHMATH,
                     SECO = registerteacher.SECO,
                     SACC = registerteacher.SACC,
                     SFIN = registerteacher.SFIN,
@@ -407,7 +407,9 @@ namespace Shikkhanobish
                     HSFOOD = registerteacher.HSFOOD,
                     HSFIN = registerteacher.HSFIN,
                     HSACC = registerteacher.HSACC,
-                    HSECO = registerteacher.HSECO
+                    HSECO = registerteacher.HSECO,
+                    StudentID = registerteacher.StudentID,
+                    InstitutionID = institutionID
                 });
                 StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
