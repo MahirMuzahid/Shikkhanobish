@@ -28,21 +28,21 @@ namespace Shikkhanobish.ContentPages
 
         public async void getTeacherID()
         {
-            string url = "https://api.shikkhanobish.com/api/Masters/GetTeacherBySubject";
+            string url = "https://api.shikkhanobish.com/api/Masters/TeacherIDListFromSubject";
             HttpClient client = new HttpClient();
             string jsonData = JsonConvert.SerializeObject(new { Subject = subject });
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
             string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
-            var TeacherID = JsonConvert.DeserializeObject<List<TeacherID>>(result);
+            List<TeacherID> TeacherIDList = JsonConvert.DeserializeObject<List<TeacherID>>(result);
         }
         public async void getTeacher()
         {
-            string url = "https://api.shikkhanobish.com/api/Masters/GetTeacher";
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync(url).ConfigureAwait(true);
-            string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
-            var TeacherList = JsonConvert.DeserializeObject<List<Teacher>>(result);
+            string urlN = "https://api.shikkhanobish.com/api/Masters/GetTeacher";
+            HttpClient clientN = new HttpClient();
+            HttpResponseMessage responseN = await clientN.GetAsync(urlN).ConfigureAwait(true);
+            string resultN = await responseN.Content.ReadAsStringAsync().ConfigureAwait(true);
+            var TeacherList = JsonConvert.DeserializeObject<List<Teacher>>(resultN);
         }
     }
 }

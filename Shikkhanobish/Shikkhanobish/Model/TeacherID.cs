@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Shikkhanobish.Model
 {
-    class TeacherID
+    public class TeacherID
     {
-        public int Teacher_ID { get; set; }
-        public string Response { get; set; }
+        public int teacherID { get; set; }
+        public string response { get; set; }
     }
 }

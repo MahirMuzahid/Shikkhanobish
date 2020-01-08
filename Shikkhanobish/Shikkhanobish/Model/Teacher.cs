@@ -20,7 +20,8 @@ namespace Shikkhanobish
         public int Total_Min { get; set; }
         public int Number_Of_Tution { get; set; }
         public int Tuition_Point { get; set; }
-        public int Teacher_Rank { get; set; }
+        public string Teacher_Rank { get; set; }
+        public string Response { get; set; }
 
 
 
