@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Shikkhanobish
 {
-    class Teacher
+    public class Teacher
     {
         public int TeacherID { get; set; }
         public string InstitutionID { get; set; }

@@ -48,7 +48,7 @@
     </AndroidSupportedAbis>
     <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
     <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
-    <AndroidEnableMultiDex>false</AndroidEnableMultiDex>
+    <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
     <AndroidPackageFormat>apk</AndroidPackageFormat>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">

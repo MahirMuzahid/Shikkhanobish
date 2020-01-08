@@ -22,8 +22,9 @@ namespace Shikkhanobish.ContentPages
             InitializeComponent();
             studentID = StudentID;
             subject = Subject;
-            getTeacherID();
             getTeacher();
+            getTeacherID();
+
         }
 
         public async void getTeacherID()
