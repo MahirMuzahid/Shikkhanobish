@@ -17,11 +17,16 @@ namespace Shikkhanobish
         public int Two_Star { get; set; }
         public int One_Star { get; set; }
 
-        public int Total_Min { get; set; }
-        public int Number_Of_Tution { get; set; }
-        public int Tuition_Point { get; set; }
+        public string Total_Min { get; set; }
+        public string Number_Of_Tution { get; set; }
+        public string Tuition_Point { get; set; }
         public string Teacher_Rank { get; set; }
+
+        public string TeacherName { get; set; }
         public string Response { get; set; }
+        public string Amount { get; set; }
+        public string Avarage { get; set; }
+
 
 
 

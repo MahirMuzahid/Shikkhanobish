@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Shikkhanobish.ContentPages.TestPage">
+
+    <Grid BackgroundColor="#E6E6E6" Padding="10" RowSpacing="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1**"/>
+            <RowDefinition Height="1**"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="1" RowSpacing="0" ColumnSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <BoxView BackgroundColor="White" Grid.Row="0" Grid.RowSpan="1" CornerRadius="0"/>
+            <Grid Grid.Row="0" Padding="5" RowSpacing="0" Margin="8,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.3*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <BoxView BackgroundColor="#AB81EB" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" CornerRadius="10"/>
+                <Label Text="Mahir Muzahid" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="17" FontAttributes="Bold"/>
+                <Label Text="Avg. Rating = 4.5" Grid.Row="1" Grid.Column="0" FontSize="13"/>
+                <Label Text="Total Min = 120 " Grid.Row="2" Grid.Column="0" FontSize="13"/>
+                <Label Text="Number Of Tution = 12" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" FontSize="13"/>
+                <Label Text="Call Now" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0" Grid.RowSpan="4" FontSize="20" TextColor="#E8E8E8"/>
+            </Grid>
+            <Grid Grid.Column="1" Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <BoxView BackgroundColor="#E4E4E4" Grid.Row="0" Grid.RowSpan="2" CornerRadius="20"/>
+                <Label Text="Master" FontAttributes="Bold" FontSize="20" HorizontalOptions="Center" VerticalOptions="End" TextColor="#BEBEBE"/>
+                <Label Text="42" FontAttributes="Bold" Grid.Row="1" FontSize="20" HorizontalOptions="Center" VerticalOptions="Start" TextColor="#FFFFFF"/>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="#414141">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="13" Grid.Column="0" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
+                <Label Text="3" Grid.Column="1" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
+                <Label Text="4" Grid.Column="2" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
+                <Label Text="5" Grid.Column="3" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
+                <Label Text="6" Grid.Column="4" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
+                <Label Text="6 Taka/Min" Grid.Column="5" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF" FontAttributes="Bold" FontSize="14"/>
+
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2" BackgroundColor="White" RowSpacing="0" ColumnSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Padding="5" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.3*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Label Text="Mahir Muzahid" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="15" FontAttributes="Bold"/>
+                <Label Text="Tuition_Point: 34" Grid.Row="1" Grid.Column="0"/>
+                <Label Text="Total_Min: 120 " Grid.Row="2" Grid.Column="0"/>
+                <Label Text="Number_Of_Tution: 12" Grid.Row="3" Grid.Column="0"/>
+            </Grid>
+            <Grid Grid.Column="1" Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Button Text="Call Now" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="End" BackgroundColor="#5AFF9B" CornerRadius="9"/>
+                <Label Text="Amount: 6 taka/min" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Start"/>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="#9E3DEE">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="13" Grid.Column="0" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
+                <Label Text="3" Grid.Column="1" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
+                <Label Text="4" Grid.Column="2" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
+                <Label Text="5" Grid.Column="3" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
+                <Label Text="6" Grid.Column="4" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
+                <Label Text="Master" Grid.Column="5" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF" FontAttributes="Bold" FontSize="14"/>
+
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="3" BackgroundColor="White" RowSpacing="0" ColumnSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Padding="5" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.3*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Label Text="Mahir Muzahid" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="15" FontAttributes="Bold"/>
+                <Label Text="Tuition_Point: 34" Grid.Row="1" Grid.Column="0"/>
+                <Label Text="Total_Min: 120 " Grid.Row="2" Grid.Column="0"/>
+                <Label Text="Number_Of_Tution: 12" Grid.Row="3" Grid.Column="0"/>
+            </Grid>
+            <Grid Grid.Column="1" Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Button Text="Call Now" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="End" BackgroundColor="#5AFF9B" CornerRadius="9"/>
+                <Label Text="Amount: 6 taka/min" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Start"/>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="#9E3DEE">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="13" Grid.Column="0" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
+                <Label Text="3" Grid.Column="1" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
+                <Label Text="4" Grid.Column="2" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
+                <Label Text="5" Grid.Column="3" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
+                <Label Text="6" Grid.Column="4" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
+                <Label Text="Master" Grid.Column="5" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF" FontAttributes="Bold" FontSize="14"/>
+
+            </Grid>
+        </Grid>
+        
+
+    </Grid>
+</ContentPage>

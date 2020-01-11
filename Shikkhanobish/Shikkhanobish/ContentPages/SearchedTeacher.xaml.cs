@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Shikkhanobish.Model;
+using Shikkhanobish.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +18,18 @@ namespace Shikkhanobish.ContentPages
     {
         private int studentID;
         private string subject;
+        List<TeacherID> TeacherIDListBySearch = new List<TeacherID>();
+        List<Teacher> TeacherList = new List<Teacher>();
+        List<Teacher> FilteredTeacher = new List<Teacher>();
         public SearchedTeacher(int StudentID, string Subject)
         {
             InitializeComponent();
             studentID = StudentID;
             subject = Subject;
-            getTeacher();
             getTeacherID();
+            getTeacher();
+
+
 
         }
 
@@ -35,7 +41,7 @@ namespace Shikkhanobish.ContentPages
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
             string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
-            List<TeacherID> TeacherIDList = JsonConvert.DeserializeObject<List<TeacherID>>(result);
+            TeacherIDListBySearch = JsonConvert.DeserializeObject<List<TeacherID>>(result);
         }
         public async void getTeacher()
         {
@@ -43,7 +49,44 @@ namespace Shikkhanobish.ContentPages
             HttpClient clientN = new HttpClient();
             HttpResponseMessage responseN = await clientN.GetAsync(urlN).ConfigureAwait(true);
             string resultN = await responseN.Content.ReadAsStringAsync().ConfigureAwait(true);
-            var TeacherList = JsonConvert.DeserializeObject<List<Teacher>>(resultN);
+            TeacherList = JsonConvert.DeserializeObject<List<Teacher>>(resultN);
+            getSearchedTeacherInList();
+        }
+
+
+
+        //I fking have to change isActive to 1 Come on
+        public void getSearchedTeacherInList()
+        {
+            int c = 0;
+            float avg = 0f;
+            for(int i = 0; i < TeacherList.Count; i++)
+            {
+                for(int j = 0; j < TeacherIDListBySearch.Count; j++)
+                {
+                    if((TeacherList[i].TeacherID == TeacherIDListBySearch[j].teacherID) && TeacherList[i].IsActive == 0 && TeacherList[i].IsOnTuition == 0)
+                    {
+                        FilteredTeacher.Add(TeacherList[i]);                       
+                    }
+                }
+            }
+            for(int k = 0; k < FilteredTeacher.Count; k++)
+            {
+                FilteredTeacher[k].Total_Min = "Total Tuition Time = " + FilteredTeacher[k].Total_Min;
+                FilteredTeacher[k].Avarage = "Avg Rating =  " + avg;
+                FilteredTeacher[k].Number_Of_Tution = "Number of tuition taken = " + FilteredTeacher[k].Number_Of_Tution;
+            }
+            SetEveryThing();
+        }
+        public void SetEveryThing()
+        {
+            TeacherListView.ItemsSource = FilteredTeacher;
+        }
+
+        private async void TeacherListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            var selectedTeacher = e.Item as Teacher;
+            await Application.Current.MainPage.Navigation.PushModalAsync(new TutionPage(selectedTeacher, studentID, subject)).ConfigureAwait(true);
         }
     }
 }
