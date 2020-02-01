@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shikkhanobish.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,22 +13,18 @@ namespace Shikkhanobish.ContentPages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TutionPage : ContentPage
     {
-        Teacher SelectedTeacher;
-        int StudentID;
-        string Subject;
-        public TutionPage(Teacher selectedTeacher, int studentID, string subject )
+        TransferInfo info = new TransferInfo();
+        public TutionPage(TransferInfo trnsInfo )
         {
             InitializeComponent();
-            SelectedTeacher = selectedTeacher;
-            StudentID = studentID;
-            Subject = subject;
+            info = trnsInfo;
         }
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            int time = Int32.Parse(TimeEntry.Text);
+            info.StudyTimeInAPp = Int32.Parse(TimeEntry.Text);
 
-            await Application.Current.MainPage.Navigation.PushModalAsync(new RatingPage(SelectedTeacher, StudentID, time, Subject)).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new RatingPage(info)).ConfigureAwait(true);
         }
     }
 }

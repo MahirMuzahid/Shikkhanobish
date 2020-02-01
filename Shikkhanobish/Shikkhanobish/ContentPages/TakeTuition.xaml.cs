@@ -1,4 +1,5 @@
 ﻿using Shikkhanobish.ContentPages;
+using Shikkhanobish.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,18 +17,17 @@ namespace Shikkhanobish
         private string selectedClass;
         private string selectedGroup;
         private string selectedSubject;
-        private int studentID;
-        private string studentName;
+
         private string subject;
+        private TransferInfo transferNow = new TransferInfo();
         public TakeTuition( int StudentID, string StudentName)
         {
             InitializeComponent();
-            studentID = StudentID;
             BindingContext = new TaketuitionViewModel();
             StudentIDTxt.Text = "" + StudentID;
-            studentID = StudentID;
             StudentNameTxt.Text = "" + StudentName;
-            studentName = StudentName;
+            transferNow.Student.Name = StudentName;
+            transferNow.Student.StundentID = StudentID;
             ClassPicker.SelectedIndex = 7;
             ClassPicker.Items.Add("Class 6");
             ClassPicker.Items.Add("Class 7");
@@ -375,13 +375,14 @@ namespace Shikkhanobish
                             paper = "02";
                         }
                     }
-                    subject = Class + sub + paper;              
+                    subject = Class + sub + paper; 
                 }
             }
             if(sub != null)
             {
                 SearchBtn.Text = "We are searching best teacher for you";
-                await Application.Current.MainPage.Navigation.PushModalAsync( new SearchedTeacher(studentID, subject)).ConfigureAwait(true);
+                transferNow.Subject = subject;
+                await Application.Current.MainPage.Navigation.PushModalAsync( new SearchedTeacher(transferNow)).ConfigureAwait(true);
             }
         }
     }

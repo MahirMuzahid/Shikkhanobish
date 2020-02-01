@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shikkhanobish.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,11 @@ namespace Shikkhanobish.ContentPages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RatingPage : ContentPage
     {
-        public RatingPage(Teacher teacher, int studentID, int time, string subject)
+        TransferInfo info = new TransferInfo();
+        public RatingPage(TransferInfo trnsInfo)
         {
             InitializeComponent();
+            info = trnsInfo;
         }
     }
 }

@@ -16,16 +16,14 @@ namespace Shikkhanobish.ContentPages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SearchedTeacher : ContentPage
     {
-        private int studentID;
-        private string subject;
+        TransferInfo info = new TransferInfo();
         List<TeacherID> TeacherIDListBySearch = new List<TeacherID>();
         List<Teacher> TeacherList = new List<Teacher>();
         List<Teacher> FilteredTeacher = new List<Teacher>();
-        public SearchedTeacher(int StudentID, string Subject)
+        public SearchedTeacher(TransferInfo transInfo)
         {
             InitializeComponent();
-            studentID = StudentID;
-            subject = Subject;
+            info = transInfo;
             getTeacherID();
             getTeacher();
 
@@ -37,7 +35,7 @@ namespace Shikkhanobish.ContentPages
         {
             string url = "https://api.shikkhanobish.com/api/Masters/TeacherIDListFromSubject";
             HttpClient client = new HttpClient();
-            string jsonData = JsonConvert.SerializeObject(new { Subject = subject });
+            string jsonData = JsonConvert.SerializeObject(new { Subject = info.Subject });
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
             string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
@@ -86,7 +84,8 @@ namespace Shikkhanobish.ContentPages
         private async void TeacherListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             var selectedTeacher = e.Item as Teacher;
-            await Application.Current.MainPage.Navigation.PushModalAsync(new TutionPage(selectedTeacher, studentID, subject)).ConfigureAwait(true);
+            info.Teacher = selectedTeacher;
+            await Application.Current.MainPage.Navigation.PushModalAsync(new TutionPage(info)).ConfigureAwait(true);
         }
     }
 }
