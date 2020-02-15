@@ -68,12 +68,6 @@ namespace Shikkhanobish.ContentPages
                     }
                 }
             }
-            for(int k = 0; k < FilteredTeacher.Count; k++)
-            {
-                FilteredTeacher[k].Total_Min = "Total Tuition Time = " + FilteredTeacher[k].Total_Min;
-                FilteredTeacher[k].Avarage = "Avg Rating =  " + avg;
-                FilteredTeacher[k].Number_Of_Tution = "Number of tuition taken = " + FilteredTeacher[k].Number_Of_Tution;
-            }
             SetEveryThing();
         }
         public void SetEveryThing()

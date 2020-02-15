@@ -31,7 +31,7 @@
         <Label Text="Time:" Grid.Column="0" Grid.Row="5" HorizontalOptions="End" VerticalOptions="Center"/>
         <Label Text="Cost:" Grid.Column="0" Grid.Row="6" HorizontalOptions="End" VerticalOptions="Center"/>
         <Grid Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" >
-            <Slider x:Name="RatingSlider"/>
+            
         </Grid>
     </Grid>
 </ContentPage>

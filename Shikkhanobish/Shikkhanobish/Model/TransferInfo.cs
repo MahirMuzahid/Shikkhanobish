@@ -8,7 +8,7 @@ namespace Shikkhanobish.ViewModel
     {
         public Student Student { get; set; }
         public Teacher Teacher { get; set; }
-        public string Subject { get; set; }
+        public string Class { get; set; }
         public int StudyTimeInAPp { get; set; }
     }
 }

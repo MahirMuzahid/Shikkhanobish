@@ -223,7 +223,7 @@ namespace Shikkhanobish
                             paper = "02";
                         }
                     }
-                    subject = Class + sub + paper;
+                    subject = Class;
                 }
                 //------------------------------------------------------------------------------------------------------
                 
@@ -302,7 +302,7 @@ namespace Shikkhanobish
                             paper = "02";
                         }
                     }
-                    subject = Class + sub + paper;
+                    subject = Class;
                 }
             }            
             if (selectedClass == "Class 11" || selectedClass == "Class 12")
@@ -375,13 +375,13 @@ namespace Shikkhanobish
                             paper = "02";
                         }
                     }
-                    subject = Class + sub + paper; 
+                    subject = Class; 
                 }
             }
             if(sub != null)
             {
                 SearchBtn.Text = "We are searching best teacher for you";
-                transferNow.Subject = subject;
+                transferNow.Class = subject;
                 await Application.Current.MainPage.Navigation.PushModalAsync( new SearchedTeacher(transferNow)).ConfigureAwait(true);
             }
         }
