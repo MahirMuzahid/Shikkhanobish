@@ -10,5 +10,7 @@ namespace Shikkhanobish.ViewModel
         public Teacher Teacher { get; set; }
         public string Class { get; set; }
         public int StudyTimeInAPp { get; set; }
+        public int GivenRating { get; set; }
+        public string Subject { get; set; }
     }
 }

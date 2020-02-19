@@ -18,7 +18,7 @@ namespace Shikkhanobish
         private string selectedGroup;
         private string selectedSubject;
 
-        private string subject;
+        private string subject, Sub;
         private TransferInfo transferNow = new TransferInfo();
         public TakeTuition( int StudentID, string StudentName)
         {
@@ -224,6 +224,7 @@ namespace Shikkhanobish
                         }
                     }
                     subject = Class;
+                    Sub = sub;
                 }
                 //------------------------------------------------------------------------------------------------------
                 
@@ -303,6 +304,7 @@ namespace Shikkhanobish
                         }
                     }
                     subject = Class;
+                    Sub = sub;
                 }
             }            
             if (selectedClass == "Class 11" || selectedClass == "Class 12")
@@ -375,13 +377,15 @@ namespace Shikkhanobish
                             paper = "02";
                         }
                     }
-                    subject = Class; 
+                    subject = Class;
+                    Sub = sub;
                 }
             }
             if(sub != null)
             {
                 SearchBtn.Text = "We are searching best teacher for you";
                 transferNow.Class = subject;
+                transferNow.Subject = Sub;
                 await Application.Current.MainPage.Navigation.PushModalAsync( new SearchedTeacher(transferNow)).ConfigureAwait(true);
             }
         }
