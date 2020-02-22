@@ -35,8 +35,8 @@ namespace Shikkhanobish
             AmountTxt = "" + student.RechargedAmount + " Taka";
             AvailableMintxt = "Available Minute: " + student.RechargedAmount;
             Fee = "NTY";
-            Avarage = 0;
-            TotalTaken = "Total Tuition Taken: " + 0;
+            Avarage = student.AvarageRating;
+            TotalTaken = "Total Tuition Taken: " + student.TotalTeacherCount;
             TotalTeacher = "Total Teacher: " + 0;
             TotalSpent = "Total Money Spent: " + 0;
         }

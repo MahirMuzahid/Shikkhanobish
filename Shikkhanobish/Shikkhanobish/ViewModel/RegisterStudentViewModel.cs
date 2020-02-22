@@ -174,7 +174,8 @@ namespace Shikkhanobish
             {
                 BindButtonText = "Completing Registration...";
                 ConfirmationText = txt;
-                string url = "https://api.shikkhanobish.com/api/Masters/RegisterStudent";
+                
+                string url = "https://api.shikkhanobish.com/api/Master/RegisterStudent";
                 HttpClient client = new HttpClient();
                 string jsonData = JsonConvert.SerializeObject(checkStudent);
                 StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
@@ -182,6 +183,7 @@ namespace Shikkhanobish
                 string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
                 Response responseData = JsonConvert.DeserializeObject<Response>(result);
                 ConfirmationText = responseData.Massage;
+                
                 await Application.Current.MainPage.Navigation.PushModalAsync(new VerifyPhonenumber(checkStudent)).ConfigureAwait(true);
             }
         }

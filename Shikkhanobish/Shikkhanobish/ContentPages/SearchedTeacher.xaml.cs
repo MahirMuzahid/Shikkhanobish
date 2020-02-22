@@ -33,7 +33,7 @@ namespace Shikkhanobish.ContentPages
 
         public async void getTeacherID()
         {
-            string url = "https://api.shikkhanobish.com/api/Masters/TeacherIDListFromSubject";
+            string url = "https://api.shikkhanobish.com/api/Master/TeacherIDListFromSubject";
             HttpClient client = new HttpClient();
             string jsonData = JsonConvert.SerializeObject(new { Subject = info.Subject });
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
@@ -43,7 +43,7 @@ namespace Shikkhanobish.ContentPages
         }
         public async void getTeacher()
         {
-            string urlN = "https://api.shikkhanobish.com/api/Masters/GetTeacher";
+            string urlN = "https://api.shikkhanobish.com/api/Master/GetTeacher";
             HttpClient clientN = new HttpClient();
             HttpResponseMessage responseN = await clientN.GetAsync(urlN).ConfigureAwait(true);
             string resultN = await responseN.Content.ReadAsStringAsync().ConfigureAwait(true);

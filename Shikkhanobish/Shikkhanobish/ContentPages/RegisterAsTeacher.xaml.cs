@@ -353,7 +353,7 @@ namespace Shikkhanobish
             if(checkCommon == true && checkGroup == true)
             {
                 registerteacher.TeacherID = studentID + 100000 ; 
-                string url = "https://api.shikkhanobish.com/api/Masters/RegisterTeacher";
+                string url = "https://api.shikkhanobish.com/api/Master/RegisterTeacher";
                 HttpClient client = new HttpClient();
                 string jsonData = JsonConvert.SerializeObject(new {
                     TeacherID = registerteacher.TeacherID,

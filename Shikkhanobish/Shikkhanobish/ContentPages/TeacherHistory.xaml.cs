@@ -24,7 +24,7 @@ namespace Shikkhanobish
         public async void ShowTeacherStory()
         {
             int TeacherID = 1017;
-            string url = "https://api.shikkhanobish.com/api/Masters/GetTuitionHistoryTeacher";
+            string url = "https://api.shikkhanobish.com/api/Master/GetTuitionHistoryTeacher";
             HttpClient client = new HttpClient();
             string jsonData = JsonConvert.SerializeObject(new { StundentID = TeacherID });
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");

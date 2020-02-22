@@ -18,7 +18,7 @@ namespace Shikkhanobish
         private string selectedGroup;
         private string selectedSubject;
 
-        private string subject, Sub;
+        private string subject, Sub,subjectName;
         private TransferInfo transferNow = new TransferInfo();
         public TakeTuition( int StudentID, string StudentName)
         {
@@ -177,7 +177,7 @@ namespace Shikkhanobish
                     SubjectPicker.Items.Add("Englist 1st Paper");
                     SubjectPicker.Items.Add("English 2nd Paper");
                     SubjectPicker.Items.Add("ICT");
-                    SubjectPicker.Items.Add("Zuktibidda");
+                    SubjectPicker.Items.Add("Logic");
                 }
             }
             
@@ -191,24 +191,29 @@ namespace Shikkhanobish
         private async void Button_Clicked(object sender, EventArgs e)
         {
             string Class = null, sub = null, paper = null;
+            string Sub = null, Paper = null;
             if (selectedClass == "Class 6" || selectedClass == "Class 7" || selectedClass == "Class 8")
             {
                 Class = "LS";
                 if (selectedSubject[0] == 'B')
                 {
                     sub = "BAN";
+                    Sub = "Bangla";
                 }
                 else if (selectedSubject[0] == 'E')
                 {
                     sub = "ENG";
+                    Sub = "English";
                 }
                 else if (selectedSubject[0] == 'M')
                 {
                     sub = "MATH";
+                    Sub = "Match";
                 }
                 else if (selectedSubject[0] == 'I')
                 {
                     sub = "ICT";
+                    Sub = "ICT";
                 }
                 for (int i = 0; i < selectedSubject.Length; i++)
                 {
@@ -217,14 +222,16 @@ namespace Shikkhanobish
                         if (selectedSubject[i + 1] == '1')
                         {
                             paper = "01";
+                            Paper = "First Paper";
                         }
                         else if (selectedSubject[i + 1] == '2')
                         {
                             paper = "02";
+                            Paper = "Second Paper";
                         }
                     }
-                    subject = Class;
-                    Sub = sub;
+                    subject = Class + sub + paper;
+                    subjectName = Sub + " " + Paper;
                 }
                 //------------------------------------------------------------------------------------------------------
                 
@@ -235,60 +242,74 @@ namespace Shikkhanobish
                 if (selectedSubject[0] == 'B')
                 {
                     sub = "BAN";
+                    Sub = "Bangla";
                 }
                 else if (selectedSubject[0] == 'E')
                 {
                     sub = "ENG";
+                    Sub = "English";
                 }
                 else if (selectedSubject[0] == 'M')
                 {
                     sub = "MATH";
+                    Sub = "Math";
                 }
                 else if (selectedSubject[0] == 'I')
                 {
                     sub = "ICT";
+                    Sub = "ICT";
                 }
                 else if (selectedSubject[0] == 'P')
                 {
                     sub = "PHY";
+                    Sub = "Physics";
                 }
                 else if (selectedSubject[0] == 'C')
                 {
                     sub = "CHE";
+                    Sub = "Chemistry";
                 }
                 else if (selectedSubject[0] == 'B' && selectedSubject[1] == 'i')
                 {
                     sub = "BIO";
+                    Sub = "Biology";
                 }
                 else if (selectedSubject[0] == 'H')
                 {
                     sub = "HMATH";
+                    Sub = "Higher Math";
                 }
                 //--------------------------------------
                 else if (selectedSubject[0] == 'E' && selectedSubject[1] == 'c')
                 {
                     sub = "ECO";
+                    Sub = "Economics";
                 }
                 else if (selectedSubject[0] == 'A')
                 {
                     sub = "ACC";
+                    Sub = "Accounting";
                 }
                 else if (selectedSubject[0] == 'F')
                 {
                     sub = "FIN";
+                    Sub = "Finance";
                 }
                 else if (selectedSubject[0] == 'B' && selectedSubject[1] == 'u')
                 {
                     sub = "BENT";
+                    Sub = "Business & Entrepreneurship";
                 }
                 //------------------------------------
                 else if (selectedSubject[0] == 'C' && selectedSubject[1] == 'a')
                 {
                     sub = "CRE";
+                    Sub = "Career Education";
                 }
                 else if (selectedSubject[0] == 'G')
                 {
                     sub = "GEO";
+                    Sub = "Geology";
                 }
                 for (int i = 0; i < selectedSubject.Length; i++)
                 {
@@ -297,14 +318,16 @@ namespace Shikkhanobish
                         if (selectedSubject[i + 1] == '1')
                         {
                             paper = "01";
+                            Paper = "First Paper";
                         }
                         else if (selectedSubject[i + 1] == '2')
                         {
                             paper = "02";
+                            Paper = "Second Paper";
                         }
                     }
-                    subject = Class;
-                    Sub = sub;
+                    subject = Class + sub + paper;
+                    subjectName = Sub + " " + Paper;
                 }
             }            
             if (selectedClass == "Class 11" || selectedClass == "Class 12")
@@ -313,14 +336,17 @@ namespace Shikkhanobish
                 if (selectedSubject[0] == 'B')
                 {
                     sub = "BAN";
+                    Sub = "Bangla";
                 }
                 else if (selectedSubject[0] == 'E')
                 {
                     sub = "ENG";
+                    Sub = "English";
                 }
                 else if (selectedSubject[0] == 'M')
                 {
                     sub = "MATH";
+                    Sub = "Math";
                 }
                 else if (selectedSubject[0] == 'I')
                 {
@@ -329,40 +355,50 @@ namespace Shikkhanobish
                 else if (selectedSubject[0] == 'P')
                 {
                     sub = "PHY";
+                    Sub = "Physics";
                 }
                 else if (selectedSubject[0] == 'C')
                 {
                     sub = "CHE";
+                    Sub = "Chemistry";
                 }
                 else if (selectedSubject[0] == 'B' && selectedSubject[1] == 'i')
                 {
                     sub = "BIO";
+                    Sub = "Biology";
                 }
                 else if (selectedSubject[0] == 'H')
                 {
                     sub = "HMATH";
+                    Sub = "Higher Math";
                 }
                 //--------------------------------------
                 else if (selectedSubject[0] == 'E' && selectedSubject[1] == 'c')
                 {
                     sub = "ECO";
+                    Sub = "Economics";
                 }
                 else if (selectedSubject[0] == 'A')
                 {
                     sub = "ACC";
+                    Sub = "Accounting";
+
                 }
                 else if (selectedSubject[0] == 'F')
                 {
                     sub = "FIN";
+                    Sub = "Finance";
                 }
                 else if (selectedSubject[0] == 'S')
                 {
                     sub = "STAT";
+                    Sub = "Statistics";
                 }
                 //------------------------------------
                 else if (selectedSubject[0] == 'Z')
                 {
                     sub = "LOG";
+                    Sub = "Logic";
                 }
                 for (int i = 0; i < selectedSubject.Length; i++)
                 {
@@ -371,21 +407,24 @@ namespace Shikkhanobish
                         if (selectedSubject[i + 1] == '1')
                         {
                             paper = "01";
+                            Paper = "First Paper";
                         }
                         else if (selectedSubject[i + 1] == '2')
                         {
                             paper = "02";
+                            Paper = "Second Paper";
                         }
                     }
-                    subject = Class;
-                    Sub = sub;
+                    subject = Class + sub + paper;
+                    subjectName = Sub + " " + Paper;
                 }
             }
             if(sub != null)
             {
                 SearchBtn.Text = "We are searching best teacher for you";
-                transferNow.Class = subject;
-                transferNow.Subject = Sub;
+                transferNow.Class = selectedClass;
+                transferNow.Subject = subject;
+                transferNow.SubjectName = subjectName;
                 await Application.Current.MainPage.Navigation.PushModalAsync( new SearchedTeacher(transferNow)).ConfigureAwait(true);
             }
         }

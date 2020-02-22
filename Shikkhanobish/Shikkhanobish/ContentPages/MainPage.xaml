@@ -15,8 +15,8 @@
             <RowDefinition Height=".6*"/>
             <RowDefinition Height=".6*"/>
             <RowDefinition Height=".4*"/>
-            <RowDefinition Height=".5*"/>
-            <RowDefinition Height=".5*"/>
+            <RowDefinition Height=".4*"/>
+            <RowDefinition Height=".4*"/>
         </Grid.RowDefinitions>
 
         <Label Text="{Binding ErrorText}" Grid.Row="1" TextColor="Red"/>
@@ -46,14 +46,14 @@
                 BackgroundColor="White"
                 BorderWidth="1"
                 BorderColor="#626262"
-                CornerRadius="35"
+                CornerRadius="25"
                 Clicked="Button_Clicked"
                 />
         <Button x:Name="RegisterStudent" 
                 Text="Register" 
                 Command="{Binding RegisterStudent}"
                 Grid.Row="6"
-                CornerRadius="35"
+                CornerRadius="25"
                 BackgroundColor="#A6D94D"></Button>
         
     </Grid>

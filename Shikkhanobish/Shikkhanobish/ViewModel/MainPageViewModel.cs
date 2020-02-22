@@ -76,7 +76,7 @@ namespace Shikkhanobish
         public async void LoginByUserNameAndPassword()
         {
             loginText = "Wait...";
-            string url = "https://api.shikkhanobish.com/api/Masters/GetInfoByLogin";
+            string url = "https://api.shikkhanobish.com/api/Master/GetInfoByLogin";
             HttpClient client = new HttpClient();
             string jsonData = JsonConvert.SerializeObject(new { UserName = UserName, Password = Password });
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
