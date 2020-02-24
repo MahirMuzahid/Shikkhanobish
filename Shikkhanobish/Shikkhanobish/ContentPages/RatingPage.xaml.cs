@@ -30,7 +30,7 @@ namespace Shikkhanobish.ContentPages
             tnamelbl.Text = info.Teacher.TeacherName;
             tIDlbl.Text = "" + info.Teacher.TeacherID;
             sClasslbl.Text = info.Class;
-            sSubject.Text = info.Subject;
+            sSubject.Text = info.SubjectName;
             inapptimelbl.Text = "" +info.StudyTimeInAPp;
             costlbl.Text = "" + calculate.CalculateCost(info);
             RatingColorBox.IsEnabled = false;
@@ -113,12 +113,14 @@ namespace Shikkhanobish.ContentPages
                 Class = tuitionClass,
                 IsPenidng = 0,
                 Teacher_Name = info.Teacher.TeacherName,
+                Cost = calculate.CalculateCost(info),
                 Student_Name = info.Student.Name
             });
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
             string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
             Response responseData = JsonConvert.DeserializeObject<Response>(result);
+            //await Application.Current.MainPage.Navigation.PushModalAsync(new RatingPage(info)).ConfigureAwait(true);
         }
 
         private void Button_Clicked(object sender, EventArgs e)

@@ -97,7 +97,7 @@ namespace Shikkhanobish.ContentPages
                 }
                 else if (FilteredTeacher[i].Teacher_Rank == "Newbie")
                 {
-                    FilteredTeacher[i].Color = "#BA8CFF";
+                    FilteredTeacher[i].Color = "#E85959";
                 }
                 else if (FilteredTeacher[i].Teacher_Rank == "Average")
                 {

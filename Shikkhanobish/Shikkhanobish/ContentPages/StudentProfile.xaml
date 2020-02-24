@@ -121,7 +121,7 @@
                     <BoxView BackgroundColor="White" Grid.Row="1" Grid.Column="1"/>
                     <Label Text="{Binding  AvailableMintxt}" Grid.Row="1" Grid.Column="2" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
                     <BoxView BackgroundColor="White" Grid.Row="1" Grid.Column="3"/>
-                    <Button x:Name="CostChartbtn" Text="Cost Chart" Grid.Row="1" Grid.Column="4" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="20" BackgroundColor="#00751818" />
+                    <Button x:Name="CostChartbtn" Text="Cost Chart" Grid.Row="1" Grid.Column="4" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="20" BackgroundColor="#00841010" />
                 </Grid>
 
                 <Grid Grid.Row="8" Grid.RowSpan="2" Margin="0">

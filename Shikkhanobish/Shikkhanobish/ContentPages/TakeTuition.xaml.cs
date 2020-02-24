@@ -232,6 +232,7 @@ namespace Shikkhanobish
                     }
                     subject = Class + sub + paper;
                     subjectName = Sub + " " + Paper;
+                    transferNow.ClassCode = Class;
                 }
                 //------------------------------------------------------------------------------------------------------
                 
@@ -328,6 +329,7 @@ namespace Shikkhanobish
                     }
                     subject = Class + sub + paper;
                     subjectName = Sub + " " + Paper;
+                    transferNow.ClassCode = Class;
                 }
             }            
             if (selectedClass == "Class 11" || selectedClass == "Class 12")
@@ -417,6 +419,7 @@ namespace Shikkhanobish
                     }
                     subject = Class + sub + paper;
                     subjectName = Sub + " " + Paper;
+                    transferNow.ClassCode = Class;
                 }
             }
             if(sub != null)

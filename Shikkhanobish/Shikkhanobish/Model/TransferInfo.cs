@@ -13,5 +13,6 @@ namespace Shikkhanobish.ViewModel
         public int GivenRating { get; set; }
         public string Subject { get; set; }
         public string SubjectName { get; set; }
+        public string ClassCode { get; set; }
     }
 }
