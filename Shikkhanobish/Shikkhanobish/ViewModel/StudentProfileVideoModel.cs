@@ -33,12 +33,11 @@ namespace Shikkhanobish
             InstitutionName = "Institution Name: " + student.InstitutionName;
             IsTeacherorStudent = "Student";
             AmountTxt = "" + student.RechargedAmount + " Taka";
-            AvailableMintxt = "Available Minute: " + student.RechargedAmount;
-            Fee = "NTY";
+            AvailableMintxt = "Available Amount: " + student.RechargedAmount + "Taka";
             Avarage = student.AvarageRating;
-            TotalTaken = "Total Tuition Taken: " + student.TotalTeacherCount;
-            TotalTeacher = "Total Teacher: " + 0;
-            TotalSpent = "Total Money Spent: " + 0;
+            TotalTaken = "Total Tuition Taken: " + student.TotalTuitionTIme + " Min";
+            TotalTeacher = "Total Teacher: " + student.TotalTeacherCount + "Teacher";
+            TotalSpent = "Avarage Rating Given: " + student.AvarageRating;
         }
 
         public string Name

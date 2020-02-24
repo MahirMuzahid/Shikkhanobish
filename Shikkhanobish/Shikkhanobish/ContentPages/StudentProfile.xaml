@@ -119,12 +119,12 @@
                     </Grid.ColumnDefinitions>
                     <Label Text="{Binding  IsTeacherorStudent}" Grid.Row="1" Grid.Column="0" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
                     <BoxView BackgroundColor="White" Grid.Row="1" Grid.Column="1"/>
-                    <Label Text="{Binding  AvailableMintxt}" Grid.Row="1" Grid.Column="2" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="{Binding  AvailableMintxt}" Grid.Row="1" Grid.Column="2" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
                     <BoxView BackgroundColor="White" Grid.Row="1" Grid.Column="3"/>
-                    <Label Text="{Binding Fee}" Grid.Row="1" Grid.Column="4" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Button x:Name="CostChartbtn" Text="Cost Chart" Grid.Row="1" Grid.Column="4" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="20" BackgroundColor="#00751818" />
                 </Grid>
 
-                <Grid Grid.Row="8" Grid.RowSpan="2">
+                <Grid Grid.Row="8" Grid.RowSpan="2" Margin="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
@@ -154,7 +154,6 @@
                     <Label Text="{Binding TotalTaken}" Grid.Column="0" Grid.Row="1" HorizontalOptions="Center"/>
                     <Label Text="{Binding TotalTeacher}" Grid.Column="0" Grid.Row="2" HorizontalOptions="Center"/>
                     <Label Text="{Binding TotalSpent}" Grid.Column="0" Grid.Row="3" HorizontalOptions="Center"/>
-                    <Label Text="{Binding Avarage}" Grid.Column="0" Grid.Row="4" HorizontalOptions="Center"/>
                 </Grid>
 
             </Grid>

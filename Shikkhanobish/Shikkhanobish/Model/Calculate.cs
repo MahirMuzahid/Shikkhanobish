@@ -114,7 +114,7 @@ namespace Shikkhanobish.Model
             }
             else if (tuitionPoint <= 15999 && avg >= 4.30f || (tuitionPoint > 15999 && avg < 4.30f))
             {
-                rank = "Vetaran";
+                rank = "Veteran";
             }
             else if (tuitionPoint > 16000 && avg >= 4.50f)
             {
@@ -151,7 +151,7 @@ namespace Shikkhanobish.Model
 
         public string CalculateRank (TransferInfo info)
         {
-            return RankRange(CalculatedTuitionTime, info.Teacher.Avarage, info.Teacher.Tuition_Point);
+            return RankRange(CalculatedTuitionTime, info.Teacher.Avarage, info.Teacher.OverallTP);
         }
 
     }

@@ -56,8 +56,6 @@ namespace Shikkhanobish.ContentPages
         //I fking have to change isActive to 1 Come on
         public void getSearchedTeacherInList()
         {
-            int c = 0;
-            float avg = 0f;
             for(int i = 0; i < TeacherList.Count; i++)
             {
                 for(int j = 0; j < TeacherIDListBySearch.Count; j++)
@@ -72,7 +70,52 @@ namespace Shikkhanobish.ContentPages
         }
         public void SetEveryThing()
         {
+            Perfection();
             TeacherListView.ItemsSource = FilteredTeacher;
+        }
+
+        public void Perfection()
+        {
+            int total,count;
+            for (int i = 0; i < FilteredTeacher.Count(); i++)
+            {
+                total = FilteredTeacher[i].Five_Star*5+FilteredTeacher[i].Four_Star * 4+FilteredTeacher[i].Three_Star * 3+FilteredTeacher[i].Two_Star * 2+FilteredTeacher[i].One_Star * 1;
+                count = FilteredTeacher[i].Five_Star + FilteredTeacher[i].Four_Star + FilteredTeacher[i].Three_Star + FilteredTeacher[i].Two_Star + FilteredTeacher[i].One_Star ;
+                if(count == 0)
+                {
+                    FilteredTeacher[i].Avarage = 0;
+                }
+                else
+                {
+                    FilteredTeacher[i].Avarage = total / count;
+                }
+                
+
+                if (FilteredTeacher[i].Teacher_Rank == "Placement")
+                {
+                    FilteredTeacher[i].Color = "#B9B9B9";
+                }
+                else if (FilteredTeacher[i].Teacher_Rank == "Newbie")
+                {
+                    FilteredTeacher[i].Color = "#BA8CFF";
+                }
+                else if (FilteredTeacher[i].Teacher_Rank == "Average")
+                {
+                    FilteredTeacher[i].Color = "#E6B133";
+                }
+                else if (FilteredTeacher[i].Teacher_Rank == "Good")
+                {
+                    FilteredTeacher[i].Color = "#43D727";
+                }
+                else if (FilteredTeacher[i].Teacher_Rank == "Veteran")
+                {
+                    FilteredTeacher[i].Color = "#43D727";
+                }
+                else if (FilteredTeacher[i].Teacher_Rank == "Master")
+                {
+                    FilteredTeacher[i].Color = "#B033E4";
+                }
+            }
         }
 
         private async void TeacherListView_ItemTapped(object sender, ItemTappedEventArgs e)

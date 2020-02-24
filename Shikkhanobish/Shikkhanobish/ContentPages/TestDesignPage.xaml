@@ -32,7 +32,7 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <BoxView BackgroundColor="#BA8CFF" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" CornerRadius="10"/>
+                <BoxView BackgroundColor="#B9B9B9" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" CornerRadius="10"/>
                 <Label Text="{Binding TeacherName}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" FontAttributes="Bold"/>
                 <Label Text="Avarage:" Grid.Row="1" Grid.Column="0" FontSize="11"/>
                 <Label Text="Total Min:" Grid.Row="2" Grid.Column="0" FontSize="11"/>
@@ -61,14 +61,16 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
                 <Label Text="{Binding Five_Star}" Grid.Column="0" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
                 <Label Text="{Binding Four_Star}" Grid.Column="1" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
                 <Label Text="{Binding Three_Star}" Grid.Column="2" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
                 <Label Text="{Binding Two_Star}" Grid.Column="3" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
                 <Label Text="{Binding One_Star}" Grid.Column="4" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
-                <Label Text="{Binding Amount}" Grid.Column="5" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF" FontAttributes="Bold" FontSize="14"/>
+                <Label Text="{Binding Tuition_Point}" Grid.Column="5" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
+                <Label Text="{Binding Amount}" Grid.Column="6" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF" FontAttributes="Bold" FontSize="14"/>
 
             </Grid>
         </Grid>

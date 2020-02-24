@@ -18,10 +18,11 @@ namespace Shikkhanobish
         RegisterTeacher registerteacher =  new RegisterTeacher();
         Teacher teacher = new Teacher();
         int taken = 10000000, studentID;
-        string institutionID;
-        public RegisterAsTeacher(int StudentID, string InstitutionID)
+        string institutionID, Name;
+        public RegisterAsTeacher(int StudentID, string InstitutionID, string name)
         {
             studentID = StudentID;
+            Name = name;
             institutionID = InstitutionID;
             InitializeComponent();
             BindingContext = new RegisterAsTeacherViewModel();
@@ -350,6 +351,7 @@ namespace Shikkhanobish
             CheckHighSchool();
             teacher.InstitutionID = institutionID;
             teacher.StudentID = studentID;
+            registerteacher.Name = Name;
             if(checkCommon == true && checkGroup == true)
             {
                 registerteacher.TeacherID = studentID + 100000 ; 
@@ -409,7 +411,9 @@ namespace Shikkhanobish
                     HSACC = registerteacher.HSACC,
                     HSECO = registerteacher.HSECO,
                     StudentID = registerteacher.StudentID,
-                    InstitutionID = institutionID
+                    InstitutionID = institutionID,
+                    TeacherName = registerteacher.Name
+
                 });
                 StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);

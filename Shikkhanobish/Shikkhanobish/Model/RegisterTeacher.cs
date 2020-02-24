@@ -60,5 +60,6 @@ namespace Shikkhanobish.Model
         public int HSECO { get; set; }
         public int StudentID { get; set; }
         public string InstitutionID { get; set; }
+        public string Name { get; set; }
     }
 }

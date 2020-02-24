@@ -13,17 +13,18 @@ namespace Shikkhanobish.ContentPages
     public partial class GetInstIDandRules : ContentPage
     {
         public int Studentid;
-        public string InstitutionID;
-        public GetInstIDandRules(int StudentID)
+        public string InstitutionID, Name;
+        public GetInstIDandRules(int StudentID, string name)
         {
             InitializeComponent();
             Studentid = StudentID;
+            Name = name;
         }
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
             InstitutionID = InstitutionIDEntry.Text;
-            await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterAsTeacher(Studentid, InstitutionID)).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterAsTeacher(Studentid, InstitutionID, Name)).ConfigureAwait(true);
         }
     }
 }

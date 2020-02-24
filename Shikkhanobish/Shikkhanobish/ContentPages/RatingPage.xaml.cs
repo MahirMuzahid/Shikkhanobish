@@ -22,6 +22,7 @@ namespace Shikkhanobish.ContentPages
         {
             InitializeComponent();
             info = trnsInfo;
+            showEverything();
         }
         public void showEverything()
         {
@@ -32,6 +33,7 @@ namespace Shikkhanobish.ContentPages
             sSubject.Text = info.Subject;
             inapptimelbl.Text = "" +info.StudyTimeInAPp;
             costlbl.Text = "" + calculate.CalculateCost(info);
+            RatingColorBox.IsEnabled = false;
         }
 
         private void ostarClicked(object sender, EventArgs e)
@@ -40,6 +42,7 @@ namespace Shikkhanobish.ContentPages
             RatingColorBox.Color = Color.FromHex("#FF5A5A");
             info.GivenRating = 1;
             Ratelbl.Text = "Newbie!!";
+            RatingColorBox.IsEnabled = true;
         }
         private void tstarClicked(object sender, EventArgs e)
         {
@@ -47,6 +50,7 @@ namespace Shikkhanobish.ContentPages
             RatingColorBox.Color = Color.FromHex("#F0BE05");
             info.GivenRating = 2;
             Ratelbl.Text = "Avarage!";
+            RatingColorBox.IsEnabled = true;
         }
         private void thstarClicked(object sender, EventArgs e)
         {
@@ -54,6 +58,7 @@ namespace Shikkhanobish.ContentPages
             RatingColorBox.Color = Color.FromHex("#3BCF64");
             info.GivenRating = 3;
             Ratelbl.Text = "Good";
+            RatingColorBox.IsEnabled = true;
         }
         private void fstarClicked(object sender, EventArgs e)
         {
@@ -61,6 +66,7 @@ namespace Shikkhanobish.ContentPages
             RatingColorBox.Color = Color.FromHex("#50B2ED");
             info.GivenRating = 4;
             Ratelbl.Text = "Veteran!";
+            RatingColorBox.IsEnabled = true;
         }
         private void fistarClicked(object sender, EventArgs e)
         {
@@ -68,11 +74,13 @@ namespace Shikkhanobish.ContentPages
             RatingColorBox.Color = Color.FromHex("#B161F3");
             info.GivenRating = 5;
             Ratelbl.Text = "Master!!";
+            RatingColorBox.IsEnabled = true;
         }
 
         public async void FinishTHeUpdate()
         {
-            string tuitionClass = null;
+            string tuitionClass = null, rank = calculate.CalculateRank(info);
+            int tuitionPoint = calculate.CalculateTuitionPoint(info);
             String Date = DateTime.Now.ToString();
             for (int i = 0; i < info.Class.Length; i++)
             {
@@ -87,7 +95,7 @@ namespace Shikkhanobish.ContentPages
                 }
 
             }
-            string url = "https://api.shikkhanobish.com/api/Master/RegisterStudent";
+            string url = "https://api.shikkhanobish.com/api/Master/UpdateInfo";
             HttpClient client = new HttpClient();
             string jsonData = JsonConvert.SerializeObject(new
             {
@@ -97,8 +105,8 @@ namespace Shikkhanobish.ContentPages
                 StudentID = info.Student.StundentID,
                 Rating = info.GivenRating,
                 InAppMin = info.StudyTimeInAPp,
-                Tuition_Point = calculate.CalculateTuitionPoint(info),
-                Teacher_Rank = calculate.CalculateRank(info),
+                Tuition_Point = tuitionPoint,
+                Teacher_Rank = rank,
                 Date = Date,
                 Subject = info.Subject,
                 SubjectName = info.SubjectName,
