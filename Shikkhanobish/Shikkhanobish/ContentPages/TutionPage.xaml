@@ -2,9 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:tokService="clr-namespace:Shikkhanobish.Service;assembly=Shikkhanobish"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:tok1="clr-namespace:Xamarin.Forms.OpenTok;assembly=Xamarin.Forms.OpenTok"
+             xmlns:tokService="clr-namespace:Xamarin.Forms.OpenTok.Service;assembly=Xamarin.Forms.OpenTok"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            
              mc:Ignorable="d"  
              x:Class="Shikkhanobish.ContentPages.TutionPage">
 
@@ -25,7 +26,7 @@
             <StackLayout BindableLayout.ItemsSource="{Binding Path=StreamIdCollection, Source={x:Static tokService:CrossOpenTok.Current}}">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
-                        <tok1:OpenTokSubscriberView HeightRequest="400" BackgroundColor="Red" StreamId="{Binding .}"/>
+                        <tok1:OpenTokSubscriberView HeightRequest="500" BackgroundColor="Red" StreamId="{Binding .}"/>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </StackLayout>

@@ -1,13 +1,10 @@
 ﻿using Shikkhanobish.ContentPages;
 using Shikkhanobish.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+
 
 namespace Shikkhanobish
 {
@@ -428,8 +425,11 @@ namespace Shikkhanobish
                 transferNow.Class = selectedClass;
                 transferNow.Subject = subject;
                 transferNow.SubjectName = subjectName;
-                await Application.Current.MainPage.Navigation.PushModalAsync( new SearchedTeacher(transferNow)).ConfigureAwait(true);
+                await Application.Current.MainPage.Navigation.PushModalAsync(new SearchedTeacher(transferNow)).ConfigureAwait(true);
+
             }
         }
+
+        
     }
 }

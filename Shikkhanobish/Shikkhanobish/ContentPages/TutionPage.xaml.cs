@@ -14,6 +14,7 @@ namespace Shikkhanobish.ContentPages
         {
             InitializeComponent();
             info = trnsInfo;
+            CrossOpenTok.Current.MessageReceived += OnMessageReceived;
         }
 
         private void OnEndCall(object sender, EventArgs e)
@@ -21,11 +22,6 @@ namespace Shikkhanobish.ContentPages
             CrossOpenTok.Current.EndSession();
             CrossOpenTok.Current.MessageReceived -= OnMessageReceived;
             gotoRatingPage();
-        }
-
-        private void OnMessage(object sender, EventArgs e)
-        {
-            CrossOpenTok.Current.SendMessageAsync($"Path.GetRandomFileName: {Path.GetRandomFileName()}");
         }
 
         private void OnSwapCamera(object sender, EventArgs e)

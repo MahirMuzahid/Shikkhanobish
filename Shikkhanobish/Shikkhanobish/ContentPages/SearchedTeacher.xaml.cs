@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.OpenTok.Service;
 using Xamarin.Forms.Xaml;
 
 namespace Shikkhanobish.ContentPages
@@ -122,7 +123,40 @@ namespace Shikkhanobish.ContentPages
         {
             var selectedTeacher = e.Item as Teacher;
             info.Teacher = selectedTeacher;
+            GetKeys();
+            checkSession();
+            
+        }
+
+        public async void checkSession()
+        {
+            if (!CrossOpenTok.Current.TryStartSession())
+            {
+                return;
+            }
             await Application.Current.MainPage.Navigation.PushModalAsync(new TutionPage(info)).ConfigureAwait(true);
+        }
+
+        protected async void GetKeys()
+        {
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    //var resp = await client.GetAsync(Config.KeysUrl);
+                    //var json = await resp.Content.ReadAsStringAsync();
+                    //var keys = JsonConvert.DeserializeObject<Keys>(json);
+
+                    CrossOpenTok.Current.ApiKey = "46485492";// keys.ApiKey;
+                    CrossOpenTok.Current.SessionId = "2_MX40NjQ4NTQ5Mn5-MTU4MjYyMjUyMjEyOH5JcEJuSU8xd0hjcGJ4bGZEN2haMGlzb0R-fg";//keys.SessionId;
+                    CrossOpenTok.Current.UserToken = "T1==cGFydG5lcl9pZD00NjQ4NTQ5MiZzaWc9YWY0NTRjNDRjN2RkNmFjZTRjZjAxZjNkNmVlYzhjMWVkNjViZmRmNTpzZXNzaW9uX2lkPTJfTVg0ME5qUTROVFE1TW41LU1UVTRNall5TWpVeU1qRXlPSDVKY0VKdVNVOHhkMGhqY0dKNGJHWkVOMmhhTUdsemIwUi1mZyZjcmVhdGVfdGltZT0xNTgyNjIyNTQyJm5vbmNlPTAuMjQ0ODk5MDQ1ODE0NTUxNDYmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTU4MjcwODk0MCZpbml0aWFsX2xheW91dF9jbGFzc19saXN0PQ==";//keys.Token;
+                }
+                catch (Exception ex)
+                {
+                    // await MainPage.DisplayAlert(null, "MAKE SURE YOU SET API URL FOR RETRIEVING NECESSARY KEYS (Config.cs) OR YOU MAY HARDCODE THEM.", "GOT IT");
+                }
+            }
+            //CrossOpenTok.Current.Error += (m) => TakeTuition.DisplayAlert("ERROR", m, "OK");
         }
     }
 }
