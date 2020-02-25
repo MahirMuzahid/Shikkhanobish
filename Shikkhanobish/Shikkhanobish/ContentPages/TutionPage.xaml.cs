@@ -1,12 +1,8 @@
 ﻿using Shikkhanobish.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Forms.OpenTok.Service;
 
 namespace Shikkhanobish.ContentPages
 {
@@ -20,9 +16,31 @@ namespace Shikkhanobish.ContentPages
             info = trnsInfo;
         }
 
-        private async void Button_Clicked(object sender, EventArgs e)
+        private void OnEndCall(object sender, EventArgs e)
         {
-            info.StudyTimeInAPp = Int32.Parse(TimeEntry.Text);
+            CrossOpenTok.Current.EndSession();
+            CrossOpenTok.Current.MessageReceived -= OnMessageReceived;
+            gotoRatingPage();
+        }
+
+        private void OnMessage(object sender, EventArgs e)
+        {
+            CrossOpenTok.Current.SendMessageAsync($"Path.GetRandomFileName: {Path.GetRandomFileName()}");
+        }
+
+        private void OnSwapCamera(object sender, EventArgs e)
+        {
+            CrossOpenTok.Current.CycleCamera();
+        }
+
+        private void OnMessageReceived(string message)
+        {
+            DisplayAlert("Random message received", message, "OK");
+        }
+
+        public async void gotoRatingPage()
+        {
+            //info.StudyTimeInAPp = Int32.Parse(TimeEntry.Text);
 
             await Application.Current.MainPage.Navigation.PushModalAsync(new RatingPage(info)).ConfigureAwait(true);
         }
