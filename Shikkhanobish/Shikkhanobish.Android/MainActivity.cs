@@ -7,6 +7,8 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Xamarin.Forms;
+using Plugin.CurrentActivity;
+using Xamarin.Forms.OpenTok.Android.Service;
 
 namespace Shikkhanobish.Droid
 {
@@ -18,7 +20,7 @@ namespace Shikkhanobish.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-
+            PlatformOpenTokService.Init();
             base.OnCreate(savedInstanceState);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
@@ -29,6 +31,10 @@ namespace Shikkhanobish.Droid
             this.Window.AddFlags(WindowManagerFlags.KeepScreenOn);
 
             //this.Window.ClearFlags(WindowManagerFlags.Fullscreen);
+           
+             
+
+            CrossCurrentActivity.Current.Activity = this;
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());

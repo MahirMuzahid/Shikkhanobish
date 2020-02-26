@@ -20,13 +20,13 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <tok1:OpenTokPublisherView BackgroundColor="Black" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2"  />
+        <tok1:OpenTokPublisherView Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2"  />
         <StackLayout Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3">
             
             <StackLayout BindableLayout.ItemsSource="{Binding Path=StreamIdCollection, Source={x:Static tokService:CrossOpenTok.Current}}">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
-                        <tok1:OpenTokSubscriberView HeightRequest="500" BackgroundColor="Red" StreamId="{Binding .}"/>
+                        <tok1:OpenTokSubscriberView HeightRequest="500" StreamId="{Binding .}"/>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </StackLayout>
