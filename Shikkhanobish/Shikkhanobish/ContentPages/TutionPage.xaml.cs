@@ -15,6 +15,7 @@ namespace Shikkhanobish.ContentPages
             InitializeComponent();
             info = trnsInfo;
             CrossOpenTok.Current.MessageReceived += OnMessageReceived;
+            
         }
 
         private void OnEndCall(object sender, EventArgs e)
@@ -26,7 +27,8 @@ namespace Shikkhanobish.ContentPages
 
         private void OnSwapCamera(object sender, EventArgs e)
         {
-            CrossOpenTok.Current.CycleCamera();
+            //CrossOpenTok.Current.CycleCamera();
+            CrossOpenTok.Current.SendMessageAsync("HogaMara");
         }
 
         private void OnMessageReceived(string message)

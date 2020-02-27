@@ -5,11 +5,65 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Shikkhanobish.UpdateAccount">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Here student can update their info"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+
+        </Grid.ColumnDefinitions>
+        <BoxView BackgroundColor="#949494" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"/>
+        <Label Text="Update Info" FontAttributes="Bold" FontSize="17" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <Label Text="User Name" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="End" FontSize="15"/>
+        <Label Text="Name" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" FontAttributes="Bold" VerticalOptions="Center" FontSize="15"/>
+        <Label Text="Password" Grid.Row="3" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="End" FontSize="15"/>
+        <Label Text="Name" Grid.Row="4" Grid.Column="0" HorizontalOptions="Center" FontAttributes="Bold" VerticalOptions="Center" FontSize="15"/>
+        <Label Text="Name" Grid.Row="5" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="End" FontSize="15"/>
+        <Label Text="Name" Grid.Row="6" Grid.Column="0" HorizontalOptions="Center" FontAttributes="Bold" VerticalOptions="Center" FontSize="15"/>
+        <Label Text="Age" Grid.Row="7" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="End" FontSize="15"/>
+        <Label Text="Name" Grid.Row="8" Grid.Column="0" HorizontalOptions="Center" FontAttributes="Bold" VerticalOptions="Center" FontSize="15"/>
+        <Label Text="Class" Grid.Row="9" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="End" FontSize="15"/>
+        <Label Text="Name" Grid.Row="10" Grid.Column="0" HorizontalOptions="Center" FontAttributes="Bold" VerticalOptions="Center" FontSize="15"/>
+        <Label Text="Institution Name" Grid.Row="11" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="End" FontSize="15"/>
+        <Label Text="Name" Grid.Row="12" Grid.Column="0" HorizontalOptions="Center" FontAttributes="Bold" VerticalOptions="Center" FontSize="15"/>
+
+        <Label Text="Check To Update" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Start"/>
+        <CheckBox Grid.Row="2" Grid.Column="1" VerticalOptions="Start" HorizontalOptions="Center"/>
+        <CheckBox Grid.Row="4" Grid.Column="1" VerticalOptions="Start" HorizontalOptions="Center"/>
+        <CheckBox Grid.Row="6" Grid.Column="1" VerticalOptions="Start" HorizontalOptions="Center"/>
+        <CheckBox Grid.Row="8" Grid.Column="1" VerticalOptions="Start" HorizontalOptions="Center"/>
+        <CheckBox Grid.Row="10" Grid.Column="1" VerticalOptions="Start" HorizontalOptions="Center"/>
+        <CheckBox Grid.Row="12" Grid.Column="1" VerticalOptions="Start" HorizontalOptions="Center"/>
+
+        <Entry Text="Update Name" Grid.Row="2" Grid.Column="2" FontSize="10" HorizontalTextAlignment="Center"/>
+        <Entry Text="Update Name" Grid.Row="4" Grid.Column="2" FontSize="10" HorizontalTextAlignment="Center"/>
+        <Entry Text="Update Name" Grid.Row="6" Grid.Column="2" FontSize="10" HorizontalTextAlignment="Center"/>
+        <Entry Text="Update Name" Grid.Row="8" Grid.Column="2" FontSize="10" HorizontalTextAlignment="Center"/>
+        <Entry Text="Update Name" Grid.Row="10" Grid.Column="2" FontSize="10" HorizontalTextAlignment="Center"/>
+        <Entry Text="Update Name" Grid.Row="12" Grid.Column="2" FontSize="10" HorizontalTextAlignment="Center"/>
+
+        <Entry Text="Enter Current Password" Grid.Row="13" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="Center" FontSize="13"/>
+        <Entry Text="Enter Current Password" Grid.Row="13" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="End" VerticalOptions="Center" FontSize="13"/>
+        <Button Text="Update" BackgroundColor="Red" Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="Center" VerticalOptions="Center"/>
+
+    </Grid>
 </ContentPage>
