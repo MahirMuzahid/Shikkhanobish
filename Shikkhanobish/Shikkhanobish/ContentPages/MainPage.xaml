@@ -54,7 +54,7 @@
                 Command="{Binding RegisterStudent}"
                 Grid.Row="6"
                 CornerRadius="25"
-                BackgroundColor="#A6D94D"></Button>
+                BackgroundColor="#8A4EE6" TextColor="#FFFFFF"></Button>
         
     </Grid>
 
