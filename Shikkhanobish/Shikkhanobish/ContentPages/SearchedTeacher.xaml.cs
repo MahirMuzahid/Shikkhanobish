@@ -78,7 +78,7 @@ namespace Shikkhanobish.ContentPages
         public void Perfection()
         {
             int total,count;
-            for (int i = 0; i < FilteredTeacher.Count(); i++)
+            for (int i = 0; i < FilteredTeacher.Count; i++)
             {
                 total = FilteredTeacher[i].Five_Star*5+FilteredTeacher[i].Four_Star * 4+FilteredTeacher[i].Three_Star * 3+FilteredTeacher[i].Two_Star * 2+FilteredTeacher[i].One_Star * 1;
                 count = FilteredTeacher[i].Five_Star + FilteredTeacher[i].Four_Star + FilteredTeacher[i].Three_Star + FilteredTeacher[i].Two_Star + FilteredTeacher[i].One_Star ;
@@ -148,8 +148,8 @@ namespace Shikkhanobish.ContentPages
                     //var keys = JsonConvert.DeserializeObject<Keys>(json);
 
                     CrossOpenTok.Current.ApiKey = "46485492";// keys.ApiKey;
-                    CrossOpenTok.Current.SessionId = "2_MX40NjQ4NTQ5Mn5-MTU4MjczNjU0MDYwMn41VUZ1cXFCamRESjF2K21TeGg0V2RTUmt-fg";//keys.SessionId;
-                    CrossOpenTok.Current.UserToken = "T1==cGFydG5lcl9pZD00NjQ4NTQ5MiZzaWc9NjM5MTJkZGQwMjQzMTg1NDhlMmJlZjFkODdkYWNhODZkMDgyYzk2MTpzZXNzaW9uX2lkPTJfTVg0ME5qUTROVFE1TW41LU1UVTRNamN6TmpVME1EWXdNbjQxVlVaMWNYRkNhbVJFU2pGMksyMVRlR2cwVjJSVFVtdC1mZyZjcmVhdGVfdGltZT0xNTgyNzM2NTY1Jm5vbmNlPTAuOTg1NjcyNTkwMDIyNzkwMSZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNTgyODIyOTY0JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";//keys.Token;
+                    CrossOpenTok.Current.SessionId = "1_MX40NjQ4NTQ5Mn5-MTU4NDU2NDI5NTQ1OX52VEZPZ1dDbDM3U1Y5MmtpYnNjMXdYOUZ-fg";//keys.SessionId;
+                    CrossOpenTok.Current.UserToken = "T1==cGFydG5lcl9pZD00NjQ4NTQ5MiZzaWc9NDJiNjg0MGEyM2ZiZjIxMjM5MzkzMGRjMjkyZTRjZmZmYzU2ZjRkMzpzZXNzaW9uX2lkPTFfTVg0ME5qUTROVFE1TW41LU1UVTRORFUyTkRJNU5UUTFPWDUyVkVaUFoxZERiRE0zVTFZNU1tdHBZbk5qTVhkWU9VWi1mZyZjcmVhdGVfdGltZT0xNTg0NTY0MzA5Jm5vbmNlPTAuNTI1NzE0OTA3MjM2Mjc2OCZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNTg3MTU2MzA1JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";//keys.Token;
                 }
                 catch (Exception ex)
                 {

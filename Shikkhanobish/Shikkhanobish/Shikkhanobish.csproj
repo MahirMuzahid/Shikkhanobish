@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="ViewModel\TeacherProfile.xaml.cs">
+    <Compile Update="ContentPages\TeacherProfile.xaml.cs">
       <DependentUpon>TeacherProfile.xaml</DependentUpon>
     </Compile>
   </ItemGroup>

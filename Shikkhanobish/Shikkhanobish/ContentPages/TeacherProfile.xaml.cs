@@ -73,7 +73,7 @@ namespace Shikkhanobish
         }
         private async void Button_Clicked_6(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new UpdateAccount()).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new UpdateAccount(_Student)).ConfigureAwait(true);
         }
 
         private async void Button_Clicked_7(object sender, EventArgs e)

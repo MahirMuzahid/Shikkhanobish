@@ -18,6 +18,8 @@ namespace Shikkhanobish.ContentPages
     {
         TransferInfo info = new TransferInfo();
         Calculate calculate = new Calculate();
+        private object c;
+
         public RatingPage(TransferInfo trnsInfo)
         {
             InitializeComponent();
@@ -43,6 +45,7 @@ namespace Shikkhanobish.ContentPages
             info.GivenRating = 1;
             Ratelbl.Text = "Newbie!!";
             RatingColorBox.IsEnabled = true;
+            RatingColorBox.SetValue(Grid.ColumnSpanProperty, 1);
         }
         private void tstarClicked(object sender, EventArgs e)
         {
@@ -51,6 +54,7 @@ namespace Shikkhanobish.ContentPages
             info.GivenRating = 2;
             Ratelbl.Text = "Avarage!";
             RatingColorBox.IsEnabled = true;
+            RatingColorBox.SetValue(Grid.ColumnSpanProperty, 2);
         }
         private void thstarClicked(object sender, EventArgs e)
         {
@@ -59,6 +63,7 @@ namespace Shikkhanobish.ContentPages
             info.GivenRating = 3;
             Ratelbl.Text = "Good";
             RatingColorBox.IsEnabled = true;
+            RatingColorBox.SetValue(Grid.ColumnSpanProperty, 3);
         }
         private void fstarClicked(object sender, EventArgs e)
         {
@@ -67,6 +72,7 @@ namespace Shikkhanobish.ContentPages
             info.GivenRating = 4;
             Ratelbl.Text = "Veteran!";
             RatingColorBox.IsEnabled = true;
+            RatingColorBox.SetValue(Grid.ColumnSpanProperty, 4);
         }
         private void fistarClicked(object sender, EventArgs e)
         {
@@ -75,6 +81,7 @@ namespace Shikkhanobish.ContentPages
             info.GivenRating = 5;
             Ratelbl.Text = "Master!!";
             RatingColorBox.IsEnabled = true;
+            RatingColorBox.SetValue(Grid.ColumnSpanProperty, 5);
         }
 
         public async void FinishTHeUpdate()
@@ -120,9 +127,24 @@ namespace Shikkhanobish.ContentPages
             HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
             string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
             Response responseData = JsonConvert.DeserializeObject<Response>(result);
-            //await Application.Current.MainPage.Navigation.PushModalAsync(new RatingPage(info)).ConfigureAwait(true);
+            backtoProfile();
+
+
         }
 
+
+        public async void backtoProfile()
+        {
+            Student student = new Student();
+            string url = "https://api.shikkhanobish.com/api/Master/GetInfoByLogin";
+            HttpClient client = new HttpClient();
+            string jsonData = JsonConvert.SerializeObject(new { UserName = info.Student.UserName, Password = info.Student.Password });
+            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
+            string result = await response.Content.ReadAsStringAsync();
+            student = JsonConvert.DeserializeObject<Student>(result);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new StudentProfile(student)).ConfigureAwait(true);
+        }
         private void Button_Clicked(object sender, EventArgs e)
         {
             FinishTHeUpdate();

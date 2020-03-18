@@ -96,7 +96,7 @@ namespace Shikkhanobish.Model
         public string RankRange(int tuitionPoint, float avg, int totalTuitionTime)
         {
             string rank = null;
-            if(totalTuitionTime < 30 )
+            if(totalTuitionTime < 20 )
             {
                 rank = "Placement";
             }

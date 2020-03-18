@@ -60,7 +60,7 @@
             <Button  Text="4 Star" FontSize="10" FontAttributes="Bold" Grid.Row="0" Grid.Column="3" CornerRadius="10" BackgroundColor="#50B2ED" TextColor="#FFFFFF" Clicked="fstarClicked"/>
             <Button  Text="5 Star" FontSize="10" FontAttributes="Bold" Grid.Row="0" Grid.Column="4" CornerRadius="10" BackgroundColor="#B161F3" TextColor="#FFFFFF" Clicked="fistarClicked"/>
             <BoxView BackgroundColor="#DCDCDC" Grid.Row="1" Grid.ColumnSpan="5"/>
-            <BoxView x:Name="RatingColorBox" BackgroundColor="Accent" Grid.Row="1" Grid.Column="0" />
+            <BoxView x:Name="RatingColorBox" BackgroundColor="Accent" Grid.Row="1" Grid.Column="{Binding c}" />
             <Label x:Name="Ratelbl" Text="Newbie!" FontSize="18" FontAttributes="Bold" Grid.Row="2" Grid.Column="2"/>
             <Button Text="Submit" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" HorizontalOptions="Center" CornerRadius="10" BackgroundColor="#323232" TextColor="#FFFFFF" Clicked="Button_Clicked" />
             <Label Text="To achive perfect teacher evaluation system every student MUST rate their teacher after every tuition" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" TextColor="#808080"/>
