@@ -93,7 +93,7 @@ namespace Shikkhanobish.Model
             }
             return pmc;
         }      
-        public string RankRange(int tuitionPoint, float avg, int totalTuitionTime)
+        public string RankRange(int tuitionPoint, double avg, int totalTuitionTime)
         {
             string rank = null;
             if(totalTuitionTime < 20 )
@@ -151,7 +151,7 @@ namespace Shikkhanobish.Model
 
         public string CalculateRank (TransferInfo info)
         {
-            return RankRange(CalculatedTuitionTime, info.Teacher.Avarage, info.Teacher.OverallTP);
+            return RankRange(info.Teacher.OverallTP, info.Teacher.Avarage, CalculatedTuitionTime );
         }
 
     }

@@ -32,7 +32,7 @@ namespace Shikkhanobish
             Class = "Class: " + student.Class;
             InstitutionName = "Institution Name: " + student.InstitutionName;
             IsTeacherorStudent = "Student";
-            AmountTxt = "" + student.RechargedAmount + " Taka";
+            AmountTxt = "" + student.RechargedAmount + " Point";
             AvailableMintxt = "Available Amount: " + student.RechargedAmount + "Taka";
             Avarage = student.AvarageRating;
             TotalTaken = "Total Tuition Taken: " + student.TotalTuitionTIme + " Min";

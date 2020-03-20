@@ -17,12 +17,14 @@ namespace Shikkhanobish
 
         private string subject, Sub,subjectName;
         private TransferInfo transferNow = new TransferInfo();
-        public TakeTuition( int StudentID, string StudentName)
+        public TakeTuition( int StudentID, string StudentName, string username, string pass)
         {
             InitializeComponent();
             BindingContext = new TaketuitionViewModel();
             StudentIDTxt.Text = "" + StudentID;
             StudentNameTxt.Text = "" + StudentName;
+            transferNow.Student.UserName = username;
+            transferNow.Student.Password = pass;
             transferNow.Student.Name = StudentName;
             transferNow.Student.StundentID = StudentID;
             ClassPicker.SelectedIndex = 7;

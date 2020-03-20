@@ -24,8 +24,8 @@ namespace Shikkhanobish
 
         public string TeacherName { get; set; }
         public string Response { get; set; }
-        public int Amount { get; set; }
-        public float Avarage { get; set; }
+        public double Amount { get; set; }
+        public double Avarage { get; set; }
         public string Color { get; set; }
         public int OverallTP { get; set; }
 

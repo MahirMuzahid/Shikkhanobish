@@ -36,6 +36,9 @@ namespace Shikkhanobish.ContentPages
             inapptimelbl.Text = "" +info.StudyTimeInAPp;
             costlbl.Text = "" + calculate.CalculateCost(info);
             RatingColorBox.IsEnabled = false;
+            Ratelbl.Text = "Rate your teacher";
+             RatingColorBox.Color = Color.FromHex("#DCDCDC");
+            sbtn.IsEnabled = false;
         }
 
         private void ostarClicked(object sender, EventArgs e)
@@ -46,6 +49,7 @@ namespace Shikkhanobish.ContentPages
             Ratelbl.Text = "Newbie!!";
             RatingColorBox.IsEnabled = true;
             RatingColorBox.SetValue(Grid.ColumnSpanProperty, 1);
+            sbtn.IsEnabled = true;
         }
         private void tstarClicked(object sender, EventArgs e)
         {
@@ -55,6 +59,7 @@ namespace Shikkhanobish.ContentPages
             Ratelbl.Text = "Avarage!";
             RatingColorBox.IsEnabled = true;
             RatingColorBox.SetValue(Grid.ColumnSpanProperty, 2);
+            sbtn.IsEnabled = true;
         }
         private void thstarClicked(object sender, EventArgs e)
         {
@@ -64,6 +69,7 @@ namespace Shikkhanobish.ContentPages
             Ratelbl.Text = "Good";
             RatingColorBox.IsEnabled = true;
             RatingColorBox.SetValue(Grid.ColumnSpanProperty, 3);
+            sbtn.IsEnabled = true;
         }
         private void fstarClicked(object sender, EventArgs e)
         {
@@ -73,6 +79,7 @@ namespace Shikkhanobish.ContentPages
             Ratelbl.Text = "Veteran!";
             RatingColorBox.IsEnabled = true;
             RatingColorBox.SetValue(Grid.ColumnSpanProperty, 4);
+            sbtn.IsEnabled = true;
         }
         private void fistarClicked(object sender, EventArgs e)
         {
@@ -82,6 +89,7 @@ namespace Shikkhanobish.ContentPages
             Ratelbl.Text = "Master!!";
             RatingColorBox.IsEnabled = true;
             RatingColorBox.SetValue(Grid.ColumnSpanProperty, 5);
+            sbtn.IsEnabled = true;
         }
 
         public async void FinishTHeUpdate()

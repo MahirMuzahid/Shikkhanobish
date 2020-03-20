@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
+using static Shikkhanobish.Model.Infoforteacherwindow;
 
 namespace Shikkhanobish
 {
@@ -28,6 +28,7 @@ namespace Shikkhanobish
             MasterBehavior = MasterBehavior.Popover;
 
         }
+       
         private  void Button_Clicked(object sender, EventArgs e)
         {
             //await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterAsTeacher()).ConfigureAwait(true);
@@ -78,7 +79,7 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_7(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new TakeTuition(StudentID, _Student.Name)).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new TakeTuition(StudentID, _Student.Name, _Student.UserName, _Student.Password)).ConfigureAwait(true);
         }
     }
 }

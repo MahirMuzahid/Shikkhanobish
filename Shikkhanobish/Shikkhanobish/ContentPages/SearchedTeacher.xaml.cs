@@ -77,7 +77,8 @@ namespace Shikkhanobish.ContentPages
 
         public void Perfection()
         {
-            int total,count;
+            Calculate cal = new Calculate();
+            double total,count;
             for (int i = 0; i < FilteredTeacher.Count; i++)
             {
                 total = FilteredTeacher[i].Five_Star*5+FilteredTeacher[i].Four_Star * 4+FilteredTeacher[i].Three_Star * 3+FilteredTeacher[i].Two_Star * 2+FilteredTeacher[i].One_Star * 1;
@@ -88,13 +89,15 @@ namespace Shikkhanobish.ContentPages
                 }
                 else
                 {
-                    FilteredTeacher[i].Avarage = total / count;
+                    FilteredTeacher[i].Avarage = System.Math.Round(total / count, 2); 
                 }
                 
 
                 if (FilteredTeacher[i].Teacher_Rank == "Placement")
                 {
+
                     FilteredTeacher[i].Color = "#B9B9B9";
+                    
                 }
                 else if (FilteredTeacher[i].Teacher_Rank == "Newbie")
                 {
@@ -116,16 +119,32 @@ namespace Shikkhanobish.ContentPages
                 {
                     FilteredTeacher[i].Color = "#B033E4";
                 }
+                var cost = cal.RatingAndCostRange(info.Teacher.Teacher_Rank, info.ClassCode);
+                FilteredTeacher[i].Amount = cost;
             }
+           
         }
 
         private async void TeacherListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            var selectedTeacher = e.Item as Teacher;
+            var selectedTeacher = e.Item as Teacher;           
             info.Teacher = selectedTeacher;
-            GetKeys();
-            checkSession();
-            
+            beSure();
+
+
+        }
+
+        public async void beSure()
+        {
+            string name = "Teacher Name: " + info.Teacher.TeacherName;
+            string subject = "Subject: " + info.SubjectName;
+            string action = await DisplayActionSheet("Do you want to proceed?", "Yes", "No", name, info.Class, subject);
+            if( action == "Yes")
+            {
+                GetKeys();
+                checkSession();
+            }
+
         }
 
         public async void checkSession()

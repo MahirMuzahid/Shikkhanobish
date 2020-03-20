@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shikkhanobish.ContentPages;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,6 +12,7 @@ namespace Shikkhanobish
             InitializeComponent();
 
             MainPage = new MainPage();
+
         }
 
         protected override void OnStart()

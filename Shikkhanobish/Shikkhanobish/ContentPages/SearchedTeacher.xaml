@@ -46,7 +46,7 @@
                                     <Label Text="{Binding Avarage}" Grid.Row="1" Grid.Column="1" FontSize="11" FontAttributes="Bold"/>
                                     <Label Text="{Binding Total_Min}" Grid.Row="2" Grid.Column="1" FontSize="11" FontAttributes="Bold"/>
                                     <Label Text="{Binding Number_Of_Tution}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" FontSize="11" FontAttributes="Bold"/>
-                                    <Label Text="Call Now" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0" Grid.RowSpan="4"  Grid.ColumnSpan="2" FontSize="20" TextColor="#E8E8E8"/>
+                                    <Label Text="Call Now" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0" Grid.RowSpan="4"  Grid.ColumnSpan="2" FontSize="20" TextColor="#7F23C569"/>
                                 </Grid>
                                 <Grid Grid.Column="2" Grid.Row="0">
                                     <Grid.RowDefinitions>
@@ -57,8 +57,7 @@
                                         <ColumnDefinition Width="1*"/>
                                         <ColumnDefinition Width="40*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Label Text="{Binding Teacher_Rank}" FontAttributes="Bold" FontSize="20" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="End" TextColor="#878787"/>
-                                    <Label Text="{Binding OverallTP}" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" FontSize="20" HorizontalOptions="Center" VerticalOptions="Start" TextColor="#878787"/>
+                                    <Label Text="{Binding Teacher_Rank}" FontAttributes="Bold" FontSize="20" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="End" TextColor="{Binding Color}"/>
                                 </Grid>
                                 <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" BackgroundColor="#2A2A2A">
                                     <Grid.ColumnDefinitions>
@@ -75,8 +74,10 @@
                                     <Label Text="{Binding Three_Star}" Grid.Column="2" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
                                     <Label Text="{Binding Two_Star}" Grid.Column="3" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
                                     <Label Text="{Binding One_Star}" Grid.Column="4" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
-                                    <Label Text="{Binding Tuition_Point}" Grid.Column="4" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
-                                    <Label Text="{Binding Amount}" Grid.Column="5" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF" FontAttributes="Bold" FontSize="14"/>
+                                    
+                                    <Label Text="{Binding Amount}" Grid.Column="5" HorizontalOptions="End" VerticalOptions="Center" TextColor="#FFFFFF" FontAttributes="Bold" FontSize="14"/>
+                                    <Label Text="taka/min" Grid.Column="6" HorizontalOptions="Start" VerticalOptions="Center" TextColor="#FFFFFF" FontAttributes="Bold" FontSize="14"/>
+                                    
 
                                 </Grid>
                             </Grid>

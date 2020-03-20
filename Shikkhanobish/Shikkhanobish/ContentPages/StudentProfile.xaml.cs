@@ -64,7 +64,7 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_7(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new TakeTuition(StudentID, _Student.Name)).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new TakeTuition(StudentID, _Student.Name, _Student.UserName, _Student.Password)).ConfigureAwait(true);
         }
     }
 }
