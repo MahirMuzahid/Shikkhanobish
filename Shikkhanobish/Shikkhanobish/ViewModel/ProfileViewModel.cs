@@ -37,16 +37,16 @@ namespace Shikkhanobish
         public bool _isEnableTeacher;
 
 
-        public ProfileViewModel(Student student)
+        public ProfileViewModel(Teacher t)
         {
-            Name = student.Name;
-            StudentIDTxt = "Student ID: " + student.StundentID;
-            Age = "Age: " + student.Age;
-            Class = "Class: "+ student.Class;
-            InstitutionName = "Institution Name: " + student.InstitutionName;
-            IsTeacherorStudent = "Student";
-            AmountTxt ="" + student.RechargedAmount + " Taka";
-            AvailableMintxt = "Available Minute: " + student.RechargedAmount;
+            Name = t.TeacherName;
+
+            Age = "Age: " + t.Age;
+            Class = "Class: "+ t.Class;
+            InstitutionName = "Institution Name: " + t.InstitutionName;
+            IsTeacherorStudent = "Teacher";
+            AmountTxt ="" + t.RechargedAmount + " Taka";
+            AvailableMintxt = "Available Minute: " + t.RechargedAmount;
             Fee = "NTY";
             Avarage = 0;
             Subject = "NTY";
@@ -56,7 +56,7 @@ namespace Shikkhanobish
             TotalSpent = "Total Money Spent: " + 0;
             OffredTuitionTime = "Total Offred Tuition Time: " + 0;
             TotalTuitionCount = "Total Tuition Coutn: " + 0 ;
-            TeacherRank = "Teacher Rank: NTY";
+            TeacherRank = "Teacher Rank: Placement";
             IsEnableTeacher = false;
         }
 

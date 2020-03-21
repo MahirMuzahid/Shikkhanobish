@@ -43,12 +43,12 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="7*"/>
                     </Grid.ColumnDefinitions>
-                    <Image Source="registerbuttononly.png" Grid.Row="0" Grid.Column="0" Aspect="AspectFit"/>
+                    
                     <Image Source="studenthistorybutton.png" Grid.Row="1" Grid.Column="0" Aspect="AspectFit" />
                     
                     <Image Source="updatebutton.png" Grid.Row="2" Grid.Column="0" Aspect="AspectFit"/>
                     <Image Source="logout.png" Grid.Row="3" Grid.Column="0" Aspect="AspectFit"/>
-                    <Button Text="Teacher Registretion" Grid.Column="1" HorizontalOptions="Start"  FontSize="14" BackgroundColor="White" Grid.Row="0"  TextColor="black" Clicked="Button_Clicked_1"/>
+                    
                     <Button Text="Student History" Grid.Column="1" HorizontalOptions="Start" TextColor="Black" BackgroundColor="White"   Grid.Row="1" FontSize="14" Clicked="Button_Clicked_2"  />
                    
                     <Button Text="Update Info" Grid.Column="1" HorizontalOptions="Start" TextColor="Black" BackgroundColor="White"   Grid.Row="2" FontSize="14" Clicked="Button_Clicked_6"  />

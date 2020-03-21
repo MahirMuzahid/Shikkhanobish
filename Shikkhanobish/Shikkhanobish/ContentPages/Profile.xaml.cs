@@ -16,7 +16,7 @@ namespace Shikkhanobish
         {
             InitializeComponent();
             var image = new Image { Source = "BackColor.jpg" };
-            BindingContext = new ProfileViewModel(student);
+            //BindingContext = new ProfileViewModel(student);
         
         }
 

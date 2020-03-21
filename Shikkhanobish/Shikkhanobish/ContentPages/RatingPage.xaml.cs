@@ -136,11 +136,7 @@ namespace Shikkhanobish.ContentPages
             string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
             Response responseData = JsonConvert.DeserializeObject<Response>(result);
             backtoProfile();
-
-
         }
-
-
         public async void backtoProfile()
         {
             Student student = new Student();

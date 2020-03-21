@@ -19,11 +19,11 @@ namespace Shikkhanobish
         Teacher teacher = new Teacher();
         int taken = 10000000, studentID;
         string institutionID, Name;
-        public RegisterAsTeacher(int StudentID, string InstitutionID, string name)
+        Student studenT = new Student();
+        public RegisterAsTeacher(Student student, string InstitutionID)
         {
-            studentID = StudentID;
-            Name = name;
             institutionID = InstitutionID;
+            studenT = student;
             InitializeComponent();
             BindingContext = new RegisterAsTeacherViewModel();
             DisableCheckkBox();
@@ -410,11 +410,17 @@ namespace Shikkhanobish
                     HSFIN = registerteacher.HSFIN,
                     HSACC = registerteacher.HSACC,
                     HSECO = registerteacher.HSECO,
-                    StudentID = registerteacher.StudentID,
                     InstitutionID = institutionID,
-                    TeacherName = registerteacher.Name
+                    TeacherName = studenT.Name,
+                    UserName = studenT.UserName,
+                    Password = studenT.Password,
+                    PhoneNumber = studenT.PhoneNumber,
+                    Age = studenT.Age,
+                    Class = studenT.Class,
+                    InstitutionName = studenT.InstitutionName,
+                    RechargedAmount = studenT.RechargedAmount
 
-                });
+                }); ;
                 StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
                 string result = await response.Content.ReadAsStringAsync();
@@ -426,7 +432,16 @@ namespace Shikkhanobish
                 else if (responsE.Status == 0)
                 {
                     ErrorText.Text = responsE.Massage;
-                    //await Application.Current.MainPage.Navigation.PushModalAsync(new TeacherProfile()).ConfigureAwait(true);
+                    Teacher t = new Teacher();
+                    t.UserName = studenT.UserName;
+                    t.Password = studenT.Password;
+                    t.PhoneNumber = studenT.PhoneNumber;
+                    t.TeacherName = studenT.Name;
+                    t.Age = studenT.Age;
+                    t.Class = studenT.Class;
+                    t.InstitutionName = studenT.InstitutionName;
+                    t.InstitutionID = institutionID;
+                    //await Application.Current.MainPage.Navigation.PushModalAsync(new TeacherProfile(t)).ConfigureAwait(true);
                 }
 
             }

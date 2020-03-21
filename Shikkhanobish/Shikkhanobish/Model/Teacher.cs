@@ -23,6 +23,13 @@ namespace Shikkhanobish
         public string Teacher_Rank { get; set; }
 
         public string TeacherName { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string PhoneNumber { get; set; }
+        public int Age { get; set; }
+        public string Class { get; set; }
+        public string InstitutionName { get; set; }
+        public int RechargedAmount { get; set; }
         public string Response { get; set; }
         public double Amount { get; set; }
         public double Avarage { get; set; }

@@ -31,12 +31,14 @@ namespace Shikkhanobish
         private INavigation navigation;
         Student checkStudent = new Student();
         public string txt = "Everything is ok!!";
-        public string _bindtext;
+        public string _bindtext, _bindtextteacher;
 
         public RegisterStudentViewModel(INavigation navigation)
         {
             this.navigation = navigation;
-            BindButtonText = "Register";
+            BindButtonText = "Student Registretion";
+            BindButtonTextTeacher = "Teacher Registretion";
+
         }
         public Command RegisterStudent
         {
@@ -81,7 +83,150 @@ namespace Shikkhanobish
                 });
             }
         }
+        public Command RegisterTeacher
+        {
 
+            get
+            {
+                return new Command(async () =>
+                {
+                    BindButtonTextTeacher = "Checking Info...";
+                    var current = Connectivity.NetworkAccess;
+
+                    if (current == NetworkAccess.Internet)
+                    {
+                        checkStudent.UserName = UserName;
+                        checkStudent.Password = Password;
+                        ConfirmPass = ConfirmPassword;
+                        checkStudent.PhoneNumber = PhoneNumber;
+                        checkStudent.Name = Name;
+                        checkStudent.Age = Age;
+                        checkStudent.Class = Class;
+                        checkStudent.InstitutionName = InstitutionName;
+                        checkStudent.RechargedAmount = RechargedAmount;
+                        checkStudent.IsPending = IsPending;
+                        checkStudent.TotalTuitionTIme = 0;
+                        checkStudent.TotalTeacherCount = 0;
+                        checkStudent.AvarageRating = 0;
+                        try
+                        {
+                            checkUsernameAndPhonenumberTeacher();
+                        }
+                        catch (Exception ex)
+                        {
+                            ConfirmationText = ex.Message;
+                        }
+                    }
+                    else
+                    {
+                        ConfirmationText = "Check internet connection";
+                        BindButtonTextTeacher = "Try Again";
+
+                    }
+
+                });
+            }
+        }
+
+
+        //This shit will change(custom teacher checking api)----------------------------------------------------------------------------------------------
+        public async void checkUsernameAndPhonenumberTeacher()
+        {
+            string url = "https://api.shikkhanobish.com/api/Masters/SearchUserName";
+            HttpClient client = new HttpClient();
+            string jsonData = JsonConvert.SerializeObject(new { UserName = UserName, PhoneNumber = PhoneNumber });
+            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
+            string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
+            var RUserName = JsonConvert.DeserializeObject<Student>(result);
+            if (RUserName.UserName != null)
+            {
+                if (RUserName.UserName == UserName)
+                {
+                    ConfirmationText = "User Name already exist";
+                    BindButtonTextTeacher = "Try Again";
+                }
+                else if (RUserName.PhoneNumber == PhoneNumber)
+                {
+                    ConfirmationText = "You can use only one phonenumber per account";
+                    BindButtonTextTeacher = "Try Again";
+                }
+                else
+                {
+                    checkinfoTeacher();
+                }
+            }
+            else
+            {
+                checkinfoTeacher();
+            }
+        }
+
+
+        public async void checkinfoTeacher()
+        {
+            if (checkStudent.UserName == null)
+            {
+                ConfirmationText = "Empty Username!";
+                BindButtonTextTeacher = "Try Again";
+            }
+            else if (checkStudent.UserName.Contains(" "))
+            {
+                ConfirmationText = "Can't use \"Space\" in user name";
+                BindButtonTextTeacher = "Try Again";
+            }
+            else if (checkStudent.Password == null)
+            {
+                ConfirmationText = "Empty Password!";
+                BindButtonTextTeacher = "Try Again";
+            }
+            else if (ConfirmPass == null)
+            {
+                ConfirmationText = "Password Doesn't match!";
+                BindButtonTextTeacher = "Try Again";
+            }
+            else if (checkStudent.PhoneNumber.Length != 11 || checkStudent.PhoneNumber == null)
+            {
+                ConfirmationText = "Enter valid Phone Number!";
+                BindButtonTextTeacher = "Try Again";
+            }
+            else if (checkStudent.Name == null)
+            {
+                ConfirmationText = "Empty Name!";
+                BindButtonTextTeacher = "Try Again";
+            }
+            else if (checkStudent.Class == null)
+            {
+                ConfirmationText = "Empty Class!";
+                BindButtonTextTeacher = "Try Again";
+            }
+            else if (checkStudent.InstitutionName == null)
+            {
+                ConfirmationText = "Empty Institution Name!";
+                BindButtonTextTeacher = "Try Again";
+            }
+            else if (checkStudent.Password.Length < 6 || !checkStudent.Password.Any(char.IsUpper) || !checkStudent.Password.Any(char.IsDigit))
+            {
+                ConfirmationText = "Password length must be at least 6 and must be one Uppercase character and must be one integer(0-9)";
+                BindButtonTextTeacher = "Try Again";
+            }
+            else if (checkStudent.Password != ConfirmPass)
+            {
+                ConfirmationText = "Password doesn't match";
+                BindButtonTextTeacher = "Try Again";
+            }
+            else if (checkStudent.Age < 10 || checkStudent.Age > 100)
+            {
+                ConfirmationText = "Enter Valid Age";
+                BindButtonTextTeacher = "Try Again";
+            }
+            else
+            {
+                BindButtonTextTeacher = "All Done!";
+                ConfirmationText = txt;             
+                await Application.Current.MainPage.Navigation.PushModalAsync(new VerifyPhonenumber(checkStudent,1)).ConfigureAwait(true);
+            }
+        }
         public async void checkUserNamenadPhoneNumber()
         {
             string url = "https://api.shikkhanobish.com/api/Masters/SearchUserName";
@@ -184,7 +329,7 @@ namespace Shikkhanobish
                 Response responseData = JsonConvert.DeserializeObject<Response>(result);
                 ConfirmationText = responseData.Massage;
                 
-                await Application.Current.MainPage.Navigation.PushModalAsync(new VerifyPhonenumber(checkStudent)).ConfigureAwait(true);
+                await Application.Current.MainPage.Navigation.PushModalAsync(new VerifyPhonenumber(checkStudent,0)).ConfigureAwait(true);
             }
         }
 
@@ -361,6 +506,22 @@ namespace Shikkhanobish
                 if (value != null)
                 {
                     _bindtext = value;
+                    OnPropertyChanged();
+                }
+
+            }
+        }
+        public string BindButtonTextTeacher
+        {
+            get
+            {
+                return _bindtextteacher;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    _bindtextteacher = value;
                     OnPropertyChanged();
                 }
 

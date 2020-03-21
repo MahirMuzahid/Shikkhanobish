@@ -11,13 +11,13 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="8*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height=".7*"/>
             <RowDefinition Height=".3*"/>
         </Grid.RowDefinitions>
         <BoxView BackgroundColor="#C2FF8C" Grid.Row="0"/>
         <Label Text="Teacher Registration" Grid.Row="0" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
         <Entry x:Name="InstitutionIDEntry" Placeholder="Institution ID" Grid.Row="1" VerticalOptions="Center"/>
-        <Label Text="Enter you college or university ID number. If you didnt pass SSC, you can't apply for teacher" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Start"/>
+        <Label Text="Enter you college or university ID number. If you didnt pass SSC, you can't apply for teacher. If you dont have institution ID write : None" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Start"/>
         <Label Text="Rules of Teachers" Grid.Row="3"/>
         <Button Text="Choose Subject" Grid.Row="4" Clicked="Button_Clicked" BackgroundColor="#CCA8FC7A"   CornerRadius="30" />
     </Grid>

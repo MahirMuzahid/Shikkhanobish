@@ -16,15 +16,15 @@ namespace Shikkhanobish
     {
         public int StudentID;
         private Student _Student;
-        public TeacherProfile(Student student)
+        private Teacher teacher;
+        public TeacherProfile(Teacher t)
         {
-            StudentID = student.StundentID;
+            teacher = t;
             this.IsPresented = false;
-            _Student = student;
             InitializeComponent();
 
             var image = new Image { Source = "BackColor.jpg" };
-            BindingContext = new ProfileViewModel(student);
+            BindingContext = new ProfileViewModel(t);
             MasterBehavior = MasterBehavior.Popover;
 
         }

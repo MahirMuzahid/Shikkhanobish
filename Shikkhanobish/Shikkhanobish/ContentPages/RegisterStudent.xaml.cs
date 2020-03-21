@@ -45,7 +45,7 @@ namespace Shikkhanobish
             {
                 AgeEntry.Focus();
             };
-            AgeEntry.Completed += (object sender, EventArgs e) =>
+            AgeEntry.Completed += (object sender, EventArgs e) =>  
             {
                 ClassEntry.Focus();
             };

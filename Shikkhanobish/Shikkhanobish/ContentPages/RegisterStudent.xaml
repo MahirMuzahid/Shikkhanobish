@@ -5,10 +5,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Shikkhanobish.RegisterStudent">
-    <Grid BackgroundColor="White" Padding="20">
+    <Grid BackgroundColor="#FFFFFF" Padding="20">
         <Grid.RowDefinitions>
             
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1.5*"/>
             <RowDefinition Height=".28*"/>
             <RowDefinition Height=".66*"/>
             <RowDefinition Height=".28*"/>
@@ -51,8 +51,10 @@
         <Entry x:Name="AgeEntry" Grid.Column="0" Grid.ColumnSpan="2" FontSize="15" Grid.Row="10" Text="{Binding Age}" ></Entry>
         <Entry x:Name="ClassEntry" Grid.Column="0" Grid.ColumnSpan="2" FontSize="15" Placeholder="Ex: 9th Grade or 1st Year or 2nd Semester" Grid.Row="12" Text="{Binding Class}" ></Entry>
         <Entry x:Name="INameEntry" Grid.Column="0" Grid.ColumnSpan="2" FontSize="15" Grid.Row="14" Text="{Binding InstitutionName}" ></Entry>
-        <Button x:Name="RegisterButton" Text="{Binding BindButtonText}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="15" Command="{Binding RegisterStudent}" BackgroundColor="#B0FFD2"
-                 VerticalOptions="Start"></Button>
+        <Button x:Name="RegisterButton" Text="{Binding BindButtonText}" Grid.Column="0"  Grid.Row="15" Command="{Binding RegisterStudent}" BackgroundColor="#57CAF2"
+                 VerticalOptions="Start" TextColor="#FFFFFF" FontSize="12"></Button>
+        <Button x:Name="RegisterButtonTeacher" Text="{Binding BindButtonTextTeacher}" Grid.Column="1"  Grid.Row="15" Command="{Binding RegisterTeacher}" BackgroundColor="#8065F2"
+                 VerticalOptions="Start" TextColor="#FFFFFF" FontSize="12"></Button>
         <Label Grid.Column="0" Grid.ColumnSpan="2" Text="Everyone must be register as a student before teacher registration. Password must be at least 6 character, one capital letter and one integer(0-9). You can use only one phonenumber to create one account." TextColor="Black" Grid.Row="16"/>
 
         <Label Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding ConfirmationText}" Grid.Row="17" HorizontalOptions="CenterAndExpand" TextColor="Red"></Label>

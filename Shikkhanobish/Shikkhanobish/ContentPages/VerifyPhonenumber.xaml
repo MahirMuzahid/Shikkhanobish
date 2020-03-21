@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Shikkhanobish.VerifyPhonenumber">
-    <Grid Padding="15" >
+    <Grid Padding="15" BackgroundColor="White" >
         <Grid.RowDefinitions>
             <RowDefinition Height=".4*"/>
             <RowDefinition Height=".4*"/>
@@ -20,7 +20,7 @@
         <Button Text="send again" Grid.Row="2" HorizontalOptions="End" VerticalOptions="Start" FontSize="10" BackgroundColor="#FFFFFF" TextColor="#112DA2" Clicked="Button_Clicked_2"/>
         <Label x:Name= "Msglbl" Grid.Row="4" TextColor="#FF3232" />
         <Entry x:Name="codeEntry" Placeholder="Verification Code" Grid.Row="3" FontSize="20" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
-        <Button Text="Confirm" Grid.Row="4" HorizontalOptions="End" BackgroundColor="#634BC6" TextColor="#FFFFFF" CornerRadius="15" Clicked="Button_Clicked"/>
+        <Button Text="Confirm" Grid.Row="4" HorizontalOptions="End" BackgroundColor="#634BC6" FontSize="13" TextColor="#FFFFFF" CornerRadius="15" Clicked="Button_Clicked"/>
         <Button Text="Skip" Grid.Row="5" Clicked="Button_Clicked_1"/>
     </Grid>
 </ContentPage>

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Shikkhanobish.ContentPages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +17,12 @@ namespace Shikkhanobish
     {
         public Student studentm = new Student();
         public string Result;
-        public int vrNumber;
-        public VerifyPhonenumber(Student student)
+        public int vrNumber, ts;
+        public VerifyPhonenumber(Student student , int teacherorstudent)
         {
             InitializeComponent();
             studentm = student;
+            ts = teacherorstudent;
             VerifyUserAsync();
         }
 
@@ -31,10 +33,18 @@ namespace Shikkhanobish
             string Password = "Biggan12345";
             int RecevierNumber = int.Parse(studentm.PhoneNumber);
             int VerificationNumber = random.Next(1000,9999);
-            string text = "Your Verification Number From Shikkhanobish Student Registration is: " + VerificationNumber;
-            string url = "https://www.bdgosms.com/send/?req=out&apikey=hKMv1gN92X7CpEtiL6I5&numb=0" + RecevierNumber + "&sms=" + text;
+            string text = "";
+            if (ts == 0)
+            {
+                text = "Your Verification Number From Shikkhanobish Student Registration is: " + VerificationNumber;
+            }
+            if(ts == 1)
+            {
+                text = "Your Verification Number From Shikkhanobish Teacher Registration is: " + VerificationNumber;
+            }
+            string url = "https://www.bdgosms.com/send/?req=out&apikey=bdgov23fNg7nWmb9alTIXYSMD16GewhLBH&numb=0" + RecevierNumber + "&sms=" + text;
             HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync(url).ConfigureAwait(true);
+            HttpResponseMessage response = await client.GetAsync(url);
             string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
             Result = result;
             vrNumber = VerificationNumber;
@@ -47,12 +57,20 @@ namespace Shikkhanobish
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            
+            await Application.Current.MainPage.Navigation.PushModalAsync(new GetInstIDandRules(studentm)).ConfigureAwait(true);
             if (Result == "{ \"status\":\"Sms sent successfully\"}")
             {
-                if(codeEntry.Text ==  vrNumber.ToString())
+                if(codeEntry.Text ==  vrNumber.ToString() )
                 {
-                    await Application.Current.MainPage.Navigation.PushModalAsync(new StudentProfile(studentm)).ConfigureAwait(true);
+                    if(ts == 0)
+                    {
+                        await Application.Current.MainPage.Navigation.PushModalAsync(new StudentProfile(studentm)).ConfigureAwait(true);
+                    }
+                    else if(ts == 1)
+                    {
+                        await Application.Current.MainPage.Navigation.PushModalAsync(new GetInstIDandRules(studentm)).ConfigureAwait(true);
+                    }
+                    
                 }
                 else
                 {
