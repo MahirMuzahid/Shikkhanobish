@@ -20,6 +20,7 @@ namespace Shikkhanobish
         public static string _password;
         public string _loginText;
         public Student student = new Student();
+        public Teacher teacher = new Teacher();
         private INavigation navigation;
         public string text;
         public string _errorText;
@@ -82,15 +83,24 @@ namespace Shikkhanobish
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
             string result = await response.Content.ReadAsStringAsync();
-            student = JsonConvert.DeserializeObject<Student>(result);
             if (student.Name == null)
             {
-                ErrorText = "Wrong User Name or Password!";
-                loginText = "Login";
-            }
-            else
-            {
-                await Application.Current.MainPage.Navigation.PushModalAsync(new StudentProfile(student)).ConfigureAwait(true);
+                string urlT = "https://api.shikkhanobish.com/api/Master/GetInfoByLoginTeacher";
+                HttpClient clientT = new HttpClient();
+                string jsonDataT = JsonConvert.SerializeObject(new { UserName = UserName, Password = Password });
+                StringContent contentT = new StringContent(jsonDataT, Encoding.UTF8, "application/json");
+                HttpResponseMessage responseT = await clientT.PostAsync(urlT, contentT).ConfigureAwait(true);
+                string resultT = await responseT.Content.ReadAsStringAsync();
+                teacher = JsonConvert.DeserializeObject<Teacher>(resultT);
+                if (teacher.TeacherName == null)
+                {
+                    ErrorText = "Wrong User Name or Password!";
+                    loginText = "Login";
+                }
+                else
+                {
+                    await Application.Current.MainPage.Navigation.PushModalAsync(new TeacherProfile(teacher)).ConfigureAwait(true);
+                }
 
             }
         }
