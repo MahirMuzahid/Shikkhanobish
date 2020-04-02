@@ -38,7 +38,32 @@ namespace Shikkhanobish.ContentPages
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            if(mainEntry.Text == confirmEntry.Text)
+            if(pu == 0)
+            {
+                if (mainEntry.Text.Length > 6 || mainEntry.Text.Any(char.IsUpper) || mainEntry.Text.Any(char.IsDigit))
+                {
+                    if (mainEntry.Text == confirmEntry.Text)
+                    {
+                        string urlt = "https://api.shikkhanobish.com/api/Master/SetnewPasswordOrUsername";
+                        HttpClient clientt = new HttpClient();
+                        string jsonDatat = JsonConvert.SerializeObject(new { Username = un, IsTeacherorStudent = st, IsPasswordOrUsername = pu, NewpassorUsername = mainEntry.Text });
+                        StringContent contentt = new StringContent(jsonDatat, Encoding.UTF8, "application/json");
+                        HttpResponseMessage responset = await clientt.PostAsync(urlt, contentt).ConfigureAwait(true);
+                        string resultt = await responset.Content.ReadAsStringAsync();
+                        var r = JsonConvert.DeserializeObject<Response>(resultt);
+                        if (r.Status == 0)
+                        {
+                            await Application.Current.MainPage.Navigation.PushModalAsync(new MainPage()).ConfigureAwait(true);
+                        }
+
+                    }
+                }
+                else 
+                {
+                    Errorblb.Text = "Password should be atleast 6 character and one capital latter and one digit";
+                }
+            }            
+            else if(mainEntry.Text != "" && mainEntry.Text == confirmEntry.Text)
             {
                 string urlt = "https://api.shikkhanobish.com/api/Master/SetnewPasswordOrUsername";
                 HttpClient clientt = new HttpClient();
@@ -50,8 +75,11 @@ namespace Shikkhanobish.ContentPages
                 if (r.Status == 0)
                 {
                     await Application.Current.MainPage.Navigation.PushModalAsync(new MainPage()).ConfigureAwait(true);
-                }
-                
+                }               
+            }
+            else
+            {
+                Errorblb.Text = "Enter valid Username";
             }
         }
     }
