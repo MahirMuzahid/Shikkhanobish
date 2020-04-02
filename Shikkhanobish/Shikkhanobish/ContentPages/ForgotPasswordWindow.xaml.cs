@@ -19,25 +19,40 @@ namespace Shikkhanobish
         string Phonenumber;
         string Result = null;
         Student student = new Student();
+        int studentorTeacher = 0;
         public ForgotPasswordWindow()
         {
             InitializeComponent();
             rubtn.IsEnabled = false;
             rpbtn.IsEnabled = false;
+            Errorlbl.Text = null;
         }
 
         private async void Sentbtn_Clicked(object sender, EventArgs e)
         {
-
+            
             if (Sentbtn.Text == "Verify")
             {
-                if (VerificationNumber.ToString() == Phonenumber)
+                if (VerificationNumber.ToString() == PlaceholderEntry.Text)
                 {
-                    //
+                    rubtn.IsEnabled = true;
+                    rpbtn.IsEnabled = true;
+                    rpbtn.BackgroundColor = Color.FromHex("#BB87FF");
+                    rubtn.BackgroundColor = Color.FromHex("#BB87FF");
+                    rpbtn.TextColor = Color.White;
+                    rubtn.TextColor = Color.White;
+                    Errorlbl.Text = null;
+                    PlaceholderEntry.IsEnabled = false;
+                    Sentbtn.IsEnabled = false;
+                }
+                else
+                {
+                    Errorlbl.Text = "Wrong Verification Number";
                 }
             }
             else
             {
+                Sentbtn.Text = "Sending Code";
                 string vrtext = "{ \"status\":\"Sms sent successfully\"}";
                 Phonenumber = PlaceholderEntry.Text;
                 string url = "https://api.shikkhanobish.com/api/Master/RecoverInfoStudent";
@@ -49,6 +64,7 @@ namespace Shikkhanobish
                 student = JsonConvert.DeserializeObject<Student>(result);
                 if (student.UserName != null)
                 {
+                    studentorTeacher = 0;
                     VerificationNumber = random.Next(1000, 9999);
                     string text = "Your Username or Password reset verification code is: " + VerificationNumber;
                     string urlv = "https://www.bdgosms.com/send/?req=out&apikey=bdgov23fNg7nWmb9alTIXYSMD16GewhLBH&numb=" + Phonenumber + "&sms=" + text;
@@ -58,14 +74,12 @@ namespace Shikkhanobish
                     if (resultv[0] == '{')
                     {
                         Sentbtn.Text = "Verify";
-                        PlaceholderEntry.Text = "Enter 4 Digit Code";
-                        rubtn.IsEnabled = true;
-                        rpbtn.IsEnabled = true;
-                        rpbtn.BackgroundColor = Color.FromHex("#BB87FF");
-                        rubtn.BackgroundColor = Color.FromHex("#BB87FF");
+                        PlaceholderEntry.Text = null;
+                        PlaceholderEntry.Placeholder = "Enter 4 Digit Code";                        
                     }
                     else
                     {
+                        studentorTeacher = 1;
                         Teacher teacher = new Teacher();
                         string urlt = "https://api.shikkhanobish.com/api/Master/RecoverInfoTeacher";
                         HttpClient clientt = new HttpClient();
