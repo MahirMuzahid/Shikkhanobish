@@ -32,7 +32,7 @@
         <Label HorizontalOptions="End" Grid.Row="4">
             <Label.FormattedText>
                 <FormattedString>
-                    <Span Text="Forgot Password?" TextColor="Blue" >
+                    <Span Text="Forgot Username or Password?" TextColor="Blue" >
                         <Span.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ForgotPassword}" />
                         </Span.GestureRecognizers>
