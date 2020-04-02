@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Shikkhanobish.ContentPages.ResetInfo">
+
+    <Grid BackgroundColor="#FFFFFF">
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".5*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height=".5*"/>
+            <RowDefinition Height=".5*"/>
+            <RowDefinition Height=".4*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <BoxView BackgroundColor="#E9E9E9" Grid.Row="0" CornerRadius="50"/>
+        <Label Text="Reset Username or Password" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" FontAttributes="Bold" Grid.Row="0"/>
+        <Entry x:Name="mainEntry"  HorizontalTextAlignment="Center" Grid.Row="2"/>
+        <Entry x:Name="confirmEntry" HorizontalTextAlignment="Center" Grid.Row="3"/>
+        <Button Text="Confirm" Grid.Row="4" BackgroundColor="#8E8AFC" TextColor="#FFFFFF" CornerRadius="15" Clicked="Button_Clicked"/>
+    </Grid>
+</ContentPage>

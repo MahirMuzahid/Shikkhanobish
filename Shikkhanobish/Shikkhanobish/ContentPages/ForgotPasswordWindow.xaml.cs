@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Shikkhanobish.ContentPages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace Shikkhanobish
         string Result = null;
         Student student = new Student();
         int studentorTeacher = 0;
+        public string Username;
         public ForgotPasswordWindow()
         {
             InitializeComponent();
@@ -37,12 +39,13 @@ namespace Shikkhanobish
                 {
                     rubtn.IsEnabled = true;
                     rpbtn.IsEnabled = true;
-                    rpbtn.BackgroundColor = Color.FromHex("#BB87FF");
+                    rpbtn.BackgroundColor = Color.FromHex("#40A4DF");
                     rubtn.BackgroundColor = Color.FromHex("#BB87FF");
                     rpbtn.TextColor = Color.White;
                     rubtn.TextColor = Color.White;
                     Errorlbl.Text = null;
                     PlaceholderEntry.IsEnabled = false;
+                    PlaceholderEntry.Text = "Code Matched!";
                     Sentbtn.IsEnabled = false;
                 }
                 else
@@ -62,6 +65,7 @@ namespace Shikkhanobish
                 HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
                 string result = await response.Content.ReadAsStringAsync();
                 student = JsonConvert.DeserializeObject<Student>(result);
+                Username = student.UserName;
                 if (student.UserName != null)
                 {
                     studentorTeacher = 0;
@@ -90,7 +94,21 @@ namespace Shikkhanobish
                         teacher = JsonConvert.DeserializeObject<Teacher>(resultt);
                     }
                 }
+                else
+                {
+                    Sentbtn.Text = "Send";
+                    Errorlbl.Text = "This number is not registered";
+                }
             }
+        }
+        private async void rubtn_Clicked(object sender, EventArgs e)
+        {
+            await Application.Current.MainPage.Navigation.PushModalAsync(new ResetInfo(Username,studentorTeacher,1)).ConfigureAwait(true);
+        }
+
+        private async void rpbtn_Clicked(object sender, EventArgs e)
+        {
+            await Application.Current.MainPage.Navigation.PushModalAsync(new ResetInfo(Username, studentorTeacher, 0)).ConfigureAwait(true);
         }
     }
 }
