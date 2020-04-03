@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json;
-using Plugin.Connectivity;
 using Shikkhanobish.ContentPages;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using Shikkhanobish.Model;
+using Shikkhanobish.ViewModel;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
@@ -13,9 +11,8 @@ using Xamarin.Forms;
 
 namespace Shikkhanobish
 {
-    class MainPageViewModel : INotifyPropertyChanged
+    internal class MainPageViewModel : INotifyPropertyChanged
     {
-  
         public static string _userName;
         public static string _password;
         public string _loginText;
@@ -28,50 +25,45 @@ namespace Shikkhanobish
         public MainPageViewModel()
         {
             loginText = "Login";
-            
         }
 
         public Command Login
         {
             get
             {
-                return new Command( () =>
-                {
+                return new Command(() =>
+               {
+                   var current = Connectivity.NetworkAccess;
 
-                    var current = Connectivity.NetworkAccess;
-
-                    if (current == NetworkAccess.Internet)
-                    {
-                        if (UserName == null && Password == null)
-                        {
-                            ErrorText = "User Name and Password is empty!";
-                            loginText = "Login";
-                        }
-                        else if (UserName == null)
-                        {
-                            ErrorText = "User Name is empty!";
-                            loginText = "Login";
-                        }
-                        else if (Password == null)
-                        {
-                            ErrorText = "Password is empty!";
-                            loginText = "Login";
-                        }
-                        else
-                        {
-                            LoginByUserNameAndPassword();
-                        }
-                    }
-                    else
-                    {
-                        ErrorText = "Check Internet Connection";
-                        loginText = "Login";
-                    }
-                    
-
-                    
-                });
-            }        
+                   if (current == NetworkAccess.Internet)
+                   {
+                       if (UserName == null && Password == null)
+                       {
+                           ErrorText = "User Name and Password is empty!";
+                           loginText = "Login";
+                       }
+                       else if (UserName == null)
+                       {
+                           ErrorText = "User Name is empty!";
+                           loginText = "Login";
+                       }
+                       else if (Password == null)
+                       {
+                           ErrorText = "Password is empty!";
+                           loginText = "Login";
+                       }
+                       else
+                       {
+                           LoginByUserNameAndPassword();
+                       }
+                   }
+                   else
+                   {
+                       ErrorText = "Check Internet Connection";
+                       loginText = "Login";
+                   }
+               });
+            }
         }
 
         public async void LoginByUserNameAndPassword()
@@ -83,6 +75,7 @@ namespace Shikkhanobish
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
             string result = await response.Content.ReadAsStringAsync();
+            student = JsonConvert.DeserializeObject<Student>(result);
             if (student.Name == null)
             {
                 string urlT = "https://api.shikkhanobish.com/api/Master/GetInfoByLoginTeacher";
@@ -101,9 +94,29 @@ namespace Shikkhanobish
                 {
                     await Application.Current.MainPage.Navigation.PushModalAsync(new TeacherProfile(teacher)).ConfigureAwait(true);
                 }
-
+            }
+            else if (student.Name != null)
+            {
+                if(student.IsPending == 1)
+                {
+                    string urlT = "https://api.shikkhanobish.com/api/Master/GetPending";
+                    HttpClient clientT = new HttpClient();
+                    string jsonDataT = JsonConvert.SerializeObject(new { StudentID = student.StundentID });
+                    StringContent contentT = new StringContent(jsonDataT, Encoding.UTF8, "application/json");
+                    HttpResponseMessage responseT = await clientT.PostAsync(urlT, contentT).ConfigureAwait(true);
+                    string resultT = await responseT.Content.ReadAsStringAsync();
+                    var pedningRating = JsonConvert.DeserializeObject<IsPending>(resultT);
+                    TransferInfo trns = new TransferInfo();
+                    await Application.Current.MainPage.Navigation.PushModalAsync(new RatingPage(trns)).ConfigureAwait(true);
+                }
+                else
+                {
+                    await Application.Current.MainPage.Navigation.PushModalAsync(new StudentProfile(student)).ConfigureAwait(true);
+                }
+                
             }
         }
+
         //public int Error { get; set; }
         public Command RegisterStudent
         {
@@ -112,11 +125,10 @@ namespace Shikkhanobish
                 return new Command(async () =>
                 {
                     await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterStudent()).ConfigureAwait(true);
-                    
-
                 });
             }
         }
+
         public Command ForgotPassword
         {
             get
@@ -124,11 +136,10 @@ namespace Shikkhanobish
                 return new Command(async () =>
                 {
                     await Application.Current.MainPage.Navigation.PushModalAsync(new ForgotPasswordWindow()).ConfigureAwait(true);
-
-
                 });
             }
         }
+
         public string ErrorText
         {
             get
@@ -141,6 +152,7 @@ namespace Shikkhanobish
                 OnPropertyChanged();
             }
         }
+
         public string UserName
         {
             get
@@ -154,9 +166,9 @@ namespace Shikkhanobish
                     _userName = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string Password
         {
             get
@@ -172,6 +184,7 @@ namespace Shikkhanobish
                 }
             }
         }
+
         public string loginText
         {
             get
@@ -189,10 +202,10 @@ namespace Shikkhanobish
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
     }
 }
