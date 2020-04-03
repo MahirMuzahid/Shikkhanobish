@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shikkhanobish.ViewModel
+﻿namespace Shikkhanobish.ViewModel
 {
     public class TransferInfo
     {

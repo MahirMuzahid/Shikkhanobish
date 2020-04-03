@@ -1,8 +1,5 @@
-﻿using IdentityModel.Client;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
@@ -29,7 +26,7 @@ namespace Shikkhanobish
         public int _rechargedAmount;
         public int _isPending;
         private INavigation navigation;
-        Student checkStudent = new Student();
+        private Student checkStudent = new Student();
         public string txt = "Everything is ok!!";
         public string _bindtext, _bindtextteacher;
 
@@ -38,11 +35,10 @@ namespace Shikkhanobish
             this.navigation = navigation;
             BindButtonText = "Student Registretion";
             BindButtonTextTeacher = "Teacher Registretion";
-
         }
+
         public Command RegisterStudent
         {
-            
             get
             {
                 return new Command(async () =>
@@ -79,13 +75,12 @@ namespace Shikkhanobish
                         ConfirmationText = "Check internet connection";
                         BindButtonText = "Try Again";
                     }
-                          
                 });
             }
         }
+
         public Command RegisterTeacher
         {
-
             get
             {
                 return new Command(async () =>
@@ -121,13 +116,10 @@ namespace Shikkhanobish
                     {
                         ConfirmationText = "Check internet connection";
                         BindButtonTextTeacher = "Try Again";
-
                     }
-
                 });
             }
         }
-
 
         //This shit will change(custom teacher checking api)----------------------------------------------------------------------------------------------
         public async void checkUsernameAndPhonenumberTeacher()
@@ -161,7 +153,6 @@ namespace Shikkhanobish
                 checkinfoTeacher();
             }
         }
-
 
         public async void checkinfoTeacher()
         {
@@ -223,10 +214,11 @@ namespace Shikkhanobish
             else
             {
                 BindButtonTextTeacher = "All Done!";
-                ConfirmationText = txt;             
-                await Application.Current.MainPage.Navigation.PushModalAsync(new VerifyPhonenumber(checkStudent,1)).ConfigureAwait(true);
+                ConfirmationText = txt;
+                await Application.Current.MainPage.Navigation.PushModalAsync(new VerifyPhonenumber(checkStudent, 1)).ConfigureAwait(true);
             }
         }
+
         public async void checkUserNamenadPhoneNumber()
         {
             string url = "https://api.shikkhanobish.com/api/Masters/SearchUserName";
@@ -238,28 +230,29 @@ namespace Shikkhanobish
             var RUserName = JsonConvert.DeserializeObject<Student>(result);
             if (RUserName.UserName != null)
             {
-                if(RUserName.UserName == UserName)
+                if (RUserName.UserName == UserName)
                 {
                     ConfirmationText = "User Name already exist";
                     BindButtonText = "Try Again";
-                }              
+                }
                 else if (RUserName.PhoneNumber == PhoneNumber)
                 {
                     ConfirmationText = "You can use only one phonenumber per account";
                     BindButtonText = "Try Again";
-                }             
+                }
                 else
                 {
                     checkInfo();
                 }
-            }            
+            }
             else
             {
                 checkInfo();
             }
         }
+
         public async void checkInfo()
-        { 
+        {
             if (checkStudent.UserName == null)
             {
                 ConfirmationText = "Empty Username!";
@@ -280,7 +273,7 @@ namespace Shikkhanobish
                 ConfirmationText = "Password Doesn't match!";
                 BindButtonText = "Try Again";
             }
-            else if (checkStudent.PhoneNumber.Length != 11 || checkStudent.PhoneNumber == null )
+            else if (checkStudent.PhoneNumber.Length != 11 || checkStudent.PhoneNumber == null)
             {
                 ConfirmationText = "Enter valid Phone Number!";
                 BindButtonText = "Try Again";
@@ -305,12 +298,12 @@ namespace Shikkhanobish
                 ConfirmationText = "Password length must be at least 6 and must be one Uppercase character and must be one integer(0-9)";
                 BindButtonText = "Try Again";
             }
-            else if(checkStudent.Password != ConfirmPass)
+            else if (checkStudent.Password != ConfirmPass)
             {
                 ConfirmationText = "Password doesn't match";
                 BindButtonText = "Try Again";
             }
-            else if(checkStudent.Age < 10 || checkStudent.Age > 100)
+            else if (checkStudent.Age < 10 || checkStudent.Age > 100)
             {
                 ConfirmationText = "Enter Valid Age";
                 BindButtonText = "Try Again";
@@ -319,7 +312,7 @@ namespace Shikkhanobish
             {
                 BindButtonText = "Completing Registration...";
                 ConfirmationText = txt;
-                
+
                 string url = "https://api.shikkhanobish.com/api/Master/RegisterStudent";
                 HttpClient client = new HttpClient();
                 string jsonData = JsonConvert.SerializeObject(checkStudent);
@@ -328,11 +321,10 @@ namespace Shikkhanobish
                 string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
                 Response responseData = JsonConvert.DeserializeObject<Response>(result);
                 ConfirmationText = responseData.Massage;
-                
-                await Application.Current.MainPage.Navigation.PushModalAsync(new VerifyPhonenumber(checkStudent,0)).ConfigureAwait(true);
+
+                await Application.Current.MainPage.Navigation.PushModalAsync(new VerifyPhonenumber(checkStudent, 0)).ConfigureAwait(true);
             }
         }
-
 
         public string UserName
         {
@@ -347,9 +339,9 @@ namespace Shikkhanobish
                     _userName = value;
                     OnPropertyChanged();
                 }
-                
             }
         }
+
         public string Password
         {
             get
@@ -365,6 +357,7 @@ namespace Shikkhanobish
                 }
             }
         }
+
         public string ConfirmPassword
         {
             get
@@ -378,9 +371,9 @@ namespace Shikkhanobish
                     _confirmPassword = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string PhoneNumber
         {
             get
@@ -398,6 +391,7 @@ namespace Shikkhanobish
                 }
             }
         }
+
         public string Name
         {
             get
@@ -413,6 +407,7 @@ namespace Shikkhanobish
                 }
             }
         }
+
         public int Age
         {
             get
@@ -428,6 +423,7 @@ namespace Shikkhanobish
                 }
             }
         }
+
         public string Class
         {
             get
@@ -443,6 +439,7 @@ namespace Shikkhanobish
                 }
             }
         }
+
         public string InstitutionName
         {
             get
@@ -458,6 +455,7 @@ namespace Shikkhanobish
                 }
             }
         }
+
         public int RechargedAmount
         {
             get
@@ -470,6 +468,7 @@ namespace Shikkhanobish
                 OnPropertyChanged();
             }
         }
+
         public int IsPending
         {
             get
@@ -482,6 +481,7 @@ namespace Shikkhanobish
                 OnPropertyChanged();
             }
         }
+
         public string ConfirmationText
         {
             get
@@ -495,6 +495,7 @@ namespace Shikkhanobish
                 OnPropertyChanged();
             }
         }
+
         public string BindButtonText
         {
             get
@@ -508,9 +509,9 @@ namespace Shikkhanobish
                     _bindtext = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string BindButtonTextTeacher
         {
             get
@@ -524,12 +525,11 @@ namespace Shikkhanobish
                     _bindtextteacher = value;
                     OnPropertyChanged();
                 }
-
             }
         }
 
-
         public event PropertyChangedEventHandler PropertyChanged;
+
         protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

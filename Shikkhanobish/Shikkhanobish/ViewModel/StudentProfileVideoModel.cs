@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace Shikkhanobish
 {
-    class StudentProfileVideoModel
+    internal class StudentProfileVideoModel
     {
         public string _studentID;
         public string _name;
@@ -21,8 +18,6 @@ namespace Shikkhanobish
         public string _totalTeacher;
         public string _totalSpent;
         public string _availableMin;
-
-
 
         public StudentProfileVideoModel(Student student)
         {
@@ -52,9 +47,9 @@ namespace Shikkhanobish
                     _name = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string Age
         {
             get
@@ -68,9 +63,9 @@ namespace Shikkhanobish
                     _age = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string StudentIDTxt
         {
             get
@@ -84,9 +79,9 @@ namespace Shikkhanobish
                     _studentID = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string Class
         {
             get
@@ -100,9 +95,9 @@ namespace Shikkhanobish
                     _class = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string InstitutionName
         {
             get
@@ -116,9 +111,9 @@ namespace Shikkhanobish
                     _institutionNmae = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string IsTeacherorStudent
         {
             get
@@ -132,9 +127,9 @@ namespace Shikkhanobish
                     _isTeacherorStudent = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string AmountTxt
         {
             get
@@ -148,9 +143,9 @@ namespace Shikkhanobish
                     _amount = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string Fee
         {
             get
@@ -164,9 +159,9 @@ namespace Shikkhanobish
                     _fee = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public float Avarage
         {
             get
@@ -177,10 +172,9 @@ namespace Shikkhanobish
             {
                 _avarage = value;
                 OnPropertyChanged();
-
             }
         }
-        
+
         public string TotalTaken
         {
             get
@@ -194,9 +188,9 @@ namespace Shikkhanobish
                     _totalTaken = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string TotalTeacher
         {
             get
@@ -210,9 +204,9 @@ namespace Shikkhanobish
                     _totalTeacher = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string TotalSpent
         {
             get
@@ -226,10 +220,9 @@ namespace Shikkhanobish
                     _totalSpent = value;
                     OnPropertyChanged();
                 }
-
             }
         }
-      
+
         public string AvailableMintxt
         {
             get
@@ -240,17 +233,14 @@ namespace Shikkhanobish
             {
                 _availableMin = value;
                 OnPropertyChanged();
-
             }
         }
 
-
-
         public event PropertyChangedEventHandler PropertyChanged;
+
         protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-
 }

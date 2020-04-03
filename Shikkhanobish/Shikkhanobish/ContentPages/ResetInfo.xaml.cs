@@ -1,10 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -14,8 +12,9 @@ namespace Shikkhanobish.ContentPages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ResetInfo : ContentPage
     {
-        string un;
-        int st,pu;
+        private string un;
+        private int st, pu;
+
         public ResetInfo(string Username, int isTteacherOrStudnet, int IsPasswordOrUsername)
         {
             InitializeComponent();
@@ -38,7 +37,7 @@ namespace Shikkhanobish.ContentPages
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            if(pu == 0)
+            if (pu == 0)
             {
                 if (mainEntry.Text.Length > 6 || mainEntry.Text.Any(char.IsUpper) || mainEntry.Text.Any(char.IsDigit))
                 {
@@ -55,15 +54,14 @@ namespace Shikkhanobish.ContentPages
                         {
                             await Application.Current.MainPage.Navigation.PushModalAsync(new MainPage()).ConfigureAwait(true);
                         }
-
                     }
                 }
-                else 
+                else
                 {
                     Errorblb.Text = "Password should be atleast 6 character and one capital latter and one digit";
                 }
-            }            
-            else if(mainEntry.Text != "" && mainEntry.Text == confirmEntry.Text)
+            }
+            else if (mainEntry.Text != "" && mainEntry.Text == confirmEntry.Text)
             {
                 string urlt = "https://api.shikkhanobish.com/api/Master/SetnewPasswordOrUsername";
                 HttpClient clientt = new HttpClient();
@@ -75,7 +73,7 @@ namespace Shikkhanobish.ContentPages
                 if (r.Status == 0)
                 {
                     await Application.Current.MainPage.Navigation.PushModalAsync(new MainPage()).ConfigureAwait(true);
-                }               
+                }
             }
             else
             {

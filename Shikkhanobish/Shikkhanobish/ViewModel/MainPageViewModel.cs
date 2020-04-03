@@ -97,7 +97,7 @@ namespace Shikkhanobish
             }
             else if (student.Name != null)
             {
-                if(student.IsPending == 1)
+                if (student.IsPending == 1)
                 {
                     string urlT = "https://api.shikkhanobish.com/api/Master/GetPending";
                     HttpClient clientT = new HttpClient();
@@ -113,7 +113,6 @@ namespace Shikkhanobish
                 {
                     await Application.Current.MainPage.Navigation.PushModalAsync(new StudentProfile(student)).ConfigureAwait(true);
                 }
-                
             }
         }
 

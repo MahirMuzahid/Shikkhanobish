@@ -1,12 +1,7 @@
-﻿using Newtonsoft.Json;
-using Shikkhanobish.ContentPages;
+﻿using Shikkhanobish.ContentPages;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -18,7 +13,8 @@ namespace Shikkhanobish
         public Student studentm = new Student();
         public string Result;
         public int vrNumber, ts;
-        public VerifyPhonenumber(Student student , int teacherorstudent)
+
+        public VerifyPhonenumber(Student student, int teacherorstudent)
         {
             InitializeComponent();
             studentm = student;
@@ -32,13 +28,13 @@ namespace Shikkhanobish
             Random random = new Random();
             string Password = "Biggan12345";
             int RecevierNumber = int.Parse(studentm.PhoneNumber);
-            int VerificationNumber = random.Next(1000,9999);
+            int VerificationNumber = random.Next(1000, 9999);
             string text = "";
             if (ts == 0)
             {
                 text = "Your Verification Number From Shikkhanobish Student Registration is: " + VerificationNumber;
             }
-            if(ts == 1)
+            if (ts == 1)
             {
                 text = "Your Verification Number From Shikkhanobish Teacher Registration is: " + VerificationNumber;
             }
@@ -60,28 +56,26 @@ namespace Shikkhanobish
             await Application.Current.MainPage.Navigation.PushModalAsync(new GetInstIDandRules(studentm)).ConfigureAwait(true);
             if (Result == "{ \"status\":\"Sms sent successfully\"}")
             {
-                if(codeEntry.Text ==  vrNumber.ToString() )
+                if (codeEntry.Text == vrNumber.ToString())
                 {
-                    if(ts == 0)
+                    if (ts == 0)
                     {
                         await Application.Current.MainPage.Navigation.PushModalAsync(new StudentProfile(studentm)).ConfigureAwait(true);
                     }
-                    else if(ts == 1)
+                    else if (ts == 1)
                     {
                         await Application.Current.MainPage.Navigation.PushModalAsync(new GetInstIDandRules(studentm)).ConfigureAwait(true);
                     }
-                    
                 }
                 else
                 {
                     Msglbl.Text = "Code doesn't match! Try again.";
                 }
             }
-            else if(codeEntry.Text == null)
+            else if (codeEntry.Text == null)
             {
                 Msglbl.Text = "Enter the code";
             }
-            
         }
 
         private void Button_Clicked_2(object sender, EventArgs e)

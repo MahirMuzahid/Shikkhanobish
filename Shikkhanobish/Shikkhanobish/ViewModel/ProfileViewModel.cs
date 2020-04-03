@@ -1,19 +1,10 @@
-﻿using IdentityModel.Client;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Net.Http;
-using System.Net.Http.Headers;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Web;
 using Xamarin.Forms;
+
 namespace Shikkhanobish
 {
-    class ProfileViewModel
+    internal class ProfileViewModel
     {
         private INavigation navigation;
         public string _studentID;
@@ -36,16 +27,15 @@ namespace Shikkhanobish
         public string _availableMin;
         public bool _isEnableTeacher;
 
-
         public ProfileViewModel(Teacher t)
         {
             Name = t.TeacherName;
 
             Age = "Age: " + t.Age;
-            Class = "Class: "+ t.Class;
+            Class = "Class: " + t.Class;
             InstitutionName = "Institution Name: " + t.InstitutionName;
             IsTeacherorStudent = "Teacher";
-            AmountTxt ="" + t.RechargedAmount + " Taka";
+            AmountTxt = "" + t.RechargedAmount + " Taka";
             AvailableMintxt = "Available Minute: " + t.RechargedAmount;
             Fee = "NTY";
             Avarage = 0;
@@ -55,7 +45,7 @@ namespace Shikkhanobish
             TotalTeacher = "Total Teacher: " + 0;
             TotalSpent = "Total Money Spent: " + 0;
             OffredTuitionTime = "Total Offred Tuition Time: " + 0;
-            TotalTuitionCount = "Total Tuition Coutn: " + 0 ;
+            TotalTuitionCount = "Total Tuition Coutn: " + 0;
             TeacherRank = "Teacher Rank: Placement";
             IsEnableTeacher = false;
         }
@@ -73,9 +63,9 @@ namespace Shikkhanobish
                     _name = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string Age
         {
             get
@@ -89,9 +79,9 @@ namespace Shikkhanobish
                     _age = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string StudentIDTxt
         {
             get
@@ -102,12 +92,12 @@ namespace Shikkhanobish
             {
                 if (value != null)
                 {
-                    _studentID= value;
+                    _studentID = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string Class
         {
             get
@@ -121,9 +111,9 @@ namespace Shikkhanobish
                     _class = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string InstitutionName
         {
             get
@@ -137,9 +127,9 @@ namespace Shikkhanobish
                     _institutionNmae = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string IsTeacherorStudent
         {
             get
@@ -153,9 +143,9 @@ namespace Shikkhanobish
                     _isTeacherorStudent = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string AmountTxt
         {
             get
@@ -169,9 +159,9 @@ namespace Shikkhanobish
                     _amount = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string Fee
         {
             get
@@ -185,9 +175,9 @@ namespace Shikkhanobish
                     _fee = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public float Avarage
         {
             get
@@ -198,9 +188,9 @@ namespace Shikkhanobish
             {
                 _avarage = value;
                 OnPropertyChanged();
-
             }
         }
+
         public string Subject
         {
             get
@@ -214,9 +204,9 @@ namespace Shikkhanobish
                     _subject = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public int TuitionPoint
         {
             get
@@ -227,9 +217,9 @@ namespace Shikkhanobish
             {
                 _tuitionPoint = value;
                 OnPropertyChanged();
-
             }
         }
+
         public string TotalTaken
         {
             get
@@ -243,9 +233,9 @@ namespace Shikkhanobish
                     _totalTaken = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string TotalTeacher
         {
             get
@@ -259,9 +249,9 @@ namespace Shikkhanobish
                     _totalTeacher = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string TotalSpent
         {
             get
@@ -275,9 +265,9 @@ namespace Shikkhanobish
                     _totalSpent = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string OffredTuitionTime
         {
             get
@@ -291,9 +281,9 @@ namespace Shikkhanobish
                     _offredTuitionTime = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string TotalTuitionCount
         {
             get
@@ -307,9 +297,9 @@ namespace Shikkhanobish
                     _totalTuitionCount = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public string TeacherRank
         {
             get
@@ -320,12 +310,12 @@ namespace Shikkhanobish
             {
                 if (value != null)
                 {
-                   _teacherRank = value;
+                    _teacherRank = value;
                     OnPropertyChanged();
                 }
-
             }
         }
+
         public bool IsEnableTeacher
         {
             get
@@ -336,9 +326,9 @@ namespace Shikkhanobish
             {
                 _isEnableTeacher = value;
                 OnPropertyChanged();
-
             }
         }
+
         public string AvailableMintxt
         {
             get
@@ -349,18 +339,14 @@ namespace Shikkhanobish
             {
                 _availableMin = value;
                 OnPropertyChanged();
-
             }
         }
 
-
-
         public event PropertyChangedEventHandler PropertyChanged;
+
         protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-
 }
-

@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using Xamarin.Forms;
 
 namespace Shikkhanobish
 {
     public class RegisterAsTeacherViewModel
     {
         private bool _check;
+
         public RegisterAsTeacherViewModel()
         {
             checkIsChecked();
@@ -18,7 +15,6 @@ namespace Shikkhanobish
 
         public void checkIsChecked()
         {
-            
         }
 
         public bool Check
@@ -35,6 +31,7 @@ namespace Shikkhanobish
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

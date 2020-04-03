@@ -2,11 +2,8 @@
 using Shikkhanobish.Model;
 using Shikkhanobish.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -16,8 +13,8 @@ namespace Shikkhanobish.ContentPages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RatingPage : ContentPage
     {
-        TransferInfo info = new TransferInfo();
-        Calculate calculate = new Calculate();
+        private TransferInfo info = new TransferInfo();
+        private Calculate calculate = new Calculate();
         private object c;
 
         public RatingPage(TransferInfo trnsInfo)
@@ -26,18 +23,18 @@ namespace Shikkhanobish.ContentPages
             info = trnsInfo;
             showEverything();
         }
+
         public void showEverything()
         {
-            
             tnamelbl.Text = info.Teacher.TeacherName;
             tIDlbl.Text = "" + info.Teacher.TeacherID;
             sClasslbl.Text = info.Class;
             sSubject.Text = info.SubjectName;
-            inapptimelbl.Text = "" +info.StudyTimeInAPp;
+            inapptimelbl.Text = "" + info.StudyTimeInAPp;
             costlbl.Text = "" + calculate.CalculateCost(info);
             RatingColorBox.IsEnabled = false;
             Ratelbl.Text = "Rate your teacher";
-             RatingColorBox.Color = Color.FromHex("#DCDCDC");
+            RatingColorBox.Color = Color.FromHex("#DCDCDC");
             sbtn.IsEnabled = false;
         }
 
@@ -51,6 +48,7 @@ namespace Shikkhanobish.ContentPages
             RatingColorBox.SetValue(Grid.ColumnSpanProperty, 1);
             sbtn.IsEnabled = true;
         }
+
         private void tstarClicked(object sender, EventArgs e)
         {
             RatingColorBox.CornerRadius = 2;
@@ -61,6 +59,7 @@ namespace Shikkhanobish.ContentPages
             RatingColorBox.SetValue(Grid.ColumnSpanProperty, 2);
             sbtn.IsEnabled = true;
         }
+
         private void thstarClicked(object sender, EventArgs e)
         {
             RatingColorBox.CornerRadius = 3;
@@ -71,6 +70,7 @@ namespace Shikkhanobish.ContentPages
             RatingColorBox.SetValue(Grid.ColumnSpanProperty, 3);
             sbtn.IsEnabled = true;
         }
+
         private void fstarClicked(object sender, EventArgs e)
         {
             RatingColorBox.CornerRadius = 4;
@@ -81,6 +81,7 @@ namespace Shikkhanobish.ContentPages
             RatingColorBox.SetValue(Grid.ColumnSpanProperty, 4);
             sbtn.IsEnabled = true;
         }
+
         private void fistarClicked(object sender, EventArgs e)
         {
             RatingColorBox.CornerRadius = 5;
@@ -108,7 +109,6 @@ namespace Shikkhanobish.ContentPages
                     tuitionClass = "" + info.Class[7];
                     tuitionClass = tuitionClass + info.Class[8];
                 }
-
             }
             string url = "https://api.shikkhanobish.com/api/Master/UpdateInfo";
             HttpClient client = new HttpClient();
@@ -137,6 +137,7 @@ namespace Shikkhanobish.ContentPages
             Response responseData = JsonConvert.DeserializeObject<Response>(result);
             backtoProfile();
         }
+
         public async void backtoProfile()
         {
             Student student = new Student();
@@ -149,6 +150,7 @@ namespace Shikkhanobish.ContentPages
             student = JsonConvert.DeserializeObject<Student>(result);
             await Application.Current.MainPage.Navigation.PushModalAsync(new StudentProfile(student)).ConfigureAwait(true);
         }
+
         private void Button_Clicked(object sender, EventArgs e)
         {
             FinishTHeUpdate();

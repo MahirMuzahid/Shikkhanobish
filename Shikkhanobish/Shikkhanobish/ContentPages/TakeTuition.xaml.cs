@@ -5,7 +5,6 @@ using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-
 namespace Shikkhanobish
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -15,9 +14,10 @@ namespace Shikkhanobish
         private string selectedGroup;
         private string selectedSubject;
 
-        private string subject, Sub,subjectName;
+        private string subject, Sub, subjectName;
         private TransferInfo transferNow = new TransferInfo();
-        public TakeTuition( int StudentID, string StudentName, string username, string pass)
+
+        public TakeTuition(int StudentID, string StudentName, string username, string pass)
         {
             InitializeComponent();
             BindingContext = new TaketuitionViewModel();
@@ -82,7 +82,7 @@ namespace Shikkhanobish
                 GroupBoxView.BackgroundColor = Color.FromHex("#CDCDCD");
                 GroupTxt.TextColor = Color.FromHex("#808080");
             }
-            else if( selectedClass == "Class 9" || selectedClass == "Class 10" || selectedClass == "Class 11" || selectedClass == "Class 12")
+            else if (selectedClass == "Class 9" || selectedClass == "Class 10" || selectedClass == "Class 11" || selectedClass == "Class 12")
             {
                 GroupPicker.SelectedIndex = 3;
                 GroupPicker.Items.Add("Science");
@@ -92,13 +92,12 @@ namespace Shikkhanobish
                 GroupBoxView.BackgroundColor = Color.FromHex("#FFFFFF");
                 GroupTxt.TextColor = Color.FromHex("#00203F");
             }
-            
         }
 
         private void GroupPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
             SubjectPicker.Items.Clear();
-            if(GroupPicker.Items.Count != 0)
+            if (GroupPicker.Items.Count != 0)
             {
                 selectedGroup = GroupPicker.Items[GroupPicker.SelectedIndex];
                 if ((selectedClass == "Class 9" || selectedClass == "Class 10") & selectedGroup == "Science")
@@ -179,8 +178,8 @@ namespace Shikkhanobish
                     SubjectPicker.Items.Add("Logic");
                 }
             }
-            
         }
+
         private async void SubjectPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
             SearchBtn.IsEnabled = true;
@@ -234,7 +233,6 @@ namespace Shikkhanobish
                     transferNow.ClassCode = Class;
                 }
                 //------------------------------------------------------------------------------------------------------
-                
             }
             if (selectedClass == "Class 9" || selectedClass == "Class 10")
             {
@@ -330,7 +328,7 @@ namespace Shikkhanobish
                     subjectName = Sub + " " + Paper;
                     transferNow.ClassCode = Class;
                 }
-            }            
+            }
             if (selectedClass == "Class 11" || selectedClass == "Class 12")
             {
                 Class = "HS";
@@ -383,7 +381,6 @@ namespace Shikkhanobish
                 {
                     sub = "ACC";
                     Sub = "Accounting";
-
                 }
                 else if (selectedSubject[0] == 'F')
                 {
@@ -421,17 +418,14 @@ namespace Shikkhanobish
                     transferNow.ClassCode = Class;
                 }
             }
-            if(sub != null)
+            if (sub != null)
             {
                 SearchBtn.Text = "We are searching best teacher for you";
                 transferNow.Class = selectedClass;
                 transferNow.Subject = subject;
                 transferNow.SubjectName = subjectName;
                 await Application.Current.MainPage.Navigation.PushModalAsync(new SearchedTeacher(transferNow)).ConfigureAwait(true);
-
             }
         }
-
-        
     }
 }

@@ -10,7 +10,6 @@
         <OnPlatform x:TypeArguments="x:String" x:Key="appFont">
             <On Platform="iOS" Value="Raleway-Regular" />
             <On Platform="Android" Value="Raleway-Regular.ttf#RalewayRegular" />
-
         </OnPlatform>
     </Application.Resources>
 </Application>

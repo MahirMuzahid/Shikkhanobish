@@ -1,10 +1,7 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -14,12 +11,14 @@ namespace Shikkhanobish
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TeacherHistory : ContentPage
     {
-        List<TeacherHistory> teacherHistory = new List<TeacherHistory>();
+        private List<TeacherHistory> teacherHistory = new List<TeacherHistory>();
+
         public TeacherHistory()
         {
             InitializeComponent();
             ShowTeacherStory();
         }
+
         //Link will be added
         public async void ShowTeacherStory()
         {

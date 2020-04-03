@@ -7,78 +7,76 @@
              mc:Ignorable="d"
              x:Class="Shikkhanobish.ContentPages.SearchedTeacher">
     <ContentPage.BindingContext>
-        <local:SearchedTeacherViewModel/>
+        <local:SearchedTeacherViewModel />
     </ContentPage.BindingContext>
     <Grid BackgroundColor="#DCDCDC">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="10*" />
         </Grid.RowDefinitions>
-        <Label Text="Teacher" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center" FontSize="17" FontAttributes="Bold"/>
+        <Label Text="Teacher" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center" FontSize="17" FontAttributes="Bold" />
         <ListView x:Name="TeacherListView" Grid.Row="1" IsEnabled="true" RowHeight="150" ItemTapped="TeacherListView_ItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell >
+                    <ViewCell>
                         <Frame Padding="15">
                             <Grid RowSpacing="0">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="5*"/>
-                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="5*" />
+                                    <RowDefinition Height="1*" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1*"/>
-                                    <ColumnDefinition Width="1*"/>
-                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions>
 
                                 <Grid Grid.Row="0" Padding="5" Margin="8,0,0,0" Grid.Column="0" Grid.ColumnSpan="2">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="1.3*"/>
-                                        <RowDefinition Height="1*"/>
-                                        <RowDefinition Height="1*"/>
-                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1.3*" />
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
                                     </Grid.RowDefinitions>
-                                    <BoxView BackgroundColor="{Binding Color}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" CornerRadius="10"/>
-                                    <Label Text="{Binding TeacherName}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" FontAttributes="Bold"/>
-                                    <Label Text="Avarage:" Grid.Row="1" Grid.Column="0" FontSize="11"/>
-                                    <Label Text="Total Min:" Grid.Row="2" Grid.Column="0" FontSize="11"/>
-                                    <Label Text="Tution Count:" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" FontSize="11"/>
-                                    <Label Text="{Binding Avarage}" Grid.Row="1" Grid.Column="1" FontSize="11" FontAttributes="Bold"/>
-                                    <Label Text="{Binding Total_Min}" Grid.Row="2" Grid.Column="1" FontSize="11" FontAttributes="Bold"/>
-                                    <Label Text="{Binding Number_Of_Tution}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" FontSize="11" FontAttributes="Bold"/>
-                                    <Label Text="Call Now" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0" Grid.RowSpan="4"  Grid.ColumnSpan="2" FontSize="20" TextColor="#7F23C569"/>
+                                    <BoxView BackgroundColor="{Binding Color}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" CornerRadius="10" />
+                                    <Label Text="{Binding TeacherName}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" FontAttributes="Bold" />
+                                    <Label Text="Avarage:" Grid.Row="1" Grid.Column="0" FontSize="11" />
+                                    <Label Text="Total Min:" Grid.Row="2" Grid.Column="0" FontSize="11" />
+                                    <Label Text="Tution Count:" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" FontSize="11" />
+                                    <Label Text="{Binding Avarage}" Grid.Row="1" Grid.Column="1" FontSize="11" FontAttributes="Bold" />
+                                    <Label Text="{Binding Total_Min}" Grid.Row="2" Grid.Column="1" FontSize="11" FontAttributes="Bold" />
+                                    <Label Text="{Binding Number_Of_Tution}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" FontSize="11" FontAttributes="Bold" />
+                                    <Label Text="Call Now" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0" Grid.RowSpan="4"  Grid.ColumnSpan="2" FontSize="20" TextColor="#7F23C569" />
                                 </Grid>
                                 <Grid Grid.Column="2" Grid.Row="0">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="40*"/>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="40*" />
                                     </Grid.ColumnDefinitions>
-                                    <Label Text="{Binding Teacher_Rank}" FontAttributes="Bold" FontSize="20" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="End" TextColor="{Binding Color}"/>
+                                    <Label Text="{Binding Teacher_Rank}" FontAttributes="Bold" FontSize="20" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="End" TextColor="{Binding Color}" />
                                 </Grid>
                                 <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" BackgroundColor="#2A2A2A">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="4*"/>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="4*" />
                                     </Grid.ColumnDefinitions>
-                                    <Label Text="{Binding Five_Star}" Grid.Column="0" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
-                                    <Label Text="{Binding Four_Star}" Grid.Column="1" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
-                                    <Label Text="{Binding Three_Star}" Grid.Column="2" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
-                                    <Label Text="{Binding Two_Star}" Grid.Column="3" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
-                                    <Label Text="{Binding One_Star}" Grid.Column="4" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
-                                    
-                                    <Label Text="{Binding Amount}" Grid.Column="5" HorizontalOptions="End" VerticalOptions="Center" TextColor="#FFFFFF" FontAttributes="Bold" FontSize="14"/>
-                                    <Label Text="taka/min" Grid.Column="6" HorizontalOptions="Start" VerticalOptions="Center" TextColor="#FFFFFF" FontAttributes="Bold" FontSize="14"/>
-                                    
+                                    <Label Text="{Binding Five_Star}" Grid.Column="0" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11" />
+                                    <Label Text="{Binding Four_Star}" Grid.Column="1" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11" />
+                                    <Label Text="{Binding Three_Star}" Grid.Column="2" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11" />
+                                    <Label Text="{Binding Two_Star}" Grid.Column="3" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11" />
+                                    <Label Text="{Binding One_Star}" Grid.Column="4" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11" />
 
+                                    <Label Text="{Binding Amount}" Grid.Column="5" HorizontalOptions="End" VerticalOptions="Center" TextColor="#FFFFFF" FontAttributes="Bold" FontSize="14" />
+                                    <Label Text="taka/min" Grid.Column="6" HorizontalOptions="Start" VerticalOptions="Center" TextColor="#FFFFFF" FontAttributes="Bold" FontSize="14" />
                                 </Grid>
                             </Grid>
                         </Frame>
@@ -87,5 +85,4 @@
             </ListView.ItemTemplate>
         </ListView>
     </Grid>
-    
 </ContentPage>

@@ -1,22 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using static Shikkhanobish.Model.Infoforteacherwindow;
 
 namespace Shikkhanobish
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-
     public partial class TeacherProfile : MasterDetailPage
     {
         public int StudentID;
         private Student _Student;
         private Teacher teacher;
+
         public TeacherProfile(Teacher t)
         {
             teacher = t;
@@ -26,10 +21,9 @@ namespace Shikkhanobish
             var image = new Image { Source = "BackColor.jpg" };
             BindingContext = new ProfileViewModel(t);
             MasterBehavior = MasterBehavior.Popover;
-
         }
-       
-        private  void Button_Clicked(object sender, EventArgs e)
+
+        private void Button_Clicked(object sender, EventArgs e)
         {
             //await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterAsTeacher()).ConfigureAwait(true);
             //this.IsPresented = true;
@@ -37,7 +31,6 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_1(object sender, EventArgs e)
         {
-            
         }
 
         private async void Button_Clicked_2(object sender, EventArgs e)
@@ -49,11 +42,13 @@ namespace Shikkhanobish
         {
             await Application.Current.MainPage.Navigation.PushModalAsync(new TeacherHistory()).ConfigureAwait(true);
         }
+
         protected override bool OnBackButtonPressed()
         {
             giveAlert();
             return true;
         }
+
         public async void giveAlert()
         {
             bool answer = await DisplayAlert("Alert", "Would you like to quit?", "Yes", "No").ConfigureAwait(true);
@@ -72,6 +67,7 @@ namespace Shikkhanobish
         {
             this.IsPresented = true;
         }
+
         private async void Button_Clicked_6(object sender, EventArgs e)
         {
             await Application.Current.MainPage.Navigation.PushModalAsync(new UpdateAccount(_Student)).ConfigureAwait(true);

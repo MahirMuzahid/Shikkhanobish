@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shikkhanobish
+﻿namespace Shikkhanobish
 {
-    class StudentIDandPhoneNumber
+    internal class StudentIDandPhoneNumber
     {
         public int StudentID { get; set; }
         public string PhoneNumber { get; set; }

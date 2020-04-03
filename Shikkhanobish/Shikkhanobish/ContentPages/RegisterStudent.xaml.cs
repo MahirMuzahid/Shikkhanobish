@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -12,7 +8,6 @@ namespace Shikkhanobish
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RegisterStudent : ContentPage
     {
-
         public RegisterStudent()
         {
             InitializeComponent();
@@ -22,12 +17,13 @@ namespace Shikkhanobish
             //RegisterButton.IsEnabled = false;
             Automate();
         }
+
         public void Automate()
         {
             var vm = new RegisterStudentViewModel(Navigation);
             UsernameEntry.Completed += (object sender, EventArgs e) =>
             {
-                PasswordEntry.Focus();   
+                PasswordEntry.Focus();
             };
             PasswordEntry.Completed += (object sender, EventArgs e) =>
             {
@@ -45,7 +41,7 @@ namespace Shikkhanobish
             {
                 AgeEntry.Focus();
             };
-            AgeEntry.Completed += (object sender, EventArgs e) =>  
+            AgeEntry.Completed += (object sender, EventArgs e) =>
             {
                 ClassEntry.Focus();
             };
@@ -55,10 +51,8 @@ namespace Shikkhanobish
             };
             INameEntry.Completed += (object sender, EventArgs e) =>
             {
-                
                 vm.RegisterStudent.Execute(null);
             };
         }
-
     }
 }

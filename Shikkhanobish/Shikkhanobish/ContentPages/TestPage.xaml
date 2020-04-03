@@ -11,17 +11,12 @@
             <DataTemplate>
                 <Frame>
                     <StackLayout>
-                        <Label Text="{Binding t1}"/>
-                        <Label Text="{Binding t2}"/>
-                        <Label Text="{Binding t3}"/>
+                        <Label Text="{Binding t1}" />
+                        <Label Text="{Binding t2}" />
+                        <Label Text="{Binding t3}" />
                     </StackLayout>
                 </Frame>
             </DataTemplate>
         </CarouselView.ItemTemplate>
-        
     </CarouselView>
-    
-        
-
-    
 </ContentPage>

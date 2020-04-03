@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shikkhanobish.Model
+﻿namespace Shikkhanobish.Model
 {
-    class TuitionHistoryTeacher
+    internal class TuitionHistoryTeacher
     {
         public int TeacherID { get; set; }
         public int TuitionStundentID { get; set; }

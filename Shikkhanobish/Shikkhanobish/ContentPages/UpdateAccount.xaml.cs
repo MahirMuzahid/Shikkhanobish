@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,6 +9,7 @@ namespace Shikkhanobish
     public partial class UpdateAccount : ContentPage
     {
         public Student Student;
+
         public UpdateAccount(Student student)
         {
             InitializeComponent();
@@ -26,18 +23,17 @@ namespace Shikkhanobish
             unlbl.Text = student.UserName;
             plbl.Text = "*****";
             nlbl.Text = student.Name;
-            albl.Text = ""+student.Age;
+            albl.Text = "" + student.Age;
             clbl.Text = "" + student.Class;
             ilbl.Text = student.InstitutionName;
         }
-
 
         private void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             if (oChk.IsChecked == true)
             {
                 UserNameEntry.IsEnabled = true;
-            }    
+            }
             else
             {
                 UserNameEntry.IsEnabled = false;
@@ -112,11 +108,11 @@ namespace Shikkhanobish
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-           if( CurPassEntry.Text != ConCurPassEntry.Text)
-           {
+            if (CurPassEntry.Text != ConCurPassEntry.Text)
+            {
                 Errortxt.Text = "Password Doen't Match!";
-           }
-           else if(CurPassEntry.Text != Student.Password)
+            }
+            else if (CurPassEntry.Text != Student.Password)
             {
                 Errortxt.Text = "This is not your password!";
             }

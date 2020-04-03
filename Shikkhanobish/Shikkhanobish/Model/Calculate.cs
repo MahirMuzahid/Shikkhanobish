@@ -1,7 +1,4 @@
 ﻿using Shikkhanobish.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Shikkhanobish.Model
 {
@@ -9,6 +6,7 @@ namespace Shikkhanobish.Model
     {
         public TransferInfo Info;
         public int CalculatedTuitionTime;
+
         public float RatingAndCostRange(string rank, string Class)
         {
             float pmc = 0;
@@ -92,20 +90,21 @@ namespace Shikkhanobish.Model
                 }
             }
             return pmc;
-        }      
+        }
+
         public string RankRange(int tuitionPoint, double avg, int totalTuitionTime)
         {
             string rank = null;
-            if(totalTuitionTime < 20 )
+            if (totalTuitionTime < 20)
             {
                 rank = "Placement";
             }
-            else if(tuitionPoint <= 999 || (tuitionPoint > 999 && avg < 3.75f))
+            else if (tuitionPoint <= 999 || (tuitionPoint > 999 && avg < 3.75f))
             {
                 rank = "Newbie";
             }
             else if (tuitionPoint <= 3999 && avg >= 3.750f || (tuitionPoint > 3999 && avg < 3.75f))
-            { 
+            {
                 rank = "Average";
             }
             else if (tuitionPoint <= 8999 && avg >= 4.00f || (tuitionPoint > 8999 && avg < 4.00f))
@@ -123,23 +122,20 @@ namespace Shikkhanobish.Model
             return rank;
         }
 
-
-
         public int CalculateCost(TransferInfo info)
         {
             Info = info;
             int cost = 0;
-            if(info.StudyTimeInAPp > 0)
+            if (info.StudyTimeInAPp > 0)
             {
                 int totalMin = info.StudyTimeInAPp - info.Student.freeMin;
-                cost =(int)(totalMin * RatingAndCostRange(info.Teacher.Teacher_Rank, info.ClassCode));
+                cost = (int)(totalMin * RatingAndCostRange(info.Teacher.Teacher_Rank, info.ClassCode));
             }
             else
             {
                 cost = 0;
             }
             return cost;
-            
         }
 
         public int CalculateTuitionPoint(TransferInfo info)
@@ -149,10 +145,9 @@ namespace Shikkhanobish.Model
             return TuitionTime;
         }
 
-        public string CalculateRank (TransferInfo info)
+        public string CalculateRank(TransferInfo info)
         {
-            return RankRange(info.Teacher.OverallTP, info.Teacher.Avarage, CalculatedTuitionTime );
+            return RankRange(info.Teacher.OverallTP, info.Teacher.Avarage, CalculatedTuitionTime);
         }
-
     }
 }

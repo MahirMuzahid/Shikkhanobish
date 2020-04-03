@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shikkhanobish
+﻿namespace Shikkhanobish
 {
     public class TuitionHistoryStudent
     {

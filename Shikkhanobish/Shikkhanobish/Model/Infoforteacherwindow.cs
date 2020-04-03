@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Shikkhanobish.Model
 {
-    class Infoforteacherwindow
+    internal class Infoforteacherwindow
     {
         public string t1 { get; set; }
         public string t2 { get; set; }
@@ -19,12 +17,10 @@ namespace Shikkhanobish.Model
                 new Infoforteacherwindow ()
                 {
                     t1 = "Tex1-1", t2 = "Test1-2", t3 = "Text1-3"
-
                 },
                 new Infoforteacherwindow ()
                 {
                      t1 = "Tex2-1", t2 = "Test2-2", t3 = "Text2-3"
-
                 }
             };
             }

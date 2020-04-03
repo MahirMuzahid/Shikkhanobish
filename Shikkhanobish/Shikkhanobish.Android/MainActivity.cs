@@ -1,13 +1,10 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
+using Android.OS;
 using Android.Runtime;
 using Android.Views;
-using Android.Widget;
-using Android.OS;
-using Xamarin.Forms;
 using Plugin.CurrentActivity;
+using System;
 using Xamarin.Forms.OpenTok.Android.Service;
 
 namespace Shikkhanobish.Droid
@@ -31,13 +28,13 @@ namespace Shikkhanobish.Droid
             this.Window.AddFlags(WindowManagerFlags.KeepScreenOn);
 
             //this.Window.ClearFlags(WindowManagerFlags.Fullscreen);
-          
+
             CrossCurrentActivity.Current.Activity = this;
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
-
         }
+
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -47,8 +44,6 @@ namespace Shikkhanobish.Droid
 
         protected bool OnBackButtonPressed()
         {
-
-
             return true;
         }
     }

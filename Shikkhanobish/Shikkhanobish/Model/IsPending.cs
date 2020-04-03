@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shikkhanobish.Model
+﻿namespace Shikkhanobish.Model
 {
-    class IsPending
+    internal class IsPending
     {
         public int StudentID { get; set; }
         public string TeacherName { get; set; }

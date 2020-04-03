@@ -1,11 +1,7 @@
 ﻿using Newtonsoft.Json;
-using Syncfusion.XForms.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -16,11 +12,13 @@ namespace Shikkhanobish
     public partial class StudentHistory : ContentPage
     {
         private List<TuitionHistoryStudent> studentHistory = new List<TuitionHistoryStudent>();
+
         public StudentHistory()
         {
             InitializeComponent();
             ShowTuitionSistoryAsync();
         }
+
         public async void ShowTuitionSistoryAsync()
         {
             int StudentID = 1017;

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Shikkhanobish
@@ -15,18 +11,16 @@ namespace Shikkhanobish
     {
         private INavigation navigation;
 
-        public  MainPage()
+        public MainPage()
         {
-            
             InitializeComponent();
-            
+
             var image = new Image { Source = "loginwindowtext.png" };
             var vm = new MainPageViewModel();
             this.BindingContext = vm;
             Automate();
-
-
         }
+
         public void Automate()
         {
             Username.Completed += (object sender, EventArgs e) =>
@@ -39,14 +33,16 @@ namespace Shikkhanobish
                 vm.Login.Execute(null);
             };
         }
-         protected override bool OnBackButtonPressed()
+
+        protected override bool OnBackButtonPressed()
         {
             giveAlert();
             return true;
         }
+
         public async void giveAlert()
         {
-            bool answer =  await DisplayAlert("Alert", "Would you like to quit?", "Yes", "No").ConfigureAwait(true);
+            bool answer = await DisplayAlert("Alert", "Would you like to quit?", "Yes", "No").ConfigureAwait(true);
             if (answer == true)
             {
                 System.Environment.Exit(0);
@@ -56,11 +52,10 @@ namespace Shikkhanobish
         private void Button_Clicked(object sender, EventArgs e)
         {
             Loginbtn.IsEnabled = false;
-            if(Loginbtn.Text != "Wait")
+            if (Loginbtn.Text != "Wait")
             {
                 Loginbtn.IsEnabled = true;
             }
         }
     }
-
 }

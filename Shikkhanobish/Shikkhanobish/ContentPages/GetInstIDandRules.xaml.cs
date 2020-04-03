@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -14,6 +11,7 @@ namespace Shikkhanobish.ContentPages
     {
         public Student student;
         public string InstitutionID;
+
         public GetInstIDandRules(Student s)
         {
             InitializeComponent();
@@ -23,7 +21,7 @@ namespace Shikkhanobish.ContentPages
         private async void Button_Clicked(object sender, EventArgs e)
         {
             InstitutionID = InstitutionIDEntry.Text;
-            await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterAsTeacher(student,InstitutionID)).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterAsTeacher(student, InstitutionID)).ConfigureAwait(true);
         }
     }
 }

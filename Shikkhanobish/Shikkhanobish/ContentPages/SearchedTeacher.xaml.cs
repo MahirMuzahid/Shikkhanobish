@@ -3,10 +3,8 @@ using Shikkhanobish.Model;
 using Shikkhanobish.ViewModel;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.OpenTok.Service;
@@ -17,19 +15,17 @@ namespace Shikkhanobish.ContentPages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SearchedTeacher : ContentPage
     {
-        TransferInfo info = new TransferInfo();
-        List<TeacherID> TeacherIDListBySearch = new List<TeacherID>();
-        List<Teacher> TeacherList = new List<Teacher>();
-        List<Teacher> FilteredTeacher = new List<Teacher>();
+        private TransferInfo info = new TransferInfo();
+        private List<TeacherID> TeacherIDListBySearch = new List<TeacherID>();
+        private List<Teacher> TeacherList = new List<Teacher>();
+        private List<Teacher> FilteredTeacher = new List<Teacher>();
+
         public SearchedTeacher(TransferInfo transInfo)
         {
             InitializeComponent();
             info = transInfo;
             getTeacherID();
             getTeacher();
-
-
-
         }
 
         public async void getTeacherID()
@@ -42,6 +38,7 @@ namespace Shikkhanobish.ContentPages
             string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
             TeacherIDListBySearch = JsonConvert.DeserializeObject<List<TeacherID>>(result);
         }
+
         public async void getTeacher()
         {
             string urlN = "https://api.shikkhanobish.com/api/Master/GetTeacher";
@@ -52,23 +49,22 @@ namespace Shikkhanobish.ContentPages
             getSearchedTeacherInList();
         }
 
-
-
         //I fking have to change isActive to 1 Come on
         public void getSearchedTeacherInList()
         {
-            for(int i = 0; i < TeacherList.Count; i++)
+            for (int i = 0; i < TeacherList.Count; i++)
             {
-                for(int j = 0; j < TeacherIDListBySearch.Count; j++)
+                for (int j = 0; j < TeacherIDListBySearch.Count; j++)
                 {
-                    if((TeacherList[i].TeacherID == TeacherIDListBySearch[j].teacherID) && TeacherList[i].IsActive == 0 && TeacherList[i].IsOnTuition == 0)
+                    if ((TeacherList[i].TeacherID == TeacherIDListBySearch[j].teacherID) && TeacherList[i].IsActive == 0 && TeacherList[i].IsOnTuition == 0)
                     {
-                        FilteredTeacher.Add(TeacherList[i]);                       
+                        FilteredTeacher.Add(TeacherList[i]);
                     }
                 }
             }
             SetEveryThing();
         }
+
         public void SetEveryThing()
         {
             Perfection();
@@ -78,26 +74,23 @@ namespace Shikkhanobish.ContentPages
         public void Perfection()
         {
             Calculate cal = new Calculate();
-            double total,count;
+            double total, count;
             for (int i = 0; i < FilteredTeacher.Count; i++)
             {
-                total = FilteredTeacher[i].Five_Star*5+FilteredTeacher[i].Four_Star * 4+FilteredTeacher[i].Three_Star * 3+FilteredTeacher[i].Two_Star * 2+FilteredTeacher[i].One_Star * 1;
-                count = FilteredTeacher[i].Five_Star + FilteredTeacher[i].Four_Star + FilteredTeacher[i].Three_Star + FilteredTeacher[i].Two_Star + FilteredTeacher[i].One_Star ;
-                if(count == 0)
+                total = FilteredTeacher[i].Five_Star * 5 + FilteredTeacher[i].Four_Star * 4 + FilteredTeacher[i].Three_Star * 3 + FilteredTeacher[i].Two_Star * 2 + FilteredTeacher[i].One_Star * 1;
+                count = FilteredTeacher[i].Five_Star + FilteredTeacher[i].Four_Star + FilteredTeacher[i].Three_Star + FilteredTeacher[i].Two_Star + FilteredTeacher[i].One_Star;
+                if (count == 0)
                 {
                     FilteredTeacher[i].Avarage = 0;
                 }
                 else
                 {
-                    FilteredTeacher[i].Avarage = System.Math.Round(total / count, 2); 
+                    FilteredTeacher[i].Avarage = System.Math.Round(total / count, 2);
                 }
-                
 
                 if (FilteredTeacher[i].Teacher_Rank == "Placement")
                 {
-
                     FilteredTeacher[i].Color = "#B9B9B9";
-                    
                 }
                 else if (FilteredTeacher[i].Teacher_Rank == "Newbie")
                 {
@@ -122,16 +115,13 @@ namespace Shikkhanobish.ContentPages
                 var cost = cal.RatingAndCostRange(info.Teacher.Teacher_Rank, info.ClassCode);
                 FilteredTeacher[i].Amount = cost;
             }
-           
         }
 
         private async void TeacherListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            var selectedTeacher = e.Item as Teacher;           
+            var selectedTeacher = e.Item as Teacher;
             info.Teacher = selectedTeacher;
             beSure();
-
-
         }
 
         public async void beSure()
@@ -139,12 +129,11 @@ namespace Shikkhanobish.ContentPages
             string name = "Teacher Name: " + info.Teacher.TeacherName;
             string subject = "Subject: " + info.SubjectName;
             string action = await DisplayActionSheet("Do you want to proceed?", "Yes", "No", name, info.Class, subject);
-            if( action == "Yes")
+            if (action == "Yes")
             {
                 GetKeys();
                 checkSession();
             }
-
         }
 
         public async void checkSession()

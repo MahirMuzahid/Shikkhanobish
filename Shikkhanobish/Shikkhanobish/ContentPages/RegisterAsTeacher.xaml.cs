@@ -1,11 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Shikkhanobish.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -15,11 +12,12 @@ namespace Shikkhanobish
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RegisterAsTeacher : ContentPage
     {
-        RegisterTeacher registerteacher =  new RegisterTeacher();
-        Teacher teacher = new Teacher();
-        int taken = 10000000, studentID;
-        string institutionID, Name;
-        Student studenT = new Student();
+        private RegisterTeacher registerteacher = new RegisterTeacher();
+        private Teacher teacher = new Teacher();
+        private int taken = 10000000, studentID;
+        private string institutionID, Name;
+        private Student studenT = new Student();
+
         public RegisterAsTeacher(Student student, string InstitutionID)
         {
             institutionID = InstitutionID;
@@ -28,6 +26,7 @@ namespace Shikkhanobish
             BindingContext = new RegisterAsTeacherViewModel();
             DisableCheckkBox();
         }
+
         public void DisableCheckkBox()
         {
             NTAcochbx.IsEnabled = false;
@@ -53,7 +52,7 @@ namespace Shikkhanobish
             ETM1chbx.IsEnabled = false;
             ETM2chbx.IsEnabled = false;
             ETSttchbx.IsEnabled = false;
-            ETZukchbx.IsEnabled = false;            
+            ETZukchbx.IsEnabled = false;
         }
 
         private void NTSciencechbx_CheckedChanged(object sender, CheckedChangedEventArgs e)
@@ -144,7 +143,7 @@ namespace Shikkhanobish
 
         private void NTArtschbx_CheckedChanged(object sender, CheckedChangedEventArgs e)
         {
-            if(NTArtschbx.IsChecked == true)
+            if (NTArtschbx.IsChecked == true)
             {
                 NTAcochbx.IsEnabled = false;
                 NTBiochbx.IsEnabled = false;
@@ -182,7 +181,7 @@ namespace Shikkhanobish
                 NTHMchbx.IsChecked = false;
                 NTPhychbx.IsChecked = false;
                 NTFBchbx.IsChecked = false;
-            }           
+            }
         }
 
         private void ETSciencechbx_CheckedChanged(object sender, CheckedChangedEventArgs e)
@@ -223,20 +222,20 @@ namespace Shikkhanobish
                 ETSttchbx.IsEnabled = false;
                 ETZukchbx.IsEnabled = false;
 
-                ETAcochbx.IsChecked= false;
-                ETBio1chbx.IsChecked= false;
-                ETBio2chbx.IsChecked= false;
-                ETChe1chbx.IsChecked= false;
-                ETChe2chbx.IsChecked= false;
-                ETPhy1chbx.IsChecked= false;
-                ETPhy2chbx.IsChecked= false;
-                ETFBchbx.IsChecked= false;
-                ETEcochbx.IsChecked= false;
-                ETM1chbx.IsChecked= false;
-                ETM2chbx.IsChecked= false;
-                ETSttchbx.IsChecked= false;
-                ETZukchbx.IsChecked= false;
-            }          
+                ETAcochbx.IsChecked = false;
+                ETBio1chbx.IsChecked = false;
+                ETBio2chbx.IsChecked = false;
+                ETChe1chbx.IsChecked = false;
+                ETChe2chbx.IsChecked = false;
+                ETPhy1chbx.IsChecked = false;
+                ETPhy2chbx.IsChecked = false;
+                ETFBchbx.IsChecked = false;
+                ETEcochbx.IsChecked = false;
+                ETM1chbx.IsChecked = false;
+                ETM2chbx.IsChecked = false;
+                ETSttchbx.IsChecked = false;
+                ETZukchbx.IsChecked = false;
+            }
         }
 
         private void ETCommercchbx_CheckedChanged(object sender, CheckedChangedEventArgs e)
@@ -289,7 +288,7 @@ namespace Shikkhanobish
                 ETM2chbx.IsChecked = false;
                 ETSttchbx.IsChecked = false;
                 ETZukchbx.IsChecked = false;
-            }          
+            }
         }
 
         private void ETArtschbx_CheckedChanged(object sender, CheckedChangedEventArgs e)
@@ -341,23 +340,24 @@ namespace Shikkhanobish
                 ETM2chbx.IsChecked = false;
                 ETSttchbx.IsChecked = false;
                 ETZukchbx.IsChecked = false;
-            }            
+            }
         }
 
         private async void Button_Clicked(object sender, EventArgs e)
-        {       
+        {
             bool checkCommon = CheckCommon();
             bool checkGroup = CheckGroup();
             CheckHighSchool();
             teacher.InstitutionID = institutionID;
             teacher.StudentID = studentID;
             registerteacher.Name = Name;
-            if(checkCommon == true && checkGroup == true)
+            if (checkCommon == true && checkGroup == true)
             {
-                registerteacher.TeacherID = studentID + 100000 ; 
+                registerteacher.TeacherID = studentID + 100000;
                 string url = "https://api.shikkhanobish.com/api/Master/RegisterTeacher";
                 HttpClient client = new HttpClient();
-                string jsonData = JsonConvert.SerializeObject(new {
+                string jsonData = JsonConvert.SerializeObject(new
+                {
                     TeacherID = registerteacher.TeacherID,
                     LSBAN01 = registerteacher.LSBAN01,
                     LSBAN02 = registerteacher.LSBAN02,
@@ -419,13 +419,12 @@ namespace Shikkhanobish
                     Class = studenT.Class,
                     InstitutionName = studenT.InstitutionName,
                     RechargedAmount = studenT.RechargedAmount
-
                 }); ;
                 StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
                 string result = await response.Content.ReadAsStringAsync();
                 var responsE = JsonConvert.DeserializeObject<Response>(result);
-                if(responsE.Status == 1)
+                if (responsE.Status == 1)
                 {
                     ErrorText.Text = responsE.Massage;
                 }
@@ -443,7 +442,6 @@ namespace Shikkhanobish
                     t.InstitutionID = institutionID;
                     //await Application.Current.MainPage.Navigation.PushModalAsync(new TeacherProfile(t)).ConfigureAwait(true);
                 }
-
             }
         }
 
@@ -456,43 +454,43 @@ namespace Shikkhanobish
                 checkCounter++;
                 registerteacher.SBAN01 = taken;
             }
-            if(NTB2chbx.IsChecked == true)
+            if (NTB2chbx.IsChecked == true)
             {
                 checkCounter++;
                 registerteacher.SBAN02 = taken;
             }
-            if(NTE1chbx.IsChecked == true)
+            if (NTE1chbx.IsChecked == true)
             {
                 checkCounter++;
                 registerteacher.SENG01 = taken;
             }
-            if(NTE2chbx.IsChecked == true)
+            if (NTE2chbx.IsChecked == true)
             {
                 checkCounter++;
                 registerteacher.SENG02 = taken;
             }
 
-            if(NTGMchbx.IsChecked == true)
+            if (NTGMchbx.IsChecked == true)
             {
                 checkCounter++;
                 registerteacher.SGMATH = taken;
             }
-            if(NTRchbx.IsChecked == true)
+            if (NTRchbx.IsChecked == true)
             {
                 checkCounter++;
                 registerteacher.SREL = taken;
             }
-            if(NTBGSchbx.IsChecked == true)
+            if (NTBGSchbx.IsChecked == true)
             {
                 checkCounter++;
                 registerteacher.SBGS = taken;
             }
-            if(NTICTchbx.IsChecked == true)
+            if (NTICTchbx.IsChecked == true)
             {
                 checkCounter++;
                 registerteacher.SICT = taken;
             }
-            if(checkCounter > 4)
+            if (checkCounter > 4)
             {
                 ErrorText.Text = "You cant take more than 4 subject in common subject of class 9-10";
                 registerteacher.SICT = 0;
@@ -505,7 +503,7 @@ namespace Shikkhanobish
                 registerteacher.SBAN01 = 0;
                 check = false;
             }
-            if(check == true)
+            if (check == true)
             {
                 checkCounter = 0;
                 if (ETB1chbx.IsChecked == true)
@@ -545,8 +543,8 @@ namespace Shikkhanobish
                 }
             }
             return check;
-           
         }
+
         public bool CheckGroup()
         {
             bool check = true;
@@ -623,7 +621,7 @@ namespace Shikkhanobish
                 {
                     registerteacher.SCRE = taken;
                 }
-                if(NTGeochbx.IsChecked == true)
+                if (NTGeochbx.IsChecked == true)
                 {
                     registerteacher.SGEO = taken;
                 }
@@ -644,7 +642,6 @@ namespace Shikkhanobish
                 {
                     checkCounter++;
                     registerteacher.HSCHE01 = taken;
-
                 }
                 if (ETChe2chbx.IsChecked == true)
                 {
@@ -687,22 +684,22 @@ namespace Shikkhanobish
             }
             if (ETCommercchbx.IsChecked == true)
             {
-                if(ETAcochbx.IsChecked == true)
+                if (ETAcochbx.IsChecked == true)
                 {
                     checkCounter++;
                     registerteacher.HSACC = taken;
                 }
-                if(ETFBchbx.IsChecked == true)
+                if (ETFBchbx.IsChecked == true)
                 {
                     checkCounter++;
                     registerteacher.HSFIN = taken;
                 }
-                if(ETEcochbx.IsChecked == true)
+                if (ETEcochbx.IsChecked == true)
                 {
                     checkCounter++;
                     registerteacher.HSECO = taken;
                 }
-                if(ETSttchbx.IsChecked == true)
+                if (ETSttchbx.IsChecked == true)
                 {
                     checkCounter++;
                     registerteacher.HSSTAT = taken;
@@ -719,16 +716,17 @@ namespace Shikkhanobish
             }
             if (ETArtschbx.IsChecked == true)
             {
-                if(ETZukchbx.IsChecked == true)
+                if (ETZukchbx.IsChecked == true)
                 {
                     registerteacher.HSLOG = taken;
                 }
             }
             return check;
         }
+
         public void CheckHighSchool()
         {
-            if(SEchbx.IsChecked == true)
+            if (SEchbx.IsChecked == true)
             {
                 registerteacher.LSAGR = taken;
                 registerteacher.LSBAN01 = taken;
@@ -741,7 +739,6 @@ namespace Shikkhanobish
                 registerteacher.LSICT = taken;
                 registerteacher.LSMATH = taken;
             }
-
         }
     }
 }

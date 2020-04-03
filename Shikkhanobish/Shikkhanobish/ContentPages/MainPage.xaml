@@ -5,34 +5,33 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              BackgroundImageSource="loginwindow.jpg"
-             x:Class="Shikkhanobish.MainPage"
-             >
+             x:Class="Shikkhanobish.MainPage">
 
     <Grid Padding="40">
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height=".3*"/>
-            <RowDefinition Height=".6*"/>
-            <RowDefinition Height=".6*"/>
-            <RowDefinition Height=".4*"/>
-            <RowDefinition Height=".4*"/>
-            <RowDefinition Height=".4*"/>
+            <RowDefinition Height="2*" />
+            <RowDefinition Height=".3*" />
+            <RowDefinition Height=".6*" />
+            <RowDefinition Height=".6*" />
+            <RowDefinition Height=".4*" />
+            <RowDefinition Height=".4*" />
+            <RowDefinition Height=".4*" />
         </Grid.RowDefinitions>
 
-        <Label Text="{Binding ErrorText}" Grid.Row="1" TextColor="Red"/>
-        <Entry x:Name="Username" Placeholder="User Name" 
+        <Label Text="{Binding ErrorText}" Grid.Row="1" TextColor="Red" />
+        <Entry x:Name="Username" Placeholder="User Name"
                HorizontalOptions="FillAndExpand"
                Text="{Binding UserName}"
-               Grid.Row="2"/>
-        <Entry x:Name="Password" Placeholder="Password"               
-               HorizontalOptions="FillAndExpand"    
+               Grid.Row="2" />
+        <Entry x:Name="Password" Placeholder="Password"
+               HorizontalOptions="FillAndExpand"
                Text="{Binding Password}"
                IsPassword="True"
                Grid.Row="3" ScaleX="1" />
         <Label HorizontalOptions="End" Grid.Row="4">
             <Label.FormattedText>
                 <FormattedString>
-                    <Span Text="Forgot Username or Password?" TextColor="Blue" >
+                    <Span Text="Forgot Username or Password?" TextColor="Blue">
                         <Span.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ForgotPassword}" />
                         </Span.GestureRecognizers>
@@ -40,23 +39,19 @@
                 </FormattedString>
             </Label.FormattedText>
         </Label>
-        <Button x:Name="Loginbtn" Text="{Binding loginText}" 
+        <Button x:Name="Loginbtn" Text="{Binding loginText}"
                 Command="{Binding Login}"
                 Grid.Row="5"
                 BackgroundColor="White"
                 BorderWidth="1"
                 BorderColor="#626262"
                 CornerRadius="25"
-                Clicked="Button_Clicked"
-                />
-        <Button x:Name="RegisterStudent" 
-                Text="Register" 
+                Clicked="Button_Clicked" />
+        <Button x:Name="RegisterStudent"
+                Text="Register"
                 Command="{Binding RegisterStudent}"
                 Grid.Row="6"
                 CornerRadius="25"
                 BackgroundColor="#8A4EE6" TextColor="#FFFFFF"></Button>
-        
     </Grid>
-
-
 </ContentPage>

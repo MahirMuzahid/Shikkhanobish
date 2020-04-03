@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shikkhanobish
+﻿namespace Shikkhanobish
 {
     public class Teacher
     {
@@ -35,21 +31,5 @@ namespace Shikkhanobish
         public double Avarage { get; set; }
         public string Color { get; set; }
         public int OverallTP { get; set; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

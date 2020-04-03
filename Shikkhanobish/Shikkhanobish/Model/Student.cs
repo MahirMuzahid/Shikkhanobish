@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shikkhanobish
+﻿namespace Shikkhanobish
 {
     public class Student
     {
@@ -23,4 +19,3 @@ namespace Shikkhanobish
         public float AvarageRating { get; set; }
     }
 }
-

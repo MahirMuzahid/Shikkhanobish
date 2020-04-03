@@ -1,11 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Shikkhanobish.ContentPages;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -15,13 +12,14 @@ namespace Shikkhanobish
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ForgotPasswordWindow : ContentPage
     {
-        int VerificationNumber;
-        Random random = new Random();
-        string Phonenumber;
-        string Result = null;
-        Student student = new Student();
-        int studentorTeacher = 0;
+        private int VerificationNumber;
+        private Random random = new Random();
+        private string Phonenumber;
+        private string Result = null;
+        private Student student = new Student();
+        private int studentorTeacher = 0;
         public string Username;
+
         public ForgotPasswordWindow()
         {
             InitializeComponent();
@@ -32,7 +30,6 @@ namespace Shikkhanobish
 
         private async void Sentbtn_Clicked(object sender, EventArgs e)
         {
-            
             if (Sentbtn.Text == "Verify")
             {
                 if (VerificationNumber.ToString() == PlaceholderEntry.Text)
@@ -79,7 +76,7 @@ namespace Shikkhanobish
                     {
                         Sentbtn.Text = "Verify";
                         PlaceholderEntry.Text = null;
-                        PlaceholderEntry.Placeholder = "Enter 4 Digit Code";                        
+                        PlaceholderEntry.Placeholder = "Enter 4 Digit Code";
                     }
                     else
                     {
@@ -101,9 +98,10 @@ namespace Shikkhanobish
                 }
             }
         }
+
         private async void rubtn_Clicked(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new ResetInfo(Username,studentorTeacher,1)).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new ResetInfo(Username, studentorTeacher, 1)).ConfigureAwait(true);
         }
 
         private async void rpbtn_Clicked(object sender, EventArgs e)

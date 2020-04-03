@@ -7,64 +7,62 @@
              x:Class="Shikkhanobish.ContentPages.RatingPage">
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.2*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height=".5*"/>
-            <RowDefinition Height="7*"/>
+            <RowDefinition Height="1.2*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height=".5*" />
+            <RowDefinition Height="7*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
-        <BoxView BackgroundColor="#579AE6" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"/>
-        <BoxView BackgroundColor="#EEEEEE" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="6" CornerRadius="30"/>
-        <Label Text="Rate Your Teacher" FontAttributes="Bold" FontSize="16" TextColor="White" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center"/>
-        <Label Text="Teacher Name:" Grid.Column="0" Grid.Row="1" HorizontalOptions="End" VerticalOptions="Center"/>
-        <Label Text="Teacher ID:" Grid.Column="0" Grid.Row="2" HorizontalOptions="End" VerticalOptions="Center"/>
-        <Label Text="Class:" Grid.Column="0" Grid.Row="3" HorizontalOptions="End" VerticalOptions="Center"/>
-        <Label Text="Subject:" Grid.Column="0" Grid.Row="4" HorizontalOptions="End" VerticalOptions="Center"/>
-        <Label Text="Time:" Grid.Column="0" Grid.Row="5" HorizontalOptions="End" VerticalOptions="Center"/>
-        <Label Text="Cost:" Grid.Column="0" Grid.Row="6" HorizontalOptions="End" VerticalOptions="Center"/>
-        
-        
-        <Label x:Name="tnamelbl" Text="Teacher Name:" Grid.Column="1" Grid.Row="1" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold"/>
-        <Label x:Name="tIDlbl" Text="Teacher ID:" Grid.Column="1" Grid.Row="2" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold"/>
-        <Label x:Name="sClasslbl" Text="Class:" Grid.Column="1" Grid.Row="3" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold"/>
-        <Label x:Name="sSubject" Text="Subject:" Grid.Column="1" Grid.Row="4" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold"/>
-        <Label x:Name="inapptimelbl" Text="Time:" Grid.Column="1" Grid.Row="5" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold"/>
-        <Label x:Name="costlbl" Text="Cost:" Grid.Column="1" Grid.Row="6" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold"/>
-        <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" RowSpacing="3" BackgroundColor="#FFFFFF" >
+        <BoxView BackgroundColor="#579AE6" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" />
+        <BoxView BackgroundColor="#EEEEEE" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="6" CornerRadius="30" />
+        <Label Text="Rate Your Teacher" FontAttributes="Bold" FontSize="16" TextColor="White" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" />
+        <Label Text="Teacher Name:" Grid.Column="0" Grid.Row="1" HorizontalOptions="End" VerticalOptions="Center" />
+        <Label Text="Teacher ID:" Grid.Column="0" Grid.Row="2" HorizontalOptions="End" VerticalOptions="Center" />
+        <Label Text="Class:" Grid.Column="0" Grid.Row="3" HorizontalOptions="End" VerticalOptions="Center" />
+        <Label Text="Subject:" Grid.Column="0" Grid.Row="4" HorizontalOptions="End" VerticalOptions="Center" />
+        <Label Text="Time:" Grid.Column="0" Grid.Row="5" HorizontalOptions="End" VerticalOptions="Center" />
+        <Label Text="Cost:" Grid.Column="0" Grid.Row="6" HorizontalOptions="End" VerticalOptions="Center" />
+
+        <Label x:Name="tnamelbl" Text="Teacher Name:" Grid.Column="1" Grid.Row="1" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" />
+        <Label x:Name="tIDlbl" Text="Teacher ID:" Grid.Column="1" Grid.Row="2" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" />
+        <Label x:Name="sClasslbl" Text="Class:" Grid.Column="1" Grid.Row="3" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" />
+        <Label x:Name="sSubject" Text="Subject:" Grid.Column="1" Grid.Row="4" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" />
+        <Label x:Name="inapptimelbl" Text="Time:" Grid.Column="1" Grid.Row="5" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" />
+        <Label x:Name="costlbl" Text="Cost:" Grid.Column="1" Grid.Row="6" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" />
+        <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" RowSpacing="3" BackgroundColor="#FFFFFF">
             <Grid.RowDefinitions>
-                <RowDefinition Height=".25*"/>
-                <RowDefinition Height=".03*"/>
-                <RowDefinition Height=".2*"/>
-                <RowDefinition Height=".3*"/>
-                <RowDefinition Height=".3*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height=".25*" />
+                <RowDefinition Height=".03*" />
+                <RowDefinition Height=".2*" />
+                <RowDefinition Height=".3*" />
+                <RowDefinition Height=".3*" />
+                <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
-            <Button  Text="1 Star" FontSize="10" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" CornerRadius="10" BackgroundColor="#FF5A5A" TextColor="#FFFFFF" Clicked="ostarClicked"/>
-            <Button  Text="2 Star" FontSize="10" FontAttributes="Bold" Grid.Row="0" Grid.Column="1" CornerRadius="10" BackgroundColor="#F0BE05" TextColor="#FFFFFF" Clicked="tstarClicked"/>
-            <Button  Text="3 Star" FontSize="10" FontAttributes="Bold" Grid.Row="0" Grid.Column="2" CornerRadius="10" BackgroundColor="#3BCF64" TextColor="#FFFFFF" Clicked="thstarClicked"/>
-            <Button  Text="4 Star" FontSize="10" FontAttributes="Bold" Grid.Row="0" Grid.Column="3" CornerRadius="10" BackgroundColor="#50B2ED" TextColor="#FFFFFF" Clicked="fstarClicked"/>
-            <Button  Text="5 Star" FontSize="10" FontAttributes="Bold" Grid.Row="0" Grid.Column="4" CornerRadius="10" BackgroundColor="#B161F3" TextColor="#FFFFFF" Clicked="fistarClicked"/>
-            <BoxView BackgroundColor="#DCDCDC" Grid.Row="1" Grid.ColumnSpan="5"/>
+            <Button  Text="1 Star" FontSize="10" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" CornerRadius="10" BackgroundColor="#FF5A5A" TextColor="#FFFFFF" Clicked="ostarClicked" />
+            <Button  Text="2 Star" FontSize="10" FontAttributes="Bold" Grid.Row="0" Grid.Column="1" CornerRadius="10" BackgroundColor="#F0BE05" TextColor="#FFFFFF" Clicked="tstarClicked" />
+            <Button  Text="3 Star" FontSize="10" FontAttributes="Bold" Grid.Row="0" Grid.Column="2" CornerRadius="10" BackgroundColor="#3BCF64" TextColor="#FFFFFF" Clicked="thstarClicked" />
+            <Button  Text="4 Star" FontSize="10" FontAttributes="Bold" Grid.Row="0" Grid.Column="3" CornerRadius="10" BackgroundColor="#50B2ED" TextColor="#FFFFFF" Clicked="fstarClicked" />
+            <Button  Text="5 Star" FontSize="10" FontAttributes="Bold" Grid.Row="0" Grid.Column="4" CornerRadius="10" BackgroundColor="#B161F3" TextColor="#FFFFFF" Clicked="fistarClicked" />
+            <BoxView BackgroundColor="#DCDCDC" Grid.Row="1" Grid.ColumnSpan="5" />
             <BoxView x:Name="RatingColorBox" BackgroundColor="Accent" Grid.Row="1" Grid.Column="{Binding c}" />
-            <Label x:Name="Ratelbl" Text="Newbie!" FontSize="18" FontAttributes="Bold" Grid.Row="2" Grid.Column="2"/>
+            <Label x:Name="Ratelbl" Text="Newbie!" FontSize="18" FontAttributes="Bold" Grid.Row="2" Grid.Column="2" />
             <Button x:Name="sbtn" Text="Submit" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" HorizontalOptions="Center" CornerRadius="10" BackgroundColor="#323232" TextColor="#FFFFFF" Clicked="Button_Clicked" />
-            <Label Text="To achive perfect teacher evaluation system every student MUST rate their teacher after every tuition" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" TextColor="#808080"/>
-
+            <Label Text="To achive perfect teacher evaluation system every student MUST rate their teacher after every tuition" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" TextColor="#808080" />
         </Grid>
     </Grid>
 </ContentPage>

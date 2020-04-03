@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shikkhanobish
+﻿namespace Shikkhanobish
 {
-    class BalanceViewModel
+    internal class BalanceViewModel
     {
     }
 }
