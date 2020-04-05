@@ -1,6 +1,8 @@
-﻿using Shikkhanobish.ContentPages;
+﻿using Newtonsoft.Json;
+using Shikkhanobish.ContentPages;
 using System;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -48,19 +50,30 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_1(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new StudentProfile(studentm)).ConfigureAwait(true);
+            
+            
         }
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
             await Application.Current.MainPage.Navigation.PushModalAsync(new GetInstIDandRules(studentm)).ConfigureAwait(true);
-            if (Result == "{ \"status\":\"Sms sent successfully\"}")
+            if (Result[0] == '{')
             {
                 if (codeEntry.Text == vrNumber.ToString())
                 {
                     if (ts == 0)
                     {
-                        await Application.Current.MainPage.Navigation.PushModalAsync(new StudentProfile(studentm)).ConfigureAwait(true);
+                        string url = "https://api.shikkhanobish.com/api/Master/RegisterStudent";
+                        HttpClient client = new HttpClient();
+                        string jsonData = JsonConvert.SerializeObject(studentm);
+                        StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                        HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
+                        string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
+                        Response responseData = JsonConvert.DeserializeObject<Response>(result);
+                        if (responseData.Status == 0)
+                        {
+                            await Application.Current.MainPage.Navigation.PushModalAsync(new StudentProfile(studentm)).ConfigureAwait(true);
+                        }
                     }
                     else if (ts == 1)
                     {
