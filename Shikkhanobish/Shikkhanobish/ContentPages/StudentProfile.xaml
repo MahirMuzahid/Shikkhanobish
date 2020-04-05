@@ -77,7 +77,7 @@
             <ScrollView>
                 <Grid BackgroundColor="#FFFFFF" RowSpacing="10" ColumnSpacing="10" Padding="20">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="400"/>
+                        <RowDefinition Height="500"/>
                         <RowDefinition Height="150"/>
                         <RowDefinition Height="150*"/>
                         <RowDefinition Height="150*"/>
@@ -95,6 +95,31 @@
                     <BoxView BackgroundColor="#F5F5F5" Grid.Row="2" Grid.Column="1" CornerRadius="20"/>
                     <BoxView BackgroundColor="#F5F5F5" Grid.Row="3" Grid.Column="0" CornerRadius="20"/>
                     <BoxView BackgroundColor="#F5F5F5" Grid.Row="3" Grid.Column="1" CornerRadius="20"/>
+                    <Grid Grid.Row="0" Grid.ColumnSpan="2" Padding="20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <Label Text="Student ID: 12" Grid.Row="2" VerticalOptions="End" HorizontalOptions="Center" TextColor="#7D7D7D" FontSize="18"/>
+                        <Grid Grid.Row="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Label Text="Mahir Muzahid" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Start" FontSize="20" FontAttributes="Bold" TextColor="White"/>
+                            <Label Text="Student" Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#FFFFFF"/>
+                            <Label Text="Norht South" Grid.Row="2" VerticalOptions="Start" HorizontalOptions="Center" TextColor="#FFFFFF"/>
+                            <Label Text="24" Grid.Row="3" VerticalOptions="Start" HorizontalOptions="Center" TextColor="#FFFFFF"/>
+                            <Label Text="Class 10" Grid.Row="4" VerticalOptions="Start" HorizontalOptions="Center" TextColor="#FFFFFF"/>
+                            
+                        </Grid>
+                        
+
+                    </Grid>
                 </Grid>
             </ScrollView>
            
