@@ -100,8 +100,15 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height=".2*"/>
                     </Grid.RowDefinitions>
-                    <Image Source="teacher.png" Grid.Row="0" Grid.RowSpan="2" HorizontalOptions="Start" Aspect="AspectFill"/>
-                    <Label Text="Take Tuition" FontSize="16" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="End" VerticalOptions="Start"/>
+                    <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width=".5*"/>
+                    </Grid.ColumnDefinitions>
+                        <BoxView Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="#F2F2F2" CornerRadius="10"/>
+                        <Label Text="23" Grid.Row="0" FontSize="20"  HorizontalOptions="Center" Grid.Column="1"  VerticalOptions="Center" TextColor="#919191"/>
+                    <Image Source="teacher.png" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalOptions="Start" Aspect="AspectFill"/>
+                    <Label Text="Take Tuition" FontSize="16" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="End" Grid.ColumnSpan="2" VerticalOptions="Start"/>
+                        <Button Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="#00FFFFFF" Clicked="Button_Clicked_7"/>
 
 
                 </Grid>
@@ -111,6 +118,7 @@
                             <RowDefinition Height="2*"/>
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
+                        
                         <Label Text="Student ID: 12" Grid.Row="2" VerticalOptions="End" HorizontalOptions="Center" TextColor="#7D7D7D" FontSize="18"/>
                         <Grid Grid.Row="0">
                             <Grid.RowDefinitions>
