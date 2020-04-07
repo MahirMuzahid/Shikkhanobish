@@ -77,7 +77,7 @@
             <ScrollView>
                 <Grid BackgroundColor="#FFFFFF" RowSpacing="10" ColumnSpacing="10" Padding="20">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="500"/>
                         <RowDefinition Height="150"/>
                         <RowDefinition Height="150"/>
                         <RowDefinition Height="150"/>
