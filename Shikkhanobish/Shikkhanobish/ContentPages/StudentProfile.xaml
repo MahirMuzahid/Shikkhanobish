@@ -112,7 +112,26 @@
 
 
                 </Grid>
-                <Grid Grid.Row="0" Grid.ColumnSpan="2" Padding="20">
+                    <Grid Grid.Row="1" Grid.Column="1" RowSpacing="0" Padding="7" >
+                        <Grid.RowDefinitions>
+                            
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height=".2*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width=".5*"/>
+                        </Grid.ColumnDefinitions>
+                        <BoxView Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="#F2F2F2" CornerRadius="10"/>
+                        <Label Text="23" Grid.Row="0" FontSize="20"  HorizontalOptions="Center" Grid.Column="1"  VerticalOptions="Center" TextColor="#919191"/>
+                        <Image Source="history.png" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Start" Aspect="AspectFill"/>
+                        <Label Text="History" FontSize="16" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="Center" Grid.ColumnSpan="2" VerticalOptions="Start"/>
+                        <Button Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="#00FFFFFF" Clicked="Button_Clicked_7"/>
+
+
+                    </Grid>
+
+                    <Grid Grid.Row="0" Grid.ColumnSpan="2" Padding="20">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="2*"/>
