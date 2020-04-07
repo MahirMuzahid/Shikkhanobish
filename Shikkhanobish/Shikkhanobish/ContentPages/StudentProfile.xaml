@@ -95,7 +95,17 @@
                     <BoxView BackgroundColor="#F5F5F5" Grid.Row="2" Grid.Column="1" CornerRadius="20"/>
                     <BoxView BackgroundColor="#F5F5F5" Grid.Row="3" Grid.Column="0" CornerRadius="20"/>
                     <BoxView BackgroundColor="#F5F5F5" Grid.Row="3" Grid.Column="1" CornerRadius="20"/>
-                    <Grid Grid.Row="0" Grid.ColumnSpan="2" Padding="20">
+                    <Grid Grid.Row="1" Grid.Column="0" RowSpacing="0" Padding="7" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height=".2*"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="teacher.png" Grid.Row="0" Grid.RowSpan="2" HorizontalOptions="Start" Aspect="AspectFill"/>
+                    <Label Text="Take Tuition" FontSize="16" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="End" VerticalOptions="Start"/>
+
+
+                </Grid>
+                <Grid Grid.Row="0" Grid.ColumnSpan="2" Padding="20">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="2*"/>
