@@ -112,11 +112,11 @@
                                 <ColumnDefinition Width="1.2*"/>
                             </Grid.ColumnDefinitions>
                             <BoxView  Grid.Row="0" Grid.Column="0" CornerRadius="20" BackgroundColor="#E9CAFF"/>
-                            <Label Text="ID: 12" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#543D55" FontSize="12" />
+                            <Label Text="{Binding StudentIDTxt}" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#543D55" FontSize="12" />
                             <BoxView  Grid.Row="0" Grid.Column="1" CornerRadius="20" BackgroundColor="#B7D1FF"/>
-                            <Label Text="Total Tuition: 20" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#3D4555" FontSize="12" />
+                            <Label Text="{Binding StudentIDTxt}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#3D4555" FontSize="12" />
                             <BoxView  Grid.Row="0" Grid.Column="2" CornerRadius="20" BackgroundColor="#CAFFEB"/>
-                            <Label Text="Coin: 1200" Grid.Row="0" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#2C572F" FontSize="12" />
+                            <Label Text="{Binding StudentIDTxt}" Grid.Row="0" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#2C572F" FontSize="12" />
                             <BoxView  Grid.Row="1" Grid.ColumnSpan="3" CornerRadius="20" BackgroundColor="#F7DA71"/>
                             <Label Text="Student: Premium" Grid.Row="1" Grid.ColumnSpan = "3" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#5A5922" FontSize="12" />
                         </Grid>
@@ -129,11 +129,11 @@
                                 <RowDefinition Height="1*" />
                                 <RowDefinition Height="1*" />
                             </Grid.RowDefinitions>
-                            <Label Text="Mahir Muzahid" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Start" FontSize="20" FontAttributes="Bold" TextColor="White" />
+                            <Label Text="{Binding Name}" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Start" FontSize="20" FontAttributes="Bold" TextColor="White" />
                             <Label Text="Student" Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#FFFFFF" />
-                            <Label Text="Norht South" Grid.Row="2" VerticalOptions="Start" HorizontalOptions="Center" TextColor="#FFFFFF" />
-                            <Label Text="24" Grid.Row="3" VerticalOptions="Start" HorizontalOptions="Center" TextColor="#FFFFFF" />
-                            <Label Text="Class 10" Grid.Row="4" VerticalOptions="Start" HorizontalOptions="Center" TextColor="#FFFFFF" />
+                            <Label Text="{Binding InstitutionName}" Grid.Row="2" VerticalOptions="Start" HorizontalOptions="Center" TextColor="#FFFFFF" />
+                            <Label Text="{Binding Age}" Grid.Row="3" VerticalOptions="Start" HorizontalOptions="Center" TextColor="#FFFFFF" />
+                            <Label Text="{Binding Class}" Grid.Row="4" VerticalOptions="Start" HorizontalOptions="Center" TextColor="#FFFFFF" />
                         </Grid>
                     </Grid>
                     <Button Grid.Row="2" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="#00FFFFFF" Clicked="Button_Clicked_7" />

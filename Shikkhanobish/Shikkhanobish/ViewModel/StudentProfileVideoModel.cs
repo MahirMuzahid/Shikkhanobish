@@ -22,16 +22,17 @@ namespace Shikkhanobish
         public StudentProfileVideoModel(Student student)
         {
             Name = student.Name;
-            StudentIDTxt = "Student ID: " + student.StundentID;
-            Age = "Age: " + student.Age;
-            Class = "Class: " + student.Class;
-            InstitutionName = "Institution Name: " + student.InstitutionName;
+            StudentIDTxt = "ID: " + student.StundentID;
+            Age = "" + student.Age;
+            Class = "Class " + student.Class;
+            InstitutionName = "" + student.InstitutionName;
             IsTeacherorStudent = "Student";
-            AmountTxt = "" + student.RechargedAmount + " Point";
+            AmountTxt = "Coin: " + student.RechargedAmount;
             AvailableMintxt = "Available Amount: " + student.RechargedAmount + "Taka";
             Avarage = student.AvarageRating;
-            TotalTaken = "Total Tuition Taken: " + student.TotalTuitionTIme + " Min";
-            TotalTeacher = "Total Teacher: " + student.TotalTeacherCount + " Teacher";
+            TotalTaken = "Total Minute: " + student.TotalTuitionTIme;
+            TotalTeacher = "Total Tuition: " + student.TotalTeacherCount + " Teacher";
+            
         }
 
         public string Name
