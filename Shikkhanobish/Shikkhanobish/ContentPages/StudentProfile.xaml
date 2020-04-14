@@ -77,7 +77,7 @@
             <ScrollView>
                 <Grid BackgroundColor="#FFFFFF" RowSpacing="10" ColumnSpacing="10" Padding="20">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="500" />
+                        <RowDefinition Height="200" />
                         <RowDefinition Height="150" />
                         <RowDefinition Height="150" />
                         <RowDefinition Height="150" />
@@ -118,9 +118,9 @@
                             <BoxView  Grid.Row="0" Grid.Column="2" CornerRadius="20" BackgroundColor="#CAFFEB"/>
                             <Label Text="{Binding StudentIDTxt}" Grid.Row="0" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#2C572F" FontSize="12" />
                             <BoxView  Grid.Row="1" Grid.ColumnSpan="3" CornerRadius="20" BackgroundColor="#F7DA71"/>
-                            <Label Text="Student: Premium" Grid.Row="1" Grid.ColumnSpan = "3" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#5A5922" FontSize="12" />
+                            <Label x:Name="IsPremimum" Grid.Row="1" Grid.ColumnSpan = "3" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#5A5922" FontSize="12" />
                         </Grid>
-                        
+
                         <Grid Grid.Row="0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="2*" />
@@ -138,6 +138,8 @@
                     </Grid>
                     <Button Grid.Row="2" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="#00FFFFFF" Clicked="Button_Clicked_7" />
                     <Image Source="favteacher.png" Grid.Row="2" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center" />
+                    <BoxView x:Name="fbx" BackgroundColor="#7F000000" Grid.Row="2" Grid.Column="0" CornerRadius="20"/>
+                    <Label  x:Name="flb" Text="Not Available" Grid.Row="2" Grid.Column="0" FontSize="18" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
                     <Grid Grid.Row="1" Grid.Column="0" RowSpacing="0" Padding="7">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*" />
@@ -161,7 +163,6 @@
                             <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width=".5*" />
                         </Grid.ColumnDefinitions>
-
                         <Image Source="history.png" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Center" Aspect="AspectFill" />
                         <Label Text="History" FontSize="16" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="Center" Grid.ColumnSpan="2" VerticalOptions="Start" TextColor="#696969" />
                         <Button Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="#00FFFFFF" Clicked="Button_Clicked_7" />
@@ -171,9 +172,11 @@
                             <RowDefinition Height="1*" />
                             <RowDefinition Height=".2*" />
                         </Grid.RowDefinitions>
-                        <Image Source="paprentsportal.png" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Center" Aspect="AspectFill" />
-                        <Label Text="Parents Portal" FontSize="16" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="Center" Grid.ColumnSpan="2" VerticalOptions="Start" TextColor="#938B71" />
-                        <Button Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="#00FFFFFF" Clicked="Button_Clicked_7" />
+                        <Image Source="paprentsportal.png" Grid.Row="0"  HorizontalOptions="Center" Aspect="AspectFill" />
+                        <Label Text="Parents Portal" FontSize="16" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="Center"  VerticalOptions="Start" TextColor="#938B71" />
+                        <Button Grid.RowSpan="2"  BackgroundColor="#00FFFFFF" Clicked="Button_Clicked_7" />
+                        <BoxView x:Name="pbx" BackgroundColor="#7F000000" Grid.RowSpan="2" CornerRadius="20"/>
+                        <Label x:Name="plb" Text="Not Available" Grid.RowSpan="2"  FontSize="18" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
                     </Grid>
                     <Grid Grid.Row="3" Grid.Column="0" RowSpacing="0" Padding="7">
                         <Grid.RowDefinitions>

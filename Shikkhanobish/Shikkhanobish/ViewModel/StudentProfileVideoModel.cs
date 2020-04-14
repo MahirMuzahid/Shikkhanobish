@@ -1,5 +1,9 @@
-﻿using System.ComponentModel;
+﻿using Newtonsoft.Json;
+using Shikkhanobish.Model;
+using System.ComponentModel;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace Shikkhanobish
 {
@@ -18,6 +22,7 @@ namespace Shikkhanobish
         public string _totalTeacher;
         public string _totalSpent;
         public string _availableMin;
+        public string _isPremium;
 
         public StudentProfileVideoModel(Student student)
         {
@@ -32,8 +37,10 @@ namespace Shikkhanobish
             Avarage = student.AvarageRating;
             TotalTaken = "Total Minute: " + student.TotalTuitionTIme;
             TotalTeacher = "Total Tuition: " + student.TotalTeacherCount + " Teacher";
+
             
         }
+       
 
         public string Name
         {
@@ -46,6 +53,21 @@ namespace Shikkhanobish
                 if (value != null)
                 {
                     _name = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string IsPremimum
+        {
+            get
+            {
+                return _isPremium;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    _isPremium = value;
                     OnPropertyChanged();
                 }
             }
