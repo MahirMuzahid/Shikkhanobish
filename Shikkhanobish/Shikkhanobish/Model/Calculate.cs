@@ -119,7 +119,7 @@ namespace Shikkhanobish.Model
             {
                 rank = "Master";
             }
-            return rank;
+            return rank; //it shows rank 
         }
 
         public int CalculateCost(TransferInfo info)
