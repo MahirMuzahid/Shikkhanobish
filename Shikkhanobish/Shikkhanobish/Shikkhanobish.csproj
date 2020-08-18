@@ -69,10 +69,6 @@
     <EmbeddedResource Update="MasterDetailPage1Master.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="ContentPages\Profile.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    </EmbeddedResource>
     <EmbeddedResource Update="ContentPages\TeacherProfile.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

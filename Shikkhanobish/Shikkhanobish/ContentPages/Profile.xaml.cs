@@ -30,7 +30,7 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_3(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new StudentHistory()).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new StudentHistory(3)).ConfigureAwait(true);
         }
 
         protected override bool OnBackButtonPressed()

@@ -17,7 +17,7 @@ namespace Shikkhanobish
         public string _isTeacherorStudent;
         public string _amount;
         public string _fee;
-        public float _avarage;
+        public string _avarage;
         public string _totalTaken;
         public string _totalTeacher;
         public string _totalSpent;
@@ -34,11 +34,13 @@ namespace Shikkhanobish
             IsTeacherorStudent = "Student";
             AmountTxt = "Coin: " + student.RechargedAmount;
             AvailableMintxt = "Available Amount: " + student.RechargedAmount + "Taka";
-            Avarage = student.AvarageRating;
+            Avarage = "Average: " + student.AvarageRating;
             TotalTaken = "Total Minute: " + student.TotalTuitionTIme;
-            TotalTeacher = "Total Tuition: " + student.TotalTeacherCount + " Teacher";
+            TotalTeacher = "Total Tuition: " + student.TotalTeacherCount;
+            AvailableMintxt = student.RechargedAmount * 2 + " - " + student.RechargedAmount * 4 + " min";
 
-            
+
+
         }
        
 
@@ -185,7 +187,7 @@ namespace Shikkhanobish
             }
         }
 
-        public float Avarage
+        public string Avarage
         {
             get
             {

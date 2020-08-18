@@ -12,19 +12,19 @@ namespace Shikkhanobish
     public partial class StudentHistory : ContentPage
     {
         private List<TuitionHistoryStudent> studentHistory = new List<TuitionHistoryStudent>();
-
-        public StudentHistory()
+        private int StudentID;
+        public StudentHistory(int studentID)
         {
             InitializeComponent();
+            StudentID = studentID;
             ShowTuitionSistoryAsync();
         }
 
         public async void ShowTuitionSistoryAsync()
         {
-            int StudentID = 1017;
             string url = "https://api.shikkhanobish.com/api/Master/GetTuitionHistoryStudent";
             HttpClient client = new HttpClient();
-            string jsonData = JsonConvert.SerializeObject(new { StundentID = StudentID });
+            string jsonData = JsonConvert.SerializeObject(new { StundentID = 26 });
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
             var result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);

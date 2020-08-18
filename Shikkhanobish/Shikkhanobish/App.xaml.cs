@@ -9,6 +9,7 @@ namespace Shikkhanobish
             InitializeComponent();
 
             MainPage = new MainPage();
+
         }
 
         protected override void OnStart()
@@ -20,7 +21,6 @@ namespace Shikkhanobish
         {
             // Handle when your app sleeps
         }
-
         protected override void OnResume()
         {
             // Handle when your app resumes
