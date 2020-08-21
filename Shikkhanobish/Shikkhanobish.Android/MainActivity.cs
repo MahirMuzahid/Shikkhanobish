@@ -24,8 +24,8 @@ namespace Shikkhanobish.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             base.SetTheme(global::Android.Resource.Style.ThemeHoloLight);
 
-            this.Window.AddFlags(WindowManagerFlags.Fullscreen);
-            this.Window.AddFlags(WindowManagerFlags.KeepScreenOn);
+            //this.Window.AddFlags(WindowManagerFlags.Fullscreen);
+            //this.Window.AddFlags(WindowManagerFlags.KeepScreenOn);
 
             //this.Window.ClearFlags(WindowManagerFlags.Fullscreen);
 
@@ -33,6 +33,7 @@ namespace Shikkhanobish.Droid
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
+            Window.SetStatusBarColor ( Android.Graphics.Color.Rgb (105 , 35 , 174 ) );
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

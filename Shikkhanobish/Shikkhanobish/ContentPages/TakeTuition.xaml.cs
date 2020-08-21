@@ -89,8 +89,8 @@ namespace Shikkhanobish
                 GroupPicker.Items.Add("Commerce");
                 GroupPicker.Items.Add("Arts");
                 GroupPicker.IsEnabled = true;
-                GroupBoxView.BackgroundColor = Color.FromHex("#FFFFFF");
-                GroupTxt.TextColor = Color.FromHex("#00203F");
+                GroupBoxView.BackgroundColor = Color.FromHex( "#7FDD78FF" );
+                GroupTxt.TextColor = Color.FromHex( "#00203F" );
             }
         }
 

@@ -16,6 +16,7 @@ namespace Shikkhanobish
 
         public StudentProfile(Student student)
         {
+            NavigationPage.SetHasNavigationBar ( this , true );
             StudentID = student.StundentID;
             this.IsPresented = false;
             _Student = student;
@@ -57,7 +58,8 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_5(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentHistory(_Student.StundentID) ).ConfigureAwait ( true );
+
+            await Application.Current.MainPage.Navigation.PushAsync( new StudentHistory(_Student.StundentID) ).ConfigureAwait ( true );
         }
 
         private async void Button_Clicked_6(object sender, EventArgs e)
