@@ -28,8 +28,8 @@ namespace Shikkhanobish
         {
             Name = student.Name;
             StudentIDTxt = "ID: " + student.StundentID;
-            Age = "" + student.Age;
-            Class = "Class " + student.Class;
+            Age = "Age : " + student.Age;
+            Class = "Class : " + student.Class;
             InstitutionName = "" + student.InstitutionName;
             IsTeacherorStudent = "Student";
             AmountTxt = "Coin: " + student.RechargedAmount;

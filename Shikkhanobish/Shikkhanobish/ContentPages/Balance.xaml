@@ -5,11 +5,31 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Shikkhanobish.Balance">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Here student or teacher will check their balance or recharge money"
-                VerticalOptions="CenterAndExpand"
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".8*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Grid.RowSpan="2" RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".3*"/>
+                <RowDefinition Height=".3*"/>
+                <RowDefinition Height=".24*"/>
+                <RowDefinition Height=".1*"/>
+            </Grid.RowDefinitions>
+            <BoxView BackgroundColor="#9761FD" Grid.Row="0" Grid.RowSpan="4" CornerRadius="40"></BoxView>
+            <Label Text="300 Coin" Grid.Row="0" FontSize="23" Grid.RowSpan="3" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF"/>
+            <Button Text="Add Coin" Grid.Row="2"  FontSize="13" HorizontalOptions="Center" CornerRadius="15" BackgroundColor="#7D48E4" TextColor="#FFFFFF" />
+        </Grid>
+
+
+        <BoxView BackgroundColor="#9761FD" Grid.Row="0"/>
+        <Label Text="Wallet" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="14" TextColor="White"/>
+
+        
+    </Grid>
 </ContentPage>

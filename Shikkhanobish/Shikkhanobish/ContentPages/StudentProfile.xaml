@@ -15,7 +15,7 @@
                     <RowDefinition Height=".5*" />
                     <RowDefinition Height=".3*" />
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" BackgroundColor="#F2E2E2" Padding="10">
+                <Grid Grid.Row="0" BackgroundColor="#F0F0F0" Padding="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height=".2*" />
                         <RowDefinition Height=".4*" />
@@ -29,8 +29,6 @@
                     <Label Text="{Binding StudentIDTxt}" FontSize="11" FontAttributes="Bold" VerticalOptions="End" HorizontalOptions="End" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
                     <Label Text="Total Balance" VerticalOptions="End" HorizontalOptions="Center" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
                     <Label Text="{Binding AmountTxt}" FontSize="40" TextColor="#323232" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" />
-                    <Button Text="Recharge" FontSize="12" Grid.Row="3" Grid.Column="0"  BackgroundColor="#CACACA" />
-                    <Button Text="Withdraw" Grid.Row="3" FontSize="12" Grid.Column="1" BackgroundColor="#CACACA" />
                 </Grid>
                 <Grid Grid.Row="1" RowSpacing="3" Padding="10" ColumnSpacing="0">
                     <Grid.RowDefinitions>
@@ -175,7 +173,7 @@
                             <RowDefinition Height=".2*" />
                         </Grid.RowDefinitions>
                         <Image Source="addcoin.png" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Center" Aspect="AspectFill" />
-                        <Label Text="Add Coin" FontSize="16" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="Center" Grid.ColumnSpan="2" VerticalOptions="Start" TextColor="#696969" />
+                        <Label Text="Wallet" FontSize="16" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="Center" Grid.ColumnSpan="2" VerticalOptions="Start" TextColor="#696969" />
                         <Button Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="#00FFFFFF" Clicked="Button_Clicked_8" />
                     </Grid>
                     <Grid Grid.Row="3" Grid.Column="0" RowSpacing="0" Padding="7">

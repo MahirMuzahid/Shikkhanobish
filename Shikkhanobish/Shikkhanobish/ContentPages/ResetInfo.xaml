@@ -16,8 +16,8 @@
             <RowDefinition Height=".4*" />
             <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
-        <BoxView BackgroundColor="#E9E9E9" Grid.Row="0" CornerRadius="50" />
-        <Label Text="Reset Username or Password" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" FontAttributes="Bold" Grid.Row="0" />
+        <BoxView BackgroundColor="#9761FD" Grid.Row="0" />
+        <Label Text="Reset Username or Password" HorizontalOptions="Center" VerticalOptions="Center" FontSize="14" Grid.Row="0" TextColor="#FFFFFF" />
         <Entry x:Name="mainEntry"  HorizontalTextAlignment="Center" Grid.Row="2" />
         <Entry x:Name="confirmEntry" HorizontalTextAlignment="Center" Grid.Row="3" />
         <Label x:Name="Errorblb" FontSize="13" Grid.Row="4" HorizontalOptions="Start" TextColor="#FF0000" />
