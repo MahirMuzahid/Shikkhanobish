@@ -59,7 +59,7 @@ namespace Shikkhanobish
         private async void Button_Clicked_5(object sender, EventArgs e)
         {
 
-            await Application.Current.MainPage.Navigation.PushAsync( new StudentHistory(_Student.StundentID) ).ConfigureAwait ( true );
+            await Application.Current.MainPage.Navigation.PushModalAsync( new StudentHistory(_Student.StundentID) ).ConfigureAwait ( true );
         }
 
         private async void Button_Clicked_6(object sender, EventArgs e)
@@ -79,6 +79,19 @@ namespace Shikkhanobish
         private void Button_Clicked ( object sender , EventArgs e )
         {
             this.IsPresented = true;
+        }
+
+        private async void Button_Clicked_1 ( object sender , EventArgs e )
+        {
+            string result = await DisplayPromptAsync( "Enter Password","To know your parent code");
+            if(result == _Student.Password)
+            {
+                await DisplayAlert ( "Parent Code" , "234563245" , "OK" );
+            }
+            else
+            {
+                await DisplayAlert ( "Password" , "Incorrect!!" , "OK" );
+            }
         }
     }
 }

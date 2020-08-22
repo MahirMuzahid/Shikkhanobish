@@ -19,7 +19,28 @@ namespace Shikkhanobish
         
         private void Button_Clicked(object sender, EventArgs e)
         {
-            
+            if(CurPassEntry.Text == Student.Password)
+            {
+                
+                Student student = new Student ();
+                student.UserName =  UserEntry.Text;
+                student.Password = PassEntry.Text;
+                if(AgeEntry.Text != null)
+                {
+                    student.Age = int.Parse ( AgeEntry.Text );
+                }               
+                student.Name = NameEntry.Text;
+                student.InstitutionName = InstEntry.Text;
+                student.Class = ClassEntry.Text;
+
+                //Api call to update user info
+
+                Errortxt.Text = "Update Done";
+            }
+            else
+            {
+                Errortxt.Text = "Password dosen't match";
+            }
         }
     }
 }

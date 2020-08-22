@@ -8,7 +8,7 @@
 
     <Grid BackgroundColor="#FFFFFF">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.3*" />
+            <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
@@ -23,15 +23,15 @@
             <RowDefinition Height="2*" />
 
         </Grid.RowDefinitions>
-        <BoxView BackgroundColor="#EDEDED" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" />
+        <BoxView BackgroundColor="#9761FD" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" />
 
-        <Label Text="Update Info" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center" Grid.Column="1"></Label> 
-        <Entry x:Name="UserNameEntry" Placeholder="Name" Grid.Row="2" Grid.Column="1"  FontSize="12" HorizontalTextAlignment="Center" />
-        <Entry x:Name="PassEntry" Placeholder="Age" Grid.Row="3"  Grid.Column="1" FontSize="12" HorizontalTextAlignment="Center" />
-        <Entry x:Name="NameEntry" Placeholder="Class" Grid.Row="4"  Grid.Column="1" FontSize="12" HorizontalTextAlignment="Center" />
-        <Entry x:Name="AgeEntry" Placeholder="Institution Name" Grid.Row="5"  Grid.Column="1" FontSize="12" HorizontalTextAlignment="Center" />
-        <Entry x:Name="ClassEntry" Placeholder="Username" Grid.Row="6"  Grid.Column="1" FontSize="12" HorizontalTextAlignment="Center" />
-        <Entry x:Name="InstEntry" Placeholder="Password" Grid.Row="7"  Grid.Column="1" FontSize="12" HorizontalTextAlignment="Center" />
+        <Label Text="Update Info" Grid.Row="0" FontSize="14" VerticalOptions="Center" HorizontalOptions="Center" Grid.Column="1" TextColor="#FFFFFF"></Label>
+        <Entry x:Name="NameEntry" Placeholder="Name" Grid.Row="2" Grid.Column="1"  FontSize="12" HorizontalTextAlignment="Center" />
+        <Entry x:Name="AgeEntry" Placeholder="Age" Grid.Row="3"  Grid.Column="1" FontSize="12" HorizontalTextAlignment="Center" />
+        <Entry x:Name="ClassEntry" Placeholder="Class" Grid.Row="4"  Grid.Column="1" FontSize="12" HorizontalTextAlignment="Center" />
+        <Entry x:Name="InstEntry" Placeholder="Institution Name" Grid.Row="5"  Grid.Column="1" FontSize="12" HorizontalTextAlignment="Center" />
+        <Entry x:Name="UserEntry" Placeholder="Username" Grid.Row="6"  Grid.Column="1" FontSize="12" HorizontalTextAlignment="Center" />
+        <Entry x:Name="PassEntry" Placeholder="Password" Grid.Row="7"  Grid.Column="1" FontSize="12" HorizontalTextAlignment="Center" />
 
         <Entry  x:Name="CurPassEntry" Placeholder="Enter Current Password" Grid.Row="9"  Grid.Column="1"   FontSize="12" />
         
