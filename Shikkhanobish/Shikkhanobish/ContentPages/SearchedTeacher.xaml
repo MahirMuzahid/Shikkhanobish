@@ -57,9 +57,10 @@
                                         <ColumnDefinition Width="1*" />
                                         <ColumnDefinition Width="40*" />
                                     </Grid.ColumnDefinitions>
+                                    <Label Text="Offline" Grid.Row="0" Grid.Column="1" HorizontalOptions="End" TextColor="#666666"/>
                                     <Label Text="{Binding Teacher_Rank}" FontAttributes="Bold" FontSize="20" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="End" TextColor="{Binding Color}" />
                                 </Grid>
-                                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" BackgroundColor="#2A2A2A">
+                                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" BackgroundColor="#E9E9E9">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1*" />
                                         <ColumnDefinition Width="1*" />
@@ -69,14 +70,14 @@
                                         <ColumnDefinition Width="1*" />
                                         <ColumnDefinition Width="4*" />
                                     </Grid.ColumnDefinitions>
-                                    <Label Text="{Binding Five_Star}" Grid.Column="0" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11" />
-                                    <Label Text="{Binding Four_Star}" Grid.Column="1" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11" />
-                                    <Label Text="{Binding Three_Star}" Grid.Column="2" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11" />
-                                    <Label Text="{Binding Two_Star}" Grid.Column="3" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11" />
-                                    <Label Text="{Binding One_Star}" Grid.Column="4" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11" />
+                                    <Label Text="{Binding Five_Star}" Grid.Column="0" TextColor="#303030" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11" />
+                                    <Label Text="{Binding Four_Star}" Grid.Column="1" TextColor="#303030" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11" />
+                                    <Label Text="{Binding Three_Star}" Grid.Column="2" TextColor="#303030" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11" />
+                                    <Label Text="{Binding Two_Star}" Grid.Column="3" TextColor="#303030" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11" />
+                                    <Label Text="{Binding One_Star}" Grid.Column="4" TextColor="#303030" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11" />
 
-                                    <Label Text="{Binding Amount}" Grid.Column="5" HorizontalOptions="End" VerticalOptions="Center" TextColor="#FFFFFF" FontAttributes="Bold" FontSize="14" />
-                                    <Label Text="taka/min" Grid.Column="6" HorizontalOptions="Start" VerticalOptions="Center" TextColor="#FFFFFF" FontAttributes="Bold" FontSize="14" />
+                                    <Label Text="{Binding Amount}" Grid.Column="5" HorizontalOptions="End" VerticalOptions="Center" TextColor="#303030" FontAttributes="Bold" FontSize="14" />
+                                    <Label Text="taka/min" Grid.Column="6" HorizontalOptions="Start" VerticalOptions="Center" TextColor="#303030" FontAttributes="Bold" FontSize="14" />
                                 </Grid>
                             </Grid>
                         </Frame>

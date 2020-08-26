@@ -7,7 +7,7 @@
              x:Class="Shikkhanobish.ContentPages.RatingPage">
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.2*" />
+            <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
@@ -21,7 +21,7 @@
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
-        <BoxView BackgroundColor="#579AE6" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" />
+        <BoxView BackgroundColor="#9761FD" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" />
         <BoxView BackgroundColor="#EEEEEE" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="6" CornerRadius="30" />
         <Label Text="Rate Your Teacher" FontAttributes="Bold" FontSize="16" TextColor="White" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" />
         <Label Text="Teacher Name:" Grid.Column="0" Grid.Row="1" HorizontalOptions="End" VerticalOptions="Center" />

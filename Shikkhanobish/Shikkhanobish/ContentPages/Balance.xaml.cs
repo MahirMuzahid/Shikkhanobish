@@ -25,5 +25,18 @@ namespace Shikkhanobish
             }
             StudentWalletHistoryListView.ItemsSource = sb;
         }
+
+        private async void Button_Clicked ( object sender , System.EventArgs e )
+        {
+            string phonenumber = await DisplayPromptAsync ( "Enter Phonenumber" , "" );
+            if( phonenumber != "" && phonenumber.Length == 11)
+            {
+                string trxID = await DisplayPromptAsync ( "Enter Trasaction ID or TrxID" , "" );
+            }
+            else
+            {
+                await DisplayAlert ( "" , "Phone Number is not valid" , "OK" );
+            }
+        }
     }
 }

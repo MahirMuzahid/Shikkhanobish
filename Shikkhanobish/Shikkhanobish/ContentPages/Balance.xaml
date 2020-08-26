@@ -24,7 +24,7 @@
             <BoxView BackgroundColor="#9761FD" Grid.Row="0" Grid.RowSpan="4" CornerRadius="40"></BoxView>
             <Label Text="300 Coin" Grid.Row="0" FontSize="23" Grid.RowSpan="3" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF"/>
             
-            <Button Text="Add Coin" Grid.Row="2"  FontSize="13" HorizontalOptions="Center" CornerRadius="15" BackgroundColor="#7D48E4" TextColor="#FFFFFF" />
+            <Button Text="Add Coin" Grid.Row="2"  FontSize="13" HorizontalOptions="Center" CornerRadius="15" BackgroundColor="#7D48E4" TextColor="#FFFFFF" Clicked="Button_Clicked" />
         </Grid>
 
         <Grid Grid.Row="1" Grid.RowSpan="3" Margin="30">
@@ -33,7 +33,7 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height=".9*"/>
             </Grid.RowDefinitions>
-            <BoxView BackgroundColor="#2699E9" Grid.Row="1" CornerRadius="50"/>
+            <BoxView BackgroundColor="#26B0E9" Grid.Row="1" CornerRadius="50"/>
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height=".7*"/>
