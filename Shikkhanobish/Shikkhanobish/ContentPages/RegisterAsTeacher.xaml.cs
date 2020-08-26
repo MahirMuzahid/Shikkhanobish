@@ -15,12 +15,12 @@ namespace Shikkhanobish
         private RegisterTeacher registerteacher = new RegisterTeacher();
         private Teacher teacher = new Teacher();
         private int taken = 10000000, studentID;
-        private string institutionID, Name;
+        private string InstituitionID, Name;
         private Student studenT = new Student();
 
         public RegisterAsTeacher(Student student, string InstitutionID)
         {
-            institutionID = InstitutionID;
+            InstituitionID = InstitutionID;
             studenT = student;
             InitializeComponent();
             BindingContext = new RegisterAsTeacherViewModel();
@@ -348,7 +348,7 @@ namespace Shikkhanobish
             bool checkCommon = CheckCommon();
             bool checkGroup = CheckGroup();
             CheckHighSchool();
-            teacher.InstitutionID = institutionID;
+            teacher.InstitutionID = InstituitionID;
             teacher.StudentID = studentID;
             registerteacher.Name = Name;
             if (checkCommon == true && checkGroup == true)
@@ -358,7 +358,6 @@ namespace Shikkhanobish
                 HttpClient client = new HttpClient();
                 string jsonData = JsonConvert.SerializeObject(new
                 {
-                    TeacherID = registerteacher.TeacherID,
                     LSBAN01 = registerteacher.LSBAN01,
                     LSBAN02 = registerteacher.LSBAN02,
                     LSENG01 = registerteacher.LSENG01,
@@ -410,7 +409,8 @@ namespace Shikkhanobish
                     HSFIN = registerteacher.HSFIN,
                     HSACC = registerteacher.HSACC,
                     HSECO = registerteacher.HSECO,
-                    InstitutionID = institutionID,
+
+                    InstituitionID = InstituitionID,
                     TeacherName = studenT.Name,
                     UserName = studenT.UserName,
                     Password = studenT.Password,
@@ -439,7 +439,7 @@ namespace Shikkhanobish
                     t.Age = studenT.Age;
                     t.Class = studenT.Class;
                     t.InstitutionName = studenT.InstitutionName;
-                    t.InstitutionID = institutionID;
+                    t.InstitutionID = InstituitionID;
                     //await Application.Current.MainPage.Navigation.PushModalAsync(new TeacherProfile(t)).ConfigureAwait(true);
                 }
             }
