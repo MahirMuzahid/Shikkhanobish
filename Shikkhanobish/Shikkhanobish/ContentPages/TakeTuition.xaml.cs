@@ -20,6 +20,8 @@ namespace Shikkhanobish
         public TakeTuition(int StudentID, string StudentName, string username, string pass)
         {
             InitializeComponent();
+            SearchBtn.Text = "Search Teacher";
+            SearchBtn.TextColor = Color.FromHex ( "#2F2F2F" );
             BindingContext = new TaketuitionViewModel();
             StudentIDTxt.Text = "" + StudentID;
             StudentNameTxt.Text = "" + StudentName;
@@ -183,6 +185,8 @@ namespace Shikkhanobish
         private async void SubjectPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
             SearchBtn.IsEnabled = true;
+            SearchBtn.BackgroundColor = Color.FromHex ( "#4AB3D8" );
+            SearchBtn.TextColor = Color.FromHex ( "#FFFFFF" );
             selectedSubject = SubjectPicker.Items[SubjectPicker.SelectedIndex];
         }
 
@@ -420,7 +424,7 @@ namespace Shikkhanobish
             }
             if (sub != null)
             {
-                SearchBtn.Text = "We are searching best teacher for you";
+                SearchBtn.Text = "Searching Teacher...";
                 transferNow.Class = selectedClass;
                 transferNow.Subject = subject;
                 transferNow.SubjectName = subjectName;

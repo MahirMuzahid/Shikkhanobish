@@ -23,7 +23,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1.1*" />
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Row="0" Padding="5" Margin="8,0,0,0" Grid.Column="0" Grid.ColumnSpan="2">
@@ -41,19 +41,16 @@
                 <Label Text="4.3" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" FontSize="11" FontAttributes="Bold" />
                 <Label Text="124" Grid.Row="2" Grid.Column="1"  HorizontalOptions="Center" FontSize="11" FontAttributes="Bold" />
                 <Label Text="26" Grid.Row="3" Grid.Column="1"  HorizontalOptions="Center" FontSize="11" FontAttributes="Bold" />
-                <Label Text="Call Now" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0" Grid.RowSpan="4"  Grid.ColumnSpan="2" FontSize="20" TextColor="#7F23C569" />
+                <Label Text="Call Now" Grid.Column="2" HorizontalOptions="End" VerticalOptions="Center" Grid.Row="0" Grid.RowSpan="4"  Grid.ColumnSpan="2" FontSize="20" TextColor="#7F23C569" />
             </Grid>
-            <Grid Grid.Column="2" Grid.Row="0" Padding="5">
+            <Grid Grid.Column="2" Grid.Row="0" Padding="8">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="4*" />
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="40*" />
-                </Grid.ColumnDefinitions>
-                <Label Text="Online" Grid.Row="0" Grid.Column="1" HorizontalOptions="End" TextColor="#069106"/>
-                <Label Text="Master" FontAttributes="Bold" FontSize="20" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#8727C0" />
+                <BoxView BackgroundColor="#FAFF00" Grid.Row="0"  CornerRadius="20"/>
+                <Label Text="Founding Teacher" Grid.Row="0"  HorizontalOptions="Center" VerticalOptions="Center" FontSize="11" TextColor="#A8A515"/>
+                <Label Text="Master" FontAttributes="Bold" FontSize="20" Grid.Row="0" Grid.RowSpan="2" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#8727C0" />
             </Grid>
             <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" BackgroundColor="#E9E9E9">
                 <Grid.ColumnDefinitions>

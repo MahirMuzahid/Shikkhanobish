@@ -56,7 +56,7 @@ namespace Shikkhanobish.ContentPages
             {
                 for (int j = 0; j < TeacherIDListBySearch.Count; j++)
                 {
-                    if ((TeacherList[i].TeacherID == TeacherIDListBySearch[j].teacherID) && TeacherList[i].IsActive == 0 && TeacherList[i].IsOnTuition == 0)
+                    if ((TeacherList[i].TeacherID == TeacherIDListBySearch[j].teacherID) && TeacherList[i].IsActive == 1)
                     {
                         FilteredTeacher.Add(TeacherList[i]);
                     }
@@ -77,8 +77,20 @@ namespace Shikkhanobish.ContentPages
             double total, count;
             for (int i = 0; i < FilteredTeacher.Count; i++)
             {
+
                 total = FilteredTeacher[i].Five_Star * 5 + FilteredTeacher[i].Four_Star * 4 + FilteredTeacher[i].Three_Star * 3 + FilteredTeacher[i].Two_Star * 2 + FilteredTeacher[i].One_Star * 1;
                 count = FilteredTeacher[i].Five_Star + FilteredTeacher[i].Four_Star + FilteredTeacher[i].Three_Star + FilteredTeacher[i].Two_Star + FilteredTeacher[i].One_Star;
+                if ( FilteredTeacher [ i ].IsOnTuition == 1 )
+                {
+                    FilteredTeacher [ i ].TeacherStatus = "Ofline";
+                    FilteredTeacher [ i ].TeacherStatusColor = "#939393";
+                }
+                else
+                {
+                    FilteredTeacher [ i ].TeacherStatus = "Call Now";
+                    FilteredTeacher [ i ].TeacherStatusColor = "#43CF56";
+                }
+
                 if (count == 0)
                 {
                     FilteredTeacher[i].Avarage = 0;
