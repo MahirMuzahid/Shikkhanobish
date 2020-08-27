@@ -14,7 +14,7 @@ namespace Shikkhanobish
             //BindingContext = new ProfileViewModel(student);
         }
 
-        private async void Button_Clicked(object sender, EventArgs e )
+        private async void Button_Clicked(object sender, EventArgs e  )
         {
         }
 
