@@ -9,7 +9,7 @@ using Xamarin.Forms.OpenTok.Android.Service;
 
 namespace Shikkhanobish.Droid
 {
-    [Activity(Label = "Shikkhanobish", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Shikkhanobish", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true,  ScreenOrientation = ScreenOrientation.Portrait )]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         [Obsolete]
@@ -24,8 +24,8 @@ namespace Shikkhanobish.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             base.SetTheme(global::Android.Resource.Style.ThemeHoloLight);
 
-            this.Window.AddFlags(WindowManagerFlags.Fullscreen);
-            this.Window.AddFlags(WindowManagerFlags.KeepScreenOn);
+            //this.Window.AddFlags(WindowManagerFlags.Fullscreen);
+            //this.Window.AddFlags(WindowManagerFlags.KeepScreenOn);
 
             //this.Window.ClearFlags(WindowManagerFlags.Fullscreen);
 
@@ -33,6 +33,7 @@ namespace Shikkhanobish.Droid
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
+            Window.SetStatusBarColor ( Android.Graphics.Color.Rgb ( 151 , 97 , 253 ) );
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

@@ -1,5 +1,9 @@
-﻿using System.ComponentModel;
+﻿using Newtonsoft.Json;
+using Shikkhanobish.Model;
+using System.ComponentModel;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace Shikkhanobish
 {
@@ -13,26 +17,32 @@ namespace Shikkhanobish
         public string _isTeacherorStudent;
         public string _amount;
         public string _fee;
-        public float _avarage;
+        public string _avarage;
         public string _totalTaken;
         public string _totalTeacher;
         public string _totalSpent;
         public string _availableMin;
+        public string _isPremium;
 
         public StudentProfileVideoModel(Student student)
         {
             Name = student.Name;
-            StudentIDTxt = "Student ID: " + student.StundentID;
-            Age = "Age: " + student.Age;
-            Class = "Class: " + student.Class;
-            InstitutionName = "Institution Name: " + student.InstitutionName;
+            StudentIDTxt = "ID: " + student.StundentID;
+            Age = "Age : " + student.Age;
+            Class = "Class : " + student.Class;
+            InstitutionName = "" + student.InstitutionName;
             IsTeacherorStudent = "Student";
-            AmountTxt = "" + student.RechargedAmount + " Point";
+            AmountTxt = "Coin: " + student.RechargedAmount;
             AvailableMintxt = "Available Amount: " + student.RechargedAmount + "Taka";
-            Avarage = student.AvarageRating;
-            TotalTaken = "Total Tuition Taken: " + student.TotalTuitionTIme + " Min";
-            TotalTeacher = "Total Teacher: " + student.TotalTeacherCount + " Teacher";
+            Avarage = "Average: " + student.AvarageRating;
+            TotalTaken = "Total Minute: " + student.TotalTuitionTIme;
+            TotalTeacher = "Total Tuition: " + student.TotalTeacherCount;
+            AvailableMintxt = student.RechargedAmount * 2 + " - " + student.RechargedAmount * 4 + " min";
+
+
+
         }
+       
 
         public string Name
         {
@@ -45,6 +55,21 @@ namespace Shikkhanobish
                 if (value != null)
                 {
                     _name = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string IsPremimum
+        {
+            get
+            {
+                return _isPremium;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    _isPremium = value;
                     OnPropertyChanged();
                 }
             }
@@ -162,7 +187,7 @@ namespace Shikkhanobish
             }
         }
 
-        public float Avarage
+        public string Avarage
         {
             get
             {

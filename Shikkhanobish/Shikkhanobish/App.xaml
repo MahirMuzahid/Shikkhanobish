@@ -12,4 +12,5 @@
             <On Platform="Android" Value="Raleway-Regular.ttf#RalewayRegular" />
         </OnPlatform>
     </Application.Resources>
+    
 </Application>

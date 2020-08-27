@@ -5,11 +5,107 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Shikkhanobish.Balance">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Here student or teacher will check their balance or recharge money"
-                VerticalOptions="CenterAndExpand"
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+
+    <Grid BackgroundColor="#FFFFFF">
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".8*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Grid.RowSpan="2" RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".1*"/>
+                <RowDefinition Height=".3*"/>
+                <RowDefinition Height=".2*"/>
+                <RowDefinition Height=".3*"/>
+            </Grid.RowDefinitions>
+            <BoxView BackgroundColor="#9761FD" Grid.Row="0" Grid.RowSpan="4" CornerRadius="40"></BoxView>
+            <Label Text="300 Coin" Grid.Row="0" FontSize="23" Grid.RowSpan="3" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF"/>
+            
+            <Button Text="Add Coin" Grid.Row="2"  FontSize="13" HorizontalOptions="Center" CornerRadius="15" BackgroundColor="#7D48E4" TextColor="#FFFFFF" Clicked="Button_Clicked" />
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.RowSpan="3" Margin="30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".2*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height=".9*"/>
+            </Grid.RowDefinitions>
+            <BoxView BackgroundColor="#26B0E9" Grid.Row="1" CornerRadius="50"/>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height=".7*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height=".8*"/>
+                    <RowDefinition Height=".8*"/>
+                    <RowDefinition Height=".8*"/>
+                    <RowDefinition Height=".8*"/>
+                    <RowDefinition Height=".8*"/>
+                    <RowDefinition Height=".7*"/>
+                </Grid.RowDefinitions>
+                <Label Text="To add coin in your wallet follow these steps" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="15" FontAttributes="Bold" TextColor="White"/>
+                <Label Text="1. Go to Bkash and use &quot;send money&quot; option" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" FontSize="13" TextColor="White"/>
+                <Label Text="2. Enter this number 01833368125" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" FontSize="13" TextColor="White"/>
+                <Label Text="3. Enter amount" Grid.Row="4" HorizontalOptions="Center" VerticalOptions="Center" FontSize="13" TextColor="White"/>
+                <Label x:Name="StudentIdlbl" Grid.Row="5" HorizontalOptions="Center" VerticalOptions="Center" FontSize="13" TextColor="White"/>
+                <Label Text="5. Enter Password and send" Grid.Row="6" HorizontalOptions="Center" VerticalOptions="Center" FontSize="13" TextColor="White"/>
+            </Grid>
+            
+        </Grid>
+
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".6*"/>
+                <RowDefinition Height=".4*"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+            <Label Text="Wallet History" Grid.Row="0" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="End"/>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <BoxView BackgroundColor="#F7F7F7" Grid.Column="0" Grid.ColumnSpan="4" CornerRadius="5"></BoxView>
+                <Label Text="Number" Grid.Column="0" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Label Text="Amount" Grid.Column="1" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Label Text="Date" Grid.Column="2" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Label Text="Trx ID" Grid.Column="3" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
+            </Grid>
+            <ScrollView Grid.Row="2">
+                <ListView BackgroundColor="White"  x:Name="StudentWalletHistoryListView" IsEnabled="False">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Text="{Binding number}" Grid.Column="0" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                        <Label Text="{Binding amount}" Grid.Column="1" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                        <Label Text="{Binding date}" Grid.Column="2" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                        <Label Text="{Binding trxID}" Grid.Column="3" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    </Grid>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+        </Grid>
+        
+
+
+        <BoxView BackgroundColor="#9761FD" Grid.Row="0"/>
+        <Label Text="Wallet" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="14" TextColor="White"/>
+
+        
+    </Grid>
 </ContentPage>

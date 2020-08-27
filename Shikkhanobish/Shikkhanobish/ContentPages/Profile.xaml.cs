@@ -14,13 +14,13 @@ namespace Shikkhanobish
             //BindingContext = new ProfileViewModel(student);
         }
 
-        private async void Button_Clicked(object sender, EventArgs e)
+        private async void Button_Clicked(object sender, EventArgs e  )
         {
         }
 
-        private async void Button_Clicked_1(object sender, EventArgs e)
+        private async void Button_Clicked_1(object sender, EventArgs e )
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new Balance()).ConfigureAwait(true);
+           
         }
 
         private async void Button_Clicked_2(object sender, EventArgs e)
@@ -30,7 +30,7 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_3(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new StudentHistory()).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new StudentHistory(3)).ConfigureAwait(true);
         }
 
         protected override bool OnBackButtonPressed()

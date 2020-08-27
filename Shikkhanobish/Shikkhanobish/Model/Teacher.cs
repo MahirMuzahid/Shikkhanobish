@@ -31,5 +31,7 @@
         public double Avarage { get; set; }
         public string Color { get; set; }
         public int OverallTP { get; set; }
+        public string TeacherStatus { get; set; }
+        public string TeacherStatusColor { get; set; }
     }
 }

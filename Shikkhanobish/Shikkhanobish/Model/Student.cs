@@ -16,6 +16,6 @@
         public int TotalTuitionTIme { get; set; }
         public int TotalTeacherCount { get; set; }
         public int freeMin { get; set; }
-        public float AvarageRating { get; set; }
+        public double AvarageRating { get; set; }
     }
 }

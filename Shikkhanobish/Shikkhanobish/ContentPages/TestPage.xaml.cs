@@ -16,7 +16,7 @@ namespace Shikkhanobish.ContentPages
         {
             base.OnAppearing();
 
-            Info.ItemsSource = new getlist().infolist();
+           // Info.ItemsSource = new getlist().infolist();
         }
     }
 }

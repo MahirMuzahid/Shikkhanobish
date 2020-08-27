@@ -1,5 +1,8 @@
-﻿using System;
-
+﻿using Newtonsoft.Json;
+using Shikkhanobish.Model;
+using System;
+using System.Net.Http;
+using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -13,18 +16,26 @@ namespace Shikkhanobish
 
         public StudentProfile(Student student)
         {
+            NavigationPage.SetHasNavigationBar ( this , true );
             StudentID = student.StundentID;
             this.IsPresented = false;
             _Student = student;
             InitializeComponent();
             BindingContext = new StudentProfileVideoModel(student);
+            GetPremiumStudent(student.StundentID);
         }
 
-        private async void Button_Clicked_2(object sender, EventArgs e)
+        public async void GetPremiumStudent(int S_id)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new StudentHistory()).ConfigureAwait(true);
+            string url = "https://api.shikkhanobish.com/api/Master/GetPremiumStudent";
+            HttpClient client = new HttpClient();
+            string jsonData = JsonConvert.SerializeObject(new { StudentID = S_id });
+            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
+            string result = await response.Content.ReadAsStringAsync();
+            var premiumStudents = JsonConvert.DeserializeObject<PremiumStudents>(result);
+            IsPremimum.Text = "Student";
         }
-
         protected override bool OnBackButtonPressed()
         {
             giveAlert();
@@ -45,9 +56,10 @@ namespace Shikkhanobish
             await Application.Current.MainPage.Navigation.PushModalAsync(new MainPage()).ConfigureAwait(true);
         }
 
-        private void Button_Clicked_5(object sender, EventArgs e)
+        private async void Button_Clicked_5(object sender, EventArgs e)
         {
-            this.IsPresented = true;
+
+            await Application.Current.MainPage.Navigation.PushModalAsync( new StudentHistory(_Student.StundentID) ).ConfigureAwait ( true );
         }
 
         private async void Button_Clicked_6(object sender, EventArgs e)
@@ -59,15 +71,27 @@ namespace Shikkhanobish
         {
             await Application.Current.MainPage.Navigation.PushModalAsync(new TakeTuition(StudentID, _Student.Name, _Student.UserName, _Student.Password)).ConfigureAwait(true);
         }
-
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        private async void Button_Clicked_8 ( object sender , EventArgs e )
         {
-
+            await Application.Current.MainPage.Navigation.PushModalAsync ( new Balance(_Student) ).ConfigureAwait ( true );
         }
 
-        private void TapGestureRecognizer_Tapped_1(object sender, EventArgs e)
+        private void Button_Clicked ( object sender , EventArgs e )
         {
+            this.IsPresented = true;
+        }
 
+        private async void Button_Clicked_1 ( object sender , EventArgs e )
+        {
+            string result = await DisplayPromptAsync( "Enter Password","To know your parent code");
+            if(result == _Student.Password)
+            {
+                await DisplayAlert ( "Parent Code" , "234563245" , "OK" );
+            }
+            else
+            {
+                await DisplayAlert ( "Password" , "Incorrect!!" , "OK" );
+            }
         }
     }
 }

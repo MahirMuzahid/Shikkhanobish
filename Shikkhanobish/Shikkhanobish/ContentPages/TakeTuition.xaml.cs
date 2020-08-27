@@ -20,6 +20,8 @@ namespace Shikkhanobish
         public TakeTuition(int StudentID, string StudentName, string username, string pass)
         {
             InitializeComponent();
+            SearchBtn.Text = "Search Teacher";
+            SearchBtn.TextColor = Color.FromHex ( "#2F2F2F" );
             BindingContext = new TaketuitionViewModel();
             StudentIDTxt.Text = "" + StudentID;
             StudentNameTxt.Text = "" + StudentName;
@@ -89,8 +91,8 @@ namespace Shikkhanobish
                 GroupPicker.Items.Add("Commerce");
                 GroupPicker.Items.Add("Arts");
                 GroupPicker.IsEnabled = true;
-                GroupBoxView.BackgroundColor = Color.FromHex("#FFFFFF");
-                GroupTxt.TextColor = Color.FromHex("#00203F");
+                GroupBoxView.BackgroundColor = Color.FromHex( "#7FDD78FF" );
+                GroupTxt.TextColor = Color.FromHex( "#00203F" );
             }
         }
 
@@ -183,6 +185,8 @@ namespace Shikkhanobish
         private async void SubjectPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
             SearchBtn.IsEnabled = true;
+            SearchBtn.BackgroundColor = Color.FromHex ( "#4AB3D8" );
+            SearchBtn.TextColor = Color.FromHex ( "#FFFFFF" );
             selectedSubject = SubjectPicker.Items[SubjectPicker.SelectedIndex];
         }
 
@@ -420,7 +424,7 @@ namespace Shikkhanobish
             }
             if (sub != null)
             {
-                SearchBtn.Text = "We are searching best teacher for you";
+                SearchBtn.Text = "Searching Teacher...";
                 transferNow.Class = selectedClass;
                 transferNow.Subject = subject;
                 transferNow.SubjectName = subjectName;
