@@ -82,7 +82,7 @@ namespace Shikkhanobish.ContentPages
                 count = FilteredTeacher[i].Five_Star + FilteredTeacher[i].Four_Star + FilteredTeacher[i].Three_Star + FilteredTeacher[i].Two_Star + FilteredTeacher[i].One_Star;
                 if ( FilteredTeacher [ i ].IsOnTuition == 1 )
                 {
-                    FilteredTeacher [ i ].TeacherStatus = "Ofline";
+                    FilteredTeacher [ i ].TeacherStatus = "Ofline ";
                     FilteredTeacher [ i ].TeacherStatusColor = "#939393";
                 }
                 else
