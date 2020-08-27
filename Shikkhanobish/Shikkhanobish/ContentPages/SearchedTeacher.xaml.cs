@@ -87,7 +87,7 @@ namespace Shikkhanobish.ContentPages
                 }
                 else
                 {
-                    FilteredTeacher [ i ].TeacherStatus = "Call Now";
+                    FilteredTeacher [ i ].TeacherStatus = "Call Now ";
                     FilteredTeacher [ i ].TeacherStatusColor = "#43CF56";
                 }
 
