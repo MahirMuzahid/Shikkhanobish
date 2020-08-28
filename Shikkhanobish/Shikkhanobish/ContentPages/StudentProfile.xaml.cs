@@ -83,6 +83,21 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_1 ( object sender , EventArgs e )
         {
+
+            try
+            {
+                await DisplayAlert ( "Warning" , "at least 6 chars..." , "OK" , "cancle" );
+            }
+            catch ( Exception ex )
+            {
+                Console.WriteLine ( ex.Message );
+                if ( ex.InnerException != null )
+                {
+                    Console.WriteLine ( ex.InnerException.Message );
+                }
+            }
+
+            /*
             string result = await DisplayPromptAsync( "Enter Password","To know your parent code");
             if(result == _Student.Password)
             {
@@ -91,7 +106,7 @@ namespace Shikkhanobish
             else
             {
                 await DisplayAlert ( "Password" , "Incorrect!!" , "OK" );
-            }
+            }*/
         }
     }
 }

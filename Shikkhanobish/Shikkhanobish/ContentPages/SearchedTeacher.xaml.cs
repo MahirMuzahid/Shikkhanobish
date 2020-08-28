@@ -91,6 +91,16 @@ namespace Shikkhanobish.ContentPages
                     FilteredTeacher [ i ].TeacherStatusColor = "#43CF56";
                 }
 
+                if(FilteredTeacher[i].isFounder == 1)
+                {
+                    FilteredTeacher [ i ].FoundingTeacherColor = "#282E58";
+                }
+                else
+                {
+                    FilteredTeacher [ i ].FoundingTeacherColor = "#F5F5F5";
+                }
+
+
                 if (count == 0)
                 {
                     FilteredTeacher[i].Avarage = 0;

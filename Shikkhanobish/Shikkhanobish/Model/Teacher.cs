@@ -26,6 +26,7 @@
         public string Class { get; set; }
         public string InstitutionName { get; set; }
         public int RechargedAmount { get; set; }
+        public int isFounder { get; set; }
         public string Response { get; set; }
         public double Amount { get; set; }
         public double Avarage { get; set; }
@@ -33,5 +34,6 @@
         public int OverallTP { get; set; }
         public string TeacherStatus { get; set; }
         public string TeacherStatusColor { get; set; }
+        public string FoundingTeacherColor { get; set; }
     }
 }

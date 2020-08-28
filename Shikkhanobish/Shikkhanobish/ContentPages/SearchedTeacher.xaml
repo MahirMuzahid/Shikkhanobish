@@ -21,7 +21,7 @@
                 <DataTemplate>
                     <ViewCell>
                         <Frame Padding="15">
-                            <Grid RowSpacing="0">
+                            <Grid RowSpacing="0" BackgroundColor="#F5F5F5">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="5*" />
                                     <RowDefinition Height="1*" />
@@ -54,8 +54,8 @@
                                         <RowDefinition Height="1*" />
                                         <RowDefinition Height="4*" />
                                     </Grid.RowDefinitions>
-                                    <BoxView BackgroundColor="#282E58" Grid.Row="0"  CornerRadius="20"/>
-                                    <Label Text="Founding Teacher" Grid.Row="0"  HorizontalOptions="Center" VerticalOptions="Center" FontSize="11" TextColor="#FFFFFF"/>
+                                    <BoxView BackgroundColor="{Binding FoundingTeacherColor}" Grid.Row="0"  CornerRadius="20"/>
+                                    <Label Text="Founding Teacher" Grid.Row="0"  HorizontalOptions="Center" VerticalOptions="Center" FontSize="11" TextColor="#F5F5F5"/>
                                     <Label Text="{Binding Teacher_Rank}" FontAttributes="Bold" FontSize="20" Grid.Row="0" Grid.RowSpan="2" HorizontalOptions="Center" VerticalOptions="Center" TextColor="{Binding Color}" />
                                 </Grid>
                                 <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" BackgroundColor="#E9E9E9">
