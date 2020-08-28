@@ -51,6 +51,7 @@
     <AndroidEnableMultiDex>false</AndroidEnableMultiDex>
     <AndroidPackageFormat>apk</AndroidPackageFormat>
     <AndroidDexTool>d8</AndroidDexTool>
+    <AndroidLinkTool>r8</AndroidLinkTool>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
