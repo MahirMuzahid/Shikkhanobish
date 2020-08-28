@@ -115,7 +115,7 @@ namespace Shikkhanobish.ContentPages
             string jsonData = JsonConvert.SerializeObject(new
             {
                 TeacherID = info.Teacher.TeacherID,
-                IsActive = 0,
+                IsActive = 1,
                 IsOnTuition = 0,
                 StudentID = info.Student.StundentID,
                 Rating = info.GivenRating,

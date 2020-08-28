@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             x:Class="Shikkhanobish.ContentPages.PopUpForSelectedTeacher">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+      PositionIn="Center"
+      PositionOut="Center"
+      ScaleIn="1.2"
+      ScaleOut="0.8"
+      DurationIn="400"
+      DurationOut="300"
+      EasingIn="SinOut"
+      EasingOut="SinIn"
+      HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+    <Frame CornerRadius="20" Margin="20,0,20,0" VerticalOptions="Center">
+        <Grid BackgroundColor="#FDFDFD">
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".5*"/>
+                <RowDefinition Height=".6*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height=".5*"/>
+            </Grid.RowDefinitions>
+
+            <Label Text="Enter Your Current Password" FontAttributes="Bold" FontSize="15" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Entry x:Name="passEntry" Grid.Row="2"/>
+            <Button Text="Confirm" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" Clicked="Button_Clicked" CornerRadius="5" BackgroundColor="#E8E8E8"/>
+            <Label x:Name="prntTxt" Text="" Grid.Row="4" HorizontalOptions="Center" VerticalOptions="Center"/>
+        </Grid>
+    </Frame>
+    
+</pages:PopupPage>

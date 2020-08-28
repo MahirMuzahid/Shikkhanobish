@@ -34,6 +34,9 @@ namespace Shikkhanobish.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
             Window.SetStatusBarColor ( Android.Graphics.Color.Rgb ( 151 , 97 , 253 ) );
+
+            //Intialize plugin
+            Rg.Plugins.Popup.Popup.Init ( this , savedInstanceState );
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
@@ -46,6 +49,18 @@ namespace Shikkhanobish.Droid
         protected bool OnBackButtonPressed()
         {
             return true;
+        }
+
+        public override void OnBackPressed ( )
+        {
+            if ( Rg.Plugins.Popup.Popup.SendBackPressed ( base.OnBackPressed ) )
+            {
+
+            }
+            else
+            {
+
+            }
         }
     }
 }
