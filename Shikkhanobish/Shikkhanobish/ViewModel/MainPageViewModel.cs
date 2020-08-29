@@ -36,7 +36,7 @@ namespace Shikkhanobish
                {
                    var current = Connectivity.NetworkAccess;
 
-                   if ( !CrossConnectivity.IsSupported )
+                   if ( CrossConnectivity.Current.IsConnected )
                    {
                        if (UserName == null && Password == null)
                        {

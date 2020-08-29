@@ -192,7 +192,7 @@ namespace Shikkhanobish
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            if( !CrossConnectivity.IsSupported )
+            if( CrossConnectivity.Current.IsConnected )
             {
                 string Class = null, sub = null, paper = null;
                 string Sub = null, Paper = null;

@@ -51,7 +51,7 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_5(object sender, EventArgs e)
         {
-            if ( !CrossConnectivity.IsSupported )
+            if ( CrossConnectivity.Current.IsConnected )
             {
                 await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentHistory ( _Student.StundentID ) ).ConfigureAwait ( true );
             }          
@@ -78,7 +78,7 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_1 ( object sender , EventArgs e )
         {
-            if ( !CrossConnectivity.IsSupported )
+            if ( CrossConnectivity.Current.IsConnected )
             {
                 Navigation.PushPopupAsync ( new PopUpForParentCode ( _Student.Password , _Student.ParentCode ) );      
             }

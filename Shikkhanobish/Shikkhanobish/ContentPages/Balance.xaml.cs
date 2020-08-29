@@ -3,6 +3,8 @@ using Xamarin.Forms.Xaml;
 using System.Collections.Generic;
 using Shikkhanobish.Model;
 using Plugin.Connectivity;
+using Rg.Plugins.Popup.Extensions;
+using Shikkhanobish.ContentPages;
 
 namespace Shikkhanobish
 {
@@ -10,13 +12,14 @@ namespace Shikkhanobish
     public partial class Balance : ContentPage
     {
         List<StudentBalance> sb = new List<StudentBalance>();
+        private Student stuent;
         public Balance(Student st)
         {
             InitializeComponent();
-
+            stuent = st;
             StudentIdlbl.Text = "4. Enter " + st.StundentID + " as reference code";
 
-            if ( !CrossConnectivity.IsSupported )
+            if ( CrossConnectivity.Current.IsConnected )
             {
                 for ( int i = 0; i < 20; i++ )
                 {
@@ -36,13 +39,13 @@ namespace Shikkhanobish
             
         }
 
-        private async void Button_Clicked ( object sender , System.EventArgs e )
+        private void Button_Clicked_1 ( object sender , System.EventArgs e )
         {
-           if(!CrossConnectivity.IsSupported)
+            if ( CrossConnectivity.Current.IsConnected )
             {
-
+                Navigation.PushPopupAsync ( new PopUpForRechargeAccount ( stuent.Password ) );
             }
-           else
+            else
             {
                 Errorlbl.Text = "Check internet connection";
             }
