@@ -16,22 +16,23 @@
       EasingOut="SinIn"
       HasBackgroundAnimation="True"/>
     </pages:PopupPage.Animation>
-    <Frame CornerRadius="20" Margin="20,0,20,0" VerticalOptions="Center">
-        <Grid BackgroundColor="#FDFDFD">
+    <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="10">
+        <Grid BackgroundColor="#FFFFFF">
             <Grid.RowDefinitions>
-                <RowDefinition Height=".5*"/>
-                <RowDefinition Height=".6*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height=".5*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
-            <Label Text="Enter Your Current Password" FontAttributes="Bold" FontSize="15" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center"/>
-            <Entry x:Name="passEntry" Grid.Row="2"/>
-            <Button Text="Confirm" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" Clicked="Button_Clicked" CornerRadius="5" BackgroundColor="#E8E8E8"/>
-            <Label x:Name="prntTxt" Text="" Grid.Row="4" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label x:Name="tnLbl" FontAttributes="Bold" FontSize="16" Text="Teacher name" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label x:Name="clLbl" Text="Class" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label x:Name="subLbl" Text="Subject" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label x:Name="ctLbl" Text="Cost" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center"/>
+            
+            <Button Text="Call Teacher" Grid.Row="4" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="#B2FFB2" CornerRadius="10" Clicked="Button_Clicked" />
+
         </Grid>
     </Frame>
-    
 </pages:PopupPage>

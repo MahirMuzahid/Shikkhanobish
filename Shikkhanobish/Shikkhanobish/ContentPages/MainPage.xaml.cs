@@ -36,18 +36,10 @@ namespace Shikkhanobish
 
         protected override bool OnBackButtonPressed()
         {
-            giveAlert();
+            System.Environment.Exit ( 0 );
             return true;
         }
 
-        public async void giveAlert()
-        {
-            bool answer = await DisplayAlert("Alert", "Would you like to quit?", "Yes", "No").ConfigureAwait(true);
-            if (answer == true)
-            {
-                System.Environment.Exit(0);
-            }
-        }
 
         private void Button_Clicked(object sender, EventArgs e)
         {

@@ -5,10 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
-
+using Rg.Plugins.Popup.Extensions;
 using Xamarin.Forms;
-using Xamarin.Forms.OpenTok.Service;
+
 using Xamarin.Forms.Xaml;
+using System.Threading.Tasks;
 
 namespace Shikkhanobish.ContentPages
 {
@@ -24,11 +25,13 @@ namespace Shikkhanobish.ContentPages
         {
             InitializeComponent();
             info = transInfo;
-            getTeacherID();
-            getTeacher();
+            getTeacherID ();
+            getTeacher ();
+
+
         }
 
-        public async void getTeacherID()
+        public async Task getTeacherID()
         {
             string url = "https://api.shikkhanobish.com/api/Master/TeacherIDListFromSubject";
             HttpClient client = new HttpClient();
@@ -39,7 +42,7 @@ namespace Shikkhanobish.ContentPages
             TeacherIDListBySearch = JsonConvert.DeserializeObject<List<TeacherID>>(result);
         }
 
-        public async void getTeacher()
+        public async Task getTeacher()
         {
             string urlN = "https://api.shikkhanobish.com/api/Master/GetTeacher";
             HttpClient clientN = new HttpClient();
@@ -148,45 +151,13 @@ namespace Shikkhanobish.ContentPages
 
         public async void beSure()
         {
-            string name = "Teacher Name: " + info.Teacher.TeacherName;
-            string subject = "Subject: " + info.SubjectName;
-            string action = await DisplayActionSheet("Do you want to proceed?", "Yes", "No", name, info.Class, subject);
-            if (action == "Yes")
+            if(info.Teacher.IsOnTuition == 0)
             {
-                GetKeys();
-                checkSession();
+                Navigation.PushPopupAsync ( new PopUpForSelectedTeacher ( info ) );
             }
+                      
         }
 
-        public async void checkSession()
-        {
-            if (!CrossOpenTok.Current.TryStartSession())
-            {
-                return;
-            }
-            await Application.Current.MainPage.Navigation.PushModalAsync(new TutionPage(info)).ConfigureAwait(true);
-        }
-
-        protected async void GetKeys()
-        {
-            using (var client = new HttpClient())
-            {
-                try
-                {
-                    //var resp = await client.GetAsync(Config.KeysUrl);
-                    //var json = await resp.Content.ReadAsStringAsync();
-                    //var keys = JsonConvert.DeserializeObject<Keys>(json);
-
-                    CrossOpenTok.Current.ApiKey = "46485492";// keys.ApiKey;
-                    CrossOpenTok.Current.SessionId = "1_MX40NjQ4NTQ5Mn5-MTU4NDU2NDI5NTQ1OX52VEZPZ1dDbDM3U1Y5MmtpYnNjMXdYOUZ-fg";//keys.SessionId;
-                    CrossOpenTok.Current.UserToken = "T1==cGFydG5lcl9pZD00NjQ4NTQ5MiZzaWc9NDJiNjg0MGEyM2ZiZjIxMjM5MzkzMGRjMjkyZTRjZmZmYzU2ZjRkMzpzZXNzaW9uX2lkPTFfTVg0ME5qUTROVFE1TW41LU1UVTRORFUyTkRJNU5UUTFPWDUyVkVaUFoxZERiRE0zVTFZNU1tdHBZbk5qTVhkWU9VWi1mZyZjcmVhdGVfdGltZT0xNTg0NTY0MzA5Jm5vbmNlPTAuNTI1NzE0OTA3MjM2Mjc2OCZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNTg3MTU2MzA1JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";//keys.Token;
-                }
-                catch (Exception ex)
-                {
-                    // await MainPage.DisplayAlert(null, "MAKE SURE YOU SET API URL FOR RETRIEVING NECESSARY KEYS (Config.cs) OR YOU MAY HARDCODE THEM.", "GOT IT");
-                }
-            }
-            //CrossOpenTok.Current.Error += (m) => TakeTuition.DisplayAlert("ERROR", m, "OK");
-        }
+        
     }
 }

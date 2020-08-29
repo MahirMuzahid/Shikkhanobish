@@ -424,7 +424,6 @@ namespace Shikkhanobish
             }
             if (sub != null)
             {
-                SearchBtn.Text = "Searching Teacher...";
                 transferNow.Class = selectedClass;
                 transferNow.Subject = subject;
                 transferNow.SubjectName = subjectName;

@@ -38,19 +38,9 @@ namespace Shikkhanobish
             var premiumStudents = JsonConvert.DeserializeObject<PremiumStudents>(result);
             IsPremimum.Text = "Student";
         }
-        protected override bool OnBackButtonPressed()
+        protected override bool OnBackButtonPressed ( )
         {
-            giveAlert();
             return true;
-        }
-
-        public async void giveAlert()
-        {
-            bool answer = await DisplayAlert("Alert", "Would you like to quit?", "Yes", "No").ConfigureAwait(true);
-            if (answer == true)
-            {
-                System.Environment.Exit(0);
-            }
         }
 
         private async void Button_Clicked_4(object sender, EventArgs e)
@@ -86,7 +76,7 @@ namespace Shikkhanobish
         private async void Button_Clicked_1 ( object sender , EventArgs e )
         {
 
-            Navigation.PushPopupAsync ( new PopUpForSelectedTeacher(_Student.Password, 123456)); //There will be actual parent code          
+            Navigation.PushPopupAsync ( new PopUpForParentCode(_Student.Password, 123456)); //There will be actual parent code          
         }
     }
 }
