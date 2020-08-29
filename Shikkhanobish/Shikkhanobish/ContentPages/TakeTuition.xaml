@@ -55,6 +55,7 @@
             <Picker x:Name="GroupPicker" Title="Choose Group" SelectedIndex="2" Grid.Row="2" Grid.Column="1" VerticalOptions="Center" SelectedIndexChanged="GroupPicker_SelectedIndexChanged" />
             <Label Text="Subject" Grid.Row="3" FontSize="20" TextColor="#00203F" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" />
             <Picker x:Name="SubjectPicker" Title="Choose Subject" SelectedIndex="3" Grid.Row="3" Grid.Column="1" VerticalOptions="Center" SelectedIndexChanged="SubjectPicker_SelectedIndexChanged" />
+            <Label x:Name="Errorlbl" Grid.Row="4" HorizontalOptions="Center" VerticalOptions="Center" Grid.ColumnSpan="2" TextColor="#FF0000" />
             <Button x:Name="SearchBtn" Text="Search Teacher" TextColor="#FFFFFF" Grid.Row="5" Grid.ColumnSpan="2" VerticalOptions="Center" CornerRadius="25" BackgroundColor="#D9D9D9" Clicked="Button_Clicked" />
         </Grid>
     </Grid>

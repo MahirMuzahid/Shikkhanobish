@@ -1,7 +1,7 @@
 ﻿using Shikkhanobish.ContentPages;
 using Shikkhanobish.ViewModel;
 using System;
-
+using Plugin.Connectivity;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -192,243 +192,251 @@ namespace Shikkhanobish
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            string Class = null, sub = null, paper = null;
-            string Sub = null, Paper = null;
-            if (selectedClass == "Class 6" || selectedClass == "Class 7" || selectedClass == "Class 8")
+            if( !CrossConnectivity.IsSupported )
             {
-                Class = "LS";
-                if (selectedSubject[0] == 'B')
+                string Class = null, sub = null, paper = null;
+                string Sub = null, Paper = null;
+                if ( selectedClass == "Class 6" || selectedClass == "Class 7" || selectedClass == "Class 8" )
                 {
-                    sub = "BAN";
-                    Sub = "Bangla";
-                }
-                else if (selectedSubject[0] == 'E')
-                {
-                    sub = "ENG";
-                    Sub = "English";
-                }
-                else if (selectedSubject[0] == 'M')
-                {
-                    sub = "MATH";
-                    Sub = "Match";
-                }
-                else if (selectedSubject[0] == 'I')
-                {
-                    sub = "ICT";
-                    Sub = "ICT";
-                }
-                for (int i = 0; i < selectedSubject.Length; i++)
-                {
-                    if (selectedSubject[i] == ' ')
+                    Class = "LS";
+                    if ( selectedSubject [ 0 ] == 'B' )
                     {
-                        if (selectedSubject[i + 1] == '1')
-                        {
-                            paper = "01";
-                            Paper = "First Paper";
-                        }
-                        else if (selectedSubject[i + 1] == '2')
-                        {
-                            paper = "02";
-                            Paper = "Second Paper";
-                        }
+                        sub = "BAN";
+                        Sub = "Bangla";
                     }
-                    subject = Class + sub + paper;
-                    subjectName = Sub + " " + Paper;
-                    transferNow.ClassCode = Class;
-                }
-                //------------------------------------------------------------------------------------------------------
-            }
-            if (selectedClass == "Class 9" || selectedClass == "Class 10")
-            {
-                Class = "S";
-                if (selectedSubject[0] == 'B')
-                {
-                    sub = "BAN";
-                    Sub = "Bangla";
-                }
-                else if (selectedSubject[0] == 'E')
-                {
-                    sub = "ENG";
-                    Sub = "English";
-                }
-                else if (selectedSubject[0] == 'M')
-                {
-                    sub = "MATH";
-                    Sub = "Math";
-                }
-                else if (selectedSubject[0] == 'I')
-                {
-                    sub = "ICT";
-                    Sub = "ICT";
-                }
-                else if (selectedSubject[0] == 'P')
-                {
-                    sub = "PHY";
-                    Sub = "Physics";
-                }
-                else if (selectedSubject[0] == 'C')
-                {
-                    sub = "CHE";
-                    Sub = "Chemistry";
-                }
-                else if (selectedSubject[0] == 'B' && selectedSubject[1] == 'i')
-                {
-                    sub = "BIO";
-                    Sub = "Biology";
-                }
-                else if (selectedSubject[0] == 'H')
-                {
-                    sub = "HMATH";
-                    Sub = "Higher Math";
-                }
-                //--------------------------------------
-                else if (selectedSubject[0] == 'E' && selectedSubject[1] == 'c')
-                {
-                    sub = "ECO";
-                    Sub = "Economics";
-                }
-                else if (selectedSubject[0] == 'A')
-                {
-                    sub = "ACC";
-                    Sub = "Accounting";
-                }
-                else if (selectedSubject[0] == 'F')
-                {
-                    sub = "FIN";
-                    Sub = "Finance";
-                }
-                else if (selectedSubject[0] == 'B' && selectedSubject[1] == 'u')
-                {
-                    sub = "BENT";
-                    Sub = "Business & Entrepreneurship";
-                }
-                //------------------------------------
-                else if (selectedSubject[0] == 'C' && selectedSubject[1] == 'a')
-                {
-                    sub = "CRE";
-                    Sub = "Career Education";
-                }
-                else if (selectedSubject[0] == 'G')
-                {
-                    sub = "GEO";
-                    Sub = "Geology";
-                }
-                for (int i = 0; i < selectedSubject.Length; i++)
-                {
-                    if (selectedSubject[i] == ' ')
+                    else if ( selectedSubject [ 0 ] == 'E' )
                     {
-                        if (selectedSubject[i + 1] == '1')
-                        {
-                            paper = "01";
-                            Paper = "First Paper";
-                        }
-                        else if (selectedSubject[i + 1] == '2')
-                        {
-                            paper = "02";
-                            Paper = "Second Paper";
-                        }
+                        sub = "ENG";
+                        Sub = "English";
                     }
-                    subject = Class + sub + paper;
-                    subjectName = Sub + " " + Paper;
-                    transferNow.ClassCode = Class;
-                }
-            }
-            if (selectedClass == "Class 11" || selectedClass == "Class 12")
-            {
-                Class = "HS";
-                if (selectedSubject[0] == 'B')
-                {
-                    sub = "BAN";
-                    Sub = "Bangla";
-                }
-                else if (selectedSubject[0] == 'E')
-                {
-                    sub = "ENG";
-                    Sub = "English";
-                }
-                else if (selectedSubject[0] == 'M')
-                {
-                    sub = "MATH";
-                    Sub = "Math";
-                }
-                else if (selectedSubject[0] == 'I')
-                {
-                    sub = "ICT";
-                }
-                else if (selectedSubject[0] == 'P')
-                {
-                    sub = "PHY";
-                    Sub = "Physics";
-                }
-                else if (selectedSubject[0] == 'C')
-                {
-                    sub = "CHE";
-                    Sub = "Chemistry";
-                }
-                else if (selectedSubject[0] == 'B' && selectedSubject[1] == 'i')
-                {
-                    sub = "BIO";
-                    Sub = "Biology";
-                }
-                else if (selectedSubject[0] == 'H')
-                {
-                    sub = "HMATH";
-                    Sub = "Higher Math";
-                }
-                //--------------------------------------
-                else if (selectedSubject[0] == 'E' && selectedSubject[1] == 'c')
-                {
-                    sub = "ECO";
-                    Sub = "Economics";
-                }
-                else if (selectedSubject[0] == 'A')
-                {
-                    sub = "ACC";
-                    Sub = "Accounting";
-                }
-                else if (selectedSubject[0] == 'F')
-                {
-                    sub = "FIN";
-                    Sub = "Finance";
-                }
-                else if (selectedSubject[0] == 'S')
-                {
-                    sub = "STAT";
-                    Sub = "Statistics";
-                }
-                //------------------------------------
-                else if (selectedSubject[0] == 'Z')
-                {
-                    sub = "LOG";
-                    Sub = "Logic";
-                }
-                for (int i = 0; i < selectedSubject.Length; i++)
-                {
-                    if (selectedSubject[i] == ' ')
+                    else if ( selectedSubject [ 0 ] == 'M' )
                     {
-                        if (selectedSubject[i + 1] == '1')
-                        {
-                            paper = "01";
-                            Paper = "First Paper";
-                        }
-                        else if (selectedSubject[i + 1] == '2')
-                        {
-                            paper = "02";
-                            Paper = "Second Paper";
-                        }
+                        sub = "MATH";
+                        Sub = "Match";
                     }
-                    subject = Class + sub + paper;
-                    subjectName = Sub + " " + Paper;
-                    transferNow.ClassCode = Class;
+                    else if ( selectedSubject [ 0 ] == 'I' )
+                    {
+                        sub = "ICT";
+                        Sub = "ICT";
+                    }
+                    for ( int i = 0; i < selectedSubject.Length; i++ )
+                    {
+                        if ( selectedSubject [ i ] == ' ' )
+                        {
+                            if ( selectedSubject [ i + 1 ] == '1' )
+                            {
+                                paper = "01";
+                                Paper = "First Paper";
+                            }
+                            else if ( selectedSubject [ i + 1 ] == '2' )
+                            {
+                                paper = "02";
+                                Paper = "Second Paper";
+                            }
+                        }
+                        subject = Class + sub + paper;
+                        subjectName = Sub + " " + Paper;
+                        transferNow.ClassCode = Class;
+                    }
+                    //------------------------------------------------------------------------------------------------------
+                }
+                if ( selectedClass == "Class 9" || selectedClass == "Class 10" )
+                {
+                    Class = "S";
+                    if ( selectedSubject [ 0 ] == 'B' )
+                    {
+                        sub = "BAN";
+                        Sub = "Bangla";
+                    }
+                    else if ( selectedSubject [ 0 ] == 'E' )
+                    {
+                        sub = "ENG";
+                        Sub = "English";
+                    }
+                    else if ( selectedSubject [ 0 ] == 'M' )
+                    {
+                        sub = "MATH";
+                        Sub = "Math";
+                    }
+                    else if ( selectedSubject [ 0 ] == 'I' )
+                    {
+                        sub = "ICT";
+                        Sub = "ICT";
+                    }
+                    else if ( selectedSubject [ 0 ] == 'P' )
+                    {
+                        sub = "PHY";
+                        Sub = "Physics";
+                    }
+                    else if ( selectedSubject [ 0 ] == 'C' )
+                    {
+                        sub = "CHE";
+                        Sub = "Chemistry";
+                    }
+                    else if ( selectedSubject [ 0 ] == 'B' && selectedSubject [ 1 ] == 'i' )
+                    {
+                        sub = "BIO";
+                        Sub = "Biology";
+                    }
+                    else if ( selectedSubject [ 0 ] == 'H' )
+                    {
+                        sub = "HMATH";
+                        Sub = "Higher Math";
+                    }
+                    //--------------------------------------
+                    else if ( selectedSubject [ 0 ] == 'E' && selectedSubject [ 1 ] == 'c' )
+                    {
+                        sub = "ECO";
+                        Sub = "Economics";
+                    }
+                    else if ( selectedSubject [ 0 ] == 'A' )
+                    {
+                        sub = "ACC";
+                        Sub = "Accounting";
+                    }
+                    else if ( selectedSubject [ 0 ] == 'F' )
+                    {
+                        sub = "FIN";
+                        Sub = "Finance";
+                    }
+                    else if ( selectedSubject [ 0 ] == 'B' && selectedSubject [ 1 ] == 'u' )
+                    {
+                        sub = "BENT";
+                        Sub = "Business & Entrepreneurship";
+                    }
+                    //------------------------------------
+                    else if ( selectedSubject [ 0 ] == 'C' && selectedSubject [ 1 ] == 'a' )
+                    {
+                        sub = "CRE";
+                        Sub = "Career Education";
+                    }
+                    else if ( selectedSubject [ 0 ] == 'G' )
+                    {
+                        sub = "GEO";
+                        Sub = "Geology";
+                    }
+                    for ( int i = 0; i < selectedSubject.Length; i++ )
+                    {
+                        if ( selectedSubject [ i ] == ' ' )
+                        {
+                            if ( selectedSubject [ i + 1 ] == '1' )
+                            {
+                                paper = "01";
+                                Paper = "First Paper";
+                            }
+                            else if ( selectedSubject [ i + 1 ] == '2' )
+                            {
+                                paper = "02";
+                                Paper = "Second Paper";
+                            }
+                        }
+                        subject = Class + sub + paper;
+                        subjectName = Sub + " " + Paper;
+                        transferNow.ClassCode = Class;
+                    }
+                }
+                if ( selectedClass == "Class 11" || selectedClass == "Class 12" )
+                {
+                    Class = "HS";
+                    if ( selectedSubject [ 0 ] == 'B' )
+                    {
+                        sub = "BAN";
+                        Sub = "Bangla";
+                    }
+                    else if ( selectedSubject [ 0 ] == 'E' )
+                    {
+                        sub = "ENG";
+                        Sub = "English";
+                    }
+                    else if ( selectedSubject [ 0 ] == 'M' )
+                    {
+                        sub = "MATH";
+                        Sub = "Math";
+                    }
+                    else if ( selectedSubject [ 0 ] == 'I' )
+                    {
+                        sub = "ICT";
+                    }
+                    else if ( selectedSubject [ 0 ] == 'P' )
+                    {
+                        sub = "PHY";
+                        Sub = "Physics";
+                    }
+                    else if ( selectedSubject [ 0 ] == 'C' )
+                    {
+                        sub = "CHE";
+                        Sub = "Chemistry";
+                    }
+                    else if ( selectedSubject [ 0 ] == 'B' && selectedSubject [ 1 ] == 'i' )
+                    {
+                        sub = "BIO";
+                        Sub = "Biology";
+                    }
+                    else if ( selectedSubject [ 0 ] == 'H' )
+                    {
+                        sub = "HMATH";
+                        Sub = "Higher Math";
+                    }
+                    //--------------------------------------
+                    else if ( selectedSubject [ 0 ] == 'E' && selectedSubject [ 1 ] == 'c' )
+                    {
+                        sub = "ECO";
+                        Sub = "Economics";
+                    }
+                    else if ( selectedSubject [ 0 ] == 'A' )
+                    {
+                        sub = "ACC";
+                        Sub = "Accounting";
+                    }
+                    else if ( selectedSubject [ 0 ] == 'F' )
+                    {
+                        sub = "FIN";
+                        Sub = "Finance";
+                    }
+                    else if ( selectedSubject [ 0 ] == 'S' )
+                    {
+                        sub = "STAT";
+                        Sub = "Statistics";
+                    }
+                    //------------------------------------
+                    else if ( selectedSubject [ 0 ] == 'Z' )
+                    {
+                        sub = "LOG";
+                        Sub = "Logic";
+                    }
+                    for ( int i = 0; i < selectedSubject.Length; i++ )
+                    {
+                        if ( selectedSubject [ i ] == ' ' )
+                        {
+                            if ( selectedSubject [ i + 1 ] == '1' )
+                            {
+                                paper = "01";
+                                Paper = "First Paper";
+                            }
+                            else if ( selectedSubject [ i + 1 ] == '2' )
+                            {
+                                paper = "02";
+                                Paper = "Second Paper";
+                            }
+                        }
+                        subject = Class + sub + paper;
+                        subjectName = Sub + " " + Paper;
+                        transferNow.ClassCode = Class;
+                    }
+                }
+                if ( sub != null )
+                {
+                    transferNow.Class = selectedClass;
+                    transferNow.Subject = subject;
+                    transferNow.SubjectName = subjectName;
+                    await Application.Current.MainPage.Navigation.PushModalAsync ( new SearchedTeacher ( transferNow ) ).ConfigureAwait ( true );
                 }
             }
-            if (sub != null)
+            else
             {
-                transferNow.Class = selectedClass;
-                transferNow.Subject = subject;
-                transferNow.SubjectName = subjectName;
-                await Application.Current.MainPage.Navigation.PushModalAsync(new SearchedTeacher(transferNow)).ConfigureAwait(true);
+                Errorlbl.Text = "Check network connection";
             }
+            
         }
     }
 }

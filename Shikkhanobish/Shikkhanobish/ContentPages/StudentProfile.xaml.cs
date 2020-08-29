@@ -7,6 +7,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Rg.Plugins.Popup.Extensions;
 using Shikkhanobish.ContentPages;
+using Plugin.Connectivity;
 
 namespace Shikkhanobish
 {
@@ -50,8 +51,10 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_5(object sender, EventArgs e)
         {
-
-            await Application.Current.MainPage.Navigation.PushModalAsync( new StudentHistory(_Student.StundentID) ).ConfigureAwait ( true );
+            if ( !CrossConnectivity.IsSupported )
+            {
+                await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentHistory ( _Student.StundentID ) ).ConfigureAwait ( true );
+            }          
         }
 
         private async void Button_Clicked_6(object sender, EventArgs e)
@@ -75,8 +78,11 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_1 ( object sender , EventArgs e )
         {
-
-            Navigation.PushPopupAsync ( new PopUpForParentCode(_Student.Password, _Student.ParentCode)); //There will be actual parent code          
+            if ( !CrossConnectivity.IsSupported )
+            {
+                Navigation.PushPopupAsync ( new PopUpForParentCode ( _Student.Password , _Student.ParentCode ) );      
+            }
+                 
         }
     }
 }

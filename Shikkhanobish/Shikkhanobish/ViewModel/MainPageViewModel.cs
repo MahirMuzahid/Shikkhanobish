@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Plugin.Connectivity;
 
 namespace Shikkhanobish
 {
@@ -35,7 +36,7 @@ namespace Shikkhanobish
                {
                    var current = Connectivity.NetworkAccess;
 
-                   if (current == NetworkAccess.Internet)
+                   if ( !CrossConnectivity.IsSupported )
                    {
                        if (UserName == null && Password == null)
                        {
