@@ -76,7 +76,7 @@ namespace Shikkhanobish
         private async void Button_Clicked_1 ( object sender , EventArgs e )
         {
 
-            Navigation.PushPopupAsync ( new PopUpForParentCode(_Student.Password, 123456)); //There will be actual parent code          
+            Navigation.PushPopupAsync ( new PopUpForParentCode(_Student.Password, _Student.ParentCode)); //There will be actual parent code          
         }
     }
 }
