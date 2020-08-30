@@ -6,9 +6,9 @@ namespace Shikkhanobish.Model
 {
     class StudentBalance
     {
-        public int number { get; set; }
-        public int amount { get; set; }
-        public string date { get; set; }
-        public string trxID { get; set; }
+        public int Number { get; set; }
+        public int Amount { get; set; }
+        public string Date { get; set; }
+        public string TrxID { get; set; }
     }
 }

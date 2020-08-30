@@ -57,8 +57,8 @@ namespace Shikkhanobish.ContentPages
                     //var keys = JsonConvert.DeserializeObject<Keys>(json);
 
                     CrossOpenTok.Current.ApiKey = "46485492";// keys.ApiKey;
-                    CrossOpenTok.Current.SessionId = "1_MX40NjQ4NTQ5Mn5-MTU4NDU2NDI5NTQ1OX52VEZPZ1dDbDM3U1Y5MmtpYnNjMXdYOUZ-fg";//keys.SessionId;
-                    CrossOpenTok.Current.UserToken = "T1==cGFydG5lcl9pZD00NjQ4NTQ5MiZzaWc9NDJiNjg0MGEyM2ZiZjIxMjM5MzkzMGRjMjkyZTRjZmZmYzU2ZjRkMzpzZXNzaW9uX2lkPTFfTVg0ME5qUTROVFE1TW41LU1UVTRORFUyTkRJNU5UUTFPWDUyVkVaUFoxZERiRE0zVTFZNU1tdHBZbk5qTVhkWU9VWi1mZyZjcmVhdGVfdGltZT0xNTg0NTY0MzA5Jm5vbmNlPTAuNTI1NzE0OTA3MjM2Mjc2OCZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNTg3MTU2MzA1JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";//keys.Token;
+                    CrossOpenTok.Current.SessionId = "2_MX40NjQ4NTQ5Mn5-MTU5ODc2MDk4MTU2M35vTDBMZjU0c21BcGhtNTE2Ylp1cllSS1F-fg";//keys.SessionId;
+                    CrossOpenTok.Current.UserToken = "T1==cGFydG5lcl9pZD00NjQ4NTQ5MiZzaWc9NTRmZjBhYzFkZGQ2MmZkZGJhZjI4NWY5NmE1Y2E2MzQ0OTVhZTMxMjpzZXNzaW9uX2lkPTJfTVg0ME5qUTROVFE1TW41LU1UVTVPRGMyTURrNE1UVTJNMzV2VERCTVpqVTBjMjFCY0dodE5URTJZbHAxY2xsU1MxRi1mZyZjcmVhdGVfdGltZT0xNTk4NzYwOTkwJm5vbmNlPTAuODYzMzk2NTI0NTQxNzAxNyZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNjAxMzUyOTg4JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";//keys.Token;
                 }
                 catch ( Exception ex )
                 {

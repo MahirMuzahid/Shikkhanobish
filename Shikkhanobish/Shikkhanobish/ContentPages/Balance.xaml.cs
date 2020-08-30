@@ -24,10 +24,10 @@ namespace Shikkhanobish
                 for ( int i = 0; i < 20; i++ )
                 {
                     StudentBalance SB = new StudentBalance ();
-                    SB.number = 0235903425;
-                    SB.amount = 23;
-                    SB.date = "20.03.2021";
-                    SB.trxID = "TSCV236YG2KJ3265H";
+                    SB.Number = 0235903425;
+                    SB.Amount = 23;
+                    SB.Date = "20.03.2021";
+                    SB.TrxID = "TSCV236YG2KJ3265H";
                     sb.Add ( SB );
                 }
                 StudentWalletHistoryListView.ItemsSource = sb;
@@ -40,6 +40,18 @@ namespace Shikkhanobish
         }
 
         private void Button_Clicked_1 ( object sender , System.EventArgs e )
+        {
+            if ( CrossConnectivity.Current.IsConnected )
+            {
+                Navigation.PushPopupAsync( new PopUpForRechargeAccount ( stuent.Password ) );
+            }
+            else
+            {
+                Errorlbl.Text = "Check internet connection";
+            }
+        }
+
+        private void Button_Clicked ( object sender , System.EventArgs e )
         {
             if ( CrossConnectivity.Current.IsConnected )
             {
