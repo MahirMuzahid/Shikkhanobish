@@ -119,23 +119,23 @@ namespace Shikkhanobish.ContentPages
                 }
                 else if (FilteredTeacher[i].Teacher_Rank == "Newbie")
                 {
-                    FilteredTeacher[i].Color = "#E85959";
+                    FilteredTeacher[i].Color = "#F68181";
                 }
                 else if (FilteredTeacher[i].Teacher_Rank == "Average")
                 {
-                    FilteredTeacher[i].Color = "#E6B133";
+                    FilteredTeacher[i].Color = "#F5C24B";
                 }
                 else if (FilteredTeacher[i].Teacher_Rank == "Good")
                 {
-                    FilteredTeacher[i].Color = "#43D727";
+                    FilteredTeacher[i].Color = "#8AF077";
                 }
                 else if (FilteredTeacher[i].Teacher_Rank == "Veteran")
                 {
-                    FilteredTeacher[i].Color = "#43D727";
+                    FilteredTeacher[i].Color = "#77CDF0";
                 }
                 else if (FilteredTeacher[i].Teacher_Rank == "Master")
                 {
-                    FilteredTeacher[i].Color = "#B033E4";
+                    FilteredTeacher[i].Color = "#CA6AF1";
                 }
                 var cost = cal.RatingAndCostRange(info.Teacher.Teacher_Rank, info.ClassCode);
                 FilteredTeacher[i].Amount = cost;

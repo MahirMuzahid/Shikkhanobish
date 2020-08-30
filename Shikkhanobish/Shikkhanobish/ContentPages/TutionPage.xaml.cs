@@ -39,7 +39,7 @@ namespace Shikkhanobish.ContentPages
         public async void gotoRatingPage()
         {
             //info.StudyTimeInAPp = Int32.Parse(TimeEntry.Text);
-
+            info.StudyTimeInAPp = 30;
             await Application.Current.MainPage.Navigation.PushModalAsync(new RatingPage(info)).ConfigureAwait(true);
         }
     }
