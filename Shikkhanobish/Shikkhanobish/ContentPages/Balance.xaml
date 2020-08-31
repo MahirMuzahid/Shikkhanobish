@@ -97,6 +97,7 @@
                                         <Label Text="{Binding Date}" Grid.Column="2" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
                                         <Label Text="{Binding TrxID}" Grid.Column="3" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
                                     </Grid>
+
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>

@@ -15,26 +15,21 @@ namespace Shikkhanobish.ContentPages
         {
             InitializeComponent();
             info = trnsInfo;
-            CrossOpenTok.Current.MessageReceived += OnMessageReceived;
+            CrossOpenTok.Current.CycleCamera ();
         }
 
         private void OnEndCall(object sender, EventArgs e)
         {
             CrossOpenTok.Current.EndSession();
-            CrossOpenTok.Current.MessageReceived -= OnMessageReceived;
             gotoRatingPage();
         }
 
         private void OnSwapCamera(object sender, EventArgs e)
         {
-            //CrossOpenTok.Current.CycleCamera();
+            CrossOpenTok.Current.CycleCamera();
             CrossOpenTok.Current.SendMessageAsync("HogaMara");
         }
 
-        private void OnMessageReceived(string message)
-        {
-            DisplayAlert("Random message received", message, "OK");
-        }
 
         public async void gotoRatingPage()
         {

@@ -34,7 +34,7 @@
             <Entry Placeholder="TrxID" PlaceholderColor="White" Grid.Column="1" Grid.Row="1"/>
             <Entry x:Name="passlbl" Placeholder="Password" PlaceholderColor="White" Grid.ColumnSpan="2" Grid.Row="2"/>
             <Label x:Name="errorlbl" Grid.Row="3" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF"/>
-            <Button Text="Confirm" Grid.ColumnSpan="2" Grid.Row="4" BackgroundColor="#F5F5F5" TextColor="#303030" Clicked="Button_Clicked"/>
+            <Button Grid.ColumnSpan="2" Grid.Row="4" BackgroundColor="#F5F5F5" TextColor="#303030" Clicked="Button_Clicked"/>
         </Grid>
     </Frame>
 </pages:PopupPage>

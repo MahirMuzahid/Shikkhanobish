@@ -18,8 +18,11 @@ namespace Shikkhanobish.ContentPages
     public partial class PopUpForSelectedTeacher : PopupPage
     {
         private TransferInfo Info;
+        private int apiKey;
+        private string SessionID, Token;
         private void Button_Clicked ( object sender , EventArgs e )
         {
+            callbtn.Text = "Calling teacher...";
             GetKeys ();
             checkSession ();
         }
@@ -28,6 +31,7 @@ namespace Shikkhanobish.ContentPages
         public PopUpForSelectedTeacher ( TransferInfo info)
         {
             InitializeComponent ();
+            callbtn.Text = "Call Teacher";
             Info = info;
             tnLbl.Text = Info.Teacher.TeacherName;
             clLbl.Text = Info.Class;
@@ -42,12 +46,18 @@ namespace Shikkhanobish.ContentPages
             {
                 return;
             }
+            ConnectToRealTimeApiServer connectRealTimeAPi = new ConnectToRealTimeApiServer ();
+            connectRealTimeAPi.ConnectToServer ();
+            connectRealTimeAPi.ConnectWithTeacher (apiKey,SessionID,Token,Info.Student.StundentID, Info.Teacher.TeacherID,Info.SubjectName, Info.Class);
             Navigation.PopPopupAsync( );
             await Application.Current.MainPage.Navigation.PushModalAsync ( new TutionPage ( Info ) ).ConfigureAwait ( true );
         }
 
         protected async void GetKeys ( )
         {
+            apiKey = 46485492;
+            SessionID = "2_MX40NjQ4NTQ5Mn5-MTU5ODc2MDk4MTU2M35vTDBMZjU0c21BcGhtNTE2Ylp1cllSS1F-fg";
+            Token = "T1==cGFydG5lcl9pZD00NjQ4NTQ5MiZzaWc9NTRmZjBhYzFkZGQ2MmZkZGJhZjI4NWY5NmE1Y2E2MzQ0OTVhZTMxMjpzZXNzaW9uX2lkPTJfTVg0ME5qUTROVFE1TW41LU1UVTVPRGMyTURrNE1UVTJNMzV2VERCTVpqVTBjMjFCY0dodE5URTJZbHAxY2xsU1MxRi1mZyZjcmVhdGVfdGltZT0xNTk4NzYwOTkwJm5vbmNlPTAuODYzMzk2NTI0NTQxNzAxNyZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNjAxMzUyOTg4JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";
             using ( var client = new HttpClient () )
             {
                 try
