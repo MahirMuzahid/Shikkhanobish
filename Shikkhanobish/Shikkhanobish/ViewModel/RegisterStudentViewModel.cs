@@ -43,38 +43,45 @@ namespace Shikkhanobish
             {
                 return new Command(async () =>
                 {
-                    BindButtonText = "Checking Info...";
-                    var current = Connectivity.NetworkAccess;
+                    try
+                    {
+                        BindButtonText = "Checking Info...";
 
-                    if (current == NetworkAccess.Internet)
-                    {
-                        checkStudent.UserName = UserName;
-                        checkStudent.Password = Password;
-                        ConfirmPass = ConfirmPassword;
-                        checkStudent.PhoneNumber = PhoneNumber;
-                        checkStudent.Name = Name;
-                        checkStudent.Age = Age;
-                        checkStudent.Class = Class;
-                        checkStudent.InstitutionName = InstitutionName;
-                        checkStudent.RechargedAmount = RechargedAmount;
-                        checkStudent.IsPending = IsPending;
-                        checkStudent.TotalTuitionTIme = 0;
-                        checkStudent.TotalTeacherCount = 0;
-                        checkStudent.AvarageRating = 0;
-                        try
+                        if ( Connectivity.NetworkAccess == NetworkAccess.Internet )
                         {
-                            checkUserNamenadPhoneNumber();
+                            checkStudent.UserName = UserName;
+                            checkStudent.Password = Password;
+                            ConfirmPass = ConfirmPassword;
+                            checkStudent.PhoneNumber = PhoneNumber;
+                            checkStudent.Name = Name;
+                            checkStudent.Age = Age;
+                            checkStudent.Class = Class;
+                            checkStudent.InstitutionName = InstitutionName;
+                            checkStudent.RechargedAmount = RechargedAmount;
+                            checkStudent.IsPending = IsPending;
+                            checkStudent.TotalTuitionTIme = 0;
+                            checkStudent.TotalTeacherCount = 0;
+                            checkStudent.AvarageRating = 0;
+                            try
+                            {
+                                checkUserNamenadPhoneNumber ();
+                            }
+                            catch ( Exception ex )
+                            {
+                                ConfirmationText = ex.Message;
+                            }
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            ConfirmationText = ex.Message;
+                            ConfirmationText = "Check internet connection";
+                            BindButtonText = "Try Again";
                         }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        ConfirmationText = "Check internet connection";
-                        BindButtonText = "Try Again";
+                        ConfirmationText = "Connection Reset! Check internet connection";
                     }
+                    
                 });
             }
         }
@@ -85,38 +92,46 @@ namespace Shikkhanobish
             {
                 return new Command(async () =>
                 {
-                    BindButtonTextTeacher = "Checking Info...";
-                    var current = Connectivity.NetworkAccess;
+                    try
+                    {
+                        BindButtonTextTeacher = "Checking Info...";
+                        var current = Connectivity.NetworkAccess;
 
-                    if (current == NetworkAccess.Internet)
-                    {
-                        checkStudent.UserName = UserName;
-                        checkStudent.Password = Password;
-                        ConfirmPass = ConfirmPassword;
-                        checkStudent.PhoneNumber = PhoneNumber;
-                        checkStudent.Name = Name;
-                        checkStudent.Age = Age;
-                        checkStudent.Class = Class;
-                        checkStudent.InstitutionName = InstitutionName;
-                        checkStudent.RechargedAmount = RechargedAmount;
-                        checkStudent.IsPending = IsPending;
-                        checkStudent.TotalTuitionTIme = 0;
-                        checkStudent.TotalTeacherCount = 0;
-                        checkStudent.AvarageRating = 0;
-                        try
+                        if ( current == NetworkAccess.Internet )
                         {
-                            checkUsernameAndPhonenumberTeacher();
+                            checkStudent.UserName = UserName;
+                            checkStudent.Password = Password;
+                            ConfirmPass = ConfirmPassword;
+                            checkStudent.PhoneNumber = PhoneNumber;
+                            checkStudent.Name = Name;
+                            checkStudent.Age = Age;
+                            checkStudent.Class = Class;
+                            checkStudent.InstitutionName = InstitutionName;
+                            checkStudent.RechargedAmount = RechargedAmount;
+                            checkStudent.IsPending = IsPending;
+                            checkStudent.TotalTuitionTIme = 0;
+                            checkStudent.TotalTeacherCount = 0;
+                            checkStudent.AvarageRating = 0;
+                            try
+                            {
+                                checkUsernameAndPhonenumberTeacher ();
+                            }
+                            catch ( Exception ex )
+                            {
+                                ConfirmationText = ex.Message;
+                            }
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            ConfirmationText = ex.Message;
+                            ConfirmationText = "Check internet connection";
+                            BindButtonTextTeacher = "Try Again";
                         }
                     }
-                    else
+                    catch ( Exception ex )
                     {
-                        ConfirmationText = "Check internet connection";
-                        BindButtonTextTeacher = "Try Again";
+                        ConfirmationText = "Connection Reset! Check internet connection";
                     }
+                    
                 });
             }
         }

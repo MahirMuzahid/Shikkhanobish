@@ -19,34 +19,42 @@ namespace Shikkhanobish
         
         private void Button_Clicked(object sender, EventArgs e)
         {
-            if( !CrossConnectivity.IsSupported )
+            try
             {
-                if ( CurPassEntry.Text == Student.Password )
+                if ( !CrossConnectivity.IsSupported )
                 {
-                    Student student = new Student ();
-                    student.UserName = UserEntry.Text;
-                    student.Password = PassEntry.Text;
-                    if ( AgeEntry.Text != null )
+                    if ( CurPassEntry.Text == Student.Password )
                     {
-                        student.Age = int.Parse ( AgeEntry.Text );
+                        Student student = new Student ();
+                        student.UserName = UserEntry.Text;
+                        student.Password = PassEntry.Text;
+                        if ( AgeEntry.Text != null )
+                        {
+                            student.Age = int.Parse ( AgeEntry.Text );
+                        }
+                        student.Name = NameEntry.Text;
+                        student.InstitutionName = InstEntry.Text;
+                        student.Class = ClassEntry.Text;
+
+                        //Api call to update user info
+
+                        Errortxt.Text = "Update Done";
                     }
-                    student.Name = NameEntry.Text;
-                    student.InstitutionName = InstEntry.Text;
-                    student.Class = ClassEntry.Text;
-
-                    //Api call to update user info
-
-                    Errortxt.Text = "Update Done";
+                    else
+                    {
+                        Errortxt.Text = "Password dosen't match";
+                    }
                 }
                 else
                 {
-                    Errortxt.Text = "Password dosen't match";
+                    Errortxt.Text = "Check network connection";
                 }
             }
-            else
+            catch
             {
                 Errortxt.Text = "Check network connection";
             }
+            
             
         }
     }

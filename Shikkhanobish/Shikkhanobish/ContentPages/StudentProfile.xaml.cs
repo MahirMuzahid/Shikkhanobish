@@ -51,10 +51,18 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_5(object sender, EventArgs e)
         {
-            if ( CrossConnectivity.Current.IsConnected )
+            try
             {
-                await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentHistory ( _Student.StundentID ) ).ConfigureAwait ( true );
-            }          
+                if ( CrossConnectivity.Current.IsConnected )
+                {
+                    await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentHistory ( _Student.StundentID ) ).ConfigureAwait ( true );
+                }
+            }
+            catch
+            {
+
+            }
+                    
         }
 
         private async void Button_Clicked_6(object sender, EventArgs e)
@@ -67,7 +75,7 @@ namespace Shikkhanobish
             await Application.Current.MainPage.Navigation.PushModalAsync(new TakeTuition(StudentID, _Student.Name, _Student.UserName, _Student.Password)).ConfigureAwait(true);
         }
         private async void Button_Clicked_8 ( object sender , EventArgs e )
-        {
+        {        
             await Application.Current.MainPage.Navigation.PushModalAsync ( new Balance(_Student) ).ConfigureAwait ( true );
         }
 
@@ -78,10 +86,18 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_1 ( object sender , EventArgs e )
         {
-            if ( CrossConnectivity.Current.IsConnected )
+            try
             {
-                Navigation.PushPopupAsync ( new PopUpForParentCode ( _Student.Password , _Student.ParentCode ) );      
+                if ( CrossConnectivity.Current.IsConnected )
+                {
+                    Navigation.PushPopupAsync ( new PopUpForParentCode ( _Student.Password , _Student.ParentCode ) );
+                }
             }
+            catch
+            {
+
+            }
+            
                  
         }
     }

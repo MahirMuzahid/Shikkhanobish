@@ -41,14 +41,22 @@ namespace Shikkhanobish
 
         private void Button_Clicked_1 ( object sender , System.EventArgs e )
         {
-            if ( CrossConnectivity.Current.IsConnected )
+            try
             {
-                Navigation.PushPopupAsync( new PopUpForRechargeAccount ( stuent.Password ) );
+                if ( CrossConnectivity.Current.IsConnected )
+                {
+                    Navigation.PushPopupAsync ( new PopUpForRechargeAccount ( stuent.Password ) );
+                }
+                else
+                {
+                    Errorlbl.Text = "Check internet connection";
+                }
             }
-            else
+            catch
             {
                 Errorlbl.Text = "Check internet connection";
             }
+            
         }
 
         private void Button_Clicked ( object sender , System.EventArgs e )
