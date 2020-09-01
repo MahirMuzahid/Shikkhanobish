@@ -13,7 +13,7 @@ namespace Shikkhanobish.Model
         HubConnection _connection = null;
         bool isConnected = false;
         string connectionStatus = "Closed";
-        string url = "https://medhabiapi.shikkhanobish.com/ShikkhanobishHub", msgFromApi = "";
+        string url = "https://localhost:44350/ShikkhanobishHub", msgFromApi = "";
 
         public async Task ConnectToServer ( )
         {
@@ -41,7 +41,8 @@ namespace Shikkhanobish.Model
 
         public async Task ConnectWithTeacher ( int ApiKey , string SessionId , string UserToken , int studentID , int teacherID , string Cls , string subject )
         {
-            string url = "https://medhabiapi.shikkhanobish.com/api/ShikkhanobishHub/CallTeacher?ApiKey=" + ApiKey + "&SessionId=" + SessionId + "&UserToken=" + UserToken + "&studentID=" + studentID + "&teacherID=" + teacherID + "&Cls=" + Cls + "&subject=" + subject;
+            string url = "https://localhost:44350/api/ShikkhanobishRealTimeApi/CallTeacher?ApiKey=" + ApiKey + "&SessionId=" + SessionId + "&UserToken=" + UserToken + "&studentID=" + studentID + "&teacherID=" + teacherID + "&Cls=" + Cls + "&subject=" + subject;
+            //string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishHub/CallTeacher?ApiKey=" + ApiKey + "&SessionId=" + SessionId + "&UserToken=" + UserToken + "&studentID=" + studentID + "&teacherID=" + teacherID + "&Cls=" + Cls + "&subject=" + subject;
             HttpClient client = new HttpClient ();
             StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );

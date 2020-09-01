@@ -47,10 +47,11 @@ namespace Shikkhanobish.ContentPages
                 return;
             }
             ConnectToRealTimeApiServer connectRealTimeAPi = new ConnectToRealTimeApiServer ();
-            connectRealTimeAPi.ConnectToServer ();
-            connectRealTimeAPi.ConnectWithTeacher (apiKey,SessionID,Token,Info.Student.StundentID, Info.Teacher.TeacherID,Info.SubjectName, Info.Class);
-            Navigation.PopPopupAsync( );
-            await Application.Current.MainPage.Navigation.PushModalAsync ( new TutionPage ( Info ) ).ConfigureAwait ( true );
+            await connectRealTimeAPi.ConnectToServer ().ConfigureAwait ( false );
+            await Task.Run ( ( ) => ( connectRealTimeAPi.ConnectWithTeacher ( apiKey , SessionID , Token , Info.Student.StundentID , Info.Teacher.TeacherID , Info.SubjectName , Info.Class ) )).ConfigureAwait ( false );
+            
+            await Navigation.PopPopupAsync( ).ConfigureAwait ( false );
+            await Application.Current.MainPage.Navigation.PushModalAsync ( new TutionPage ( Info ) ).ConfigureAwait ( false );
         }
 
         protected async void GetKeys ( )
