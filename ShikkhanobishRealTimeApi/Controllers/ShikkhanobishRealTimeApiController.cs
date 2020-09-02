@@ -19,11 +19,19 @@ namespace ShikkhanobishRealTimeApi.Controllers
         }
 
         [HttpPost ( "CallTeacher" )]
-        public async Task<IActionResult> Post ( int ApiKey , string SessionId , string UserToken , int studentID, int teacherID, string Cls, string subject )
+        public async Task<IActionResult> ClTeacher ( int ApiKey , string SessionId , string UserToken , int studentID, int teacherID, string Cls, string subject )
         {
             await _hubContext.Clients.All.SendAsync ( "CallInfo" , ApiKey , SessionId , UserToken, studentID, teacherID, Cls, subject );
 
-            return Ok ( "Call Done!" );
+            return Ok ( "ok" );
+        }
+
+        [HttpPost ( "SendStudentThatCallRecivedOrIgnored" )]
+        public async Task<IActionResult> CallConfirmation ( int studentID, int teacherID, bool recivedOrNot )
+        {
+            await _hubContext.Clients.All.SendAsync ( "SendStudentThatCallRecivedOrIgnored" , studentID , teacherID , recivedOrNot );
+
+            return Ok ( "ok" );
         }
 
     }
