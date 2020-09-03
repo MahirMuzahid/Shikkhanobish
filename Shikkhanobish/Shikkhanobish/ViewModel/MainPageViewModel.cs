@@ -87,7 +87,7 @@ namespace Shikkhanobish
                     HttpClient clientT = new HttpClient ();
                     string jsonDataT = JsonConvert.SerializeObject ( new { UserName = UserName , Password = Password } );
                     StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
-                    HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( true );
+                    HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
                     string resultT = await responseT.Content.ReadAsStringAsync ();
                     teacher = JsonConvert.DeserializeObject<Teacher> ( resultT );
                     if ( teacher.TeacherName == null )
@@ -97,7 +97,7 @@ namespace Shikkhanobish
                     }
                     else
                     {
-                        await Application.Current.MainPage.Navigation.PushModalAsync ( new TeacherProfile ( teacher ) ).ConfigureAwait ( true );
+                        await Application.Current.MainPage.Navigation.PushModalAsync ( new TeacherProfile ( teacher ) ).ConfigureAwait ( false );
                     }
                 }
                 else if ( student.Name != null )
@@ -108,15 +108,15 @@ namespace Shikkhanobish
                         HttpClient clientT = new HttpClient ();
                         string jsonDataT = JsonConvert.SerializeObject ( new { StudentID = student.StundentID } );
                         StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
-                        HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( true );
+                        HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
                         string resultT = await responseT.Content.ReadAsStringAsync ();
                         var pedningRating = JsonConvert.DeserializeObject<IsPending> ( resultT );
                         TransferInfo trns = new TransferInfo ();
-                        await Application.Current.MainPage.Navigation.PushModalAsync ( new RatingPage ( trns ) ).ConfigureAwait ( true );
+                        await Application.Current.MainPage.Navigation.PushModalAsync ( new RatingPage ( trns ) ).ConfigureAwait ( false );
                     }
                     else
                     {
-                        await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentProfile ( student ) ).ConfigureAwait ( true );
+                        await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentProfile ( student ) ).ConfigureAwait ( false );
                     }
                 }
             }
@@ -134,7 +134,7 @@ namespace Shikkhanobish
             {
                 return new Command(async () =>
                 {
-                    await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterStudent()).ConfigureAwait(true);
+                    await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterStudent()).ConfigureAwait( false );
                 });
             }
         }
@@ -145,7 +145,7 @@ namespace Shikkhanobish
             {
                 return new Command(async () =>
                 {
-                    await Application.Current.MainPage.Navigation.PushModalAsync(new ForgotPasswordWindow()).ConfigureAwait(true);
+                    await Application.Current.MainPage.Navigation.PushModalAsync(new ForgotPasswordWindow()).ConfigureAwait( false );
                 });
             }
         }

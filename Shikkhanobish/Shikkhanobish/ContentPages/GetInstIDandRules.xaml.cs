@@ -21,7 +21,7 @@ namespace Shikkhanobish.ContentPages
         private async void Button_Clicked(object sender, EventArgs e)
         {
             InstitutionID = InstitutionIDEntry.Text;
-            await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterAsTeacher(student, InstitutionID)).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterAsTeacher(student, InstitutionID)).ConfigureAwait( false );
         }
     }
 }

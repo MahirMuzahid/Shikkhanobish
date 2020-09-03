@@ -36,7 +36,7 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_3(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new TeacherHistory()).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new TeacherHistory()).ConfigureAwait( false );
         }
 
         protected override bool OnBackButtonPressed()
@@ -47,7 +47,7 @@ namespace Shikkhanobish
 
         public async void giveAlert()
         {
-            bool answer = await DisplayAlert("Alert", "Would you like to quit?", "Yes", "No").ConfigureAwait(true);
+            bool answer = await DisplayAlert("Alert", "Would you like to quit?", "Yes", "No").ConfigureAwait( false );
             if (answer == true)
             {
                 System.Environment.Exit(0);
@@ -56,7 +56,7 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_4(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new MainPage()).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new MainPage()).ConfigureAwait( false );
         }
 
         private void Button_Clicked_5(object sender, EventArgs e)
@@ -66,12 +66,12 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_6(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new UpdateAccount(_Student)).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new UpdateAccount(_Student)).ConfigureAwait( false );
         }
 
         private async void Button_Clicked_7(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new TakeTuition(StudentID, _Student.Name, _Student.UserName, _Student.Password)).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new TakeTuition(StudentID, _Student.Name, _Student.UserName, _Student.Password)).ConfigureAwait( false );
         }
     }
 }

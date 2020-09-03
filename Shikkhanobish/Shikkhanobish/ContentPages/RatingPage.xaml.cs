@@ -133,8 +133,8 @@ namespace Shikkhanobish.ContentPages
                 Student_Name = info.Student.Name
             });
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
-            string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
+            HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait( false );
+            string result = await response.Content.ReadAsStringAsync().ConfigureAwait( false );
             Response responseData = JsonConvert.DeserializeObject<Response>(result);
             backtoProfile();
         }
@@ -146,10 +146,10 @@ namespace Shikkhanobish.ContentPages
             HttpClient client = new HttpClient();
             string jsonData = JsonConvert.SerializeObject(new { UserName = info.Student.UserName, Password = info.Student.Password });
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
+            HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait( false );
             string result = await response.Content.ReadAsStringAsync();
             student = JsonConvert.DeserializeObject<Student>(result);
-            await Application.Current.MainPage.Navigation.PushModalAsync(new StudentProfile(student)).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new StudentProfile(student)).ConfigureAwait( false );
         }
 
         private void Button_Clicked(object sender, EventArgs e)

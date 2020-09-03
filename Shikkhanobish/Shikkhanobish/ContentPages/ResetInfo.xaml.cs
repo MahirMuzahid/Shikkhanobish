@@ -47,12 +47,12 @@ namespace Shikkhanobish.ContentPages
                         HttpClient clientt = new HttpClient();
                         string jsonDatat = JsonConvert.SerializeObject(new { Username = un, IsTeacherorStudent = st, IsPasswordOrUsername = pu, NewpassorUsername = mainEntry.Text });
                         StringContent contentt = new StringContent(jsonDatat, Encoding.UTF8, "application/json");
-                        HttpResponseMessage responset = await clientt.PostAsync(urlt, contentt).ConfigureAwait(true);
+                        HttpResponseMessage responset = await clientt.PostAsync(urlt, contentt).ConfigureAwait( false );
                         string resultt = await responset.Content.ReadAsStringAsync();
                         var r = JsonConvert.DeserializeObject<Response>(resultt);
                         if (r.Status == 0)
                         {
-                            await Application.Current.MainPage.Navigation.PushModalAsync(new MainPage()).ConfigureAwait(true);
+                            await Application.Current.MainPage.Navigation.PushModalAsync(new MainPage()).ConfigureAwait( false );
                         }
                     }
                 }
@@ -67,12 +67,12 @@ namespace Shikkhanobish.ContentPages
                 HttpClient clientt = new HttpClient();
                 string jsonDatat = JsonConvert.SerializeObject(new { Username = un, IsTeacherorStudent = st, IsPasswordOrUsername = pu, NewpassorUsername = mainEntry.Text });
                 StringContent contentt = new StringContent(jsonDatat, Encoding.UTF8, "application/json");
-                HttpResponseMessage responset = await clientt.PostAsync(urlt, contentt).ConfigureAwait(true);
+                HttpResponseMessage responset = await clientt.PostAsync(urlt, contentt).ConfigureAwait( false );
                 string resultt = await responset.Content.ReadAsStringAsync();
                 var r = JsonConvert.DeserializeObject<Response>(resultt);
                 if (r.Status == 0)
                 {
-                    await Application.Current.MainPage.Navigation.PushModalAsync(new MainPage()).ConfigureAwait(true);
+                    await Application.Current.MainPage.Navigation.PushModalAsync(new MainPage()).ConfigureAwait( false );
                 }
             }
             else

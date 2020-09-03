@@ -9,7 +9,7 @@
              mc:Ignorable="d"
              x:Class="Shikkhanobish.ContentPages.TutionPage">
 
-    <Grid BackgroundColor="#FFFFFF" ColumnSpacing="0" RowSpacing="0"  BindableLayout.ItemsSource="{Binding Path=StreamIdCollection, Source={x:Static tokService:CrossOpenTok.Current}}">
+    <Grid BackgroundColor="#FCFCFC" ColumnSpacing="0" RowSpacing="0"  BindableLayout.ItemsSource="{Binding Path=StreamIdCollection, Source={x:Static tokService:CrossOpenTok.Current}}">
         <BindableLayout.ItemTemplate>
             <DataTemplate>
                 <tok:OpenTokSubscriberView HeightRequest="500" StreamId="{Binding .}" />
@@ -27,6 +27,7 @@
         </Grid.ColumnDefinitions>
         <tok:OpenTokPublisherView Grid.Column="1" Grid.Row="2" Margin="20" />
         <Button Text="End Call" TextColor="White" Grid.Row="2"  Grid.Column="0" Clicked="OnEndCall" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="#FF8E8E" CornerRadius="10" Margin="5" />
+        <Label x:Name="timerlbl" Text="5:34" FontAttributes="Bold" FontSize="20" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="End" Margin="40"/>
     </Grid>
 
 </ContentPage>

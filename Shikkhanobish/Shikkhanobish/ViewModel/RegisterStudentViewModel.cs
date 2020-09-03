@@ -230,7 +230,7 @@ namespace Shikkhanobish
             {
                 BindButtonTextTeacher = "All Done!";
                 ConfirmationText = txt;
-                await Application.Current.MainPage.Navigation.PushModalAsync(new VerifyPhonenumber(checkStudent, 1)).ConfigureAwait(true);
+                await Application.Current.MainPage.Navigation.PushModalAsync(new VerifyPhonenumber(checkStudent, 1)).ConfigureAwait( false );
             }
         }
 
@@ -331,7 +331,7 @@ namespace Shikkhanobish
 
                 //ConfirmationText = responseData.Massage;
 
-                await Application.Current.MainPage.Navigation.PushModalAsync(new VerifyPhonenumber(checkStudent, 0)).ConfigureAwait(true);
+                await Application.Current.MainPage.Navigation.PushModalAsync(new VerifyPhonenumber(checkStudent, 0)).ConfigureAwait( false );
             }
         }
 

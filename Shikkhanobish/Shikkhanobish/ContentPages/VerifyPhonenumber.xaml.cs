@@ -52,11 +52,11 @@ namespace Shikkhanobish
         {
             if ( ts == 0 )
             {
-                await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentProfile ( studentm ) ).ConfigureAwait ( true );
+                await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentProfile ( studentm ) ).ConfigureAwait ( false );
             }
             if ( ts == 1 )
             {
-                await Application.Current.MainPage.Navigation.PushModalAsync ( new GetInstIDandRules ( studentm ) ).ConfigureAwait ( true );
+                await Application.Current.MainPage.Navigation.PushModalAsync ( new GetInstIDandRules ( studentm ) ).ConfigureAwait ( false );
             }
             
         }
@@ -83,7 +83,7 @@ namespace Shikkhanobish
                     }
                     else if (ts == 1)
                     {
-                        await Application.Current.MainPage.Navigation.PushModalAsync(new GetInstIDandRules(studentm)).ConfigureAwait(true);
+                        await Application.Current.MainPage.Navigation.PushModalAsync(new GetInstIDandRules(studentm)).ConfigureAwait( false );
                     }
                 }
                 else
@@ -109,10 +109,10 @@ namespace Shikkhanobish
             HttpClient client = new HttpClient ();
             string jsonData = JsonConvert.SerializeObject ( new { UserName = studentm.UserName , Password = studentm.Password } );
             StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
-            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
+            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
             string result = await response.Content.ReadAsStringAsync ();
             Student student = JsonConvert.DeserializeObject<Student> ( result );
-            await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentProfile ( student ) ).ConfigureAwait ( true );
+            await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentProfile ( student ) ).ConfigureAwait ( false );
         }
     }
 }
