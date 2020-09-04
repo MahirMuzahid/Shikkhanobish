@@ -25,12 +25,12 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_2(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new TeacherHistory()).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new TeacherHistory()).ConfigureAwait( false );
         }
 
         private async void Button_Clicked_3(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new StudentHistory(3)).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new StudentHistory(3)).ConfigureAwait( false );
         }
 
         protected override bool OnBackButtonPressed()
@@ -41,7 +41,7 @@ namespace Shikkhanobish
 
         public async void giveAlert()
         {
-            bool answer = await DisplayAlert("Alert", "Would you like to quit?", "Yes", "No").ConfigureAwait(true);
+            bool answer = await DisplayAlert("Alert", "Would you like to quit?", "Yes", "No").ConfigureAwait( false );
             if (answer == true)
             {
                 System.Environment.Exit(0);
@@ -50,7 +50,7 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_4(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new Settings()).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new Settings()).ConfigureAwait( false );
         }
     }
 }

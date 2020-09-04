@@ -101,12 +101,12 @@ namespace Shikkhanobish
 
         private async void rubtn_Clicked(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new ResetInfo(Username, studentorTeacher, 1)).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new ResetInfo(Username, studentorTeacher, 1)).ConfigureAwait(false);
         }
 
         private async void rpbtn_Clicked(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new ResetInfo(Username, studentorTeacher, 0)).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new ResetInfo(Username, studentorTeacher, 0)).ConfigureAwait( false );
         }
     }
 }

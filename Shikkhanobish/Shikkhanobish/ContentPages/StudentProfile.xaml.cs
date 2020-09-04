@@ -46,7 +46,7 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_4(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new MainPage()).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new MainPage()).ConfigureAwait( false );
         }
 
         private async void Button_Clicked_5(object sender, EventArgs e)
@@ -55,7 +55,7 @@ namespace Shikkhanobish
             {
                 if ( CrossConnectivity.Current.IsConnected )
                 {
-                    await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentHistory ( _Student.StundentID ) ).ConfigureAwait ( true );
+                    await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentHistory ( _Student.StundentID ) ).ConfigureAwait ( false );
                 }
             }
             catch
@@ -67,16 +67,16 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_6(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new UpdateAccount(_Student)).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new UpdateAccount(_Student)).ConfigureAwait( false );
         }
 
         private async void Button_Clicked_7(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new TakeTuition(StudentID, _Student.Name, _Student.UserName, _Student.Password)).ConfigureAwait(true);
+            await Application.Current.MainPage.Navigation.PushModalAsync(new TakeTuition(StudentID, _Student.Name, _Student.UserName, _Student.Password)).ConfigureAwait( false );
         }
         private async void Button_Clicked_8 ( object sender , EventArgs e )
         {        
-            await Application.Current.MainPage.Navigation.PushModalAsync ( new Balance(_Student) ).ConfigureAwait ( true );
+            await Application.Current.MainPage.Navigation.PushModalAsync ( new Balance(_Student) ).ConfigureAwait ( false );
         }
 
         private void Button_Clicked ( object sender , EventArgs e )

@@ -431,7 +431,7 @@ namespace Shikkhanobish
                         transferNow.Class = selectedClass;
                         transferNow.Subject = subject;
                         transferNow.SubjectName = subjectName;
-                        await Application.Current.MainPage.Navigation.PushModalAsync ( new SearchedTeacher ( transferNow ) ).ConfigureAwait ( true );
+                        await Application.Current.MainPage.Navigation.PushModalAsync ( new SearchedTeacher ( transferNow ) ).ConfigureAwait ( false );
                     }
                 }
                 else
