@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Shikkhanobish.ContentPages.CallPageForStudent">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="6*"/>
+        </Grid.RowDefinitions>
+        <Image Source="callbackground.jpg" Grid.Row="0" Grid.RowSpan="5" Aspect="Fill" />
+        <BoxView BackgroundColor="#59F0F8FF" Grid.Row="0" Margin="100,15,100,15" CornerRadius="20"/>
+        <Label x:Name="tnLbl"  Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF"/>
+        <BoxView BackgroundColor="#59F0F8FF" Grid.Row="1" Margin="100,15,100,15" CornerRadius="20"/>
+        <Label x:Name="clLbl"  Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF"/>
+        <BoxView BackgroundColor="#59F0F8FF" Grid.Row="2" Margin="100,15,100,15" CornerRadius="20"/>
+        <Label x:Name="subLbl" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF"/>
+        <BoxView BackgroundColor="#59F0F8FF" Grid.Row="3" Margin="100,15,100,15" CornerRadius="20"/>
+        <Label  x:Name="ctLbl"  Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF"/>
+        <Label x:Name="callbtn"  Grid.Row="4" HorizontalOptions="Center" FontSize="18" VerticalOptions="Center" TextColor="#41FF5F"/>
+    </Grid>
+</ContentPage>
