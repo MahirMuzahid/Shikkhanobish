@@ -48,7 +48,7 @@
     <EmbeddedResource Update="ContentPages\Balance.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="ContentPages\CallPageForStudent.xaml">
+    <EmbeddedResource Update="ContentPages\CallingPageStudent.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="ContentPages\FavouriteTeacher.xaml">

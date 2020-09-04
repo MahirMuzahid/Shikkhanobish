@@ -21,7 +21,7 @@ namespace Shikkhanobish.ContentPages
             CrossOpenTok.Current.CycleCamera ();
             sec = 0;
             min = 0;
-            StartTimer ();
+           //StartTimer ();
             
             
         }
