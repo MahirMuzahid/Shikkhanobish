@@ -41,6 +41,11 @@ namespace Shikkhanobish.ContentPages
             await connectRealTimeAPi.ConnectToServer ().ConfigureAwait ( false );
             await Task.Run ( ( ) => ( connectRealTimeAPi.ConnectWithTeacher ( apiKey , SessionID , Token , Info.Student.StundentID , Info.Teacher.TeacherID , Info.SubjectName , Info.Class ) ) ).ConfigureAwait ( false );
 
+            
+        }
+
+        private async void callbtn_Clicked ( object sender , EventArgs e )
+        {
             await Application.Current.MainPage.Navigation.PushModalAsync ( new TutionPage ( Info ) ).ConfigureAwait ( false );
         }
 

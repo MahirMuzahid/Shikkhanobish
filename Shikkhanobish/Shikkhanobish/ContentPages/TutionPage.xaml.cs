@@ -14,16 +14,15 @@ namespace Shikkhanobish.ContentPages
         private TransferInfo info = new TransferInfo ();
         private Timer timer = new Timer ();
         int sec, min;
+        int ownthing = 0;
         public TutionPage ( TransferInfo trnsInfo )
         {
             InitializeComponent ();
             info = trnsInfo;
-            CrossOpenTok.Current.CycleCamera ();
             sec = 0;
             min = 0;
-           //StartTimer ();
-            
-            
+            tnamelbl.Text = trnsInfo.Teacher.TeacherName;
+           //StartTimer ();            
         }
 
         private void OnEndCall ( object sender , EventArgs e )
@@ -35,7 +34,22 @@ namespace Shikkhanobish.ContentPages
         private void OnSwapCamera ( object sender , EventArgs e )
         {
             CrossOpenTok.Current.CycleCamera ();
-            CrossOpenTok.Current.SendMessageAsync ( "HogaMara" );
+        }
+        private void StopOwnVideo ( object sender , EventArgs e )
+        {
+            ownthing++;
+
+            if(ownthing%2 == 1)
+            {
+                ownvideo.IsVisible = false;
+
+            }
+            else
+            {
+                ownvideo.IsVisible = true;
+
+            }
+            
         }
 
 

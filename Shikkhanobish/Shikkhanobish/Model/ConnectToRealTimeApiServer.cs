@@ -33,10 +33,7 @@ namespace Shikkhanobish.Model
                 isConnected = true;
 
             };
-            _connection.On < int  , string , string , int , int , string , string > ( "CallInfo" , async ( ApiKey , SessionId , UserToken , studentID , teacherID , Class , subject ) =>
-            {
-                string r = "Got this msg: " + ApiKey+ " "+ SessionId + " " + UserToken + " " + studentID + " " + teacherID + " " + Class + " " + subject;
-            } );
+           
 
         }
 

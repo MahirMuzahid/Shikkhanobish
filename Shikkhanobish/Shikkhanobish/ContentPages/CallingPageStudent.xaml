@@ -19,6 +19,6 @@
         <Label x:Name="subLbl" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF"/>
         <BoxView BackgroundColor="#59F0F8FF" Grid.Row="3" Margin="100,15,100,15" CornerRadius="20"/>
         <Label  x:Name="ctLbl"  Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF"/>
-        <Label x:Name="callbtn"  Grid.Row="4" HorizontalOptions="Center" FontSize="18" VerticalOptions="Center" TextColor="#303030"/>
+        <Button x:Name="callbtn"  Grid.Row="4" HorizontalOptions="Center" FontSize="18" VerticalOptions="Center" TextColor="#303030" Clicked="callbtn_Clicked"/>
     </Grid>
 </ContentPage>
