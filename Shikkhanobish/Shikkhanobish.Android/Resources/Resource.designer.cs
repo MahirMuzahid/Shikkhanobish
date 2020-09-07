@@ -13571,26 +13571,26 @@ namespace Shikkhanobish.Droid
 			// aapt resource value: 0x7f020073
 			public const int avd_hide_password = 2130837619;
 			
-			// aapt resource value: 0x7f0200a9
-			public const int avd_hide_password_1 = 2130837673;
-			
 			// aapt resource value: 0x7f0200aa
-			public const int avd_hide_password_2 = 2130837674;
+			public const int avd_hide_password_1 = 2130837674;
 			
 			// aapt resource value: 0x7f0200ab
-			public const int avd_hide_password_3 = 2130837675;
+			public const int avd_hide_password_2 = 2130837675;
+			
+			// aapt resource value: 0x7f0200ac
+			public const int avd_hide_password_3 = 2130837676;
 			
 			// aapt resource value: 0x7f020074
 			public const int avd_show_password = 2130837620;
 			
-			// aapt resource value: 0x7f0200ac
-			public const int avd_show_password_1 = 2130837676;
-			
 			// aapt resource value: 0x7f0200ad
-			public const int avd_show_password_2 = 2130837677;
+			public const int avd_show_password_1 = 2130837677;
 			
 			// aapt resource value: 0x7f0200ae
-			public const int avd_show_password_3 = 2130837678;
+			public const int avd_show_password_2 = 2130837678;
+			
+			// aapt resource value: 0x7f0200af
+			public const int avd_show_password_3 = 2130837679;
 			
 			// aapt resource value: 0x7f020075
 			public const int BackColor = 2130837621;
@@ -13700,11 +13700,11 @@ namespace Shikkhanobish.Droid
 			// aapt resource value: 0x7f020098
 			public const int notification_icon_background = 2130837656;
 			
-			// aapt resource value: 0x7f0200a7
-			public const int notification_template_icon_bg = 2130837671;
-			
 			// aapt resource value: 0x7f0200a8
-			public const int notification_template_icon_low_bg = 2130837672;
+			public const int notification_template_icon_bg = 2130837672;
+			
+			// aapt resource value: 0x7f0200a9
+			public const int notification_template_icon_low_bg = 2130837673;
 			
 			// aapt resource value: 0x7f020099
 			public const int notification_tile_bg = 2130837657;
@@ -13734,19 +13734,22 @@ namespace Shikkhanobish.Droid
 			public const int teacher = 2130837665;
 			
 			// aapt resource value: 0x7f0200a2
-			public const int teacherhistorybutton = 2130837666;
+			public const int teacheractivecall = 2130837666;
 			
 			// aapt resource value: 0x7f0200a3
-			public const int tooltip_frame_dark = 2130837667;
+			public const int teacherhistorybutton = 2130837667;
 			
 			// aapt resource value: 0x7f0200a4
-			public const int tooltip_frame_light = 2130837668;
+			public const int tooltip_frame_dark = 2130837668;
 			
 			// aapt resource value: 0x7f0200a5
-			public const int update = 2130837669;
+			public const int tooltip_frame_light = 2130837669;
 			
 			// aapt resource value: 0x7f0200a6
-			public const int updatebutton = 2130837670;
+			public const int update = 2130837670;
+			
+			// aapt resource value: 0x7f0200a7
+			public const int updatebutton = 2130837671;
 			
 			static Drawable()
 			{

@@ -19,7 +19,6 @@ namespace Shikkhanobish
 
         public StudentProfile(Student student)
         {
-            NavigationPage.SetHasNavigationBar ( this , true );
             StudentID = student.StundentID;
             this.IsPresented = false;
             _Student = student;

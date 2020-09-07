@@ -211,5 +211,8 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\stopownvideo.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\teacheractivecall.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

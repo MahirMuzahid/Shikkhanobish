@@ -7,7 +7,8 @@ namespace Shikkhanobish
     internal class ProfileViewModel
     {
         private INavigation navigation;
-        public string _studentID;
+        public string _activeText;
+        public int _teachertID;
         public string _name;
         public string _age;
         public string _institutionNmae;
@@ -30,24 +31,23 @@ namespace Shikkhanobish
         public ProfileViewModel(Teacher t)
         {
             Name = t.TeacherName;
-
-            Age = "Age: " + t.Age;
+            TeacherID = t.TeacherID;
+            Age = "" + t.Age;
             Class = "Class: " + t.Class;
-            InstitutionName = "Institution Name: " + t.InstitutionName;
+            InstitutionName = "" + t.InstitutionName;
             IsTeacherorStudent = "Teacher";
             AmountTxt = "" + t.RechargedAmount + " Taka";
-            AvailableMintxt = "Available Minute: " + t.RechargedAmount;
+            AvailableMintxt = "" + t.RechargedAmount;
             Fee = "NTY";
             Avarage = 0;
             Subject = "NTY";
             TuitionPoint = 0;
-            TotalTaken = "Total Tuition Taken: " + 0;
-            TotalTeacher = "Total Teacher: " + 0;
-            TotalSpent = "Total Money Spent: " + 0;
-            OffredTuitionTime = "Total Offred Tuition Time: " + 0;
-            TotalTuitionCount = "Total Tuition Coutn: " + 0;
-            TeacherRank = "Teacher Rank: Placement";
-            IsEnableTeacher = false;
+            TotalTaken = "" + 0;
+            TotalTeacher = "" + 0;
+            TotalSpent = "" + 0;
+            OffredTuitionTime = " " + 0;
+            TotalTuitionCount = "" + 0;
+            TeacherRank = t.Teacher_Rank;
         }
 
         public string Name
@@ -82,17 +82,17 @@ namespace Shikkhanobish
             }
         }
 
-        public string StudentIDTxt
+        public int TeacherID
         {
             get
             {
-                return _studentID;
+                return _teachertID;
             }
             set
             {
                 if (value != null)
                 {
-                    _studentID = value;
+                    _teachertID = value;
                     OnPropertyChanged();
                 }
             }

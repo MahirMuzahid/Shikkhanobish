@@ -97,7 +97,7 @@ namespace Shikkhanobish
                     }
                     else
                     {
-                        await Application.Current.MainPage.Navigation.PushModalAsync ( new TeacherProfile ( teacher ) ).ConfigureAwait ( false );
+                        await Application.Current.MainPage.Navigation.PushModalAsync ( new TeacherProfile ( teacher ) ).ConfigureAwait ( true );
                     }
                 }
                 else if ( student.Name != null )
@@ -122,6 +122,7 @@ namespace Shikkhanobish
             }
             catch (Exception ex)
             {
+                loginText = "Login";
                 ErrorText = "Connection Reset! Check internet connection";
             }
             

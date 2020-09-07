@@ -11,13 +11,14 @@ namespace Shikkhanobish
         public int StudentID;
         private Student _Student;
         private Teacher teacher;
-
+        private int ac = 0;
         public TeacherProfile(Teacher t)
         {
+            InitializeComponent ();
             teacher = t;
             this.IsPresented = false;
-            InitializeComponent();
-
+            activelbl.Text = "Teacher Status: Inactive";
+            activeback.BackgroundColor = Color.FromHex ( "#9B69F7" );
             var image = new Image { Source = "BackColor.jpg" };
             BindingContext = new ProfileViewModel(t);
             MasterBehavior = MasterBehavior.Popover;
@@ -71,7 +72,19 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_7(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new TakeTuition(StudentID, _Student.Name, _Student.UserName, _Student.Password)).ConfigureAwait( false );
+            ac++;
+
+            if(ac%2 == 1)
+            {
+                activeback.BackgroundColor = Color.FromHex ( "#54E36B" );               
+                activelbl.Text = "Teacher Status: Active";
+            }
+            else
+            {
+                activeback.BackgroundColor = Color.FromHex ( "#9B69F7" );
+                activelbl.Text = "Teacher Status: Inactive";
+            }
+            
         }
     }
 }
