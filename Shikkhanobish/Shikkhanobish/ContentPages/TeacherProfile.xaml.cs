@@ -1,5 +1,7 @@
-﻿using System;
-
+﻿using Newtonsoft.Json;
+using System;
+using System.Net.Http;
+using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,15 +17,19 @@ namespace Shikkhanobish
         public TeacherProfile(Teacher t)
         {
             InitializeComponent ();
+            BindingContext = new ProfileViewModel ( t );
             teacher = t;
-            this.IsPresented = false;
-            activelbl.Text = "Teacher Status: Inactive";
             activeback.BackgroundColor = Color.FromHex ( "#9B69F7" );
             var image = new Image { Source = "BackColor.jpg" };
-            BindingContext = new ProfileViewModel(t);
-            MasterBehavior = MasterBehavior.Popover;
+            setRankInfo ();
         }
 
+        public async void setRankInfo ( )
+        {
+            tplbl.Text = "Tuition Point: " + teacher.Tuition_Point;
+            ranklbl.Text = teacher.Teacher_Rank;
+            await progress.ProgressTo ( 0.75 , 500 , Easing.Linear );
+        }
         private void Button_Clicked(object sender, EventArgs e)
         {
             //await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterAsTeacher()).ConfigureAwait(true);
@@ -76,13 +82,34 @@ namespace Shikkhanobish
 
             if(ac%2 == 1)
             {
-                activeback.BackgroundColor = Color.FromHex ( "#54E36B" );               
-                activelbl.Text = "Teacher Status: Active";
+                
+                string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsActive";
+                HttpClient clientT = new HttpClient ();
+                string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = teacher.TeacherID , state = 1 } );
+                StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
+                HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
+                string resultT = await responseT.Content.ReadAsStringAsync ();
+                var response = JsonConvert.DeserializeObject<Response> ( resultT );
+                if(response.Status == 0)
+                {
+                    activeback.BackgroundColor = Color.FromHex ( "#54E36B" );
+                    activelbl.Text = "Teacher Status: Active";
+                }
             }
             else
             {
-                activeback.BackgroundColor = Color.FromHex ( "#9B69F7" );
-                activelbl.Text = "Teacher Status: Inactive";
+                string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsActive";
+                HttpClient clientT = new HttpClient ();
+                string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = teacher.TeacherID , state = 0 } );
+                StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
+                HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
+                string resultT = await responseT.Content.ReadAsStringAsync ();
+                var response = JsonConvert.DeserializeObject<Response> ( resultT );
+                if ( response.Status == 0 )
+                {
+                    activeback.BackgroundColor = Color.FromHex ( "#54E36B" );
+                    activelbl.Text = "Teacher Status: Inactive";
+                }
             }
             
         }

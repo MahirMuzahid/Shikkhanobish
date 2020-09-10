@@ -13,6 +13,8 @@ using System;
 using Android.Net;
 using Xamarin.Essentials;
 using Javax.Net.Ssl;
+using Xamarin.Forms.OpenTok;
+using System.Threading.Tasks;
 
 namespace Shikkhanobish
 {
@@ -36,7 +38,7 @@ namespace Shikkhanobish
         {
             get
             {
-                return new Command(() =>
+                return new Command( async() =>
                {
                    if ( Connectivity.NetworkAccess == NetworkAccess.Internet)
                    {
@@ -57,7 +59,43 @@ namespace Shikkhanobish
                        }
                        else
                        {
-                           LoginByUserNameAndPassword();
+                           try
+                           {
+                               loginText = "Wait...";
+                               await SearchTeacher ();
+                               await SearchStudent ();
+                               //Task.Run ( ()=>SearchTeacher ());
+                               //Task.Run ( ( ) => SearchStudent () );
+                               
+                               if(student.Name == null)
+                               {
+                                   goPage ( 0 );
+                               }                            
+                               else
+                               {
+                                   if ( student.IsPending == 1 )
+                                   {
+                                       string urlT = "https://api.shikkhanobish.com/api/Master/GetPending";
+                                       HttpClient clientT = new HttpClient ();
+                                       string jsonDataT = JsonConvert.SerializeObject ( new { StudentID = student.StundentID } );
+                                       StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
+                                       HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
+                                       string resultT = await responseT.Content.ReadAsStringAsync ();
+                                       var pedningRating = JsonConvert.DeserializeObject<IsPending> ( resultT );
+                                       TransferInfo trns = new TransferInfo ();
+                                       await Application.Current.MainPage.Navigation.PushModalAsync ( new RatingPage ( trns ) ).ConfigureAwait ( false );
+                                   }
+                                   else
+                                   {
+                                       goPage ( 1 );
+                                   }
+                               }
+                           }
+                           catch ( Exception ex )
+                           {
+                               loginText = "Login";
+                               ErrorText = "Connection Reset! Check internet connection";
+                           }
                        }
                    }
                    else
@@ -69,63 +107,37 @@ namespace Shikkhanobish
             }
         }
 
-        public async void LoginByUserNameAndPassword()
+        public async Task SearchTeacher()
         {
-            try
+            string urlT = "https://api.shikkhanobish.com/api/Master/GetInfoByLoginTeacher";
+            HttpClient clientT = new HttpClient ();
+            string jsonDataT = JsonConvert.SerializeObject ( new { UserName = UserName , Password = Password } );
+            StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
+            string resultT = await responseT.Content.ReadAsStringAsync ();
+            teacher = JsonConvert.DeserializeObject<Teacher> ( resultT );
+        }
+        public async Task SearchStudent ( )
+        {
+            string url = "https://api.shikkhanobish.com/api/Master/GetInfoByLogin";
+            HttpClient client = new HttpClient ();
+            string jsonData = JsonConvert.SerializeObject ( new { UserName = UserName , Password = Password } );
+            StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
+            string result = await response.Content.ReadAsStringAsync ();
+            student = JsonConvert.DeserializeObject<Student> ( result );
+        }
+
+        public async void goPage(int i)
+        {
+            if(i == 0)
             {
-                loginText = "Wait...";
-                string url = "https://api.shikkhanobish.com/api/Master/GetInfoByLogin";
-                HttpClient client = new HttpClient ();
-                string jsonData = JsonConvert.SerializeObject ( new { UserName = UserName , Password = Password } );
-                StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
-                HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
-                string result = await response.Content.ReadAsStringAsync ();
-                student = JsonConvert.DeserializeObject<Student> ( result );
-                if ( student.Name == null )
-                {
-                    string urlT = "https://api.shikkhanobish.com/api/Master/GetInfoByLoginTeacher";
-                    HttpClient clientT = new HttpClient ();
-                    string jsonDataT = JsonConvert.SerializeObject ( new { UserName = UserName , Password = Password } );
-                    StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
-                    HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
-                    string resultT = await responseT.Content.ReadAsStringAsync ();
-                    teacher = JsonConvert.DeserializeObject<Teacher> ( resultT );
-                    if ( teacher.TeacherName == null )
-                    {
-                        ErrorText = "Wrong User Name or Password!";
-                        loginText = "Login";
-                    }
-                    else
-                    {
-                        await Application.Current.MainPage.Navigation.PushModalAsync ( new TeacherProfile ( teacher ) ).ConfigureAwait ( true );
-                    }
-                }
-                else if ( student.Name != null )
-                {
-                    if ( student.IsPending == 1 )
-                    {
-                        string urlT = "https://api.shikkhanobish.com/api/Master/GetPending";
-                        HttpClient clientT = new HttpClient ();
-                        string jsonDataT = JsonConvert.SerializeObject ( new { StudentID = student.StundentID } );
-                        StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
-                        HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
-                        string resultT = await responseT.Content.ReadAsStringAsync ();
-                        var pedningRating = JsonConvert.DeserializeObject<IsPending> ( resultT );
-                        TransferInfo trns = new TransferInfo ();
-                        await Application.Current.MainPage.Navigation.PushModalAsync ( new RatingPage ( trns ) ).ConfigureAwait ( false );
-                    }
-                    else
-                    {
-                        await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentProfile ( student ) ).ConfigureAwait ( false );
-                    }
-                }
+                await Application.Current.MainPage.Navigation.PushModalAsync ( new TeacherProfile ( teacher ) ).ConfigureAwait ( false );
             }
-            catch (Exception ex)
+            if(i == 1 )
             {
-                loginText = "Login";
-                ErrorText = "Connection Reset! Check internet connection";
+                await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentProfile ( student ) ).ConfigureAwait ( false );
             }
-            
         }
 
         //public int Error { get; set; }

@@ -80,9 +80,9 @@
                     <Image Source="dashboardbar.png" Grid.Row="0" Aspect="Fill" Grid.ColumnSpan="2" />
                     <BoxView BackgroundColor="#F5F5F5" Grid.Row="1" Grid.Column="0" CornerRadius="20" />
                     <BoxView BackgroundColor="#F5F5F5" Grid.Row="1" Grid.Column="1" CornerRadius="20" />
-                    <BoxView BackgroundColor="#FFD794" Grid.Row="2" Grid.Column="0" CornerRadius="20" />
-                    <BoxView BackgroundColor="#FFF1DE" Grid.Row="2" Grid.Column="1" CornerRadius="20" />
-                    <BoxView BackgroundColor="#F5F5F5" Grid.Row="3" Grid.Column="0" CornerRadius="20" />
+                    <BoxView BackgroundColor="#FFF1DE" Grid.Row="2" Grid.Column="0" CornerRadius="20" />
+                    <BoxView BackgroundColor="#F5F5F5" Grid.Row="2" Grid.Column="1" CornerRadius="20" />
+                    <BoxView BackgroundColor="#F5F5F5" Grid.Row="3" Grid.ColumnSpan="2" CornerRadius="20" />
 
                     <Grid Grid.Row="0" Grid.ColumnSpan="2" Padding="20">
                         <Grid.RowDefinitions>
@@ -143,7 +143,7 @@
                         </Grid>
                     </Grid>
 
-                    <Grid Grid.Row="1" Grid.Column="0" RowSpacing="0" Padding="7">
+                    <Grid Grid.Row="1" Grid.Column="0" RowSpacing="0" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*" />
                             <RowDefinition Height=".2*" />
@@ -153,8 +153,8 @@
                             <ColumnDefinition Width=".5*" />
                         </Grid.ColumnDefinitions>
                         <BoxView x:Name="activeback" Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="#54E36B" CornerRadius="10" />
-                        <Image Source="teacheractivecall.png" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalOptions="Center" Aspect="AspectFill" />
-                        <Label x:Name="activelbl" Text="Take Tuition" FontSize="16" TextColor="#696969" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="End" Grid.ColumnSpan="2" VerticalOptions="Start" />
+                        <Image Source="teacheractivecall.png" Grid.Row="0" Grid.RowSpan="1" Grid.ColumnSpan="2" HorizontalOptions="Center" Aspect="AspectFill" Margin="5"/>
+                        <Label x:Name="activelbl" FontSize="16" TextColor="#FFFFFF" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="Center" Grid.ColumnSpan="2" VerticalOptions="Start" />
                         <Button Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="#00FFFFFF" Clicked="Button_Clicked_7" />
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="1" RowSpacing="0" Padding="7">
@@ -170,16 +170,8 @@
                         <Label Text="History" FontSize="16" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="Center" Grid.ColumnSpan="2" VerticalOptions="Start" TextColor="#696969" />
                         <Button Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="#00FFFFFF" Clicked="Button_Clicked_5" />
                     </Grid>
+                    
                     <Grid Grid.Row="2" Grid.Column="0" RowSpacing="0" Padding="7">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="1*" />
-                            <RowDefinition Height=".2*" />
-                        </Grid.RowDefinitions>
-                        <Image Source="paprentsportal.png" Grid.Row="0"  HorizontalOptions="Center" Aspect="AspectFill" />
-                        <Label Text="Parents Portal" FontSize="16" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="Center"  VerticalOptions="Start" TextColor="#574B26" />
-                        <Button Grid.RowSpan="1" BackgroundColor="#00FFFFFF" Clicked="Button_Clicked_1" />
-                    </Grid>
-                    <Grid Grid.Row="2" Grid.Column="1" RowSpacing="0" Padding="7">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*" />
                             <RowDefinition Height=".2*" />
@@ -188,7 +180,7 @@
                         <Label Text="Wallet" FontSize="16" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="Center" Grid.ColumnSpan="2" VerticalOptions="Start" TextColor="#696969" />
                         <Button Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="#00FFFFFF"  />
                     </Grid>
-                    <Grid Grid.Row="3" Grid.Column="0" RowSpacing="0" Padding="7">
+                    <Grid Grid.Row="2" Grid.Column="1" RowSpacing="0" Padding="7">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*" />
                             <RowDefinition Height=".2*" />
@@ -196,6 +188,52 @@
                         <Image Source="update.png" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Center" Aspect="AspectFill" />
                         <Label Text="Update Info" FontSize="16" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="Center" Grid.ColumnSpan="2" VerticalOptions="Start" TextColor="#696969" />
                         <Button Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="#00FFFFFF" Clicked="Button_Clicked_6" />
+                    </Grid>
+                    <Grid Grid.Row="3" Grid.ColumnSpan="2" RowSpacing="0" Padding="7">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height=".5*"/>
+                            <RowDefinition Height=".5*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <Label Text="Rank" FontSize="15" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Start" Margin="5"/>
+                        <Label x:Name="ranklbl" Text="Master" FontSize="20" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#AB5CEB"/>
+                        <Label x:Name="tplbl" Text="Tuition Point: 200" FontSize="11"  Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="End"/>
+
+                        <ProgressBar x:Name="progress" ProgressColor="DarkViolet" Grid.Row="1"/>
+                        <Grid Grid.Row="1" ColumnSpacing="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Text="|" Grid.Column="0" FontSize="10" HorizontalOptions="End" VerticalOptions="Center"/>
+                            <Label Text="|" Grid.Column="1" FontSize="10" HorizontalOptions="End" VerticalOptions="Center"/>
+                            <Label Text="|" Grid.Column="2" FontSize="10" HorizontalOptions="End" VerticalOptions="Center"/>
+                            <Label Text="|" Grid.Column="3" FontSize="10" HorizontalOptions="End" VerticalOptions="Center"/>
+                            <Label Text="|" Grid.Column="4" FontSize="10" HorizontalOptions="End" VerticalOptions="Center"/>
+                        </Grid>
+                        <Grid Grid.Row="2" ColumnSpacing="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Text="Placement" Grid.Column="0" FontSize="10" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#848484"/>
+                            <Label Text="Newbie" Grid.Column="1" FontSize="10" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#F68181"/>
+                            <Label Text="Average" Grid.Column="2" FontSize="10" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#F5C24B"/>
+                            <Label Text="Good" Grid.Column="3" FontSize="10" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#8AF077"/>
+                            <Label Text="Veteran" Grid.Column="4" FontSize="10" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#77CDF0"/>
+                            <Label Text="Master" Grid.Column="5" FontSize="10" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#CA6AF1"/>
+                        </Grid>
                     </Grid>
                 </Grid>
             </ScrollView>
