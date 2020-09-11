@@ -82,7 +82,7 @@
                     <BoxView BackgroundColor="#F5F5F5" Grid.Row="1" Grid.Column="1" CornerRadius="20" />
                     <BoxView BackgroundColor="#FFF1DE" Grid.Row="2" Grid.Column="0" CornerRadius="20" />
                     <BoxView BackgroundColor="#F5F5F5" Grid.Row="2" Grid.Column="1" CornerRadius="20" />
-                    <BoxView BackgroundColor="#F5F5F5" Grid.Row="3" Grid.ColumnSpan="2" CornerRadius="20" />
+                    <BoxView BackgroundColor="#FFFFFF" Grid.Row="3" Grid.ColumnSpan="2" CornerRadius="20" />
 
                     <Grid Grid.Row="0" Grid.ColumnSpan="2" Padding="20">
                         <Grid.RowDefinitions>
@@ -135,7 +135,7 @@
                                 <RowDefinition Height="2*" />
                             </Grid.RowDefinitions>
                             <Image Source="menu.png" Grid.Row="0" HorizontalOptions="Start" />
-                            <Button Grid.Row="0"  BackgroundColor="#00FFFFFF" HorizontalOptions="Start" Clicked="Button_Clicked" />
+                            <Button Grid.Row="0"  BackgroundColor="#00FFFFFF" HorizontalOptions="Start" Clicked="Button_Clicked_1" />
                             <Label Text="{Binding Name}" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Start" FontSize="20" FontAttributes="Bold" TextColor="White" />
                             <Label Text="{Binding InstitutionName}" Grid.Row="2" VerticalOptions="Start" HorizontalOptions="Center" TextColor="#FFFFFF" />
                             <Label Text="{Binding Age}" Grid.Row="3" VerticalOptions="Start" HorizontalOptions="Center" TextColor="#FFFFFF" />
@@ -196,11 +196,11 @@
                             <RowDefinition Height=".5*"/>
                         </Grid.RowDefinitions>
                         
-                        <Label Text="Rank" FontSize="15" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Start" Margin="5"/>
-                        <Label x:Name="ranklbl" Text="Master" FontSize="20" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#AB5CEB"/>
-                        <Label x:Name="tplbl" Text="Tuition Point: 200" FontSize="11"  Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="End"/>
-
-                        <ProgressBar x:Name="progress" ProgressColor="DarkViolet" Grid.Row="1"/>
+                       
+                        <Label x:Name="ranklbl"  FontSize="20" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#AB5CEB"/>
+                        <Label x:Name="tplbl"  FontSize="11"  Grid.Row="0" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="End"/>
+                        <Label x:Name="avglbl"  FontSize="11"  Grid.Row="0" Grid.Column="0" HorizontalOptions="End" VerticalOptions="End"/>
+                        <ProgressBar x:Name="progress" Grid.Row="1"/>
                         <Grid Grid.Row="1" ColumnSpacing="0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"/>
@@ -211,11 +211,11 @@
                                 <ColumnDefinition Width="1*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Label Text="|" Grid.Column="0" FontSize="10" HorizontalOptions="End" VerticalOptions="Center"/>
-                            <Label Text="|" Grid.Column="1" FontSize="10" HorizontalOptions="End" VerticalOptions="Center"/>
-                            <Label Text="|" Grid.Column="2" FontSize="10" HorizontalOptions="End" VerticalOptions="Center"/>
-                            <Label Text="|" Grid.Column="3" FontSize="10" HorizontalOptions="End" VerticalOptions="Center"/>
-                            <Label Text="|" Grid.Column="4" FontSize="10" HorizontalOptions="End" VerticalOptions="Center"/>
+                            <Label Text="|" Grid.Column="0" FontSize="10" HorizontalOptions="End" VerticalOptions="Center" BackgroundColor="#494949" TextColor="#494949"/>
+                            <Label Text="|" Grid.Column="1" FontSize="10" HorizontalOptions="End" VerticalOptions="Center" BackgroundColor="#F68181" TextColor="#F68181"/>
+                            <Label Text="|" Grid.Column="2" FontSize="10" HorizontalOptions="End" VerticalOptions="Center" BackgroundColor="#8AF077"  TextColor="#8AF077"/>
+                            <Label Text="|" Grid.Column="3" FontSize="10" HorizontalOptions="End" VerticalOptions="Center" BackgroundColor="#77CDF0"  TextColor="#77CDF0"/>
+                            <Label Text="|" Grid.Column="4" FontSize="10" HorizontalOptions="End" VerticalOptions="Center" BackgroundColor="#CA6AF1"  TextColor="#CA6AF1"/>
                         </Grid>
                         <Grid Grid.Row="2" ColumnSpacing="0">
                             <Grid.ColumnDefinitions>

@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
+using Shikkhanobish.Model;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using Xamarin.Forms;
@@ -26,9 +28,63 @@ namespace Shikkhanobish
 
         public async void setRankInfo ( )
         {
+            float avg = ( teacher.One_Star + teacher.Two_Star + teacher.Three_Star + teacher.Four_Star + teacher.Five_Star ) / 5;
             tplbl.Text = "Tuition Point: " + teacher.Tuition_Point;
-            ranklbl.Text = teacher.Teacher_Rank;
-            await progress.ProgressTo ( 0.75 , 500 , Easing.Linear );
+            avglbl.Text = "Average: " + avg;
+            float place = 0;
+            Calculate cal = new Calculate ();
+            List<int> tpInfo = new List<int> ();
+            List<float> avgInfo = new List<float> ();
+            tpInfo = cal.GetTuitionPointInfo ();
+            avgInfo = cal.GetAverageInfo ();
+            if ( teacher.Tuition_Point < 20 )
+            {
+                ranklbl.Text = "Placement";
+                place = (teacher.Tuition_Point / tpInfo[0])*.166f;            }
+            else if ( teacher.Tuition_Point <= 999 || ( teacher.Tuition_Point > 999 && avg < 3.75f ) )
+            {
+                ranklbl.Text = "Newbie";
+                if( teacher.Tuition_Point > 999 && avg < 3.75f )
+                {
+                    place = .3f;
+                    avglbl.TextColor = Color.FromHex ( "F68181" );
+                    tplbl.TextColor = Color.FromHex ( "F5C24B" );
+                }
+                else
+                {
+                    float point = ( float ) teacher.Tuition_Point / ( float ) tpInfo [ 1 ];
+                    place = ( point * .166f ) + .166f;
+                    avglbl.TextColor = Color.FromHex ( "F68181" );
+                    tplbl.TextColor = Color.FromHex ( "F68181" );
+                }
+                ranklbl.TextColor = Color.FromHex ( "F68181" );
+                progress.ProgressColor = Color.FromHex ( "F68181" );
+            }
+            else if ( teacher.Tuition_Point <= 3999 && avg >= 3.750f || ( teacher.Tuition_Point > 3999 && avg < 3.75f ) )
+            {
+                ranklbl.Text = "Average";
+                float point = ( float ) teacher.Tuition_Point / ( float ) tpInfo [ 1 ];
+                place = ( point * .166f ) + .166f;            
+            }
+            else if ( teacher.Tuition_Point <= 8999 && avg >= 4.00f || ( teacher.Tuition_Point > 8999 && avg < 4.00f ) )
+            {
+                ranklbl.Text = "Good";
+                float point = ( float ) teacher.Tuition_Point / ( float ) tpInfo [ 1 ];
+                place = ( point * .166f ) + .166f;
+            }
+            else if ( teacher.Tuition_Point <= 15999 && avg >= 4.30f || ( teacher.Tuition_Point > 15999 && avg < 4.30f ) )
+            {
+                ranklbl.Text = "Veteran";
+                float point = ( float ) teacher.Tuition_Point / ( float ) tpInfo [ 1 ];
+                place = ( point * .166f ) + .166f;
+            }
+            else if ( teacher.Tuition_Point > 16000 && avg >= 4.30f )
+            {
+                ranklbl.Text = "Master";
+                float point = ( float ) teacher.Tuition_Point / ( float ) tpInfo [ 1 ];
+                place = ( point * .166f ) + .166f;
+            }
+            await progress.ProgressTo ( place , 500 , Easing.SinIn ).ConfigureAwait ( false );
         }
         private void Button_Clicked(object sender, EventArgs e)
         {
@@ -38,6 +94,7 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_1(object sender, EventArgs e)
         {
+            this.IsPresented = true;
         }
 
 

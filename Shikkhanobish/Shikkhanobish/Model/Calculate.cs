@@ -1,4 +1,6 @@
-﻿using Shikkhanobish.ViewModel;
+﻿using IdentityModel.Client;
+using Shikkhanobish.ViewModel;
+using System.Collections.Generic;
 
 namespace Shikkhanobish.Model
 {
@@ -148,6 +150,34 @@ namespace Shikkhanobish.Model
         public string CalculateRank(TransferInfo info)
         {
             return RankRange(info.Teacher.OverallTP, info.Teacher.Avarage, CalculatedTuitionTime);
+        }
+
+
+        public List<int> GetTuitionPointInfo ( )
+        {
+            List<int> info = new List<int> ();
+
+            info.Add ( 20 ); //max value of placement
+            info.Add ( 1000 ); //max value of Newbie
+            info.Add ( 4000 ); //max value of Average
+            info.Add ( 8000 ); //max value of Good
+            info.Add ( 16000 ); //max value of Veteran
+
+            return info;
+
+        }
+        public List<float> GetAverageInfo ( )
+        {
+            List<float> info = new List<float> ();
+
+            info.Add ( 3.75f ); //max value of placement
+            info.Add ( 3.75f ); //max value of Newbie
+            info.Add ( 4.00f ); //max value of Average
+            info.Add ( 4.30f ); //max value of Good
+            info.Add ( 4.30f ); //max value of Veteran
+
+            return info;
+
         }
     }
 }

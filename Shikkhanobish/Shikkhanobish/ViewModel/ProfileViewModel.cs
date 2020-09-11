@@ -39,14 +39,11 @@ namespace Shikkhanobish
             AmountTxt = "" + t.RechargedAmount + " Taka";
             AvailableMintxt = "" + t.RechargedAmount;
             Fee = "NTY";
-            Avarage = 0;
+            Avarage = (t.One_Star + t.Two_Star+ t.Three_Star+ t.Four_Star+ t.Five_Star)/5;
             Subject = "NTY";
-            TuitionPoint = 0;
-            TotalTaken = "" + 0;
-            TotalTeacher = "" + 0;
-            TotalSpent = "" + 0;
-            OffredTuitionTime = " " + 0;
-            TotalTuitionCount = "" + 0;
+            TuitionPoint = t.Tuition_Point;
+            OffredTuitionTime = " " + t.Total_Min;
+            TotalTuitionCount = "" + t.Number_Of_Tution;
             TeacherRank = t.Teacher_Rank;
         }
 
