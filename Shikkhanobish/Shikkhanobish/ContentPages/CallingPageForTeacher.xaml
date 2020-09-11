@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Shikkhanobish.ContentPages.CallingPageStudent">
+             x:Class="Shikkhanobish.ContentPages.CallingPageForTeacher">
     <Grid BackgroundColor="#FFFFFF">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="6*"/>
+            <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
         <BoxView BackgroundColor="WhiteSmoke" Grid.Row="0" Grid.RowSpan="4" />
         <BoxView BackgroundColor="#59CFCFCF" Grid.Row="0" Margin="100,15,100,15" CornerRadius="20"/>
@@ -20,7 +20,8 @@
         <BoxView BackgroundColor="#59CFCFCF" Grid.Row="3" Margin="100,15,100,15" CornerRadius="20"/>
         <Label  x:Name="ctLbl"  Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#4D4D4D"/>
         <Label x:Name="calllbl" Text="Calling..."  Grid.Row="4" HorizontalOptions="Center" FontSize="15" VerticalOptions="Center" TextColor="#303030"/>
+        <Button x:Name="acceptbtn" Text="Accept"  Grid.Row="5" HorizontalOptions="Start" FontSize="13" FontAttributes="Bold" VerticalOptions="Center" TextColor="#FFFFFF" Clicked="callbtn_Clicked" Margin="15" CornerRadius="10" BackgroundColor="#49DA9F"/>
+        <Button x:Name="canclebtn" Text="Cancle"  Grid.Row="5" HorizontalOptions="End" FontSize="13" FontAttributes="Bold" VerticalOptions="Center" TextColor="#FFFFFF" Clicked="callbtn_Clicked_1" Margin="15" CornerRadius="10" BackgroundColor="#ED6B6B"/>
        
-        <Button x:Name="cancleStbtn" Text="Cancle"  Grid.Row="5" HorizontalOptions="Center" FontSize="13" FontAttributes="Bold" VerticalOptions="Center" TextColor="#FFFFFF" Margin="8" CornerRadius="10" Clicked="cancleStbtn_Clicked" BackgroundColor="#EE7373"/>
     </Grid>
 </ContentPage>

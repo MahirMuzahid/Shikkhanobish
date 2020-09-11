@@ -10,5 +10,7 @@
         public string Subject { get; set; }
         public string SubjectName { get; set; }
         public string ClassCode { get; set; }
+        public string SessionID { get; set; }
+        public string UserToken { get; set; }
     }
 }

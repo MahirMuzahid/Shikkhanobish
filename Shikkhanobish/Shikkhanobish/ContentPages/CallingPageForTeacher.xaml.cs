@@ -3,52 +3,62 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Shikkhanobish.Model;
-using Shikkhanobish.ViewModel;
-using Xamarin.Forms.OpenTok.Service;
 using System.Net.Http;
 using Xamarin.Forms;
+using Xamarin.Forms.OpenTok.Service;
 using Xamarin.Forms.Xaml;
-
-
+using Microsoft.AspNetCore.SignalR.Client;
+using Shikkhanobish.Model;
+using Shikkhanobish.ViewModel;
 namespace Shikkhanobish.ContentPages
 {
     [XamlCompilation ( XamlCompilationOptions.Compile )]
-    public partial class CallPageForStudent : ContentPage
+    public partial class CallingPageForTeacher : ContentPage
     {
         private TransferInfo Info;
         private int apiKey;
         private string SessionID, Token;
-        public CallPageForStudent ( TransferInfo info )
+        private bool isstudent;
+        public CallingPageForTeacher ( TransferInfo info )
         {
-            
             InitializeComponent ();
             Info = info;
-            tnLbl.Text = Info.Teacher.TeacherName;
+            tnLbl.Text = Info.Student.Name;
             clLbl.Text = Info.Class;
             subLbl.Text = Info.SubjectName;
             ctLbl.Text = "Cost: " + Info.Teacher.Amount + " taka/min";
-            callbtn.Text = "Calling teacher...";
+            calllbl.Text = "Student Call...";
             GetKeys ();
-            checkSession ();
         }
 
-        public async void checkSession ( )
+        private async void callbtn_Clicked ( object sender , EventArgs e )
         {
             if ( !CrossOpenTok.Current.TryStartSession () )
             {
                 return;
             }
-            ConnectToRealTimeApiServer connectRealTimeAPi = new ConnectToRealTimeApiServer ();
-            await connectRealTimeAPi.ConnectToServer ().ConfigureAwait ( false );
-            await Task.Run ( ( ) => ( connectRealTimeAPi.ConnectWithTeacher ( apiKey , SessionID , Token , Info.Student.StundentID , Info.Teacher.TeacherID , Info.SubjectName , Info.Class ) ) ).ConfigureAwait ( false );
+            ConnectWithStudent ( Info.Student.StundentID , Info.Teacher.TeacherID , true );
+            await Application.Current.MainPage.Navigation.PushModalAsync ( new TutionPage ( Info , false ) ).ConfigureAwait ( false );
+        }
 
-            await Application.Current.MainPage.Navigation.PushModalAsync ( new TutionPage ( Info ) ).ConfigureAwait ( false );
+        //for teacher
+        private async void callbtn_Clicked_1 ( object sender , EventArgs e )
+        {
+            ConnectWithStudent ( Info.Student.StundentID , Info.Teacher.TeacherID , false );
+            await Application.Current.MainPage.Navigation.PopModalAsync ();
+        }
+
+        public async Task ConnectWithStudent ( int studentID , int teacherID , bool recivedOrNot )
+        {
+            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/SendStudentThatCallRecivedOrIgnored?studentID=" + studentID + "&teacherID=" + teacherID + "&recivedOrNot=" + recivedOrNot;
+            HttpClient client = new HttpClient ();
+            StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
         }
 
         protected async void GetKeys ( )
         {
-            
+
             apiKey = 46485492;
             SessionID = "2_MX40NjQ4NTQ5Mn5-MTU5ODc2MDk4MTU2M35vTDBMZjU0c21BcGhtNTE2Ylp1cllSS1F-fg";
             Token = "T1==cGFydG5lcl9pZD00NjQ4NTQ5MiZzaWc9NTRmZjBhYzFkZGQ2MmZkZGJhZjI4NWY5NmE1Y2E2MzQ0OTVhZTMxMjpzZXNzaW9uX2lkPTJfTVg0ME5qUTROVFE1TW41LU1UVTVPRGMyTURrNE1UVTJNMzV2VERCTVpqVTBjMjFCY0dodE5URTJZbHAxY2xsU1MxRi1mZyZjcmVhdGVfdGltZT0xNTk4NzYwOTkwJm5vbmNlPTAuODYzMzk2NTI0NTQxNzAxNyZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNjAxMzUyOTg4JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";
@@ -71,6 +81,5 @@ namespace Shikkhanobish.ContentPages
             }
             //CrossOpenTok.Current.Error += (m) => TakeTuition.DisplayAlert("ERROR", m, "OK");
         }
-
     }
 }

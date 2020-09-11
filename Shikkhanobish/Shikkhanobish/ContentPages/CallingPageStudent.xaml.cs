@@ -9,6 +9,7 @@ using Xamarin.Forms.OpenTok.Service;
 using System.Net.Http;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Shikkhanobish.ContentPages
 {
@@ -18,17 +19,21 @@ namespace Shikkhanobish.ContentPages
         private TransferInfo Info;
         private int apiKey;
         private string SessionID, Token;
+        private bool isstudent;
         public CallingPageStudent ( TransferInfo info )
         {
             InitializeComponent ();
             Info = info;
+            ConnectToServer ();
             tnLbl.Text = Info.Teacher.TeacherName;
             clLbl.Text = Info.Class;
             subLbl.Text = Info.SubjectName;
             ctLbl.Text = "Cost: " + Info.Teacher.Amount + " taka/min";
-            callbtn.Text = "Calling teacher...";
+            calllbl.Text = "Calling teacher...";
             GetKeys ();
             checkSession ();
+
+
         }
 
         public async void checkSession ( )
@@ -39,17 +44,11 @@ namespace Shikkhanobish.ContentPages
             }
             ConnectToRealTimeApiServer connectRealTimeAPi = new ConnectToRealTimeApiServer ();
             await connectRealTimeAPi.ConnectToServer ().ConfigureAwait ( false );
-            await Task.Run ( ( ) => ( connectRealTimeAPi.ConnectWithTeacher ( apiKey , SessionID , Token , Info.Student.StundentID , Info.Teacher.TeacherID , Info.SubjectName , Info.Class ) ) ).ConfigureAwait ( false );
-
-            
+            await Task.Run ( ( ) => ( connectRealTimeAPi.ConnectWithTeacher (SessionID , Token , Info.Student.StundentID , Info.Teacher.TeacherID , Info.SubjectName , Info.Class, Info.Teacher.Amount, Info.Teacher.TeacherName ) ) ).ConfigureAwait ( false );          
         }
 
-        private async void callbtn_Clicked ( object sender , EventArgs e )
-        {
-            await Application.Current.MainPage.Navigation.PushModalAsync ( new TutionPage ( Info ) ).ConfigureAwait ( false );
-        }
-
-        protected async void GetKeys ( )
+        
+        protected async void GetKeys ()
         {
 
             apiKey = 46485492;
@@ -73,6 +72,58 @@ namespace Shikkhanobish.ContentPages
                 }
             }
             //CrossOpenTok.Current.Error += (m) => TakeTuition.DisplayAlert("ERROR", m, "OK");
+        }
+
+
+        //for teacher
+        
+        private async void cancleStbtn_Clicked ( object sender , EventArgs e )
+        {
+            await Application.Current.MainPage.Navigation.PopModalAsync ();
+        }
+
+        //for student
+
+        HubConnection _connection = null;
+        bool isConnected = false;
+        string connectionStatus = "Closed";
+        string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub", msgFromApi = "";
+
+        
+
+        public async Task ConnectToServer ( )
+        {
+            _connection = new HubConnectionBuilder ()
+                .WithUrl ( url )
+                .Build ();
+
+            await _connection.StartAsync ();
+            isConnected = true;
+            connectionStatus = "Connected";
+
+            _connection.Closed += async ( s ) =>
+            {
+                isConnected = false;
+                connectionStatus = "Disconnected";
+                await _connection.StartAsync ();
+                isConnected = true;
+
+            };
+            _connection.On<int , int , bool> ( "SendStudentThatCallRecivedOrIgnored" , async ( studentID , teacherID , recivedOrNot ) =>
+            {
+                if(Info.Teacher.TeacherID == teacherID && isstudent == false)
+                {
+                    if ( recivedOrNot == true )
+                    {
+                        await Application.Current.MainPage.Navigation.PushModalAsync ( new TutionPage ( Info , true ) ).ConfigureAwait ( false );
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.Navigation.PopModalAsync ();
+                    }
+                }
+                
+            } );
         }
     }
 }

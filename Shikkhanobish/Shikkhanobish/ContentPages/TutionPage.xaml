@@ -33,8 +33,8 @@
         <Image Source="cyclecamera.png" Grid.Row="3"  Grid.Column="0" HorizontalOptions="Center" Aspect="AspectFit" Margin="9"/>
         <Image Source="stopownvideo.png" Grid.Row="3"  Grid.Column="1" HorizontalOptions="Center" Aspect="AspectFit" Margin="9"/>
         <Button Grid.Row="3"  Grid.Column="0" Grid.ColumnSpan="2" Clicked="OnEndCall" HorizontalOptions="Center" VerticalOptions="End" CornerRadius="20" Margin="5" BackgroundColor="#00FF8E8E" />
-        <Button Grid.Row="3"  Grid.Column="0" Clicked="OnSwapCamera" HorizontalOptions="Center" VerticalOptions="End" CornerRadius="20" Margin="5" BackgroundColor="#00FF8E8E" />
-        <Button Grid.Row="3"  Grid.Column="1" Clicked="StopOwnVideo" HorizontalOptions="Center" VerticalOptions="End" CornerRadius="20" Margin="5" BackgroundColor="#00FF8E8E" />
+        <Button x:Name="swbtn" Grid.Row="3"  Grid.Column="0" Clicked="OnSwapCamera" HorizontalOptions="Center" VerticalOptions="End" CornerRadius="20" Margin="5" BackgroundColor="#00FF8E8E" />
+        <Button x:Name="owbtn" Grid.Row="3"  Grid.Column="1" Clicked="StopOwnVideo" HorizontalOptions="Center" VerticalOptions="End" CornerRadius="20" Margin="5" BackgroundColor="#00FF8E8E" />
         <Label x:Name="timerlbl" Text="5:34" FontAttributes="Bold" FontSize="20" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Start" Margin="20" TextColor="#898989"/>
         <Label x:Name="tnamelbl" Text="Mahir Muzahid" Grid.Row="0" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Start" Margin="24" FontSize="16" FontAttributes="Bold"/>
         <Label x:Name="safelbl" Text="Safe Time" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="End" VerticalOptions="Start" Margin="24" FontSize="16" FontAttributes="Bold" TextColor="Green"/>

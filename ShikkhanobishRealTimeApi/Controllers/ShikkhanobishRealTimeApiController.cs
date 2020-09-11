@@ -19,9 +19,9 @@ namespace ShikkhanobishRealTimeApi.Controllers
         }
 
         [HttpPost ( "CallTeacher" )]
-        public async Task<IActionResult> ClTeacher ( int ApiKey , string SessionId , string UserToken , int studentID, int teacherID, string Cls, string subject )
+        public async Task<IActionResult> ClTeacher ( string SessionId , string UserToken , int studentID, int teacherID, string Cls, string subject, double cost, string studentName )
         {
-            await _hubContext.Clients.All.SendAsync ( "CallInfo" , ApiKey , SessionId , UserToken, studentID, teacherID, Cls, subject );
+            await _hubContext.Clients.All.SendAsync ( "CallInfo" , SessionId , UserToken, studentID, teacherID, Cls, subject,cost, studentName );
 
             return Ok ( "ok" );
         }
@@ -30,6 +30,13 @@ namespace ShikkhanobishRealTimeApi.Controllers
         public async Task<IActionResult> CallConfirmation ( int studentID, int teacherID, bool recivedOrNot )
         {
             await _hubContext.Clients.All.SendAsync ( "SendStudentThatCallRecivedOrIgnored" , studentID , teacherID , recivedOrNot );
+
+            return Ok ( "ok" );
+        }
+        [HttpPost ( "sendTime" )]
+        public async Task<IActionResult> sendTime ( int sec, int teacherID )
+        {
+            await _hubContext.Clients.All.SendAsync ( "sendTime" , sec , teacherID );
 
             return Ok ( "ok" );
         }

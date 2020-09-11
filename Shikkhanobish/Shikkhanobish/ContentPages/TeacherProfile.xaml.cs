@@ -9,6 +9,9 @@ using System.Text;
 using Xamarin.Forms;
 using Shikkhanobish.ContentPages;
 using Xamarin.Forms.Xaml;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR.Client;
+using Shikkhanobish.ViewModel;
 
 namespace Shikkhanobish
 {
@@ -28,6 +31,7 @@ namespace Shikkhanobish
             var image = new Image { Source = "BackColor.jpg" };
             activelbl.Text = "Inactive";
             setRankInfo ();
+            ConnectToServer ();
         }
 
         public async void setRankInfo ( )
@@ -186,6 +190,7 @@ namespace Shikkhanobish
 
             if(ac%2 == 1)
             {
+                
                 activelbl.Text = "Active";
                 activeback.BackgroundColor = Color.FromHex ( "#54E36B" );
                 string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsActive";
@@ -195,10 +200,12 @@ namespace Shikkhanobish
                 HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
                 string resultT = await responseT.Content.ReadAsStringAsync ();
                 var response = JsonConvert.DeserializeObject<Response> ( resultT );
-                                
+                ConnectToServer ();
+
             }
             else
             {
+                await _connection.StopAsync ();
                 activelbl.Text = "Inactive";
                 activeback.BackgroundColor = Color.FromHex ( "#A7A7A7" );
                 string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsActive";
@@ -226,6 +233,47 @@ namespace Shikkhanobish
             {
 
             }
+        }
+
+        HubConnection _connection = null;
+        bool isConnected = false;
+        string connectionStatus = "Closed";
+        string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub", msgFromApi = "";
+        public async Task ConnectToServer ( )
+        {
+            _connection = new HubConnectionBuilder ()
+                .WithUrl ( url )
+                .Build ();
+
+            await _connection.StartAsync ();
+            isConnected = true;
+            connectionStatus = "Connected";
+
+            _connection.Closed += async ( s ) =>
+            {
+                isConnected = false;
+                connectionStatus = "Disconnected";
+                await _connection.StartAsync ();
+                isConnected = true;
+
+            };
+            _connection.On< string , string , int , int , string , string, double, string> ( "CallInfo" , async ( SessionId , UserToken , studentID , teacherID , Class , subject,cost, studentName ) =>
+            {
+                if(teacher.TeacherID == teacherID)
+                {
+                    TransferInfo Info = new TransferInfo ();
+                    Info.Student.Name = studentName;
+                    Info.Class = Class;
+                    Info.SubjectName = subject;
+                    Info.SessionID = SessionId;
+                    Info.UserToken = UserToken;
+                    Info.Student.StundentID = studentID;
+                    Info.Teacher.TeacherID = teacherID;
+                    Info.Teacher.Amount = cost;
+                    await Application.Current.MainPage.Navigation.PushModalAsync ( new CallingPageForTeacher (Info) ).ConfigureAwait ( false );
+                }
+                
+            } );
         }
     }
 }
