@@ -1,10 +1,13 @@
 ﻿using Newtonsoft.Json;
+using Plugin.Connectivity;
+using Rg.Plugins.Popup.Extensions;
 using Shikkhanobish.Model;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using Xamarin.Forms;
+using Shikkhanobish.ContentPages;
 using Xamarin.Forms.Xaml;
 
 namespace Shikkhanobish
@@ -21,8 +24,9 @@ namespace Shikkhanobish
             InitializeComponent ();
             BindingContext = new ProfileViewModel ( t );
             teacher = t;
-            activeback.BackgroundColor = Color.FromHex ( "#9B69F7" );
+            activeback.BackgroundColor = Color.FromHex ( "#A7A7A7" );
             var image = new Image { Source = "BackColor.jpg" };
+            activelbl.Text = "Inactive";
             setRankInfo ();
         }
 
@@ -51,7 +55,7 @@ namespace Shikkhanobish
                     tplbl.TextColor = Color.FromHex ( "F5C24B" );
                 }
                 else
-                {
+                   {
                     float point = ( float ) teacher.Tuition_Point / ( float ) tpInfo [ 1 ];
                     place = ( point * .166f ) + .166f;
                     avglbl.TextColor = Color.FromHex ( "F68181" );
@@ -63,26 +67,69 @@ namespace Shikkhanobish
             else if ( teacher.Tuition_Point <= 3999 && avg >= 3.750f || ( teacher.Tuition_Point > 3999 && avg < 3.75f ) )
             {
                 ranklbl.Text = "Average";
-                float point = ( float ) teacher.Tuition_Point / ( float ) tpInfo [ 1 ];
-                place = ( point * .166f ) + .166f;            
+                if ( teacher.Tuition_Point > 3999 && avg < 3.75f )
+                {
+                    place = .3f;
+                    avglbl.TextColor = Color.FromHex ( "F5C24B" );
+                    tplbl.TextColor = Color.FromHex ( "8AF077" );
+                }
+                else
+                {
+                    float point = ( float ) teacher.Tuition_Point / ( float ) tpInfo [ 1 ];
+                    place = ( point * .166f ) + .166f;
+                    avglbl.TextColor = Color.FromHex ( "F5C24B" );
+                    tplbl.TextColor = Color.FromHex ( "F5C24B" );
+                }
+                ranklbl.TextColor = Color.FromHex ( "F68181" );
+                progress.ProgressColor = Color.FromHex ( "F68181" );
             }
             else if ( teacher.Tuition_Point <= 8999 && avg >= 4.00f || ( teacher.Tuition_Point > 8999 && avg < 4.00f ) )
             {
                 ranklbl.Text = "Good";
-                float point = ( float ) teacher.Tuition_Point / ( float ) tpInfo [ 1 ];
-                place = ( point * .166f ) + .166f;
+                if ( teacher.Tuition_Point > 8999 && avg < 4.00f )
+                {
+                    place = .3f;
+                    avglbl.TextColor = Color.FromHex ( "8AF077" );
+                    tplbl.TextColor = Color.FromHex ( "77CDF0" );
+                }
+                else
+                {
+                    float point = ( float ) teacher.Tuition_Point / ( float ) tpInfo [ 1 ];
+                    place = ( point * .166f ) + .166f;
+                    avglbl.TextColor = Color.FromHex ( "8AF077" );
+                    tplbl.TextColor = Color.FromHex ( "8AF077" );
+                }
+                ranklbl.TextColor = Color.FromHex ( "8AF077" );
+                progress.ProgressColor = Color.FromHex ( "8AF077" );
             }
             else if ( teacher.Tuition_Point <= 15999 && avg >= 4.30f || ( teacher.Tuition_Point > 15999 && avg < 4.30f ) )
             {
                 ranklbl.Text = "Veteran";
-                float point = ( float ) teacher.Tuition_Point / ( float ) tpInfo [ 1 ];
-                place = ( point * .166f ) + .166f;
+                if ( teacher.Tuition_Point > 15999 && avg < 4.30f )
+                {
+                    place = .3f;
+                    avglbl.TextColor = Color.FromHex ( "77CDF0" );
+                    tplbl.TextColor = Color.FromHex ( "CA6AF1" );
+                }
+                else
+                {
+                    float point = ( float ) teacher.Tuition_Point / ( float ) tpInfo [ 1 ];
+                    place = ( point * .166f ) + .166f;
+                    avglbl.TextColor = Color.FromHex ( "77CDF0" );
+                    tplbl.TextColor = Color.FromHex ( "77CDF0" );
+                }
+                ranklbl.TextColor = Color.FromHex ( "77CDF0" );
+                progress.ProgressColor = Color.FromHex ( "77CDF0" );
             }
             else if ( teacher.Tuition_Point > 16000 && avg >= 4.30f )
             {
                 ranklbl.Text = "Master";
                 float point = ( float ) teacher.Tuition_Point / ( float ) tpInfo [ 1 ];
                 place = ( point * .166f ) + .166f;
+                avglbl.TextColor = Color.FromHex ( "CA6AF1" );
+                tplbl.TextColor = Color.FromHex ( "CA6AF1" );
+                ranklbl.TextColor = Color.FromHex ( "CA6AF1" );
+                progress.ProgressColor = Color.FromHex ( "CA6AF1" );
             }
             await progress.ProgressTo ( place , 500 , Easing.SinIn ).ConfigureAwait ( false );
         }
@@ -139,7 +186,8 @@ namespace Shikkhanobish
 
             if(ac%2 == 1)
             {
-                
+                activelbl.Text = "Active";
+                activeback.BackgroundColor = Color.FromHex ( "#54E36B" );
                 string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsActive";
                 HttpClient clientT = new HttpClient ();
                 string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = teacher.TeacherID , state = 1 } );
@@ -147,14 +195,12 @@ namespace Shikkhanobish
                 HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
                 string resultT = await responseT.Content.ReadAsStringAsync ();
                 var response = JsonConvert.DeserializeObject<Response> ( resultT );
-                if(response.Status == 0)
-                {
-                    activeback.BackgroundColor = Color.FromHex ( "#54E36B" );
-                    activelbl.Text = "Teacher Status: Active";
-                }
+                                
             }
             else
             {
+                activelbl.Text = "Inactive";
+                activeback.BackgroundColor = Color.FromHex ( "#A7A7A7" );
                 string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsActive";
                 HttpClient clientT = new HttpClient ();
                 string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = teacher.TeacherID , state = 0 } );
@@ -162,13 +208,24 @@ namespace Shikkhanobish
                 HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
                 string resultT = await responseT.Content.ReadAsStringAsync ();
                 var response = JsonConvert.DeserializeObject<Response> ( resultT );
-                if ( response.Status == 0 )
-                {
-                    activeback.BackgroundColor = Color.FromHex ( "#54E36B" );
-                    activelbl.Text = "Teacher Status: Inactive";
-                }
+                              
             }
             
+        }
+
+        private void Button_Clicked_2 ( object sender , EventArgs e )
+        {
+            try
+            {
+                if ( CrossConnectivity.Current.IsConnected )
+                {
+                    Navigation.PushPopupAsync ( new PopUpForTeacherWallet (teacher ) );
+                }
+            }
+            catch
+            {
+
+            }
         }
     }
 }

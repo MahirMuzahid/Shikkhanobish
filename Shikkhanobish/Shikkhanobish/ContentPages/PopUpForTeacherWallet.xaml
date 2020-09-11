@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             x:Class="Shikkhanobish.ContentPages.PopUpForTeacherWallet">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+      PositionIn="Center"
+      PositionOut="Center"
+      ScaleIn="1.2"
+      ScaleOut="0.8"
+      DurationIn="400"
+      DurationOut="300"
+      EasingIn="SinOut"
+      EasingOut="SinIn"
+      HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+    <Frame CornerRadius="20" Margin="20,0,20,0" VerticalOptions="Center">
+        <Grid BackgroundColor="#FBFBFB">
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".6*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height=".8*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+
+            </Grid.RowDefinitions>
+
+            <Label x:Name="namelbl" Text="Mahir Muzahid" FontAttributes="Bold" FontSize="15" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label x:Name="amountlbl" Text="Current Saved Amount: 350 Point" FontAttributes="Bold" FontSize="15" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label Text="[You have to earn atleast 50 points to withdraw the money. Both personal and agent bkash number will work.  After checking your withdrawal, system admin will send the money in your account. It will take upto 1 hour. Withdraw Time: 9:00 am - 1: 00 am, 24/7 ]" FontSize="13" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#287E96"/>
+            <Button x:Name="agreebtn" Text="Agree" Grid.Row="3" HorizontalOptions="End" FontSize="12" VerticalOptions="Center" CornerRadius="6" BackgroundColor="#E8E8E8" Margin="2" Clicked="agreebtn_Clicked"/>
+            <Entry x:Name="pnentry" Placeholder="Phone Number" Grid.Row="4"/>
+            <Entry x:Name="cpentry" Placeholder="Current Password" Grid.Row="5"/>
+            <Entry x:Name="otpentry" Placeholder="OTP Code" Grid.Row="6"/>
+            <Button x:Name="wthdrawbtn" Text="Withdraw" FontSize="12" Grid.Row="7" HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="6" BackgroundColor="#E8E8E8" Clicked="wthdrawbtn_Clicked"/>
+            <Label x:Name="erroelbl" Text="" Grid.Row="8" HorizontalOptions="Center" VerticalOptions="Center"/>
+        </Grid>
+    </Frame>
+</pages:PopupPage>
