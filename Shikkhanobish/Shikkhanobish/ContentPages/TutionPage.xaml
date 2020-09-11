@@ -37,6 +37,7 @@
         <Button Grid.Row="3"  Grid.Column="1" Clicked="StopOwnVideo" HorizontalOptions="Center" VerticalOptions="End" CornerRadius="20" Margin="5" BackgroundColor="#00FF8E8E" />
         <Label x:Name="timerlbl" Text="5:34" FontAttributes="Bold" FontSize="20" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Start" Margin="20" TextColor="#898989"/>
         <Label x:Name="tnamelbl" Text="Mahir Muzahid" Grid.Row="0" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Start" Margin="24" FontSize="16" FontAttributes="Bold"/>
+        <Label x:Name="safelbl" Text="Safe Time" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="End" VerticalOptions="Start" Margin="24" FontSize="16" FontAttributes="Bold" TextColor="Green"/>
     </Grid>
 
 </ContentPage>

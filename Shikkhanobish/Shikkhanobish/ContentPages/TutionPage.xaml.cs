@@ -14,15 +14,17 @@ namespace Shikkhanobish.ContentPages
         private TransferInfo info = new TransferInfo ();
         private Timer timer = new Timer ();
         int sec, min;
-        int ownthing = 0;
+        int ownthing = 0, i=0;
+        bool firstTime;
         public TutionPage ( TransferInfo trnsInfo )
         {
             InitializeComponent ();
             info = trnsInfo;
             sec = 0;
             min = 0;
+            firstTime = true;
             tnamelbl.Text = trnsInfo.Teacher.TeacherName;
-           //StartTimer ();            
+            Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , CheckPositionAndUpdateSlider );
         }
 
         private void OnEndCall ( object sender , EventArgs e )
@@ -49,7 +51,16 @@ namespace Shikkhanobish.ContentPages
                 ownvideo.IsVisible = true;
 
             }
-            
+            Device.StartTimer ( new TimeSpan ( 0 , 0 , 60 ) , ( ) =>
+            {
+                // do something every 60 seconds
+                Device.BeginInvokeOnMainThread ( ( ) =>
+                {
+                   
+                    // interact with UI elements
+                } );
+                return true; // runs again, or false to stop
+            } );
         }
 
 
@@ -70,21 +81,32 @@ namespace Shikkhanobish.ContentPages
             
         }
         private void counter ( object sender , ElapsedEventArgs e )
-        {
+        {            
+        }
 
+
+        private bool CheckPositionAndUpdateSlider ( )
+        {
             sec = sec + 1;
             if ( sec == 59 )
             {
                 min = min + 1;
                 sec = 0;
             }
-            Device.BeginInvokeOnMainThread ( ( ) =>
+            if(firstTime ==  true)
             {
-                timerlbl.Text = min + ":" + sec;
-            } );
-            
-            
-            
+                safelbl.IsVisible = true;
+                timerlbl.TextColor = Color.Green;
+                if(sec == 20)
+                {
+                    sec = 0;
+                    firstTime = false;
+                    safelbl.IsVisible = false;
+                    timerlbl.TextColor = Color.Black;
+                }
+            }
+            timerlbl.Text = min + ":" + sec;
+            return true;
         }
     }
 }
