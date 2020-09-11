@@ -21,7 +21,7 @@
         <Label  x:Name="ctLbl"  Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#4D4D4D"/>
         <Label x:Name="calllbl" Text="Calling..."  Grid.Row="4" HorizontalOptions="Center" FontSize="15" VerticalOptions="Center" TextColor="#303030"/>
         <Button x:Name="acceptbtn" Text="Accept"  Grid.Row="5" HorizontalOptions="Start" FontSize="13" FontAttributes="Bold" VerticalOptions="Center" TextColor="#FFFFFF" Clicked="callbtn_Clicked" Margin="15" CornerRadius="10" BackgroundColor="#49DA9F"/>
-        <Button x:Name="canclebtn" Text="Cancle"  Grid.Row="5" HorizontalOptions="End" FontSize="13" FontAttributes="Bold" VerticalOptions="Center" TextColor="#FFFFFF" Clicked="callbtn_Clicked_1" Margin="15" CornerRadius="10" BackgroundColor="#ED6B6B"/>
+        
        
     </Grid>
 </ContentPage>

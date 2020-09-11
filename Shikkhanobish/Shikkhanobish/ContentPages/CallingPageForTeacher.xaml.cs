@@ -10,6 +10,8 @@ using Xamarin.Forms.Xaml;
 using Microsoft.AspNetCore.SignalR.Client;
 using Shikkhanobish.Model;
 using Shikkhanobish.ViewModel;
+using Newtonsoft.Json;
+
 namespace Shikkhanobish.ContentPages
 {
     [XamlCompilation ( XamlCompilationOptions.Compile )]
@@ -38,7 +40,7 @@ namespace Shikkhanobish.ContentPages
                 return;
             }
             ConnectWithStudent ( Info.Student.StundentID , Info.Teacher.TeacherID , true );
-            await Application.Current.MainPage.Navigation.PushModalAsync ( new TutionPage ( Info , false ) ).ConfigureAwait ( false );
+            await Application.Current.MainPage.Navigation.PushModalAsync ( new TuitionPageTeacher ( Info ) ).ConfigureAwait ( false );
         }
 
         //for teacher
@@ -54,6 +56,8 @@ namespace Shikkhanobish.ContentPages
             HttpClient client = new HttpClient ();
             StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
+            string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
+            var r = JsonConvert.DeserializeObject<string> ( result );
         }
 
         protected async void GetKeys ( )

@@ -22,38 +22,21 @@ namespace Shikkhanobish.ContentPages
         int ownthing = 0, i=0;
         bool firstTime ,isstudent;
 
-        public TutionPage ( TransferInfo trnsInfo , bool IsStudent)
+        public TutionPage ( TransferInfo trnsInfo)
         {
             InitializeComponent ();
             info = trnsInfo;
             sec = 0;
             min = 0;
             firstTime = true;
-            isstudent = IsStudent;
-           
-            if(IsStudent == false)
-            {
-                tnamelbl.Text = info.Student.Name;
-                ConnectToServer ();
-            }
-            else
-            {
-                tnamelbl.Text = trnsInfo.Teacher.TeacherName;
-                Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , CheckPositionAndUpdateSlider );
-            }
+            tnamelbl.Text = trnsInfo.Teacher.TeacherName;
+            Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , CheckPositionAndUpdateSlider );
         }
 
         private async void OnEndCall ( object sender , EventArgs e )
         {
-            if(isstudent == true)
-            {
-                CrossOpenTok.Current.EndSession ();
-                gotoRatingPage ();
-            }
-            else
-            {
-                await Application.Current.MainPage.Navigation.PushModalAsync ( new TeacherProfile ( info.Teacher ) ).ConfigureAwait ( false );
-            }
+            CrossOpenTok.Current.EndSession ();
+            gotoRatingPage ();           
            
         }
 
@@ -75,16 +58,7 @@ namespace Shikkhanobish.ContentPages
                 ownvideo.IsVisible = true;
 
             }
-            Device.StartTimer ( new TimeSpan ( 0 , 0 , 60 ) , ( ) =>
-            {
-                // do something every 60 seconds
-                Device.BeginInvokeOnMainThread ( ( ) =>
-                {
-                   
-                    // interact with UI elements
-                } );
-                return true; // runs again, or false to stop
-            } );
+            
         }
 
 
@@ -136,53 +110,6 @@ namespace Shikkhanobish.ContentPages
             var r = JsonConvert.DeserializeObject<string> ( result );
         }
 
-        HubConnection _connection = null;
-        bool isConnected = false;
-        string connectionStatus = "Closed";
-        string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub", msgFromApi = "";
-        public async Task ConnectToServer ( )
-        {
-            _connection = new HubConnectionBuilder ()
-                .WithUrl ( url )
-                .Build ();
-
-            await _connection.StartAsync ();
-            isConnected = true;
-            connectionStatus = "Connected";
-
-            _connection.Closed += async ( s ) =>
-            {
-                isConnected = false;
-                connectionStatus = "Disconnected";
-                await _connection.StartAsync ();
-                isConnected = true;
-
-            };
-            _connection.On<int , int > ( "sendTime" , async ( sec , teacherID  ) =>
-            {
-                if(info.Teacher.TeacherID == teacherID && isstudent == false)
-                {
-                    if ( sec == 59 )
-                    {
-                        min = min + 1;
-                        sec = 0;
-                    }
-                    if ( firstTime == true )
-                    {
-                        safelbl.IsVisible = true;
-                        timerlbl.TextColor = Color.Green;
-                        if ( sec == 20 )
-                        {
-                            sec = 0;
-                            firstTime = false;
-                            safelbl.IsVisible = false;
-                            timerlbl.TextColor = Color.Black;
-                        }
-                    }
-                    timerlbl.Text = min + ":" + sec;
-                }
-
-            } );
-        }
+        
     }
 }

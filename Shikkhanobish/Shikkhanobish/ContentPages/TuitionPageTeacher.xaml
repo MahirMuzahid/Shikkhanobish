@@ -1,13 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:tok="clr-namespace:Xamarin.Forms.OpenTok;assembly=Xamarin.Forms.OpenTok"
              xmlns:tokService="clr-namespace:Xamarin.Forms.OpenTok.Service;assembly=Xamarin.Forms.OpenTok"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="Shikkhanobish.ContentPages.TutionPage">
-
+             x:Class="Shikkhanobish.ContentPages.TuitionPageTeacher">
     <Grid BackgroundColor="#FCFCFC" ColumnSpacing="0" RowSpacing="0"  BindableLayout.ItemsSource="{Binding Path=StreamIdCollection, Source={x:Static tokService:CrossOpenTok.Current}}">
         <BindableLayout.ItemTemplate>
             <DataTemplate>
@@ -25,7 +21,7 @@
             <ColumnDefinition Width="1*" />
 
         </Grid.ColumnDefinitions>
-        
+
         <tok:OpenTokPublisherView x:Name="ownvideo" Grid.Column="1" Grid.Row="2" Margin="20"/>
 
         <Image Source="endcall.png" Grid.Row="3"  Grid.Column="0" Grid.ColumnSpan="2" Aspect="AspectFit" Margin="7"/>
@@ -38,5 +34,4 @@
         <Label x:Name="tnamelbl"  Grid.Row="0" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Start" Margin="24" FontSize="16" FontAttributes="Bold"/>
         <Label x:Name="safelbl"  Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="End" VerticalOptions="Start" Margin="24" FontSize="16" FontAttributes="Bold" TextColor="Green"/>
     </Grid>
-
 </ContentPage>

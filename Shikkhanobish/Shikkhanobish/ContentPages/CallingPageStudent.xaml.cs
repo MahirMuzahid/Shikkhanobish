@@ -44,7 +44,7 @@ namespace Shikkhanobish.ContentPages
             }
             ConnectToRealTimeApiServer connectRealTimeAPi = new ConnectToRealTimeApiServer ();
             await connectRealTimeAPi.ConnectToServer ().ConfigureAwait ( false );
-            await Task.Run ( ( ) => ( connectRealTimeAPi.ConnectWithTeacher (SessionID , Token , Info.Student.StundentID , Info.Teacher.TeacherID , Info.SubjectName , Info.Class, Info.Teacher.Amount, Info.Teacher.TeacherName ) ) ).ConfigureAwait ( false );          
+            await connectRealTimeAPi.ConnectWithTeacher ( SessionID , Token , Info.Student.StundentID , Info.Teacher.TeacherID , Info.SubjectName , Info.Class , Info.Teacher.Amount , Info.Teacher.TeacherName ) .ConfigureAwait ( false );          
         }
 
         
@@ -115,7 +115,7 @@ namespace Shikkhanobish.ContentPages
                 {
                     if ( recivedOrNot == true )
                     {
-                        await Application.Current.MainPage.Navigation.PushModalAsync ( new TutionPage ( Info , true ) ).ConfigureAwait ( false );
+                        await Application.Current.MainPage.Navigation.PushModalAsync ( new TutionPage ( Info ) ).ConfigureAwait ( false );
                     }
                     else
                     {
