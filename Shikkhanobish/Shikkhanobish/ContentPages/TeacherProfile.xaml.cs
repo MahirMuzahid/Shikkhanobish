@@ -22,8 +22,10 @@ namespace Shikkhanobish
         private Student _Student;
         private Teacher teacher;
         private int ac = 0;
+        private bool takeTuition;
         public TeacherProfile(Teacher t)
         {
+            takeTuition = true;
             InitializeComponent ();
             BindingContext = new ProfileViewModel ( t );
             teacher = t;
@@ -200,12 +202,9 @@ namespace Shikkhanobish
                 HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
                 string resultT = await responseT.Content.ReadAsStringAsync ();
                 var response = JsonConvert.DeserializeObject<Response> ( resultT );
-                ConnectToServer ();
-
             }
             else
             {
-                await _connection.StopAsync ();
                 activelbl.Text = "Inactive";
                 activeback.BackgroundColor = Color.FromHex ( "#A7A7A7" );
                 string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsActive";
@@ -214,8 +213,7 @@ namespace Shikkhanobish
                 StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
                 HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
                 string resultT = await responseT.Content.ReadAsStringAsync ();
-                var response = JsonConvert.DeserializeObject<Response> ( resultT );
-                              
+                var response = JsonConvert.DeserializeObject<Response> ( resultT );                             
             }
             
         }
@@ -258,20 +256,25 @@ namespace Shikkhanobish
 
             };
             _connection.On< string , string , int , int , string , string, double, string> ( "CallInfo" , async ( SessionId , UserToken , studentID , teacherID , Class , subject,cost, studentName ) =>
-            {
-                if(teacher.TeacherID == teacherID)
+            { 
+                if(takeTuition == true)
                 {
-                    TransferInfo Info = new TransferInfo ();
-                    Info.Student.Name = studentName;
-                    Info.Class = Class;
-                    Info.SubjectName = subject;
-                    Info.SessionID = SessionId;
-                    Info.UserToken = UserToken;
-                    Info.Student.StundentID = studentID;
-                    Info.Teacher.TeacherID = teacherID;
-                    Info.Teacher.Amount = cost;
-                    await Application.Current.MainPage.Navigation.PushModalAsync ( new CallingPageForTeacher (Info) ).ConfigureAwait ( false );
+                    if ( teacher.TeacherID == teacherID )
+                    {
+                        takeTuition = false;
+                        TransferInfo Info = new TransferInfo ();
+                        Info.Student.Name = studentName;
+                        Info.Class = Class;
+                        Info.SubjectName = subject;
+                        Info.SessionID = SessionId;
+                        Info.UserToken = UserToken;
+                        Info.Student.StundentID = studentID;
+                        Info.Teacher.TeacherID = teacherID;
+                        Info.Teacher.Amount = cost;
+                        await Application.Current.MainPage.Navigation.PushModalAsync ( new CallingPageForTeacher ( Info ) ).ConfigureAwait ( false );
+                    }
                 }
+                
                 
             } );
         }

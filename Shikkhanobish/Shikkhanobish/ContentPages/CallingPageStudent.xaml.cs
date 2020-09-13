@@ -10,6 +10,8 @@ using System.Net.Http;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Microsoft.AspNetCore.SignalR.Client;
+using Newtonsoft.Json;
+using System.Diagnostics.Tracing;
 
 namespace Shikkhanobish.ContentPages
 {
@@ -20,6 +22,7 @@ namespace Shikkhanobish.ContentPages
         private int apiKey;
         private string SessionID, Token;
         private bool isstudent;
+        private int i;
         public CallingPageStudent ( TransferInfo info )
         {
             InitializeComponent ();
@@ -42,12 +45,20 @@ namespace Shikkhanobish.ContentPages
             {
                 return;
             }
-            ConnectToRealTimeApiServer connectRealTimeAPi = new ConnectToRealTimeApiServer ();
-            await connectRealTimeAPi.ConnectToServer ().ConfigureAwait ( false );
-            await connectRealTimeAPi.ConnectWithTeacher ( SessionID , Token , Info.Student.StundentID , Info.Teacher.TeacherID , Info.SubjectName , Info.Class , Info.Teacher.Amount , Info.Teacher.TeacherName ) .ConfigureAwait ( false );          
+            await ConnectToServer ().ConfigureAwait ( false );
+            await ConnectWithTeacher ( SessionID , Token , Info.Student.StundentID , Info.Teacher.TeacherID , Info.SubjectName , Info.Class , Info.Teacher.Amount , Info.Teacher.TeacherName ) .ConfigureAwait ( false );    
+            
         }
 
-        
+        public async Task ConnectWithTeacher ( string SessionId , string UserToken , int studentID , int teacherID , string Cls , string subject , double cost , string studentName )
+        {
+            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/CallTeacher?&SessionId=" + SessionId + "&UserToken=" + UserToken + "&studentID=" + studentID + "&teacherID=" + teacherID + "&Cls=" + Cls + "&subject=" + subject + "&cost=" + cost + "&studentName=" + studentName;
+            HttpClient client = new HttpClient ();
+            StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
+            string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
+           // var r = JsonConvert.DeserializeObject<string> ( result );
+        }
         protected async void GetKeys ()
         {
 
@@ -111,17 +122,22 @@ namespace Shikkhanobish.ContentPages
             };
             _connection.On<int , int , bool> ( "SendStudentThatCallRecivedOrIgnored" , async ( studentID , teacherID , recivedOrNot ) =>
             {
-                if(Info.Teacher.TeacherID == teacherID && isstudent == false)
+                i++;
+                if(i == 1)
                 {
-                    if ( recivedOrNot == true )
+                    if ( Info.Teacher.TeacherID == teacherID && isstudent == false )
                     {
-                        await Application.Current.MainPage.Navigation.PushModalAsync ( new TutionPage ( Info ) ).ConfigureAwait ( false );
-                    }
-                    else
-                    {
-                        await Application.Current.MainPage.Navigation.PopModalAsync ();
+                        if ( recivedOrNot == true )
+                        {
+                            await Application.Current.MainPage.Navigation.PushModalAsync ( new TutionPage ( Info ) ).ConfigureAwait ( false );
+                        }
+                        else
+                        {
+                            await Application.Current.MainPage.Navigation.PopModalAsync ();
+                        }
                     }
                 }
+                
                 
             } );
         }

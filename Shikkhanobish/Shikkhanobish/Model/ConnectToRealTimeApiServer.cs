@@ -67,8 +67,8 @@ namespace Shikkhanobish.Model
             HttpClient client = new HttpClient ();
             StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
-            //string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
-            //var r = JsonConvert.DeserializeObject<string> ( result );
+            string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
+            var r = JsonConvert.DeserializeObject<string> ( result );
         }
 
         public async Task ConnectWithStudent ( int studentID , int teacherID , bool recivedOrNot )
