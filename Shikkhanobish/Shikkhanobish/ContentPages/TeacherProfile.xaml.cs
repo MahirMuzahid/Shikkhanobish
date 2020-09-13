@@ -269,7 +269,7 @@ namespace Shikkhanobish
                         Info.SessionID = SessionId;
                         Info.UserToken = UserToken;
                         Info.Student.StundentID = studentID;
-                        Info.Teacher.TeacherID = teacherID;
+                        Info.Teacher = teacher;
                         Info.Teacher.Amount = cost;
                         await Application.Current.MainPage.Navigation.PushModalAsync ( new CallingPageForTeacher ( Info ) ).ConfigureAwait ( false );
                     }

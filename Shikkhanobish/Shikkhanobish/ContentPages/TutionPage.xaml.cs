@@ -30,12 +30,14 @@ namespace Shikkhanobish.ContentPages
             min = 0;
             firstTime = true;
             tnamelbl.Text = trnsInfo.Teacher.TeacherName;
-            Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , CheckPositionAndUpdateSlider );
+            SendUpdateTime ( sec , info.Teacher.TeacherID );
+            Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , CheckPositionAndUpdateSlider );         
         }
 
         private async void OnEndCall ( object sender , EventArgs e )
         {
             CrossOpenTok.Current.EndSession ();
+            CutVideoCAll ();
             gotoRatingPage ();           
            
         }
@@ -95,21 +97,67 @@ namespace Shikkhanobish.ContentPages
                 }
             }
             timerlbl.Text = min + ":" + sec;
-            SendUpdateTime (sec,info.Teacher.TeacherID);
+            
             return true;
         }
 
 
         public async Task SendUpdateTime ( int sec  ,int teacherID )
         {
-            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/SendStudentThatCallRecivedOrIgnored?sec="+ sec + "&teacherID=" + teacherID ;
+            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/sendTime?sec=" + sec + "&teacherID=" + teacherID ;
             HttpClient client = new HttpClient ();
             StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
             string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
             var r = JsonConvert.DeserializeObject<string> ( result );
         }
+        public async Task CutVideoCAll (  )
+        {
+            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/cutCall?stop=true&teacherID=" + info.Teacher.TeacherID + "&studentID" + info.Student.StundentID + "&isStudent" + true;
+            HttpClient client = new HttpClient ();
+            StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
+            string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
+            var r = JsonConvert.DeserializeObject<string> ( result );
+        }
+        HubConnection _connection = null;
+        bool isConnected = false;
+        string connectionStatus = "Closed";
+        string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub", msgFromApi = "";
 
-        
+
+
+        public async Task ConnectToServer ( )
+        {
+            _connection = new HubConnectionBuilder ()
+                .WithUrl ( url )
+                .Build ();
+
+            await _connection.StartAsync ();
+            isConnected = true;
+            connectionStatus = "Connected";
+
+            _connection.Closed += async ( s ) =>
+            {
+                isConnected = false;
+                connectionStatus = "Disconnected";
+                await _connection.StartAsync ();
+                isConnected = true;
+
+            };
+            _connection.On<string , int , int , bool> ( "cutCall" , async ( stop , teacherID , studentID , isStudent ) =>
+            {
+                if ( isStudent == false )
+                {
+                    if ( info.Student.StundentID == studentID )
+                    {
+                        CrossOpenTok.Current.EndSession ();
+                        gotoRatingPage ();
+                    }
+                }
+
+            } );
+        }
+
     }
 }
