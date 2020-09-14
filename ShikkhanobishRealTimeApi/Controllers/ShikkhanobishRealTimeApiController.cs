@@ -41,11 +41,11 @@ namespace ShikkhanobishRealTimeApi.Controllers
             return Ok ( "ok" );
         }
         [HttpPost ( "cutCall" )]
-        public async Task<IActionResult> cutCall ( bool stop , int teacherID, int studentID, bool isStudent )
+        public async Task<IActionResult> cutCall ( int stop , int teacherID, int studentID, bool isStudent )
         {
             await _hubContext.Clients.All.SendAsync ( "cutCall" , stop , teacherID, studentID, isStudent );
 
-            return Ok ( "ok" );
+            return Ok ( "Sent End CAll event" );
         }
 
     }

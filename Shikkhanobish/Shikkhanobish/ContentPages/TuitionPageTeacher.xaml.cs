@@ -32,7 +32,7 @@ namespace Shikkhanobish.ContentPages
         }
         public async Task CutVideoCAll ( )
         {
-            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/cutCall?stop=true&teacherID=" + info.Teacher.TeacherID + "&studentID" + info.Student.StundentID + "&isStudent" + false;
+            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/cutCall?stop=" + 1 + "&teacherID=" + info.Teacher.TeacherID + "&studentID=" + info.Student.StundentID + "&isStudent=" + false;
             HttpClient client = new HttpClient ();
             StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
@@ -97,6 +97,7 @@ namespace Shikkhanobish.ContentPages
         bool isConnected = false;
         string connectionStatus = "Closed";
         string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub", msgFromApi = "";
+        int cutCallFirstTime = 0;
         public async Task ConnectToServer ( )
         {
             _connection = new HubConnectionBuilder ()
@@ -122,9 +123,10 @@ namespace Shikkhanobish.ContentPages
                     Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , CheckPositionAndUpdateSlider );                   
                 }
             } );
-            _connection.On<string , int, int, bool> ( "cutCall" , async ( stop , teacherID ,  studentID ,  isStudent ) =>
+            _connection.On<int , int, int, bool> ( "cutCall" , async ( stop , teacherID ,  studentID ,  isStudent ) =>
             {
-                if(isStudent == true)
+                cutCallFirstTime++;
+                if (isStudent == true && cutCallFirstTime == 1 )
                 {
                     if ( info.Teacher.TeacherID == teacherID )
                     {

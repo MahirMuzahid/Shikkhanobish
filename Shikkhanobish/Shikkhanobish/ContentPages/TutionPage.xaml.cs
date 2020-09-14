@@ -21,6 +21,7 @@ namespace Shikkhanobish.ContentPages
         int sec, min;
         int ownthing = 0, i=0;
         bool firstTime ,isstudent;
+        
 
         public TutionPage ( TransferInfo trnsInfo)
         {
@@ -31,7 +32,8 @@ namespace Shikkhanobish.ContentPages
             firstTime = true;
             tnamelbl.Text = trnsInfo.Teacher.TeacherName;
             SendUpdateTime ( sec , info.Teacher.TeacherID );
-            Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , CheckPositionAndUpdateSlider );         
+            Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , CheckPositionAndUpdateSlider );
+            ConnectToServer ();
         }
 
         private async void OnEndCall ( object sender , EventArgs e )
@@ -113,7 +115,7 @@ namespace Shikkhanobish.ContentPages
         }
         public async Task CutVideoCAll (  )
         {
-            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/cutCall?stop=true&teacherID=" + info.Teacher.TeacherID + "&studentID" + info.Student.StundentID + "&isStudent" + true;
+            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/cutCall?stop=" + 1 +"&teacherID=" + info.Teacher.TeacherID + "&studentID=" + info.Student.StundentID + "&isStudent=" + true;
             HttpClient client = new HttpClient ();
             StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
@@ -126,7 +128,7 @@ namespace Shikkhanobish.ContentPages
         string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub", msgFromApi = "";
 
 
-
+        int cutCallFirstTime = 0;
         public async Task ConnectToServer ( )
         {
             _connection = new HubConnectionBuilder ()
@@ -145,9 +147,10 @@ namespace Shikkhanobish.ContentPages
                 isConnected = true;
 
             };
-            _connection.On<string , int , int , bool> ( "cutCall" , async ( stop , teacherID , studentID , isStudent ) =>
+            _connection.On<int , int , int , bool> ( "cutCall" , async ( stop , teacherID , studentID , isStudent ) =>
             {
-                if ( isStudent == false )
+                cutCallFirstTime++;
+                if ( isStudent == false  && cutCallFirstTime == 1)
                 {
                     if ( info.Student.StundentID == studentID )
                     {
