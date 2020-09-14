@@ -25,7 +25,7 @@ namespace Shikkhanobish
         private bool takeTuition;
         public TeacherProfile(Teacher t)
         {
-            takeTuition = true;
+            takeTuition = false;
             InitializeComponent ();
             BindingContext = new ProfileViewModel ( t );
             teacher = t;
@@ -192,7 +192,7 @@ namespace Shikkhanobish
 
             if(ac%2 == 1)
             {
-                
+                takeTuition = true;
                 activelbl.Text = "Active";
                 activeback.BackgroundColor = Color.FromHex ( "#54E36B" );
                 string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsActive";
@@ -205,6 +205,7 @@ namespace Shikkhanobish
             }
             else
             {
+                takeTuition = false;
                 activelbl.Text = "Inactive";
                 activeback.BackgroundColor = Color.FromHex ( "#A7A7A7" );
                 string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsActive";

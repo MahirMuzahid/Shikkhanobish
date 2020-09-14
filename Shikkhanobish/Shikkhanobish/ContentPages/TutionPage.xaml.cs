@@ -31,7 +31,6 @@ namespace Shikkhanobish.ContentPages
             min = 0;
             firstTime = true;
             tnamelbl.Text = trnsInfo.Teacher.TeacherName;
-            SendUpdateTime ( sec , info.Teacher.TeacherID );
             Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , CheckPositionAndUpdateSlider );
             ConnectToServer ();
         }
@@ -71,7 +70,7 @@ namespace Shikkhanobish.ContentPages
             //info.StudyTimeInAPp = Int32.Parse(TimeEntry.Text);
             if(sec > 30)
             {
-                min += min;
+                min = min+1;
             }
             info.StudyTimeInAPp = min;
             await Application.Current.MainPage.Navigation.PushModalAsync ( new RatingPage ( info ) ).ConfigureAwait ( false );
@@ -99,20 +98,11 @@ namespace Shikkhanobish.ContentPages
                 }
             }
             timerlbl.Text = min + ":" + sec;
-            
             return true;
         }
 
 
-        public async Task SendUpdateTime ( int sec  ,int teacherID )
-        {
-            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/sendTime?sec=" + sec + "&teacherID=" + teacherID ;
-            HttpClient client = new HttpClient ();
-            StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
-            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
-            string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
-            var r = JsonConvert.DeserializeObject<string> ( result );
-        }
+       
         public async Task CutVideoCAll (  )
         {
             string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/cutCall?stop=" + 1 +"&teacherID=" + info.Teacher.TeacherID + "&studentID=" + info.Student.StundentID + "&isStudent=" + true;

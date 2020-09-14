@@ -116,7 +116,7 @@ namespace Shikkhanobish.ContentPages
             string jsonData = JsonConvert.SerializeObject(new
             {
                 TeacherID = info.Teacher.TeacherID,
-                IsActive = 1,
+                IsActive = 0,
                 IsOnTuition = 0,
                 StudentID = info.Student.StundentID,
                 Rating = info.GivenRating,
@@ -149,7 +149,11 @@ namespace Shikkhanobish.ContentPages
             HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait( false );
             string result = await response.Content.ReadAsStringAsync();
             student = JsonConvert.DeserializeObject<Student>(result);
-            await Application.Current.MainPage.Navigation.PushModalAsync(new StudentProfile(student)).ConfigureAwait( false );
+            Device.BeginInvokeOnMainThread ( async ( ) =>
+            {
+                await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentProfile ( student ) ).ConfigureAwait ( false );
+            } );
+            
         }
 
         private void Button_Clicked(object sender, EventArgs e)

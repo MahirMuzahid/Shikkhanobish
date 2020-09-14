@@ -29,6 +29,7 @@ namespace Shikkhanobish.ContentPages
             min = 0;
             tnamelbl.Text = info.Student.Name;
             ConnectToServer();
+            Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , CheckPositionAndUpdateSlider );
         }
         public async Task CutVideoCAll ( )
         {
@@ -41,6 +42,7 @@ namespace Shikkhanobish.ContentPages
         }
         private async void OnEndCall ( object sender , EventArgs e )
         {
+            CutVideoCAll ();
             CrossOpenTok.Current.EndSession ();
             await Application.Current.MainPage.Navigation.PushModalAsync ( new TeacherProfile ( info.Teacher ) ).ConfigureAwait ( false );
 
@@ -116,13 +118,7 @@ namespace Shikkhanobish.ContentPages
                 isConnected = true;
 
             };
-            _connection.On<int , int> ( "sendTime" , async ( sec , teacherID ) =>
-            {
-                if ( info.Teacher.TeacherID == teacherID )
-                {
-                    Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , CheckPositionAndUpdateSlider );                   
-                }
-            } );
+            
             _connection.On<int , int, int, bool> ( "cutCall" , async ( stop , teacherID ,  studentID ,  isStudent ) =>
             {
                 cutCallFirstTime++;
