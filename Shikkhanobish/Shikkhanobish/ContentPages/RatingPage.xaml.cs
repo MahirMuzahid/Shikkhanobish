@@ -10,6 +10,7 @@ using Xamarin.Forms.Xaml;
 
 namespace Shikkhanobish.ContentPages
 {
+    
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RatingPage : ContentPage
     {
@@ -19,7 +20,7 @@ namespace Shikkhanobish.ContentPages
 
         public RatingPage(TransferInfo trnsInfo)
         {
-            InitializeComponent();
+            InitializeComponent ();
             info = trnsInfo;
             showEverything();
         }
@@ -32,65 +33,75 @@ namespace Shikkhanobish.ContentPages
             sSubject.Text = info.SubjectName;
             inapptimelbl.Text = "" + info.StudyTimeInAPp;
             costlbl.Text = "" + calculate.CalculateCost(info);
-            RatingColorBox.IsEnabled = false;
-            Ratelbl.Text = "Rate your teacher";
-            RatingColorBox.Color = Color.FromHex("#DCDCDC");
+            Ratelbl.Text = "";
             sbtn.IsEnabled = false;
         }
 
         private void ostarClicked(object sender, EventArgs e)
         {
-            RatingColorBox.CornerRadius = 1;
-            RatingColorBox.Color = Color.FromHex("#FF5A5A");
+            oply.Fill = Brush.Gold;
+            pbar.Progress = .2;
+            pbar.ProgressColor = Color.FromHex ( "#FF5A5A" );
             info.GivenRating = 1;
-            Ratelbl.Text = "Newbie!!";
-            RatingColorBox.IsEnabled = true;
-            RatingColorBox.SetValue(Grid.ColumnSpanProperty, 1);
+            Ratelbl.Text = "Newbie";
+            Ratelbl.TextColor = Color.FromHex ( "#FF5A5A" );
             sbtn.IsEnabled = true;
         }
 
         private void tstarClicked(object sender, EventArgs e)
         {
-            RatingColorBox.CornerRadius = 2;
-            RatingColorBox.Color = Color.FromHex("#F0BE05");
+            oply.Fill = Brush.Gold;
+            tply.Fill = Brush.Gold;
+            pbar.Progress = .4;
+            pbar.ProgressColor = Color.FromHex ( "#F0BE05" );
             info.GivenRating = 2;
-            Ratelbl.Text = "Avarage!";
-            RatingColorBox.IsEnabled = true;
-            RatingColorBox.SetValue(Grid.ColumnSpanProperty, 2);
+            Ratelbl.Text = "Avarage";
             sbtn.IsEnabled = true;
+            Ratelbl.TextColor = Color.FromHex ( "#F0BE05" );
         }
 
         private void thstarClicked(object sender, EventArgs e)
         {
-            RatingColorBox.CornerRadius = 3;
-            RatingColorBox.Color = Color.FromHex("#3BCF64");
+            oply.Fill = Brush.Gold;
+            tply.Fill = Brush.Gold;
+            thply.Fill = Brush.Gold;
+            pbar.Progress = .6;
+            pbar.ProgressColor = Color.FromHex ( "#3BCF64" );
             info.GivenRating = 3;
             Ratelbl.Text = "Good";
-            RatingColorBox.IsEnabled = true;
-            RatingColorBox.SetValue(Grid.ColumnSpanProperty, 3);
             sbtn.IsEnabled = true;
+            Ratelbl.TextColor = Color.FromHex ( "#3BCF64" );
+
         }
 
         private void fstarClicked(object sender, EventArgs e)
         {
-            RatingColorBox.CornerRadius = 4;
-            RatingColorBox.Color = Color.FromHex("#50B2ED");
+            oply.Fill = Brush.Gold;
+            tply.Fill = Brush.Gold;
+            thply.Fill = Brush.Gold;
+            fply.Fill = Brush.Gold;
+            pbar.Progress = .8;
+            pbar.ProgressColor = Color.FromHex ( "#50B2ED" );
             info.GivenRating = 4;
-            Ratelbl.Text = "Veteran!";
-            RatingColorBox.IsEnabled = true;
-            RatingColorBox.SetValue(Grid.ColumnSpanProperty, 4);
+            Ratelbl.Text = "Veteran";
             sbtn.IsEnabled = true;
+            Ratelbl.TextColor = Color.FromHex ( "#50B2ED" );
+
         }
 
         private void fistarClicked(object sender, EventArgs e)
         {
-            RatingColorBox.CornerRadius = 5;
-            RatingColorBox.Color = Color.FromHex("#B161F3");
+            oply.Fill = Brush.Gold;
+            tply.Fill = Brush.Gold;
+            thply.Fill = Brush.Gold;
+            fply.Fill = Brush.Gold;
+            fiply.Fill = Brush.Gold;
+            pbar.Progress = 1;
+            pbar.ProgressColor = Color.FromHex ( "#B161F3" );
             info.GivenRating = 5;
-            Ratelbl.Text = "Master!!";
-            RatingColorBox.IsEnabled = true;
-            RatingColorBox.SetValue(Grid.ColumnSpanProperty, 5);
+            Ratelbl.Text = "Master";
             sbtn.IsEnabled = true;
+            Ratelbl.TextColor = Color.FromHex ( "#B161F3" );
         }
 
         public async void FinishTHeUpdate()
@@ -160,6 +171,11 @@ namespace Shikkhanobish.ContentPages
         private void Button_Clicked(object sender, EventArgs e)
         {
             FinishTHeUpdate();
+        }
+
+        private void Button_Clicked_1 ( object sender , EventArgs e )
+        {
+            //report teacher
         }
     }
 }

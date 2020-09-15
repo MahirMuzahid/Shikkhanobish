@@ -15,11 +15,11 @@ namespace Shikkhanobish.Droid
         [Obsolete]
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            global::Xamarin.Forms.Forms.SetFlags ( "Shapes_Experimental" );
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
             PlatformOpenTokService.Init();
             base.OnCreate(savedInstanceState);
-
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             base.SetTheme(global::Android.Resource.Style.ThemeHoloLight);
@@ -30,8 +30,7 @@ namespace Shikkhanobish.Droid
             //this.Window.ClearFlags(WindowManagerFlags.Fullscreen);
 
             CrossCurrentActivity.Current.Activity = this;
-
-            global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            
             LoadApplication(new App());
             Window.SetStatusBarColor ( Android.Graphics.Color.Rgb ( 151 , 97 , 253 ) );
 

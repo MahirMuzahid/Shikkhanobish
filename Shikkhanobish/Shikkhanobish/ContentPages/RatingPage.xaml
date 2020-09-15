@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:widget="clr-namespace:Android.Widget;assembly=Mono.Android" xmlns:xfshapeview="clr-namespace:XFShapeView;assembly=XFShapeView"
              mc:Ignorable="d"
              x:Class="Shikkhanobish.ContentPages.RatingPage">
     <Grid RowSpacing="0">
@@ -21,10 +21,13 @@
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
-        <BoxView BackgroundColor="#9761FD" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" />
-        <BoxView BackgroundColor="#EEEEEE" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="6" CornerRadius="30" />
+        <BoxView BackgroundColor="#9761FD" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"  />
+        <BoxView BackgroundColor="#EEEEEE" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="6" CornerRadius="20" Margin="10,0,10,5" />
         <Label Text="Rate Your Teacher" FontAttributes="Bold" FontSize="16" TextColor="White" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" />
         <Label Text="Teacher Name:" Grid.Column="0" Grid.Row="1" HorizontalOptions="End" VerticalOptions="Center" />
+        
+        <Button Grid.ColumnSpan="2" Grid.Row="1" FontSize="10" TextColor="Blue" HorizontalOptions="End" VerticalOptions="Center" Clicked="Button_Clicked_1"/>
+        <Label Text="Report Teacher" Grid.ColumnSpan="2" Grid.Row="1" FontSize="10" TextColor="Blue" HorizontalOptions="End" VerticalOptions="Center" Margin="5"/>
         <Label Text="Teacher ID:" Grid.Column="0" Grid.Row="2" HorizontalOptions="End" VerticalOptions="Center" />
         <Label Text="Class:" Grid.Column="0" Grid.Row="3" HorizontalOptions="End" VerticalOptions="Center" />
         <Label Text="Subject:" Grid.Column="0" Grid.Row="4" HorizontalOptions="End" VerticalOptions="Center" />
@@ -37,14 +40,15 @@
         <Label x:Name="sSubject" Text="Subject:" Grid.Column="1" Grid.Row="4" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" />
         <Label x:Name="inapptimelbl" Text="Time:" Grid.Column="1" Grid.Row="5" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" />
         <Label x:Name="costlbl" Text="Cost:" Grid.Column="1" Grid.Row="6" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" />
+        <Label Text="Rate Your Teacher" Grid.Row="7" FontAttributes="Bold" FontSize="15" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Start"/>
         <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" RowSpacing="3" BackgroundColor="#FFFFFF">
             <Grid.RowDefinitions>
-                <RowDefinition Height=".25*" />
+                <RowDefinition Height=".35*" />
                 <RowDefinition Height=".03*" />
                 <RowDefinition Height=".2*" />
                 <RowDefinition Height=".3*" />
-                <RowDefinition Height=".3*" />
-                <RowDefinition Height="1*" />
+                <RowDefinition Height=".6*" />
+                <RowDefinition Height=".5*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
@@ -53,16 +57,43 @@
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
-            <Button  Text="1 Star" FontSize="10" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" CornerRadius="10" BackgroundColor="#FF5A5A" TextColor="#FFFFFF" Clicked="ostarClicked" />
-            <Button  Text="2 Star" FontSize="10" FontAttributes="Bold" Grid.Row="0" Grid.Column="1" CornerRadius="10" BackgroundColor="#F0BE05" TextColor="#FFFFFF" Clicked="tstarClicked" />
-            <Button  Text="3 Star" FontSize="10" FontAttributes="Bold" Grid.Row="0" Grid.Column="2" CornerRadius="10" BackgroundColor="#3BCF64" TextColor="#FFFFFF" Clicked="thstarClicked" />
-            <Button  Text="4 Star" FontSize="10" FontAttributes="Bold" Grid.Row="0" Grid.Column="3" CornerRadius="10" BackgroundColor="#50B2ED" TextColor="#FFFFFF" Clicked="fstarClicked" />
-            <Button  Text="5 Star" FontSize="10" FontAttributes="Bold" Grid.Row="0" Grid.Column="4" CornerRadius="10" BackgroundColor="#B161F3" TextColor="#FFFFFF" Clicked="fistarClicked" />
-            <BoxView BackgroundColor="#DCDCDC" Grid.Row="1" Grid.ColumnSpan="5" />
-            <BoxView x:Name="RatingColorBox" BackgroundColor="Accent" Grid.Row="1" Grid.Column="{Binding c}" />
-            <Label x:Name="Ratelbl" Text="Newbie!" FontSize="18" FontAttributes="Bold" Grid.Row="2" Grid.Column="2" />
+            
+            <Polygon x:Name="oply" Points="0 10,10 10,15 0,20 10,30 10,23 18,27 30,15 24,3 30, 7 18"
+                     StrokeThickness="1"
+                     Stroke="#707B7C"
+                     StrokeDashOffset="6" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Polygon x:Name="tply" Points="0 10,10 10,15 0,20 10,30 10,23 18,27 30,15 24,3 30, 7 18"
+                     StrokeThickness="1"
+                     Stroke="#707B7C"
+                     StrokeDashOffset="6" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Polygon x:Name="thply" Points="0 10,10 10,15 0,20 10,30 10,23 18,27 30,15 24,3 30, 7 18"
+                     StrokeThickness="1"
+                     Stroke="#707B7C"
+                     StrokeDashOffset="6" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Polygon x:Name="fply" Points="0 10,10 10,15 0,20 10,30 10,23 18,27 30,15 24,3 30, 7 18"
+                     StrokeThickness="1"
+                     Stroke="#707B7C"
+                     StrokeDashOffset="6" Grid.Row="0" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Polygon x:Name="fiply" Points="0 10,10 10,15 0,20 10,30 10,23 18,27 30,15 24,3 30, 7 18"
+                     StrokeThickness="1"
+                     Stroke="#707B7C"
+                     StrokeDashOffset="6" Grid.Row="0" Grid.Column="4" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Button  Grid.Row="0" Grid.Column="0" CornerRadius="10" BackgroundColor="#00755D05" TextColor="#FFFFFF" Clicked="ostarClicked" />
+            <Button  Grid.Row="0" Grid.Column="1" CornerRadius="10" BackgroundColor="#0005F0EB" TextColor="#FFFFFF" Clicked="tstarClicked" />
+            <Button  Grid.Row="0" Grid.Column="2" CornerRadius="10" BackgroundColor="#0002912A" TextColor="#FFFFFF" Clicked="thstarClicked" />
+            <Button  Grid.Row="0" Grid.Column="3" CornerRadius="10" BackgroundColor="#0050B2ED" TextColor="#FFFFFF" Clicked="fstarClicked" />
+            <Button  Grid.Row="0" Grid.Column="4" CornerRadius="10" BackgroundColor="#00B161F3" TextColor="#FFFFFF" Clicked="fistarClicked" />
+            
+            <ProgressBar x:Name="pbar" Grid.Row="1" Grid.ColumnSpan="5"/>
+            <Label x:Name="Ratelbl" Grid.Row="2" FontAttributes="Bold" FontSize="17" Grid.ColumnSpan="5" HorizontalOptions="Center" VerticalOptions="Center"/>
             <Button x:Name="sbtn" Text="Submit" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" HorizontalOptions="Center" CornerRadius="10" BackgroundColor="#323232" TextColor="#FFFFFF" Clicked="Button_Clicked" />
-            <Label Text="To achive perfect teacher evaluation system every student MUST rate their teacher after every tuition" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" TextColor="#808080" />
+            <Label Text="To achive perfect teacher evaluation system every student MUST rate their teacher after every tuition. You can report your teacher If you face any unexpeted behaviour" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" TextColor="#808080" />
+            
+
         </Grid>
+
+
+        
+
     </Grid>
 </ContentPage>
