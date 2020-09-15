@@ -37,10 +37,14 @@ namespace Shikkhanobish.ContentPages
             sbtn.IsEnabled = false;
         }
 
-        private void ostarClicked(object sender, EventArgs e)
+        private async void ostarClicked(object sender, EventArgs e)
         {
             oply.Fill = Brush.Gold;
-            pbar.Progress = .2;
+            tply.Fill = Brush.White;
+            thply.Fill = Brush.White;
+            fply.Fill = Brush.White;
+            fiply.Fill = Brush.White;
+            await pbar.ProgressTo ( 0.2, 500 , Easing.Linear );
             pbar.ProgressColor = Color.FromHex ( "#FF5A5A" );
             info.GivenRating = 1;
             Ratelbl.Text = "Newbie";
@@ -48,11 +52,14 @@ namespace Shikkhanobish.ContentPages
             sbtn.IsEnabled = true;
         }
 
-        private void tstarClicked(object sender, EventArgs e)
+        private async void tstarClicked(object sender, EventArgs e)
         {
             oply.Fill = Brush.Gold;
             tply.Fill = Brush.Gold;
-            pbar.Progress = .4;
+            thply.Fill = Brush.White;
+            fply.Fill = Brush.White;
+            fiply.Fill = Brush.White;
+            await pbar.ProgressTo ( 0.4 , 500 , Easing.Linear );
             pbar.ProgressColor = Color.FromHex ( "#F0BE05" );
             info.GivenRating = 2;
             Ratelbl.Text = "Avarage";
@@ -60,12 +67,14 @@ namespace Shikkhanobish.ContentPages
             Ratelbl.TextColor = Color.FromHex ( "#F0BE05" );
         }
 
-        private void thstarClicked(object sender, EventArgs e)
+        private async void thstarClicked(object sender, EventArgs e)
         {
             oply.Fill = Brush.Gold;
             tply.Fill = Brush.Gold;
             thply.Fill = Brush.Gold;
-            pbar.Progress = .6;
+            fply.Fill = Brush.White;
+            fiply.Fill = Brush.White;
+            await pbar.ProgressTo ( 0.6 , 500 , Easing.Linear );
             pbar.ProgressColor = Color.FromHex ( "#3BCF64" );
             info.GivenRating = 3;
             Ratelbl.Text = "Good";
@@ -74,13 +83,14 @@ namespace Shikkhanobish.ContentPages
 
         }
 
-        private void fstarClicked(object sender, EventArgs e)
+        private async void fstarClicked(object sender, EventArgs e)
         {
             oply.Fill = Brush.Gold;
             tply.Fill = Brush.Gold;
             thply.Fill = Brush.Gold;
             fply.Fill = Brush.Gold;
-            pbar.Progress = .8;
+            fiply.Fill = Brush.White;
+            await pbar.ProgressTo ( 0.8 , 500 , Easing.Linear );
             pbar.ProgressColor = Color.FromHex ( "#50B2ED" );
             info.GivenRating = 4;
             Ratelbl.Text = "Veteran";
@@ -89,14 +99,14 @@ namespace Shikkhanobish.ContentPages
 
         }
 
-        private void fistarClicked(object sender, EventArgs e)
+        private async void fistarClicked(object sender, EventArgs e)
         {
             oply.Fill = Brush.Gold;
             tply.Fill = Brush.Gold;
             thply.Fill = Brush.Gold;
             fply.Fill = Brush.Gold;
             fiply.Fill = Brush.Gold;
-            pbar.Progress = 1;
+            await pbar.ProgressTo ( 1 , 500 , Easing.Linear );
             pbar.ProgressColor = Color.FromHex ( "#B161F3" );
             info.GivenRating = 5;
             Ratelbl.Text = "Master";
