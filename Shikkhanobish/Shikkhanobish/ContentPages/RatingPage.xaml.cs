@@ -96,8 +96,9 @@ namespace Shikkhanobish.ContentPages
         public async void FinishTHeUpdate()
         {
             int tuitionPoint = calculate.CalculateTuitionPoint ( info );
-            info.Teacher.OverallTP = tuitionPoint;
-            string tuitionClass = null, rank = calculate.CalculateRank(info);
+            info.Teacher.OverallTP = tuitionPoint + info.Teacher.Tuition_Point;
+            string tuitionClass = null, 
+            rank = calculate.CalculateRank(info);
             String Date = DateTime.Now.ToString();
             for (int i = 0; i < info.Class.Length; i++)
             {
@@ -121,7 +122,7 @@ namespace Shikkhanobish.ContentPages
                 StudentID = info.Student.StundentID,
                 Rating = info.GivenRating,
                 InAppMin = info.StudyTimeInAPp,
-                Tuition_Point = tuitionPoint,
+                Tuition_Point = tuitionPoint ,
                 Teacher_Rank = rank,
                 Date = Date,
                 Subject = info.Subject,

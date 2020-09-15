@@ -39,13 +39,15 @@ namespace Shikkhanobish.ContentPages
             {
                 return;
             }
+            setOnTuitionON ();
             ConnectWithStudent ( Info.Student.StundentID , Info.Teacher.TeacherID , true );
             await Application.Current.MainPage.Navigation.PushModalAsync ( new TuitionPageTeacher ( Info ) ).ConfigureAwait ( false );
         }
 
         //for teacher
-        private async void callbtn_Clicked_1 ( object sender , EventArgs e )
+        private async void canclebtn_Clicked ( object sender , EventArgs e )
         {
+            setOnTuitionOFF ();
             ConnectWithStudent ( Info.Student.StundentID , Info.Teacher.TeacherID , false );
             await Application.Current.MainPage.Navigation.PopModalAsync ();
         }
@@ -84,6 +86,27 @@ namespace Shikkhanobish.ContentPages
                 }
             }
             //CrossOpenTok.Current.Error += (m) => TakeTuition.DisplayAlert("ERROR", m, "OK");
+        }
+
+        public async void setOnTuitionOFF ( )
+        {
+            string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsOnTuition";
+            HttpClient clientT = new HttpClient ();
+            string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = Info.Teacher.TeacherID , state = 0 } );
+            StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
+            string resultT = await responseT.Content.ReadAsStringAsync ();
+            var response = JsonConvert.DeserializeObject<Response> ( resultT );
+        }
+        public async void setOnTuitionON ( )
+        {
+            string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsOnTuition";
+            HttpClient clientT = new HttpClient ();
+            string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = Info.Teacher.TeacherID , state = 1 } );
+            StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
+            string resultT = await responseT.Content.ReadAsStringAsync ();
+            var response = JsonConvert.DeserializeObject<Response> ( resultT );
         }
     }
 }

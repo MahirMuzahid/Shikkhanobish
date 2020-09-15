@@ -137,8 +137,7 @@ namespace Shikkhanobish.ContentPages
                 {
                     FilteredTeacher[i].Color = "#CA6AF1";
                 }
-                var cost = cal.RatingAndCostRange(info.Teacher.Teacher_Rank, info.ClassCode);
-                FilteredTeacher[i].Amount = cost;
+                FilteredTeacher[i].Amount = cal.RatingAndCostRange ( FilteredTeacher [ i ].Teacher_Rank , info.ClassCode );
             }
         }
 

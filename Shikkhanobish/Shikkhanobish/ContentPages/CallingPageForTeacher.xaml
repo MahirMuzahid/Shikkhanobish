@@ -19,9 +19,10 @@
         <Label x:Name="subLbl" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#4D4D4D"/>
         <BoxView BackgroundColor="#59CFCFCF" Grid.Row="3" Margin="100,15,100,15" CornerRadius="20"/>
         <Label  x:Name="ctLbl"  Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#4D4D4D"/>
-        <Label x:Name="calllbl" Text="Calling..."  Grid.Row="4" HorizontalOptions="Center" FontSize="15" VerticalOptions="Center" TextColor="#303030"/>
-        <Button x:Name="acceptbtn" Text="Accept"  Grid.Row="5" HorizontalOptions="Start" FontSize="13" FontAttributes="Bold" VerticalOptions="Center" TextColor="#FFFFFF" Clicked="callbtn_Clicked" Margin="15" CornerRadius="10" BackgroundColor="#49DA9F"/>
-        
-       
+        <Label x:Name="calllbl" Text="Calling..."  Grid.Row="4" HorizontalOptions="Center" FontSize="17" VerticalOptions="Center" TextColor="#303030"/>
+        <Button x:Name="acceptbtn" Text="Accept"  Grid.Row="5" HorizontalOptions="Start" FontSize="13" FontAttributes="Bold" VerticalOptions="Center" TextColor="#FFFFFF" Clicked="callbtn_Clicked" Margin="15" CornerRadius="10" BackgroundColor="#49DA76"/>
+        <Button x:Name="canclebtn" Text="Cacle"  Grid.Row="5" HorizontalOptions="End" FontSize="13" FontAttributes="Bold" VerticalOptions="Center" TextColor="#FFFFFF" Clicked="canclebtn_Clicked" Margin="15" CornerRadius="10" BackgroundColor="#DA4949"/> 
+
+
     </Grid>
 </ContentPage>

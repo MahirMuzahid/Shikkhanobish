@@ -23,6 +23,8 @@ namespace Shikkhanobish
         private Teacher teacher;
         private int ac = 0;
         private bool takeTuition;
+        double total, avg;
+        int count;
         public TeacherProfile(Teacher t)
         {
             takeTuition = false;
@@ -38,7 +40,9 @@ namespace Shikkhanobish
 
         public async void setRankInfo ( )
         {
-            float avg = ( teacher.One_Star + teacher.Two_Star + teacher.Three_Star + teacher.Four_Star + teacher.Five_Star ) / 5;
+            total = teacher.Five_Star * 5 + teacher.Four_Star * 4 + teacher.Three_Star * 3 + teacher.Two_Star * 2 + teacher.One_Star * 1;
+            count = teacher.Five_Star + teacher.Four_Star + teacher.Three_Star + teacher.Two_Star + teacher.One_Star;
+            avg = System.Math.Round ( total / count , 2 );
             tplbl.Text = "Tuition Point: " + teacher.Tuition_Point;
             avglbl.Text = "Average: " + avg;
             float place = 0;
@@ -86,8 +90,8 @@ namespace Shikkhanobish
                     avglbl.TextColor = Color.FromHex ( "F5C24B" );
                     tplbl.TextColor = Color.FromHex ( "F5C24B" );
                 }
-                ranklbl.TextColor = Color.FromHex ( "F68181" );
-                progress.ProgressColor = Color.FromHex ( "F68181" );
+                ranklbl.TextColor = Color.FromHex ( "F5C24B" );
+                progress.ProgressColor = Color.FromHex ( "F5C24B" );
             }
             else if ( teacher.Tuition_Point <= 8999 && avg >= 4.00f || ( teacher.Tuition_Point > 8999 && avg < 4.00f ) )
             {

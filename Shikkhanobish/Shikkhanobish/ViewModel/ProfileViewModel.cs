@@ -16,7 +16,7 @@ namespace Shikkhanobish
         public string _isTeacherorStudent;
         public string _amount;
         public string _fee;
-        public float _avarage;
+        public double _avarage;
         public string _subject;
         public int _tuitionPoint;
         public string _totalTaken;
@@ -27,9 +27,12 @@ namespace Shikkhanobish
         public string _teacherRank;
         public string _availableMin;
         public bool _isEnableTeacher;
-
+        double total;
+        int count;
         public ProfileViewModel(Teacher t)
         {
+            total = t.Five_Star * 5 + t.Four_Star * 4 + t.Three_Star * 3 + t.Two_Star * 2 + t.One_Star * 1;
+            count = t.Five_Star  + t.Four_Star + t.Three_Star + t.Two_Star + t.One_Star;
             Name = t.TeacherName;
             TeacherID = t.TeacherID;
             Age = "" + t.Age;
@@ -39,7 +42,7 @@ namespace Shikkhanobish
             AmountTxt = "" + t.RechargedAmount + " Taka";
             AvailableMintxt = "" + t.RechargedAmount;
             Fee = "NTY";
-            Avarage = (t.One_Star + t.Two_Star+ t.Three_Star+ t.Four_Star+ t.Five_Star)/5;
+            Avarage = System.Math.Round ( total / count , 2 );
             Subject = "NTY";
             TuitionPoint = t.Tuition_Point;
             OffredTuitionTime = " " + t.Total_Min;
@@ -175,7 +178,7 @@ namespace Shikkhanobish
             }
         }
 
-        public float Avarage
+        public double Avarage
         {
             get
             {

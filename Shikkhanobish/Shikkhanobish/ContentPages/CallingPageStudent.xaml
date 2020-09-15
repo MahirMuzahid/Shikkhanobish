@@ -19,7 +19,7 @@
         <Label x:Name="subLbl" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#4D4D4D"/>
         <BoxView BackgroundColor="#59CFCFCF" Grid.Row="3" Margin="100,15,100,15" CornerRadius="20"/>
         <Label  x:Name="ctLbl"  Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#4D4D4D"/>
-        <Label x:Name="calllbl" Text="Calling..."  Grid.Row="4" HorizontalOptions="Center" FontSize="15" VerticalOptions="Center" TextColor="#303030"/>
+        <Label x:Name="calllbl" Text="Calling..."  Grid.Row="4" HorizontalOptions="Center" FontSize="17" VerticalOptions="Center" TextColor="#303030"/>
        
         <Button x:Name="cancleStbtn" Text="Cancle"  Grid.Row="5" HorizontalOptions="Center" FontSize="13" FontAttributes="Bold" VerticalOptions="Center" TextColor="#FFFFFF" Margin="8" CornerRadius="10" Clicked="cancleStbtn_Clicked" BackgroundColor="#EE7373"/>
     </Grid>

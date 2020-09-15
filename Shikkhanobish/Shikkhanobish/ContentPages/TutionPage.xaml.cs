@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text;
 using Newtonsoft.Json;
+using Shikkhanobish.Model;
 
 namespace Shikkhanobish.ContentPages
 {
@@ -30,6 +31,7 @@ namespace Shikkhanobish.ContentPages
             sec = 0;
             min = 0;
             firstTime = true;
+            safelbl.Text = "Safe Time";
             tnamelbl.Text = trnsInfo.Teacher.TeacherName;
             Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , CheckPositionAndUpdateSlider );
             ConnectToServer ();
@@ -38,6 +40,7 @@ namespace Shikkhanobish.ContentPages
         private async void OnEndCall ( object sender , EventArgs e )
         {
             CrossOpenTok.Current.EndSession ();
+            _connection.StopAsync ();
             CutVideoCAll ();
             gotoRatingPage ();           
            
@@ -76,11 +79,12 @@ namespace Shikkhanobish.ContentPages
             await Application.Current.MainPage.Navigation.PushModalAsync ( new RatingPage ( info ) ).ConfigureAwait ( false );
         }
 
-
+        TransferInfo timeinfo = new TransferInfo ();
+        Calculate cal = new Calculate ();
         private bool CheckPositionAndUpdateSlider ( )
         {
             sec = sec + 1;
-            if ( sec == 59 )
+            if ( sec == 60 )
             {
                 min = min + 1;
                 sec = 0;
@@ -93,16 +97,32 @@ namespace Shikkhanobish.ContentPages
                 {
                     sec = 0;
                     firstTime = false;
-                    safelbl.IsVisible = false;
+                    safelbl.Text = "Pay Time";
+                    safelbl.TextColor = Color.DarkSlateBlue;
                     timerlbl.TextColor = Color.Black;
+                    StartTime ();
                 }
+            }
+            if(firstTime == false && sec > 30/*&& info.Teacher.Teacher_Rank != "Placement"*/)
+            {
+                min = min + 1;
+                timeinfo.StudyTimeInAPp = min;
+                safelbl.Text = "Pay Time, Cost: " + cal.CalculateCost (timeinfo); 
             }
             timerlbl.Text = min + ":" + sec;
             return true;
         }
 
+        public async Task StartTime ( )
+        {
+            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/sendTime?sec=" + 1 + "&teacherID=" + info.Teacher.TeacherID;
+            HttpClient client = new HttpClient ();
+            StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
+            string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
+            var r = JsonConvert.DeserializeObject<string> ( result );
+        }
 
-       
         public async Task CutVideoCAll (  )
         {
             string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/cutCall?stop=" + 1 +"&teacherID=" + info.Teacher.TeacherID + "&studentID=" + info.Student.StundentID + "&isStudent=" + true;
@@ -145,6 +165,7 @@ namespace Shikkhanobish.ContentPages
                     if ( info.Student.StundentID == studentID )
                     {
                         CrossOpenTok.Current.EndSession ();
+                        _connection.StopAsync ();
                         gotoRatingPage ();
                     }
                 }

@@ -143,7 +143,7 @@ namespace Shikkhanobish.Model
         public int CalculateTuitionPoint(TransferInfo info)
         {
             int TuitionTime = info.StudyTimeInAPp * info.GivenRating;
-            CalculatedTuitionTime = TuitionTime;
+            CalculatedTuitionTime = TuitionTime + info.Teacher.Total_Min;
             return TuitionTime;
         }
 

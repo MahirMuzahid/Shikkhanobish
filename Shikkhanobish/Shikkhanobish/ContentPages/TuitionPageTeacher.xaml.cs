@@ -29,7 +29,12 @@ namespace Shikkhanobish.ContentPages
             min = 0;
             tnamelbl.Text = info.Student.Name;
             ConnectToServer();
-            Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , CheckPositionAndUpdateSlider );
+            safelbl.IsVisible = true;
+            safelbl.Text = "Safe Time";
+            safelbl.TextColor = Color.Yellow;
+            timerlbl.TextColor = Color.Yellow;
+            timerlbl.Text = "0:0";
+           
         }
         public async Task CutVideoCAll ( )
         {
@@ -42,7 +47,9 @@ namespace Shikkhanobish.ContentPages
         }
         private async void OnEndCall ( object sender , EventArgs e )
         {
+            setOnTuitionOFF ();
             CutVideoCAll ();
+            _connection.StopAsync ();
             CrossOpenTok.Current.EndSession ();
             await Application.Current.MainPage.Navigation.PushModalAsync ( new TeacherProfile ( info.Teacher ) ).ConfigureAwait ( false );
 
@@ -72,24 +79,15 @@ namespace Shikkhanobish.ContentPages
 
         private bool CheckPositionAndUpdateSlider ( )
         {
+            timerlbl.TextColor = Color.Black;
+            safelbl.TextColor = Color.Green;
+            safelbl.Text = "Pay Time";
             sec = sec + 1;
             if ( sec == 59 )
             {
                 min = min + 1;
                 sec = 0;
-            }
-            if ( firstTime == true )
-            {
-                safelbl.IsVisible = true;
-                timerlbl.TextColor = Color.Green;
-                if ( sec == 20 )
-                {
-                    sec = 0;
-                    firstTime = false;
-                    safelbl.IsVisible = false;
-                    timerlbl.TextColor = Color.Black;
-                }
-            }
+            }           
             timerlbl.Text = min + ":" + sec;
 
             return true;
@@ -118,7 +116,14 @@ namespace Shikkhanobish.ContentPages
                 isConnected = true;
 
             };
-            
+            _connection.On<int , int> ( "sendTime" , async ( sec , teacherID ) =>
+            {
+                if ( info.Teacher.TeacherID == teacherID )
+                {
+                    Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , CheckPositionAndUpdateSlider );
+                }
+
+            } );
             _connection.On<int , int, int, bool> ( "cutCall" , async ( stop , teacherID ,  studentID ,  isStudent ) =>
             {
                 cutCallFirstTime++;
@@ -126,7 +131,9 @@ namespace Shikkhanobish.ContentPages
                 {
                     if ( info.Teacher.TeacherID == teacherID )
                     {
+                        setOnTuitionOFF ();
                         CrossOpenTok.Current.EndSession ();
+                        _connection.StopAsync ();
                         await Application.Current.MainPage.Navigation.PushModalAsync ( new TeacherProfile ( info.Teacher ) ).ConfigureAwait ( false );
                     }
                 }
@@ -134,6 +141,17 @@ namespace Shikkhanobish.ContentPages
             } );
 
 
+        }
+
+        public async void setOnTuitionOFF()
+        {
+            string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsOnTuition";
+            HttpClient clientT = new HttpClient ();
+            string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = info.Teacher.TeacherID , state = 0 } );
+            StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
+            string resultT = await responseT.Content.ReadAsStringAsync ();
+            var response = JsonConvert.DeserializeObject<Response> ( resultT );
         }
     }
 }
