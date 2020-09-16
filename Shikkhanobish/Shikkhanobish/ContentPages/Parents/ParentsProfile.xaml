@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Shikkhanobish.ContentPages.ParentsProfile">
+    <ScrollView>
+        <Grid BackgroundColor="#FFFFFF" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="250"/>
+                <RowDefinition Height="1300"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height=".3*"/>
+                    <RowDefinition Height=".01*"/>
+                    <RowDefinition Height=".2*"/>
+                    <RowDefinition Height=".2*"/>
+                    <RowDefinition Height=".2*"/>
+                    <RowDefinition Height=".2*"/>
+                    <RowDefinition Height=".2*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <BoxView BackgroundColor="#f3eae5" Grid.Row="0" Grid.ColumnSpan="2"/>
+                <Image Source="parentsportalback.jpg" Grid.Row="1" Grid.RowSpan="6" Grid.ColumnSpan="2" Aspect="AspectFill"/>
+                <Label Text="Parents Portal" Grid.Row="0" FontAttributes="Bold" FontSize="17" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#B29585"/>
+                <Label Text="Mahir Muzahid" Grid.Row="2" Grid.Column="0" FontSize="16" FontAttributes="Bold" Margin="20,0,0,0"/>
+                <Label Text="Parents Code: 1345" Grid.Row="3" Grid.Column="0" FontSize="14" FontAttributes="Italic" Margin="20,0,0,0"/>
+                <Label Text="Student Name: Iqbal Hossain" Grid.Row="4" Grid.Column="0" FontSize="14" FontAttributes="Italic" Margin="20,0,0,0"/>
+                <Label Text="Father" Grid.Row="5" Grid.Column="0" FontSize="14" FontAttributes="Italic" Margin="20,0,0,0" />
+                <Button Text="Recharge Account" Grid.Row="6" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center" FontSize="11" BackgroundColor="#41D274" Margin="20,0,0,6" CornerRadius="10" TextColor="#FFFFFF" FontAttributes="Bold"/>
+
+
+            </Grid>
+
+            <Grid Grid.Row="1" RowSpacing="0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.2*"/>
+                    <RowDefinition Height=".4*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height=".4*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <CarouselView x:Name="cv" Grid.Row="0">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding ImageSource}" Grid.RowSpan="3" Grid.ColumnSpan="3" Aspect="AspectFill"/>
+                                <Label Text="{Binding Text}" Grid.Row="0" Grid.Column="0" FontSize="15" HorizontalOptions="Center" VerticalOptions="End" TextColor="{Binding TextColors}" />
+                                <Label Text="{Binding info}" Grid.Row="1" Grid.Column="0"  FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Start" TextColor="{Binding TextColors}" />
+                            </Grid>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+                <Grid Grid.Row="1" RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <BoxView BackgroundColor="#61B7FD" Grid.Row="0" Grid.ColumnSpan="4"/>
+                    <BoxView BackgroundColor="#61B7FD" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4"></BoxView>
+                    <Label Text="Number" Grid.Column="0" FontSize="11" Grid.Row="1"  HorizontalOptions="Center" VerticalOptions="Center"  TextColor="white"/>
+                    <Label Text="Amount" Grid.Column="1" FontSize="11" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center"  TextColor="white"/>
+                    <Label Text="Date" Grid.Column="2" FontSize="11" Grid.Row="1"  HorizontalOptions="Center" VerticalOptions="Center"  TextColor="white"/>
+                    <Label Text="Trx ID" Grid.Column="3" FontSize="11" Grid.Row="1"  HorizontalOptions="Center" VerticalOptions="Center"  TextColor="white"/>
+                    <Label Text="Recharge History" Grid.Row="0" Grid.ColumnSpan="4" HorizontalOptions="Center" VerticalOptions="Center" FontSize="15"  TextColor="white"/>
+                </Grid>
+                
+                <ScrollView Grid.Row="2">
+                    <ListView BackgroundColor="White"  x:Name="StudentWalletHistoryListView" IsEnabled="False">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*"/>
+                                                <ColumnDefinition Width="1*"/>
+                                                <ColumnDefinition Width="1*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Text="{Binding Number}" Grid.Column="0" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                            <Label Text="{Binding Amount}" Grid.Column="1" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                            <Label Text="{Binding Date}" Grid.Column="2" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                            <Label Text="{Binding TrxID}" Grid.Column="3" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                        </Grid>
+
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollView>
+                <Grid BackgroundColor="#9761FD" Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.5*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Tuition History" Grid.Row="0"  FontSize="15" Grid.ColumnSpan="6" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF"/>
+                    <BoxView BackgroundColor="#9761FD" Grid.Row="1" Grid.ColumnSpan="6"/>
+                    <Label Text="Teacher Name" FontSize="11" TextColor="white" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.Column="0" />
+                    <Label Text="Class" FontSize="11" TextColor="white" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" />
+                    <Label Text="Subject" FontSize="11" TextColor="white" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.Column="2" />
+                    <Label Text="Time" FontSize="11" TextColor="white" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.Column="3" />
+                    <Label Text="Date" FontSize="11" TextColor="white" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.Column="4" />
+                    <Label Text="Rating" FontSize="11" TextColor="white" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.Column="5" />
+                </Grid>
+                <ScrollView Grid.Row="4">
+                    <ListView BackgroundColor="White"  x:Name="StudentHistoryListView" IsEnabled="False">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*" />
+                                                <ColumnDefinition Width="1*" />
+                                                <ColumnDefinition Width="1*" />
+                                                <ColumnDefinition Width="1*" />
+                                                <ColumnDefinition Width="1*" />
+                                                <ColumnDefinition Width="1*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Text="{Binding Teacher_Name}" FontSize="11" FontAttributes="Bold" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" />
+                                            <Label Text="{Binding Class}" FontSize="13"  Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" />
+                                            <Label Text="{Binding Subject}" FontSize="11" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" />
+                                            <Label Text="{Binding Time}" FontSize="11" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center" />
+                                            <Label Text="{Binding Date}" FontSize="11" Grid.Column="4" HorizontalOptions="Center" VerticalOptions="Center" />
+                                            <Label Text="{Binding Ratting}" FontSize="11" Grid.Column="5" HorizontalOptions="Center" VerticalOptions="Center" />
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollView>
+            </Grid>
+
+        </Grid>
+    </ScrollView>
+    
+</ContentPage>

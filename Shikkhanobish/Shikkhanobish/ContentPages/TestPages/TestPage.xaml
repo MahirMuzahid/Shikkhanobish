@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:xfshapeview="clr-namespace:XFShapeView;assembly=XFShapeView"
+             mc:Ignorable="d"
+             x:Class="Shikkhanobish.ContentPages.TestPage">
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="savedmoney.jpg" Grid.RowSpan="3" Grid.ColumnSpan="3" Aspect="AspectFill"/>
+            <Label Text="Account Balance" Grid.Row="0" Grid.Column="0" FontSize="20" HorizontalOptions="Center" VerticalOptions="End" TextColor="#FFFFFF"/>
+            <Label Text="500 Taka" Grid.Row="1" Grid.Column="0"  FontSize="25" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Start" TextColor="#FFFFFF"/>
+        </Grid>
+    </Grid>
+</ContentPage>

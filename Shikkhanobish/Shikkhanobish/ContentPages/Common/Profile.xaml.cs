@@ -50,7 +50,7 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_4(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new Settings()).ConfigureAwait( false );
+           
         }
     }
 }
