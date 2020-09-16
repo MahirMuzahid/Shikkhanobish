@@ -48,6 +48,7 @@ namespace Shikkhanobish.ContentPages
         private async void OnEndCall ( object sender , EventArgs e )
         {
             setOnTuitionOFF ();
+            setIsActiveOFF ();
             CutVideoCAll ();
             _connection.StopAsync ();
             CrossOpenTok.Current.EndSession ();
@@ -132,6 +133,7 @@ namespace Shikkhanobish.ContentPages
                     if ( info.Teacher.TeacherID == teacherID )
                     {
                         setOnTuitionOFF ();
+                        setIsActiveOFF ();
                         CrossOpenTok.Current.EndSession ();
                         _connection.StopAsync ();
                         await Application.Current.MainPage.Navigation.PushModalAsync ( new TeacherProfile ( info.Teacher ) ).ConfigureAwait ( false );
@@ -146,6 +148,17 @@ namespace Shikkhanobish.ContentPages
         public async void setOnTuitionOFF()
         {
             string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsOnTuition";
+            HttpClient clientT = new HttpClient ();
+            string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = info.Teacher.TeacherID , state = 0 } );
+            StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
+            string resultT = await responseT.Content.ReadAsStringAsync ();
+            var response = JsonConvert.DeserializeObject<Response> ( resultT );
+        }
+
+        public async void setIsActiveOFF()
+        {
+            string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsActive";
             HttpClient clientT = new HttpClient ();
             string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = info.Teacher.TeacherID , state = 0 } );
             StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );

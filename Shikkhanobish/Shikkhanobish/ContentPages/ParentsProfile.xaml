@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Shikkhanobish.ContentPages.ParentsProfile">
+    <Grid BackgroundColor="#FFFFFF">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="800"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.6*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <BoxView BackgroundColor="#9761FD" Grid.Row="0" Grid.ColumnSpan="2"/>
+            <BoxView BackgroundColor="#F2F2F2" Grid.Row="1" Grid.RowSpan="6" Grid.Column="0"  Margin="0,20,0,20" CornerRadius="10"/>
+            <Label Text="Parents Portal" Grid.Row="0" FontAttributes="Bold" FontSize="16" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF"/>
+            <Label Text="Mahir Muzahid" Grid.Row="2" Grid.Column="0" FontSize="15" FontAttributes="Bold" Margin="7"/>
+            <Label Text="Parents Code: 1345" Grid.Row="3" Grid.Column="0" FontSize="15" FontAttributes="Italic" Margin="7"/>
+            <Label Text="Student Name: Iqbal Hossain" Grid.Row="4" Grid.Column="0" FontSize="15" FontAttributes="Italic" Margin="7"/>
+            <Label Text="Father" Grid.Row="5" Grid.Column="0" FontSize="15" FontAttributes="Italic" Margin="7"/>
+            <Label Text="Parent Info" Grid.Row="1" Grid.RowSpan="6" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <BoxView BackgroundColor="DodgerBlue" Grid.Row="4" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="100" HeightRequest="10" WidthRequest="10"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3.5*"/>
+            </Grid.ColumnDefinitions>
+            <CarouselView x:Name="cv" Grid.Row="0" Grid.Column="1">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid BackgroundColor="Khaki">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <BoxView BackgroundColor="DarkRed" Grid.Row="1" Grid.Column="1"/>
+                        </Grid>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+        </Grid>
+        
+    </Grid>
+</ContentPage>
