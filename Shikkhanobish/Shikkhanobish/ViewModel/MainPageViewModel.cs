@@ -28,6 +28,7 @@ namespace Shikkhanobish
         private INavigation navigation;
         public string text;
         public string _errorText;
+        public TransferInfo Trns = new TransferInfo ();
 
         public MainPageViewModel()
         {
@@ -40,8 +41,10 @@ namespace Shikkhanobish
             {
                 return new Command( async() =>
                {
+                   
                    if ( Connectivity.NetworkAccess == NetworkAccess.Internet)
                    {
+                       int pagenumber = 0;
                        if (UserName == null && Password == null)
                        {
                            ErrorText = "User Name and Password is empty!";
@@ -69,7 +72,8 @@ namespace Shikkhanobish
                                
                                if(student.Name == null)
                                {
-                                   goPage ( 0 );
+                                   pagenumber = 0;
+                                   //goPage ( 0 );
                                }                            
                                else
                                {
@@ -81,13 +85,28 @@ namespace Shikkhanobish
                                        StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
                                        HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
                                        string resultT = await responseT.Content.ReadAsStringAsync ();
-                                       var pedningRating = JsonConvert.DeserializeObject<IsPending> ( resultT );
+                                       var pendningRating = JsonConvert.DeserializeObject<IsPending> ( resultT );
+                                       urlT = "https://api.shikkhanobish.com/api/Master/GetInfoByTeacherID";
+                                       jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = pendningRating.TeacherID } );
+                                       contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
+                                       responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
+                                       resultT = await responseT.Content.ReadAsStringAsync ();
+                                       var teacher = JsonConvert.DeserializeObject<Teacher> ( resultT );
                                        TransferInfo trns = new TransferInfo ();
-                                       await Application.Current.MainPage.Navigation.PushModalAsync ( new RatingPage ( trns ) ).ConfigureAwait ( false );
+                                       trns.Student = student;
+                                       trns.Class = pendningRating.Class;
+                                       trns.Subject = pendningRating.Subject;
+                                       trns.Cost = pendningRating.Cost;
+                                       trns.StudyTimeInAPp = pendningRating.Time;
+                                       trns.Teacher = teacher;
+                                       Trns = trns;
+                                       pagenumber = 2;
+                                      // goPage ( 2 );
                                    }
                                    else
                                    {
-                                       goPage ( 1 );
+                                       pagenumber = 1;
+                                       //goPage ( 1 );
                                    }
                                }
                            }
@@ -96,15 +115,19 @@ namespace Shikkhanobish
                                loginText = "Login";
                                ErrorText = "Connection Reset! Check internet connection";
                            }
-                       }
+                            MainThread.BeginInvokeOnMainThread ( ( ) => { goPage ( pagenumber ); } );
+                                
+                       }                      
                    }
                    else
                    {
                        ErrorText = "Check Internet Connection";
                        loginText = "Login";
                    }
+                   
                });
             }
+
         }
 
         public async Task SearchTeacher()
@@ -137,6 +160,10 @@ namespace Shikkhanobish
             if(i == 1 )
             {
                 await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentProfile ( student ) ).ConfigureAwait ( false );
+            }
+            if ( i == 2 )
+            {
+                await Application.Current.MainPage.Navigation.PushModalAsync ( new RatingPage ( Trns,false ) ).ConfigureAwait ( false );
             }
         }
 

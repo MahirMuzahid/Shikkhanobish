@@ -8,6 +8,7 @@ using Xamarin.Forms.Xaml;
 using Rg.Plugins.Popup.Extensions;
 using Shikkhanobish.ContentPages;
 using Plugin.Connectivity;
+using Shikkhanobish.ContentPages.Common;
 
 namespace Shikkhanobish
 {
@@ -40,6 +41,7 @@ namespace Shikkhanobish
         }
         protected override bool OnBackButtonPressed ( )
         {
+            Navigation.PushPopupAsync ( new PopUpForTextAlert ( "" , "" , true ) );
             return true;
         }
 

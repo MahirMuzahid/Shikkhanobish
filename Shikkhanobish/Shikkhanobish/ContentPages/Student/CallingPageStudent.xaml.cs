@@ -38,7 +38,17 @@ namespace Shikkhanobish.ContentPages
 
 
         }
-
+        protected override bool OnBackButtonPressed ( )
+        {
+            CrossOpenTok.Current.EndSession ();
+            _connection.StopAsync ();
+            popPage ();
+            return true;
+        }
+        public async void popPage()
+        {
+            await Application.Current.MainPage.Navigation.PopModalAsync ();
+        }
         public async void checkSession ( )
         {
             if ( !CrossOpenTok.Current.TryStartSession () )
@@ -91,6 +101,8 @@ namespace Shikkhanobish.ContentPages
         private async void cancleStbtn_Clicked ( object sender , EventArgs e )
         {
             await Application.Current.MainPage.Navigation.PopModalAsync ();
+            CrossOpenTok.Current.EndSession ();
+            _connection.StopAsync ();
         }
 
         //for student

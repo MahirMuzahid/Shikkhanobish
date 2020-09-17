@@ -12,5 +12,6 @@
         public string ClassCode { get; set; }
         public string SessionID { get; set; }
         public string UserToken { get; set; }
+        public int Cost { get; set; }
     }
 }

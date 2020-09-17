@@ -43,7 +43,18 @@ namespace Shikkhanobish.ContentPages
             ConnectWithStudent ( Info.Student.StundentID , Info.Teacher.TeacherID , true );
             await Application.Current.MainPage.Navigation.PushModalAsync ( new TuitionPageTeacher ( Info ) ).ConfigureAwait ( false );
         }
-
+        protected  override bool OnBackButtonPressed ( )
+        {
+            setOnTuitionOFF ();
+            ConnectWithStudent ( Info.Student.StundentID , Info.Teacher.TeacherID , false );
+            popPage ();
+            //End Call session
+            return true;
+        }
+        public async void popPage ( )
+        {
+            await Application.Current.MainPage.Navigation.PopModalAsync ();
+        }
         //for teacher
         private async void canclebtn_Clicked ( object sender , EventArgs e )
         {

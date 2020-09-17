@@ -11,6 +11,8 @@ using System.Net.Http;
 using System.Text;
 using Newtonsoft.Json;
 using Shikkhanobish.Model;
+using Shikkhanobish.ContentPages.Common;
+using Rg.Plugins.Popup.Extensions;
 
 namespace Shikkhanobish.ContentPages
 {
@@ -67,7 +69,11 @@ namespace Shikkhanobish.ContentPages
             
         }
 
-
+        protected override bool OnBackButtonPressed ( )
+        {
+            Navigation.PushPopupAsync ( new PopUpForTextAlert ( "" , "" , true ) );
+            return true;
+        }
         public async void gotoRatingPage ( )
         {
             //info.StudyTimeInAPp = Int32.Parse(TimeEntry.Text);
@@ -76,7 +82,7 @@ namespace Shikkhanobish.ContentPages
                 min = min+1;
             }
             info.StudyTimeInAPp = min;
-            await Application.Current.MainPage.Navigation.PushModalAsync ( new RatingPage ( info ) ).ConfigureAwait ( false );
+            await Application.Current.MainPage.Navigation.PushModalAsync ( new RatingPage ( info,true ) ).ConfigureAwait ( false );
         }
 
         TransferInfo timeinfo = new TransferInfo ();

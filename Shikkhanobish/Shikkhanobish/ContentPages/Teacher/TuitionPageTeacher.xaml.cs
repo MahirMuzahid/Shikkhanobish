@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using Newtonsoft.Json;
+using Rg.Plugins.Popup.Extensions;
+using Shikkhanobish.ContentPages.Common;
 using Shikkhanobish.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -35,6 +37,11 @@ namespace Shikkhanobish.ContentPages
             timerlbl.TextColor = Color.Yellow;
             timerlbl.Text = "0:0";
            
+        }
+        protected override bool OnBackButtonPressed ( )
+        {
+            Navigation.PushPopupAsync ( new PopUpForTextAlert ( "" , "" , true ) );
+            return true;
         }
         public async Task CutVideoCAll ( )
         {

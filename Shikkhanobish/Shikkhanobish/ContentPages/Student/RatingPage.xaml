@@ -22,7 +22,7 @@
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
         <BoxView BackgroundColor="#9761FD" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"  />
-        <BoxView BackgroundColor="#EEEEEE" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="6"  Margin="0,0,0,5" />
+        <BoxView BackgroundColor="#F2F2F2" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="6"  Margin="0,0,0,5" />
         <Label Text="Rate Your Teacher" FontAttributes="Bold" FontSize="16" TextColor="White" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" />
         <Label Text="Teacher Name:" Grid.Column="0" Grid.Row="1" HorizontalOptions="End" VerticalOptions="Center" />
         

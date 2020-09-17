@@ -7,6 +7,8 @@ using System.Text;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Rg.Plugins.Popup.Extensions;
+using Shikkhanobish.ContentPages.Common;
 
 namespace Shikkhanobish.ContentPages
 {
@@ -16,25 +18,34 @@ namespace Shikkhanobish.ContentPages
     {
         private TransferInfo info = new TransferInfo();
         private Calculate calculate = new Calculate();
-        private object c;
 
-        public RatingPage(TransferInfo trnsInfo)
+        public RatingPage(TransferInfo trnsInfo, bool IsFromTuition)
         {
             InitializeComponent ();
             info = trnsInfo;
             showEverything();
+            if(IsFromTuition == false)
+            {
+                Navigation.PushPopupAsync ( new PopUpForTextAlert ("Rate Your Teacher Please" ,"You didn't rate your teacher last time you took tuition" , false));
+            }
         }
-
+        protected override bool OnBackButtonPressed ( )
+        {
+            Navigation.PushPopupAsync ( new PopUpForTextAlert ( "" , "" , true ) );
+            return true;
+        }
+        
         public void showEverything()
         {
             tnamelbl.Text = info.Teacher.TeacherName;
             tIDlbl.Text = "" + info.Teacher.TeacherID;
             sClasslbl.Text = info.Class;
-            sSubject.Text = info.SubjectName;
+            sSubject.Text = info.SubjectName;//have to re write 
             inapptimelbl.Text = "" + info.StudyTimeInAPp;
             costlbl.Text = "" + calculate.CalculateCost(info);
             Ratelbl.Text = "";
             sbtn.IsEnabled = false;
+            SetIsPending ();
         }
 
         private async void ostarClicked(object sender, EventArgs e)
@@ -158,7 +169,8 @@ namespace Shikkhanobish.ContentPages
             HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait( false );
             string result = await response.Content.ReadAsStringAsync().ConfigureAwait( false );
             Response responseData = JsonConvert.DeserializeObject<Response>(result);
-            backtoProfile();
+            DeletePending ();
+            backtoProfile ();
         }
 
         public async void backtoProfile()
@@ -186,6 +198,25 @@ namespace Shikkhanobish.ContentPages
         private void Button_Clicked_1 ( object sender , EventArgs e )
         {
             //report teacher
+        }
+
+        public async void SetIsPending ()
+        {
+            string url = "https://api.shikkhanobish.com/api/Master/SetPending";
+            HttpClient client = new HttpClient ();
+            string jsonData = JsonConvert.SerializeObject ( new {  StudentID = info.Student.StundentID , TeacherName = info.Teacher.TeacherName, TeacherID = info.Teacher.TeacherID , Class = info.Class, Subject = info.Subject , Cost = calculate.CalculateCost ( info ) } );
+            StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
+            string result = await response.Content.ReadAsStringAsync ();
+        }
+        public async void DeletePending ( )
+        {
+            string url = "https://api.shikkhanobish.com/api/Master/DeletePending";
+            HttpClient client = new HttpClient ();
+            string jsonData = JsonConvert.SerializeObject ( new { StudentID = info.Student.StundentID } );
+            StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
+            string result = await response.Content.ReadAsStringAsync ();
         }
     }
 }
