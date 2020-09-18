@@ -20,7 +20,8 @@ namespace Shikkhanobish.ContentPages
         {
             InitializeComponent ();
             List<ParentsCardInfo> Pci = new List<ParentsCardInfo> ();
-
+            walletbacklbl.IsVisible = false;
+            historybacklbl.IsVisible = false;
             ParentsCardInfo pci1 = new ParentsCardInfo ();
             ParentsCardInfo pci2 = new ParentsCardInfo ();
             ParentsCardInfo pci3 = new ParentsCardInfo ();
@@ -47,31 +48,72 @@ namespace Shikkhanobish.ContentPages
             pci4.TextColors = "#FF000000";
             Pci.Add ( pci4 );
             cv.ItemsSource = Pci;
-            List<StudentBalance> sb = new List<StudentBalance> ();
-            for ( int i = 0; i < 20; i++ )
-            {
-                StudentBalance SB = new StudentBalance ();
-                SB.Number = 0235903425;
-                SB.Amount = 23;
-                SB.Date = "20.03.2021";
-                SB.TrxID = "TSCV236YG2KJ3265H";
-                sb.Add ( SB );
-            }
-            StudentWalletHistoryListView.ItemsSource = sb;
-            ShowTuitionSistoryAsync ();
-            
+            callInfo ();
         }
-        public async void ShowTuitionSistoryAsync ( )
+        public async void callInfo()
+        {
+            await ShowWalletHisotry ();
+            await ShowTuitionSistoryAsync ();
+        }
+        public async Task ShowTuitionSistoryAsync ( )
         {
             string url = "https://api.shikkhanobish.com/api/Master/GetTuitionHistoryStudent";
             HttpClient client = new HttpClient ();
-            string jsonData = JsonConvert.SerializeObject ( new { StudentID = 23 } );
+            string jsonData = JsonConvert.SerializeObject ( new { StudentID = 23 } );// T.D: have to add student ID
             StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
             var result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
             var hisotyList = JsonConvert.DeserializeObject<List<TuitionHistoryStudent>> ( result );
             studentHistory = hisotyList;
-            StudentHistoryListView.ItemsSource = studentHistory;
+            if(studentHistory.Count == 0)
+            {
+                historybacklbl.IsVisible = true;
+            }
+            else
+            {
+                StudentHistoryListView.ItemsSource = studentHistory;
+            }
+            
+        }
+
+        public async Task ShowWalletHisotry ( )
+        {
+            string url = "https://api.shikkhanobish.com/api/Master/GetStudentWalletInfo";
+            HttpClient client = new HttpClient ();
+            string jsonData = JsonConvert.SerializeObject ( new { StudentID =  23 } );
+            StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
+            string result = await response.Content.ReadAsStringAsync ();
+            var wh = JsonConvert.DeserializeObject<List<WalletHistoryStudent>> ( result );
+            
+            for ( int i = 0; i < wh.Count; i++ )
+            {
+                if ( wh [ i ].IsPending == 1 )
+                {
+                    wh [ i ].pendingText = "Pending";
+                    wh [ i ].pendingColor = "#DFD535 ";//yellow
+                }
+                else if ( wh [ i ].IsPending == 0 )
+                {
+                    wh [ i ].pendingText = "Added";
+                    wh [ i ].pendingColor = "#63D342  ";//green
+                }
+                else if ( wh [ i ].IsPending == 2 )
+                {
+                    wh [ i ].pendingText = "Declined";
+                    wh [ i ].pendingColor = "#ED4E4E  ";//red
+                }
+            }
+            wh.Reverse ();
+            if(wh.Count == 0)
+            {
+                walletbacklbl.IsVisible = true;
+            }
+            else
+            {
+                StudentWalletHistoryListView.ItemsSource = wh;
+            }
+            
         }
     }
 }

@@ -6,7 +6,7 @@
         <Grid BackgroundColor="#FFFFFF" RowSpacing="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="250"/>
-                <RowDefinition Height="1300"/>
+                <RowDefinition Height="1000"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" RowSpacing="0">
                 <Grid.RowDefinitions>
@@ -37,9 +37,9 @@
 
             <Grid Grid.Row="1" RowSpacing="0" >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1.2*"/>
+                    <RowDefinition Height="1.5*"/>
                     <RowDefinition Height=".4*"/>
-                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="2*"/>
                     <RowDefinition Height=".4*"/>
                     <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
@@ -74,17 +74,21 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <BoxView BackgroundColor="#61B7FD" Grid.Row="0" Grid.ColumnSpan="4"/>
-                    <BoxView BackgroundColor="#61B7FD" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4"></BoxView>
+                    <BoxView BackgroundColor="#61B7FD" Grid.Row="0" Grid.ColumnSpan="5"/>
+                    <BoxView BackgroundColor="#61B7FD" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5"></BoxView>
                     <Label Text="Number" Grid.Column="0" FontSize="11" Grid.Row="1"  HorizontalOptions="Center" VerticalOptions="Center"  TextColor="white"/>
                     <Label Text="Amount" Grid.Column="1" FontSize="11" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center"  TextColor="white"/>
                     <Label Text="Date" Grid.Column="2" FontSize="11" Grid.Row="1"  HorizontalOptions="Center" VerticalOptions="Center"  TextColor="white"/>
                     <Label Text="Trx ID" Grid.Column="3" FontSize="11" Grid.Row="1"  HorizontalOptions="Center" VerticalOptions="Center"  TextColor="white"/>
-                    <Label Text="Recharge History" Grid.Row="0" Grid.ColumnSpan="4" HorizontalOptions="Center" VerticalOptions="Center" FontSize="15"  TextColor="white"/>
+                    <Label Text="Status" Grid.Row="1" Grid.Column="4" HorizontalOptions="Center" VerticalOptions="Center" FontSize="15"  TextColor="white"/>
+                    <Label Text="Recharge History" Grid.Row="0" Grid.ColumnSpan="5" HorizontalOptions="Center" VerticalOptions="Center" FontSize="15"  TextColor="white"/>
+                    
                 </Grid>
                 
                 <ScrollView Grid.Row="2">
+                    
                     <ListView BackgroundColor="White"  x:Name="StudentWalletHistoryListView" IsEnabled="False">
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -96,11 +100,14 @@
                                                 <ColumnDefinition Width="1*"/>
                                                 <ColumnDefinition Width="1*"/>
                                                 <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="1*"/>
                                             </Grid.ColumnDefinitions>
-                                            <Label Text="{Binding Number}" Grid.Column="0" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
-                                            <Label Text="{Binding Amount}" Grid.Column="1" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                            
+                                            <Label Text="{Binding Phonenumber}" Grid.Column="0" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                            <Label Text="{Binding RechargedAmount}" Grid.Column="1" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
                                             <Label Text="{Binding Date}" Grid.Column="2" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
                                             <Label Text="{Binding TrxID}" Grid.Column="3" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                            <Label Text="{Binding pendingText}" Grid.Column="4" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center" TextColor="{Binding pendingColor}"/>
                                         </Grid>
 
                                     </StackLayout>
@@ -109,6 +116,8 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </ScrollView>
+                <Label x:Name="walletbacklbl" Text="No Wallet History"  Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#5D5D5D"/>
+                
                 <Grid BackgroundColor="#9761FD" Grid.Row="3">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*" />
@@ -131,6 +140,7 @@
                     <Label Text="Date" FontSize="11" TextColor="white" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.Column="4" />
                     <Label Text="Rating" FontSize="11" TextColor="white" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.Column="5" />
                 </Grid>
+                <Label x:Name="historybacklbl" Text="No Tuition History"  Grid.Row="4" HorizontalOptions="Center" VerticalOptions="Center"/>
                 <ScrollView Grid.Row="4">
                     <ListView BackgroundColor="White"  x:Name="StudentHistoryListView" IsEnabled="False">
                         <ListView.ItemTemplate>
