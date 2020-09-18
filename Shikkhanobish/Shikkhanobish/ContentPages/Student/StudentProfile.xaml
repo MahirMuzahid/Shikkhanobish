@@ -101,17 +101,17 @@
                                 <ColumnDefinition Width="1.2*"/>
                             </Grid.ColumnDefinitions>
                             <BoxView  Grid.Row="0" Grid.Column="0" CornerRadius="20" BackgroundColor="#E9CAFF"/>
-                            <Label Text="{Binding StudentIDTxt}" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#543D55" FontSize="12" />
+                            <Label Text="{Binding StudentIDTxt}" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#543D55" FontSize="11" />
                             <BoxView  Grid.Row="0" Grid.Column="1" CornerRadius="20" BackgroundColor="#B7D1FF"/>
-                            <Label Text="{Binding  TotalTaken}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#3D4555" FontSize="12" />
+                            <Label Text="{Binding  TotalTaken}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#3D4555" FontSize="11" />
                             <BoxView  Grid.Row="0" Grid.Column="2" CornerRadius="20" BackgroundColor="#CAFFEB"/>
-                            <Label Text="{Binding Avarage}" Grid.Row="0" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#2C572F" FontSize="12" />
+                            <Label Text="{Binding Avarage}" Grid.Row="0" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#2C572F" FontSize="11" />
                             <BoxView  Grid.Row="1" Grid.Column="0" CornerRadius="20" BackgroundColor="#C0C2FF "/>
-                            <Label x:Name="IsPremimum" Grid.Row="1"  Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#5A5922" FontSize="12" />
+                            <Label Text="{Binding FreeMin}" Grid.Row="1"  Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#5A5922" FontSize="11" />
                             <BoxView  Grid.Row="1" Grid.Column="1" CornerRadius="20" BackgroundColor="#FF9595 "/>
-                            <Label Text="{Binding TotalTeacher}" Grid.Row="1"  Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#5A5922" FontSize="12" />
+                            <Label Text="{Binding TotalTeacher}" Grid.Row="1"  Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#5A5922" FontSize="11" />
                             <BoxView  Grid.Row="1" Grid.Column="2" CornerRadius="20" BackgroundColor="#FFC0F5 "/>
-                            <Label Text="{Binding AvailableMintxt}" Grid.Row="1" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#5A5922" FontSize="12" />
+                            <Label Text="{Binding AvailableMintxt}" Grid.Row="1" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#5A5922" FontSize="11" />
                         </Grid>
 
                         <Grid Grid.Row="0">

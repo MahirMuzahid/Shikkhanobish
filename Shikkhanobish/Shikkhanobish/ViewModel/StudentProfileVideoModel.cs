@@ -10,6 +10,7 @@ namespace Shikkhanobish
     internal class StudentProfileVideoModel
     {
         public string _studentID;
+        public string _freeMin;
         public string _name;
         public string _age;
         public string _institutionNmae;
@@ -38,9 +39,7 @@ namespace Shikkhanobish
             TotalTaken = "Total Minute: " + student.TotalTuitionTIme;
             TotalTeacher = "Total Tuition: " + student.TotalTeacherCount;
             AvailableMintxt = student.RechargedAmount * 2 + " - " + student.RechargedAmount * 4 + " min";
-
-
-
+            FreeMin = "Free Minuites: " + student.freeMin;
         }
        
 
@@ -74,7 +73,21 @@ namespace Shikkhanobish
                 }
             }
         }
-
+        public string FreeMin
+        {
+            get
+            {
+                return _freeMin;
+            }
+            set
+            {
+                if ( value != null )
+                {
+                    _freeMin = value;
+                    OnPropertyChanged ();
+                }
+            }
+        }
         public string Age
         {
             get
