@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Net.Http;
+using System.Text;
+using Newtonsoft.Json;
 using Plugin.Connectivity;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -9,41 +12,129 @@ namespace Shikkhanobish
     public partial class UpdateAccount : ContentPage
     {
         public Student Student;
+        public Teacher Teacher;
+        public bool isstudent;
+        string us, pss;
 
-        public UpdateAccount(Student student)
+        public UpdateAccount(Student student, Teacher t, bool IsStudent)
         {
             InitializeComponent();
-            Student = student;          
+            Student = student;
+            Teacher = t;
+            isstudent = IsStudent;
         }
 
-        
-        private void Button_Clicked(object sender, EventArgs e)
+        string s1, s2, s3, s4, s5, s6;
+        private async void Button_Clicked(object sender, EventArgs e)
         {
+            if(upbtn.Text == "Go Profile")
+            {
+                string url = "https://api.shikkhanobish.com/api/Master/GetInfoByLogin";
+                HttpClient client = new HttpClient ();
+                string jsonData = JsonConvert.SerializeObject ( new { UserName = s5 , Password = s6 } );
+                StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
+                HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
+                string result = await response.Content.ReadAsStringAsync ();
+                var s = JsonConvert.DeserializeObject<Student> ( result );
+                await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentProfile ( s ) ).ConfigureAwait ( false );
+            }
             try
             {
-                if ( !CrossConnectivity.IsSupported )
+                if ( CrossConnectivity.Current.IsConnected )
                 {
-                    if ( CurPassEntry.Text == Student.Password )
+                    if(isstudent == true)
                     {
-                        Student student = new Student ();
-                        student.UserName = UserEntry.Text;
-                        student.Password = PassEntry.Text;
-                        if ( AgeEntry.Text != null )
+                        if ( CurPassEntry.Text == Student.Password )
                         {
-                            student.Age = int.Parse ( AgeEntry.Text );
+                            
+                            if( NameEntry.Text == "" || NameEntry.Text == null )
+                            {
+                                s1 = Student.Name;
+                            }
+                            else
+                            {
+                                s1 = NameEntry.Text;
+                            }
+                            if ( AgeEntry.Text == "" || AgeEntry.Text == null )
+                            {
+                                s2 = ""+Student.Age;
+                            }
+                            else
+                            {
+                                s2 = AgeEntry.Text;
+                            }
+                            if ( ClassEntry.Text == "" || ClassEntry.Text == null )
+                            {
+                                s3 = Student.Class;
+                            }
+                            else
+                            {
+                                s3 = ClassEntry.Text;
+                            }
+                            if ( InstEntry.Text == "" || InstEntry.Text == null )
+                            {
+                                s4 = Student.InstitutionName;
+                            }
+                            else
+                            {
+                                s4 = InstEntry.Text;
+                            }
+                            if ( UserEntry.Text == "" || UserEntry.Text == null )
+                            {
+                                s5 = Student.UserName;
+                            }
+                            else
+                            {
+                                s5 = UserEntry.Text;
+                            }
+                            if ( PassEntry.Text == "" || PassEntry.Text == null )
+                            {
+                                s6 = Student.Password;
+                            }
+                            else
+                            {
+                                s6 = PassEntry.Text;
+                            }
+                            string url = "https://api.shikkhanobish.com/api/Master/UpdateStudentInfo";
+                            HttpClient client = new HttpClient ();
+                            string jsonData = JsonConvert.SerializeObject ( new { StudentID = Student.StudentID, Name = s1 , Age = s2, Class = s3 , InstitutionName = s4 , UserName = s5, Password = s6 } );
+                            StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
+                            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
+                            string result = await response.Content.ReadAsStringAsync ();
+                            var r = JsonConvert.DeserializeObject<Response> ( result );
+
+                            //Api call to update user info
+                            
+                            Errortxt.Text = "Update Done";
+                            upbtn.Text = "Go Profile";
                         }
-                        student.Name = NameEntry.Text;
-                        student.InstitutionName = InstEntry.Text;
-                        student.Class = ClassEntry.Text;
-
-                        //Api call to update user info
-
-                        Errortxt.Text = "Update Done";
+                        else
+                        {
+                            Errortxt.Text = "Password dosen't match";
+                        }
                     }
-                    else
+                    if(isstudent == false )
                     {
-                        Errortxt.Text = "Password dosen't match";
+                        if ( CurPassEntry.Text == Teacher.Password )
+                        {
+                            string url = "https://api.shikkhanobish.com/api/Master/UpdateTeacherInfo";
+                            HttpClient client = new HttpClient ();
+                            string jsonData = JsonConvert.SerializeObject ( new { TeacherID = Teacher.TeacherID , TeacherName = NameEntry.Text , Age = AgeEntry.Text , Class = ClassEntry.Text , InstitutionName = InstEntry.Text , UserName = UserEntry.Text , Password = PassEntry.Text } );
+                            StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
+                            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
+                            string result = await response.Content.ReadAsStringAsync ();
+                            var r = JsonConvert.DeserializeObject<Response> ( result );
+
+                            //Api call to update user info
+                             
+                            Errortxt.Text = "Update Done";
+                        }
+                        else
+                        {
+                            Errortxt.Text = "Password dosen't match";
+                        }
                     }
+                    
                 }
                 else
                 {
@@ -53,9 +144,7 @@ namespace Shikkhanobish
             catch
             {
                 Errortxt.Text = "Check network connection";
-            }
-            
-            
+            }            
         }
     }
 }

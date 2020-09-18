@@ -65,7 +65,7 @@ namespace Shikkhanobish.ContentPages
         {
             string url = "https://api.shikkhanobish.com/api/Master/GetTuitionHistoryStudent";
             HttpClient client = new HttpClient ();
-            string jsonData = JsonConvert.SerializeObject ( new { StundentID = 23 } );
+            string jsonData = JsonConvert.SerializeObject ( new { StudentID = 23 } );
             StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
             var result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );

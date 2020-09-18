@@ -40,13 +40,13 @@ namespace Shikkhanobish.ContentPages
                 return;
             }
             setOnTuitionON ();
-            ConnectWithStudent ( Info.Student.StundentID , Info.Teacher.TeacherID , true );
+            ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , true );
             await Application.Current.MainPage.Navigation.PushModalAsync ( new TuitionPageTeacher ( Info ) ).ConfigureAwait ( false );
         }
         protected  override bool OnBackButtonPressed ( )
         {
             setOnTuitionOFF ();
-            ConnectWithStudent ( Info.Student.StundentID , Info.Teacher.TeacherID , false );
+            ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , false );
             popPage ();
             //End Call session
             return true;
@@ -59,7 +59,7 @@ namespace Shikkhanobish.ContentPages
         private async void canclebtn_Clicked ( object sender , EventArgs e )
         {
             setOnTuitionOFF ();
-            ConnectWithStudent ( Info.Student.StundentID , Info.Teacher.TeacherID , false );
+            ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , false );
             await Application.Current.MainPage.Navigation.PopModalAsync ();
         }
 

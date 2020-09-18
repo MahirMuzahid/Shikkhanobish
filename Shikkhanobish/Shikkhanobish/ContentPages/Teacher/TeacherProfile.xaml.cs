@@ -187,7 +187,7 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_6(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new UpdateAccount(_Student)).ConfigureAwait( false );
+            await Application.Current.MainPage.Navigation.PushModalAsync(new UpdateAccount(_Student, teacher ,false) ).ConfigureAwait( false );
         }
 
         private async void Button_Clicked_7(object sender, EventArgs e)
@@ -273,7 +273,7 @@ namespace Shikkhanobish
                         Info.SubjectName = subject;
                         Info.SessionID = SessionId;
                         Info.UserToken = UserToken;
-                        Info.Student.StundentID = studentID;
+                        Info.Student.StudentID = studentID;
                         Info.Teacher = teacher;
                         Info.Teacher.Amount = cost;
                         await Application.Current.MainPage.Navigation.PushModalAsync ( new CallingPageForTeacher ( Info ) ).ConfigureAwait ( false );

@@ -5,6 +5,10 @@ using Shikkhanobish.Model;
 using Plugin.Connectivity;
 using Rg.Plugins.Popup.Extensions;
 using Shikkhanobish.ContentPages;
+using System.Net.Http;
+using Newtonsoft.Json;
+using System.Text;
+using Xamarin.Essentials;
 
 namespace Shikkhanobish
 {
@@ -17,20 +21,11 @@ namespace Shikkhanobish
         {
             InitializeComponent();
             stuent = st;
-            StudentIdlbl.Text = "4. Enter " + st.StundentID + " as reference code";
+            StudentIdlbl.Text = "4. Enter " + st.StudentID + " as reference code";
 
             if ( CrossConnectivity.Current.IsConnected )
             {
-                for ( int i = 0; i < 20; i++ )
-                {
-                    StudentBalance SB = new StudentBalance ();
-                    SB.Number = 0235903425;
-                    SB.Amount = 23;
-                    SB.Date = "20.03.2021";
-                    SB.TrxID = "TSCV236YG2KJ3265H";
-                    sb.Add ( SB );
-                }
-                StudentWalletHistoryListView.ItemsSource = sb;
+                GetWalletInfo ();               
             }
             else
             {
@@ -45,7 +40,8 @@ namespace Shikkhanobish
             {
                 if ( CrossConnectivity.Current.IsConnected )
                 {
-                    Navigation.PushPopupAsync ( new PopUpForRechargeAccount ( stuent.Password ) );
+                    
+                    Navigation.PushPopupAsync ( new PopUpForRechargeAccount ( stuent.Password, stuent.StudentID ) );
                 }
                 else
                 {
@@ -57,18 +53,44 @@ namespace Shikkhanobish
                 Errorlbl.Text = "Check internet connection";
             }
             
+        }       
+
+        public async void GetWalletInfo()
+        {
+            string url = "https://api.shikkhanobish.com/api/Master/GetStudentWalletInfo";
+            HttpClient client = new HttpClient ();
+            string jsonData = JsonConvert.SerializeObject ( new { StudentID = stuent.StudentID  } );
+            StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
+            string result = await response.Content.ReadAsStringAsync ();
+            var wh = JsonConvert.DeserializeObject<List<WalletHistoryStudent>> ( result );
+
+            for(int i = 0; i < wh.Count; i++ )
+            {
+                if(wh[i].IsPending == 1)
+                {
+                    wh [ i ].pendingText = "Pending";
+                    wh [ i ].pendingColor = "#DFD535 ";//yellow
+                }
+                else if ( wh [ i ].IsPending == 0 )
+                {
+                    wh [ i ].pendingText = "Added";
+                    wh [ i ].pendingColor = "#63D342  ";//green
+                }
+                else if ( wh [ i ].IsPending == 2 )
+                {
+                    wh [ i ].pendingText = "Declined";
+                    wh [ i ].pendingColor = "#ED4E4E  ";//red
+                }
+            }
+            MainThread.BeginInvokeOnMainThread ( ( ) => { StudentWalletHistoryListView.ItemsSource = wh; } );
+            
         }
 
         private void Button_Clicked ( object sender , System.EventArgs e )
         {
-            if ( CrossConnectivity.Current.IsConnected )
-            {
-                Navigation.PushPopupAsync ( new PopUpForRechargeAccount ( stuent.Password ) );
-            }
-            else
-            {
-                Errorlbl.Text = "Check internet connection";
-            }
+            GetWalletInfo ();
+
         }
     }
 }

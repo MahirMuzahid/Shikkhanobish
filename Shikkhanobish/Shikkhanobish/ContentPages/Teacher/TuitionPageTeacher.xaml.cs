@@ -45,7 +45,7 @@ namespace Shikkhanobish.ContentPages
         }
         public async Task CutVideoCAll ( )
         {
-            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/cutCall?stop=" + 1 + "&teacherID=" + info.Teacher.TeacherID + "&studentID=" + info.Student.StundentID + "&isStudent=" + false;
+            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/cutCall?stop=" + 1 + "&teacherID=" + info.Teacher.TeacherID + "&studentID=" + info.Student.StudentID + "&isStudent=" + false;
             HttpClient client = new HttpClient ();
             StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );

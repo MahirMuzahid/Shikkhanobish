@@ -3,7 +3,7 @@
     internal class TuitionHistoryTeacher
     {
         public int TeacherID { get; set; }
-        public int TuitionStundentID { get; set; }
+        public int TuitionStudentID { get; set; }
         public string Class { get; set; }
         public string Subject { get; set; }
         public string Time { get; set; }

@@ -20,25 +20,15 @@ namespace Shikkhanobish
 
         public StudentProfile(Student student)
         {
-            StudentID = student.StundentID;
+            StudentID = student.StudentID;
             this.IsPresented = false;
             _Student = student;
             InitializeComponent();
             BindingContext = new StudentProfileVideoModel(student);
-            GetPremiumStudent(student.StundentID);
+            //GetPremiumStudent(student.StudentID);
         }
 
-        public async void GetPremiumStudent(int S_id)
-        {
-            string url = "https://api.shikkhanobish.com/api/Master/GetPremiumStudent";
-            HttpClient client = new HttpClient();
-            string jsonData = JsonConvert.SerializeObject(new { StudentID = S_id });
-            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
-            string result = await response.Content.ReadAsStringAsync();
-            var premiumStudents = JsonConvert.DeserializeObject<PremiumStudents>(result);
-            IsPremimum.Text = "Student";
-        }
+        
         protected override bool OnBackButtonPressed ( )
         {
             Navigation.PushPopupAsync ( new PopUpForTextAlert ( "" , "" , true ) );
@@ -56,7 +46,7 @@ namespace Shikkhanobish
             {
                 if ( CrossConnectivity.Current.IsConnected )
                 {
-                    await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentHistory ( _Student.StundentID ) ).ConfigureAwait ( false );
+                    await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentHistory ( _Student.StudentID ) ).ConfigureAwait ( false );
                 }
             }
             catch
@@ -68,7 +58,8 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_6(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new UpdateAccount(_Student)).ConfigureAwait( false );
+            Teacher t = new Teacher();
+            await Application.Current.MainPage.Navigation.PushModalAsync(new UpdateAccount(_Student, t, true)).ConfigureAwait( false );
         }
 
         private async void Button_Clicked_7(object sender, EventArgs e)

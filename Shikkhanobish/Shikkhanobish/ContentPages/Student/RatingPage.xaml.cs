@@ -151,7 +151,7 @@ namespace Shikkhanobish.ContentPages
                 TeacherID = info.Teacher.TeacherID,
                 IsActive = 0,
                 IsOnTuition = 0,
-                StudentID = info.Student.StundentID,
+                StudentID = info.Student.StudentID,
                 Rating = info.GivenRating,
                 InAppMin = info.StudyTimeInAPp,
                 Tuition_Point = tuitionPoint ,
@@ -204,7 +204,7 @@ namespace Shikkhanobish.ContentPages
         {
             string url = "https://api.shikkhanobish.com/api/Master/SetPending";
             HttpClient client = new HttpClient ();
-            string jsonData = JsonConvert.SerializeObject ( new {  StudentID = info.Student.StundentID , TeacherName = info.Teacher.TeacherName, TeacherID = info.Teacher.TeacherID , Class = info.Class, Subject = info.Subject , Cost = calculate.CalculateCost ( info ) } );
+            string jsonData = JsonConvert.SerializeObject ( new {  StudentID = info.Student.StudentID , TeacherName = info.Teacher.TeacherName, TeacherID = info.Teacher.TeacherID , Class = info.Class, Subject = info.Subject , Cost = calculate.CalculateCost ( info ) } );
             StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
             string result = await response.Content.ReadAsStringAsync ();
@@ -213,7 +213,7 @@ namespace Shikkhanobish.ContentPages
         {
             string url = "https://api.shikkhanobish.com/api/Master/DeletePending";
             HttpClient client = new HttpClient ();
-            string jsonData = JsonConvert.SerializeObject ( new { StudentID = info.Student.StundentID } );
+            string jsonData = JsonConvert.SerializeObject ( new { StudentID = info.Student.StudentID } );
             StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
             string result = await response.Content.ReadAsStringAsync ();

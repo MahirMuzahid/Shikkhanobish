@@ -131,7 +131,7 @@ namespace Shikkhanobish.ContentPages
 
         public async Task CutVideoCAll (  )
         {
-            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/cutCall?stop=" + 1 +"&teacherID=" + info.Teacher.TeacherID + "&studentID=" + info.Student.StundentID + "&isStudent=" + true;
+            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/cutCall?stop=" + 1 +"&teacherID=" + info.Teacher.TeacherID + "&studentID=" + info.Student.StudentID + "&isStudent=" + true;
             HttpClient client = new HttpClient ();
             StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
@@ -168,7 +168,7 @@ namespace Shikkhanobish.ContentPages
                 cutCallFirstTime++;
                 if ( isStudent == false  && cutCallFirstTime == 1)
                 {
-                    if ( info.Student.StundentID == studentID )
+                    if ( info.Student.StudentID == studentID )
                     {
                         CrossOpenTok.Current.EndSession ();
                         _connection.StopAsync ();

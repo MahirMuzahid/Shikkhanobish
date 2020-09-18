@@ -27,7 +27,7 @@ namespace Shikkhanobish
         public StudentProfileVideoModel(Student student)
         {
             Name = student.Name;
-            StudentIDTxt = "ID: " + student.StundentID;
+            StudentIDTxt = "ID: " + student.StudentID;
             Age = "Age : " + student.Age;
             Class = "Class : " + student.Class;
             InstitutionName = "" + student.InstitutionName;

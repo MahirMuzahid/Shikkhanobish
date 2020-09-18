@@ -56,7 +56,7 @@ namespace Shikkhanobish.ContentPages
                 return;
             }
             await ConnectToServer ().ConfigureAwait ( false );
-            await ConnectWithTeacher ( SessionID , Token , Info.Student.StundentID , Info.Teacher.TeacherID , Info.SubjectName , Info.Class , Info.Teacher.Amount , Info.Teacher.TeacherName ) .ConfigureAwait ( false );    
+            await ConnectWithTeacher ( SessionID , Token , Info.Student.StudentID , Info.Teacher.TeacherID , Info.SubjectName , Info.Class , Info.Teacher.Amount , Info.Teacher.TeacherName ) .ConfigureAwait ( false );    
             
         }
 

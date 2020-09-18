@@ -81,7 +81,7 @@ namespace Shikkhanobish
                                    {
                                        string urlT = "https://api.shikkhanobish.com/api/Master/GetPending";
                                        HttpClient clientT = new HttpClient ();
-                                       string jsonDataT = JsonConvert.SerializeObject ( new { StudentID = student.StundentID } );
+                                       string jsonDataT = JsonConvert.SerializeObject ( new { StudentID = student.StudentID } );
                                        StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
                                        HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
                                        string resultT = await responseT.Content.ReadAsStringAsync ();

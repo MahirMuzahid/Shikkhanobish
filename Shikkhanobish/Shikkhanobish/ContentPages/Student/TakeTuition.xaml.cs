@@ -28,7 +28,7 @@ namespace Shikkhanobish
             transferNow.Student.UserName = username;
             transferNow.Student.Password = pass;
             transferNow.Student.Name = StudentName;
-            transferNow.Student.StundentID = StudentID;
+            transferNow.Student.StudentID = StudentID;
             ClassPicker.SelectedIndex = 7;
             ClassPicker.Items.Add("Class 6");
             ClassPicker.Items.Add("Class 7");
