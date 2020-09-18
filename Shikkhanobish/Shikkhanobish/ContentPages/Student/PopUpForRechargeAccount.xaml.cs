@@ -57,7 +57,8 @@ namespace Shikkhanobish.ContentPages
                         MainThread.BeginInvokeOnMainThread ( ( ) => { errorlbl.Text = "Some error occured! Please connect with 01833368125"; } );
 
                     }
-                    sendbtn.Text = "Ok";
+                    MainThread.BeginInvokeOnMainThread ( ( ) => { sendbtn.Text = "Ok"; } );
+                    
                 }
             }
             else

@@ -25,6 +25,7 @@ namespace Shikkhanobish
 
             if ( CrossConnectivity.Current.IsConnected )
             {
+               
                 GetWalletInfo ();               
             }
             else
@@ -83,14 +84,15 @@ namespace Shikkhanobish
                     wh [ i ].pendingColor = "#ED4E4E  ";//red
                 }
             }
+            wh.Reverse ();
             MainThread.BeginInvokeOnMainThread ( ( ) => { StudentWalletHistoryListView.ItemsSource = wh; } );
             
         }
 
         private void Button_Clicked ( object sender , System.EventArgs e )
         {
+            rfbx.BackgroundColor = Color.FromHex ( "#618C23" );
             GetWalletInfo ();
-
         }
     }
 }
