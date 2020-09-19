@@ -38,19 +38,20 @@
             <Grid Grid.Row="1" RowSpacing="0" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height=".1*"/>
                     <RowDefinition Height=".4*"/>
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height=".4*"/>
                     <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
-                <CarouselView x:Name="cv" Grid.Row="0">
+                <CarouselView x:Name="cv" Grid.Row="0" Grid.RowSpan="2">
                     <CarouselView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="2*"/>
                                     <RowDefinition Height="1*"/>
                                     <RowDefinition Height="1*"/>
+                                    <RowDefinition Height=".2*"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="2*"/>
@@ -59,12 +60,29 @@
                                 </Grid.ColumnDefinitions>
                                 <Image Source="{Binding ImageSource}" Grid.RowSpan="3" Grid.ColumnSpan="3" Aspect="AspectFill"/>
                                 <Label Text="{Binding Text}" Grid.Row="0" Grid.Column="0" FontSize="15" HorizontalOptions="Center" VerticalOptions="End" TextColor="{Binding TextColors}" />
-                                <Label Text="{Binding info}" Grid.Row="1" Grid.Column="0"  FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Start" TextColor="{Binding TextColors}" />
+                                <Label Text="{Binding info}" Grid.Row="1" Grid.Column="0"  FontSize="{Binding fontSize}" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Start" TextColor="{Binding TextColors}" Margin="10"/>
+                               
                             </Grid>
                         </DataTemplate>
                     </CarouselView.ItemTemplate>
                 </CarouselView>
-                <Grid Grid.Row="1" RowSpacing="0">
+                <Grid Grid.Row="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <BoxView x:Name="cvboxf" BackgroundColor="DarkCyan"  Grid.Column="1" Margin="14,3,14,3" CornerRadius="15"/>
+                        <BoxView x:Name="cvboxs"  Grid.Column="2" Margin="14,3,14,3" CornerRadius="15"/>
+                        <BoxView x:Name="cvboxt"  Grid.Column="3" Margin="14,3,14,3" CornerRadius="15"/>
+                        <BoxView x:Name="cvboxfo"  Grid.Column="4" Margin="14,3,14,3" CornerRadius="15"/>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="2" RowSpacing="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
@@ -87,7 +105,7 @@
                     
                 </Grid>
                 
-                <ScrollView Grid.Row="2">
+                <ScrollView Grid.Row="3">
                     
                     <ListView BackgroundColor="White"  x:Name="StudentWalletHistoryListView" IsEnabled="False">
                         <ListView.ItemTemplate>
@@ -116,9 +134,9 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </ScrollView>
-                <Label x:Name="walletbacklbl" Text="No Wallet History"  Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#5D5D5D"/>
+                <Label x:Name="walletbacklbl" Text="No Wallet History"  Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#5D5D5D"/>
                 
-                <Grid BackgroundColor="#9761FD" Grid.Row="3">
+                <Grid BackgroundColor="#9761FD" Grid.Row="4">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="1*" />
@@ -141,7 +159,7 @@
                     <Label Text="Rating" FontSize="11" TextColor="white" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.Column="5" />
                 </Grid>
                 <Label x:Name="historybacklbl" Text="No Tuition History"  Grid.Row="4" HorizontalOptions="Center" VerticalOptions="Center"/>
-                <ScrollView Grid.Row="4">
+                <ScrollView Grid.Row="5">
                     <ListView BackgroundColor="White"  x:Name="StudentHistoryListView" IsEnabled="False">
                         <ListView.ItemTemplate>
                             <DataTemplate>

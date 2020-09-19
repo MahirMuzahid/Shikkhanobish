@@ -10,5 +10,6 @@ namespace Shikkhanobish.Model
         public string info { get; set; }
         public string ImageSource { get; set; }
         public string TextColors { get; set; }
+        public int fontSize { get; set; }
     }
 }

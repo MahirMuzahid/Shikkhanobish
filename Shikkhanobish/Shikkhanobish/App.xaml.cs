@@ -9,8 +9,8 @@ namespace Shikkhanobish
         public App()
         {
             InitializeComponent ();
-           // MainPage = new MainPage();
-            MainPage = new ParentsProfile ();
+           MainPage = new MainPage();
+           // MainPage = new ParentsProfile ();
         }
 
         protected override void OnStart()

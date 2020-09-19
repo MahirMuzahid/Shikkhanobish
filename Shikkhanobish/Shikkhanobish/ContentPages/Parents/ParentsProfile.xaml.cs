@@ -16,8 +16,12 @@ namespace Shikkhanobish.ContentPages
     public partial class ParentsProfile : ContentPage
     {
         private List<TuitionHistoryStudent> studentHistory = new List<TuitionHistoryStudent> ();
-        public ParentsProfile ( )
+        int swipcounter;
+        Student student;
+        public ParentsProfile ( Student s)
         {
+            student = s;
+            swipcounter = 0;
             InitializeComponent ();
             List<ParentsCardInfo> Pci = new List<ParentsCardInfo> ();
             walletbacklbl.IsVisible = false;
@@ -27,28 +31,68 @@ namespace Shikkhanobish.ContentPages
             ParentsCardInfo pci3 = new ParentsCardInfo ();
             ParentsCardInfo pci4 = new ParentsCardInfo ();
 
-            pci1.ImageSource = "savedmoney.jpg";
-            pci1.Text = "Account Balence";
-            pci1.info = "500 Taka";
-            pci1.TextColors = "#FFFFFFFF";
-            Pci.Add (pci1);
-            pci2.ImageSource = "spentmoney.jpg";
-            pci2.Text = "Total Spent";
-            pci2.info = "1200 Taka";
+            pci1.ImageSource = "rechargeins.jpg";
+            pci1.Text = "Recharge Instruction";
+            pci1.info = "Send money to 01833368125 and use reference code 26";//have to rewrite
+            pci1.TextColors = "#FF000000";
+            pci1.fontSize = 13;
+            Pci.Add ( pci1 );
+            pci2.ImageSource = "savedmoney.jpg";
+            pci2.Text = "Account Balence";
+            pci2.info = "500 Taka";
             pci2.TextColors = "#FFFFFFFF";
-            Pci.Add ( pci2 );
-            pci3.ImageSource = "topsubject.jpg";
-            pci3.Text = "Favourite Subject";
-            pci3.info = "Physic First Paper";
-            pci3.TextColors = "#FF000000";
+            pci2.fontSize = 18;
+            Pci.Add (pci2);
+            pci3.ImageSource = "spentmoney.jpg";
+            pci3.Text = "Total Spent";
+            pci3.info = "1200 Taka";
+            pci3.fontSize = 18;
+            pci3.TextColors = "#FFFFFFFF";
             Pci.Add ( pci3 );
             pci4.ImageSource = "topsubject.jpg";
             pci4.Text = "Favourite Subject";
             pci4.info = "Physic First Paper";
             pci4.TextColors = "#FF000000";
+            pci4.fontSize = 18;
             Pci.Add ( pci4 );
+           
             cv.ItemsSource = Pci;
+            cv.CurrentItemChanged += OnCurrentItemChanged;
             callInfo ();
+        }
+        string offColor = "#D3D3D3", onColor = "#474747";
+        void OnCurrentItemChanged ( object sender , CurrentItemChangedEventArgs e )
+        {
+            swipcounter++;
+            ParentsCardInfo a = ( ParentsCardInfo ) e.CurrentItem;
+            if(a.Text[0] == 'R')
+            {
+                cvboxf.BackgroundColor = Color.FromHex ( onColor);
+                cvboxs.BackgroundColor = Color.FromHex ( offColor );
+                cvboxt.BackgroundColor = Color.FromHex ( offColor );
+                cvboxfo.BackgroundColor = Color.FromHex ( offColor );
+            }
+            if (  a.Text [ 0 ] == 'A' )
+            {
+                cvboxf.BackgroundColor = Color.FromHex ( offColor );
+                cvboxs.BackgroundColor = Color.FromHex ( onColor );
+                cvboxt.BackgroundColor = Color.FromHex ( offColor );
+                cvboxfo.BackgroundColor = Color.FromHex ( offColor );
+            }
+            if (  a.Text [ 0 ] == 'T' )
+            {
+                cvboxf.BackgroundColor = Color.FromHex ( offColor );
+                cvboxs.BackgroundColor = Color.FromHex ( offColor );
+                cvboxt.BackgroundColor = Color.FromHex ( onColor );
+                cvboxfo.BackgroundColor = Color.FromHex ( offColor );
+            }
+            if (  a.Text [ 0 ] == 'F' )
+            {
+                cvboxf.BackgroundColor = Color.FromHex ( offColor );
+                cvboxs.BackgroundColor = Color.FromHex ( offColor );
+                cvboxt.BackgroundColor = Color.FromHex ( offColor );
+                cvboxfo.BackgroundColor = Color.FromHex ( onColor );
+            }
         }
         public async void callInfo()
         {
