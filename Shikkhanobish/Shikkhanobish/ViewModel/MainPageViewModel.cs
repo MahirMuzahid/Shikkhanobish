@@ -15,6 +15,9 @@ using Xamarin.Essentials;
 using Javax.Net.Ssl;
 using Xamarin.Forms.OpenTok;
 using System.Threading.Tasks;
+using Rg.Plugins.Popup.Extensions;
+using Android.Content.Res;
+using Shikkhanobish.ContentPages.Parents;
 
 namespace Shikkhanobish
 {
@@ -34,7 +37,18 @@ namespace Shikkhanobish
         {
             loginText = "Login";
         }
+        public Command EnterParensPortal
+        {
+            get
+            {
+                return new Command ( async ( ) =>
+                {
 
+                    await Application.Current.MainPage.Navigation.PushPopupAsync ( new PopUpForLoginParents () ).ConfigureAwait ( false );
+
+                } );
+            }
+        }
         public Command Login
         {
             get

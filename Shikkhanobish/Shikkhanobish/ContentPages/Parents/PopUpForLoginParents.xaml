@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             x:Class="Shikkhanobish.ContentPages.Parents.PopUpForLoginParents">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+      PositionIn="Center"
+      PositionOut="Center"
+      ScaleIn="1.2"
+      ScaleOut="0.8"
+      DurationIn="400"
+      DurationOut="300"
+      EasingIn="SinOut"
+      EasingOut="SinIn"
+      HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+    <Frame CornerRadius="20" Margin="20,0,20,0" VerticalOptions="Center">
+        <Grid BackgroundColor="#FBFBFB">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height=".5*"/>
+            </Grid.RowDefinitions>
+            <Label Text="Parents Login" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="18"/>
+            <Entry x:Name="pcodeenty" Placeholder="Parent Code" Grid.Row="1"/>
+            <Entry x:Name="passenty" Placeholder="Password" Grid.Row="2"/>
+            <Button BackgroundColor="#00734101" Grid.Row="3" HorizontalOptions="End" VerticalOptions="Start" Padding="10,0" Margin="0,0,15,0" Clicked="Button_Clicked_2"/>
+            <Label Text="Forgot Password?" Grid.Row="3"  HorizontalOptions="End" VerticalOptions="Start"/>
+            <Button x:Name="loginbtn" Text="Login" Grid.Row="4" BackgroundColor="#7EEEBB" CornerRadius="20" Clicked="Button_Clicked"/>
+            <Button Text="Register" Grid.Row="5" BackgroundColor="#7BE6F2" CornerRadius="20" Clicked="Button_Clicked_1"/>
+            <Label x:Name="errorlbl" Text="Error" Grid.Row="6" TextColor="#FF0000"/>
+        </Grid>
+    </Frame>
+
+</pages:PopupPage>

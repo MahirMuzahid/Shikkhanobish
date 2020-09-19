@@ -10,7 +10,7 @@
     <Grid Padding="40">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*" />
-            <RowDefinition Height=".3*" />
+            <RowDefinition Height=".6*" />
             <RowDefinition Height=".6*" />
             <RowDefinition Height=".6*" />
             <RowDefinition Height=".4*" />
@@ -19,6 +19,17 @@
         </Grid.RowDefinitions>
 
         <Label Text="{Binding ErrorText}" Grid.Row="1" TextColor="Red" />
+        <Label HorizontalOptions="End" Grid.Row="1" VerticalOptions="End">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Parents Portal" TextColor="#B27C53">
+                        <Span.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding EnterParensPortal}" />
+                        </Span.GestureRecognizers>
+                    </Span>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
         <Entry x:Name="Username" Placeholder="User Name"
                HorizontalOptions="FillAndExpand"
                Text="{Binding UserName}"
@@ -46,12 +57,12 @@
                 BorderWidth="1"
                 BorderColor="#626262"
                 CornerRadius="25"
-                Clicked="Button_Clicked" />
+                Clicked="Button_Clicked" Margin="30,0" />
         <Button x:Name="RegisterStudent"
                 Text="Register"
                 Command="{Binding RegisterStudent}"
                 Grid.Row="6"
                 CornerRadius="25"
-                BackgroundColor="#8A4EE6" TextColor="#FFFFFF"></Button>
+                BackgroundColor="#8A4EE6" TextColor="#FFFFFF" Margin="30,0"></Button>
     </Grid>
 </ContentPage>

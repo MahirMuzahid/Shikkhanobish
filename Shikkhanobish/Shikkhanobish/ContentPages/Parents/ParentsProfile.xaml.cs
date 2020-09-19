@@ -17,12 +17,15 @@ namespace Shikkhanobish.ContentPages
     {
         private List<TuitionHistoryStudent> studentHistory = new List<TuitionHistoryStudent> ();
         int swipcounter;
+        Parent parentinfo;
         Student student;
-        public ParentsProfile ( Student s)
+        public ParentsProfile ( Parent p)
         {
-            student = s;
-            swipcounter = 0;
             InitializeComponent ();
+
+            parentinfo = p;
+            getstudnetinfo ();                      
+            swipcounter = 0;           
             List<ParentsCardInfo> Pci = new List<ParentsCardInfo> ();
             walletbacklbl.IsVisible = false;
             historybacklbl.IsVisible = false;
@@ -59,6 +62,16 @@ namespace Shikkhanobish.ContentPages
             cv.ItemsSource = Pci;
             cv.CurrentItemChanged += OnCurrentItemChanged;
             callInfo ();
+        }
+        public async Task getstudnetinfo()
+        {
+            string url = "https://api.shikkhanobish.com/api/Master/GetInfoByStudentID";
+            HttpClient client = new HttpClient ();
+            string jsonData = JsonConvert.SerializeObject ( new { StudentID = parentinfo.StudentID } );// T.D: have to add student ID
+            StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
+            var result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
+            student = JsonConvert.DeserializeObject<Student> ( result );
         }
         string offColor = "#D3D3D3", onColor = "#474747";
         void OnCurrentItemChanged ( object sender , CurrentItemChangedEventArgs e )

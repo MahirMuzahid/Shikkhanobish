@@ -152,7 +152,7 @@ namespace Shikkhanobish.ContentPages
         {
             if(info.Teacher.IsOnTuition == 0)
             {
-                Navigation.PushPopupAsync ( new PopUpForSelectedTeacher ( info ) );
+                await Navigation.PushPopupAsync ( new PopUpForSelectedTeacher ( info ) ).ConfigureAwait ( false );
             }
                       
         }
