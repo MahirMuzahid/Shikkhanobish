@@ -33,6 +33,7 @@ namespace Shikkhanobish.ContentPages
             ft++;
             if(ft == 1)
             {
+
                 if ( passlbl.Text != password )
                 {
                     errorlbl.Text = "Incorrect password!";

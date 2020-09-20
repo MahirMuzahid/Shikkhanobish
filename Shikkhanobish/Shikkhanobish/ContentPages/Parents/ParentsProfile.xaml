@@ -30,7 +30,8 @@
                 <Label Text="Parents Code: 1345" Grid.Row="3" Grid.Column="0" FontSize="14" FontAttributes="Italic" Margin="20,0,0,0"/>
                 <Label Text="Student Name: Iqbal Hossain" Grid.Row="4" Grid.Column="0" FontSize="14" FontAttributes="Italic" Margin="20,0,0,0"/>
                 <Label Text="Father" Grid.Row="5" Grid.Column="0" FontSize="14" FontAttributes="Italic" Margin="20,0,0,0" />
-                <Button Text="Recharge Account" Grid.Row="6" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center" FontSize="11" BackgroundColor="#41D274" Margin="20,0,0,6" CornerRadius="10" TextColor="#FFFFFF" FontAttributes="Bold"/>
+                <Button Text="Recharge Account" Grid.Row="6" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center" FontSize="11" BackgroundColor="#41D274" Margin="20,0,0,6" CornerRadius="10" TextColor="#FFFFFF" FontAttributes="Bold" Clicked="Button_Clicked"/>
+                <Label x:Name="Errorlbl" Grid.Row="6" HorizontalOptions="End" VerticalOptions="Center" TextColor="Red"/>
 
 
             </Grid>
@@ -84,7 +85,7 @@
                 </Grid>
                 <Grid Grid.Row="2" RowSpacing="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="2*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -102,7 +103,8 @@
                     <Label Text="Trx ID" Grid.Column="3" FontSize="11" Grid.Row="1"  HorizontalOptions="Center" VerticalOptions="Center"  TextColor="white"/>
                     <Label Text="Status" Grid.Row="1" Grid.Column="4" HorizontalOptions="Center" VerticalOptions="Center" FontSize="15"  TextColor="white"/>
                     <Label Text="Recharge History" Grid.Row="0" Grid.ColumnSpan="5" HorizontalOptions="Center" VerticalOptions="Center" FontSize="15"  TextColor="white"/>
-                    
+                    <Button Text="Refrsh" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" HorizontalOptions="End" VerticalOptions="Center" CornerRadius="10" Margin="7,3,7,3" FontSize="10" BackgroundColor="#408ED9" TextColor="#FFFFFF" Padding="7,0" Clicked="Button_Clicked_1"/>
+
                 </Grid>
                 
                 <ScrollView Grid.Row="3">
@@ -138,7 +140,7 @@
                 
                 <Grid BackgroundColor="#9761FD" Grid.Row="4">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="2*" />
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>

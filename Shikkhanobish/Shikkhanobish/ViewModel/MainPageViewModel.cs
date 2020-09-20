@@ -37,18 +37,7 @@ namespace Shikkhanobish
         {
             loginText = "Login";
         }
-        public Command EnterParensPortal
-        {
-            get
-            {
-                return new Command ( async ( ) =>
-                {
-
-                    await Application.Current.MainPage.Navigation.PushPopupAsync ( new PopUpForLoginParents () ).ConfigureAwait ( false );
-
-                } );
-            }
-        }
+        
         public Command Login
         {
             get

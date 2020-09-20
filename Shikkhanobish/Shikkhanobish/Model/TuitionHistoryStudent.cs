@@ -8,8 +8,9 @@
         public string Subject { get; set; }
         public string Time { get; set; }
         public string Date { get; set; }
-        public int Ratting { get; set; }
+        public int Ratting { get; set; }        
         public string Teacher_Name { get; set; }
-        
+        public int Cost { get; set; }
+
     }
 }

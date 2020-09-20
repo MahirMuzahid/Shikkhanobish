@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Rg.Plugins.Popup.Extensions;
+using Shikkhanobish.ContentPages.Parents;
+using System;
 using System.ComponentModel;
 using Xamarin.Forms;
 
@@ -48,6 +50,11 @@ namespace Shikkhanobish
             {
                 Loginbtn.IsEnabled = true;
             }
+        }
+
+        private async void Button_Clicked_1 ( object sender , EventArgs e )
+        {
+            await Application.Current.MainPage.Navigation.PushPopupAsync ( new PopUpForLoginParents () ).ConfigureAwait ( false );
         }
     }
 }

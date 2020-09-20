@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             x:Class="Shikkhanobish.ContentPages.Parents.PopupForParentsRegistration">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+      PositionIn="Center"
+      PositionOut="Center"
+      ScaleIn="1.2"
+      ScaleOut="0.8"
+      DurationIn="400"
+      DurationOut="300"
+      EasingIn="SinOut"
+      EasingOut="SinIn"
+      HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+    <Frame CornerRadius="20" Margin="20,0,20,0" VerticalOptions="Center">
+        <Grid BackgroundColor="#FBFBFB">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height=".3*"/>
+                <RowDefinition Height=".7*"/>
+                <RowDefinition Height=".7*"/>
+                <RowDefinition Height=".5*"/>
+            </Grid.RowDefinitions>
+            <Label Text="Parents Registration" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="18"/>
+            <Entry x:Name="pcodeenty" Placeholder="Parent Code" Grid.Row="1"/>
+            <Entry x:Name="passenty" Placeholder="Password" Grid.Row="2"/>
+            <Entry x:Name="nameenty" Placeholder="Name" Grid.Row="3"/>
+            <Entry x:Name="pnenty" Placeholder="Phone Number" Grid.Row="4"/>
+            <Label Text="Gender" Grid.Row="5" FontSize="14"/>
+            <Button x:Name="fbtn" Text="Father" FontSize="12" Grid.Row="6" HorizontalOptions="Start" BackgroundColor="#F3F3F3" CornerRadius="15" Margin="5" Clicked="Button_Clicked_1"/>
+            <Button x:Name="mbtn" Text="Mother" FontSize="12" Grid.Row="6" HorizontalOptions="End" BackgroundColor="#F3F3F3" CornerRadius="15" Margin="5" Clicked="Button_Clicked_2"/>
+            <Button Text="Register" Grid.Row="7" BackgroundColor="#7BE6F2" CornerRadius="20" Margin="5" Clicked="Button_Clicked"/>
+            <Label x:Name="errorlbl" Text="Error" Grid.Row="8" TextColor="#FF0000"/>
+        </Grid>
+    </Frame>
+</pages:PopupPage>

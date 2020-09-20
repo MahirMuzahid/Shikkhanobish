@@ -20,9 +20,9 @@ namespace Shikkhanobish.ContentPages.Parents
     {
         public PopUpForLoginParents ( )
         {
+            InitializeComponent ();
             loginbtn.Text = "Login";
             errorlbl.Text = "";
-            InitializeComponent ();
         }
 
         private async void Button_Clicked ( object sender , EventArgs e )
@@ -50,9 +50,10 @@ namespace Shikkhanobish.ContentPages.Parents
             
         }
 
-        private void Button_Clicked_1 ( object sender , EventArgs e )
+        private async void Button_Clicked_1 ( object sender , EventArgs e )
         {
-
+            await Navigation.PopPopupAsync ().ConfigureAwait ( false );
+            await Application.Current.MainPage.Navigation.PushPopupAsync ( new PopupForParentsRegistration () ).ConfigureAwait ( false );
         }
 
         private void Button_Clicked_2 ( object sender , EventArgs e )
