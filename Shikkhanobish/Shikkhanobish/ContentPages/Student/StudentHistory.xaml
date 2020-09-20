@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:gradient="clr-namespace:Syncfusion.XForms.Graphics;assembly=Syncfusion.Core.XForms"
              mc:Ignorable="d"
+             Title="StudentHistory"
              x:Class="Shikkhanobish.StudentHistory">
     <Grid BackgroundColor="#9761FD">
         <Grid.RowDefinitions>

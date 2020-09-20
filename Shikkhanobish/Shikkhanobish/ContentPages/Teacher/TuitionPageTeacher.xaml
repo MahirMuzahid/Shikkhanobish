@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:tok="clr-namespace:Xamarin.Forms.OpenTok;assembly=Xamarin.Forms.OpenTok"
              xmlns:tokService="clr-namespace:Xamarin.Forms.OpenTok.Service;assembly=Xamarin.Forms.OpenTok"
+             Title="TuitionPageTeacher"
              x:Class="Shikkhanobish.ContentPages.TuitionPageTeacher">
     <Grid BackgroundColor="#FCFCFC" ColumnSpacing="0" RowSpacing="0"  BindableLayout.ItemsSource="{Binding Path=StreamIdCollection, Source={x:Static tokService:CrossOpenTok.Current}}">
         <BindableLayout.ItemTemplate>

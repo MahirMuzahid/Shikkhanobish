@@ -5,24 +5,25 @@ using Android.Runtime;
 using Android.Views;
 using Plugin.CurrentActivity;
 using System;
+using System.Linq;
 using Xamarin.Forms.OpenTok.Android.Service;
 
 namespace Shikkhanobish.Droid
 {
-    [Activity(Label = "Shikkhanobish", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true,  ScreenOrientation = ScreenOrientation.Portrait )]
+    [Activity ( Label = "Shikkhanobish" , Icon = "@mipmap/icon" , Theme = "@style/MainTheme" , MainLauncher = true , ScreenOrientation = ScreenOrientation.Portrait )]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         [Obsolete]
-        protected override void OnCreate(Bundle savedInstanceState)
+        protected override void OnCreate ( Bundle savedInstanceState )
         {
             global::Xamarin.Forms.Forms.SetFlags ( "Shapes_Experimental" );
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-            PlatformOpenTokService.Init();
-            base.OnCreate(savedInstanceState);
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            base.SetTheme(global::Android.Resource.Style.ThemeHoloLight);
+            PlatformOpenTokService.Init ();
+            base.OnCreate ( savedInstanceState );
+            Xamarin.Essentials.Platform.Init ( this , savedInstanceState );
+            global::Xamarin.Forms.Forms.Init ( this , savedInstanceState );
+            base.SetTheme ( global::Android.Resource.Style.ThemeHoloLight );
 
             //this.Window.AddFlags(WindowManagerFlags.Fullscreen);
             //this.Window.AddFlags(WindowManagerFlags.KeepScreenOn);
@@ -30,22 +31,22 @@ namespace Shikkhanobish.Droid
             //this.Window.ClearFlags(WindowManagerFlags.Fullscreen);
 
             CrossCurrentActivity.Current.Activity = this;
-            
-            LoadApplication(new App());
+
+            LoadApplication ( new App () );
             Window.SetStatusBarColor ( Android.Graphics.Color.Rgb ( 151 , 97 , 253 ) );
 
             //Intialize plugin
             Rg.Plugins.Popup.Popup.Init ( this , savedInstanceState );
         }
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        public override void OnRequestPermissionsResult ( int requestCode , string [] permissions , [GeneratedEnum] Android.Content.PM.Permission [] grantResults )
         {
-            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult ( requestCode , permissions , grantResults );
 
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            base.OnRequestPermissionsResult ( requestCode , permissions , grantResults );
         }
 
-        protected bool OnBackButtonPressed()
+        protected bool OnBackButtonPressed ( )
         {
             return true;
         }
@@ -61,5 +62,6 @@ namespace Shikkhanobish.Droid
 
             }
         }
+
     }
 }

@@ -32,7 +32,7 @@ namespace Shikkhanobish.ContentPages.Parents
             string pass = passenty.Text;
             string url = "https://api.shikkhanobish.com/api/Master/GetParentInfo";
             HttpClient client = new HttpClient ();
-            string jsonData = JsonConvert.SerializeObject ( new { ParentID = code , Password = pass } );// T.D: have to add student ID
+            string jsonData = JsonConvert.SerializeObject ( new { ParentID = code , Password = pass } );
             StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
             var result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );

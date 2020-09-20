@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:widget="clr-namespace:Android.Widget;assembly=Mono.Android" xmlns:xfshapeview="clr-namespace:XFShapeView;assembly=XFShapeView"
              mc:Ignorable="d"
+             Title="RatingPage"
              x:Class="Shikkhanobish.ContentPages.RatingPage">
     <Grid RowSpacing="0" BackgroundColor="#FFFFFF">
         <Grid.RowDefinitions>

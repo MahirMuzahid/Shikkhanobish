@@ -6,6 +6,7 @@
              xmlns:tokService="clr-namespace:Xamarin.Forms.OpenTok.Service;assembly=Xamarin.Forms.OpenTok"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             Title="TutionPage"
              x:Class="Shikkhanobish.ContentPages.TutionPage">
 
     <Grid BackgroundColor="#FCFCFC" ColumnSpacing="0" RowSpacing="0"  BindableLayout.ItemsSource="{Binding Path=StreamIdCollection, Source={x:Static tokService:CrossOpenTok.Current}}">
