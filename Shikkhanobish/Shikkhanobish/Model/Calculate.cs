@@ -9,86 +9,117 @@ namespace Shikkhanobish.Model
         public TransferInfo Info;
         public int CalculatedTuitionTime;
 
-        public float RatingAndCostRange(string rank, string Class)
+        public float RatingAndCostRange ( string rank , string Class , int totalTime , int inappmin , bool isStudent )
         {
             float pmc = 0;
-            if (rank == "Placement")
+
+            if ( totalTime + inappmin < 20 && isStudent == false )
             {
                 pmc = 0;
             }
-            else if (rank == "Newbie")
+            else if ( totalTime + inappmin > 20 && rank == "Placement" && isStudent == false )
             {
-                if (Class == "LS")
+                if ( Class == "LS" )
+                {
+                    pmc = 3;
+                }
+                else if ( Class == "S" )
+                {
+                    pmc = 4;
+                }
+                else if ( Class == "HS" )
                 {
                     pmc = 5;
                 }
+            }
+            else if(rank == "Placement" && isStudent == true)
+            {
+                if ( Class == "LS" )
+                {
+                    pmc = 3;
+                }
+                else if ( Class == "S" )
+                {
+                    pmc = 4;
+                }
+                else if ( Class == "HS" )
+                {
+                    pmc = 5;
+                }
+            }
+            else if ( rank == "Newbie" )
+            {
+                if (Class == "LS")
+                {
+                    pmc = 3;
+                }
                 else if (Class == "S")
                 {
-                    pmc = 6;
+                    pmc = 4;
                 }
                 else if (Class == "HS")
                 {
-                    pmc = 7;
+                    pmc = 5;
                 }
             }
             else if (rank == "Average")
             {
                 if (Class == "LS")
                 {
-                    pmc = 5.25f;
+                    pmc = 3.25f;
                 }
                 else if (Class == "S")
                 {
-                    pmc = 6.25f;
+                    pmc = 4.25f;
                 }
                 else if (Class == "HS")
                 {
-                    pmc = 7.25f;
+                    pmc = 5.25f;
                 }
             }
             else if (rank == "Good")
             {
                 if (Class == "LS")
                 {
-                    pmc = 5.50f;
+                    pmc = 3.50f;
                 }
                 else if (Class == "S")
                 {
-                    pmc = 6.50f;
+                    pmc = 4.50f;
                 }
                 else if (Class == "HS")
                 {
-                    pmc = 7.50f;
+                    pmc = 5.50f;
                 }
             }
             else if (rank == "Vetaran")
             {
                 if (Class == "LS")
                 {
-                    pmc = 5.75f;
+                    pmc = 3.75f;
                 }
                 else if (Class == "S")
                 {
-                    pmc = 6.75f;
+                    pmc = 4.75f;
                 }
                 else if (Class == "HS")
                 {
-                    pmc = 7.75f;
+                    pmc = 5.75f;
                 }
             }
             else if (rank == "Master")
             {
                 if (Class == "LS")
                 {
-                    pmc = 6;
+                    pmc = 4;
                 }
                 else if (Class == "S")
                 {
-                    pmc = 7;
+                    pmc = 5;
                 }
                 else if (Class == "HS")
                 {
-                    pmc = 8;
+                    pmc = 6;
                 }
             }
             return pmc;
@@ -124,6 +155,27 @@ namespace Shikkhanobish.Model
             return rank; //it shows rank 
         }
 
+        public int CalculateCostForTeacher(TransferInfo info)
+        {
+            int totalMin = 0;
+            Info = info;
+            int cost = 0;
+            if(info.Teacher.Teacher_Rank == "Placement") {
+                totalMin = info.StudyTimeInAPp - info.Teacher.Total_Min;
+                if(totalMin < 0)
+                {
+                    totalMin = 0;
+                }
+            }
+            else
+            {
+                totalMin = info.StudyTimeInAPp;
+            }
+            
+            cost = ( int ) ( totalMin * RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode , info.Teacher.Total_Min , info.StudyTimeInAPp , false ) );
+            cost = (int)(cost - (cost * .3));
+            return cost;
+        }
         public int CalculateCost(TransferInfo info)
         {
             Info = info;
@@ -131,7 +183,7 @@ namespace Shikkhanobish.Model
             if (info.StudyTimeInAPp > 0)
             {
                 int totalMin = info.StudyTimeInAPp - info.Student.freeMin;
-                cost = (int)(totalMin * RatingAndCostRange(info.Teacher.Teacher_Rank, info.ClassCode));
+                cost = (int)(totalMin * RatingAndCostRange(info.Teacher.Teacher_Rank, info.ClassCode, info.Teacher.Total_Min, info.StudyTimeInAPp, true ) );
             }
             else
             {

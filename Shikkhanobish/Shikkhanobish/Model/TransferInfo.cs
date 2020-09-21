@@ -12,6 +12,7 @@
         public string ClassCode { get; set; }
         public string SessionID { get; set; }
         public string UserToken { get; set; }
-        public int Cost { get; set; }
+        public int StudentCost { get; set; }
+        public int TeacherEarn { get; set; }
     }
 }

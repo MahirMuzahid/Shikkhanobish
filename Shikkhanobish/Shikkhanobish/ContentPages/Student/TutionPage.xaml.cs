@@ -24,7 +24,6 @@ namespace Shikkhanobish.ContentPages
         int sec, min;
         int ownthing = 0, i=0;
         bool firstTime ,isstudent;
-        
 
         public TutionPage ( TransferInfo trnsInfo)
         {
@@ -35,7 +34,13 @@ namespace Shikkhanobish.ContentPages
             firstTime = true;
             safelbl.Text = "Safe Time";
             tnamelbl.Text = trnsInfo.Teacher.TeacherName;
-            Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , CheckPositionAndUpdateSlider );
+            StaticPageForSavingInfoOnStop.StudentID = trnsInfo.Student.StudentID;
+            StaticPageForSavingInfoOnStop.TeacherName = trnsInfo.Teacher.TeacherName;
+            StaticPageForSavingInfoOnStop.TeacherID = trnsInfo.Teacher.TeacherID;
+            StaticPageForSavingInfoOnStop.Class = trnsInfo.Class;
+            StaticPageForSavingInfoOnStop.Subject = trnsInfo.Subject;
+            Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , UpdateTimerAndInfo );
+            
             ConnectToServer ();
         }
 
@@ -43,11 +48,12 @@ namespace Shikkhanobish.ContentPages
         {
             CrossOpenTok.Current.EndSession ();
             _connection.StopAsync ();
+            TransferPoint ();
             CutVideoCAll ();
             gotoRatingPage ();           
            
         }
-
+        
         private void OnSwapCamera ( object sender , EventArgs e )
         {
             CrossOpenTok.Current.CycleCamera ();
@@ -84,10 +90,10 @@ namespace Shikkhanobish.ContentPages
             info.StudyTimeInAPp = min;
             await Application.Current.MainPage.Navigation.PushModalAsync ( new RatingPage ( info,true ) ).ConfigureAwait ( false );
         }
-
+        Calculate calculate = new Calculate();
         TransferInfo timeinfo = new TransferInfo ();
         Calculate cal = new Calculate ();
-        private bool CheckPositionAndUpdateSlider ( )
+        private bool UpdateTimerAndInfo ( )
         {
             sec = sec + 1;
             if ( sec == 60 )
@@ -109,13 +115,15 @@ namespace Shikkhanobish.ContentPages
                     StartTime ();
                 }
             }
-            if(firstTime == false && sec > 30/*&& info.Teacher.Teacher_Rank != "Placement"*/)
+            if(firstTime == false && sec > 30 && info.Teacher.Teacher_Rank != "Placement")
             {
                 min = min + 1;
-                timeinfo.StudyTimeInAPp = min;
-                safelbl.Text = "Pay Time, Cost: " + cal.CalculateCost (timeinfo); 
+                info.StudyTimeInAPp = min;
+                safelbl.Text = "Pay Time, Cost: " + cal.CalculateCost (info);
+                StaticPageForSavingInfoOnStop.Cost = calculate.CalculateCost ( info );
             }
             timerlbl.Text = min + ":" + sec;
+
             return true;
         }
 
@@ -131,6 +139,7 @@ namespace Shikkhanobish.ContentPages
 
         public async Task CutVideoCAll (  )
         {
+            
             string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/cutCall?stop=" + 1 +"&teacherID=" + info.Teacher.TeacherID + "&studentID=" + info.Student.StudentID + "&isStudent=" + true;
             HttpClient client = new HttpClient ();
             StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
@@ -147,6 +156,7 @@ namespace Shikkhanobish.ContentPages
         int cutCallFirstTime = 0;
         public async Task ConnectToServer ( )
         {
+
             _connection = new HubConnectionBuilder ()
                 .WithUrl ( url )
                 .Build ();
@@ -171,12 +181,25 @@ namespace Shikkhanobish.ContentPages
                     if ( info.Student.StudentID == studentID )
                     {
                         CrossOpenTok.Current.EndSession ();
+                        TransferPoint ();
                         _connection.StopAsync ();
                         gotoRatingPage ();
                     }
                 }
 
             } );
+        }
+
+        public async Task TransferPoint ()
+        {
+            
+            string urlT = "https://api.shikkhanobish.com/api/Master/TransferPoint";
+            HttpClient clientT = new HttpClient ();
+            string jsonDataT = JsonConvert.SerializeObject ( new { TeacherEarn = calculate.CalculateCostForTeacher( info ), StudentCost = calculate.CalculateCost ( info ) , StudentID = info.Student.StudentID, TeacherID =info.Teacher.TeacherID } );
+            StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
+            string resultT = await responseT.Content.ReadAsStringAsync ();
+            var pendningRating = JsonConvert.DeserializeObject<IsPending> ( resultT );
         }
 
 

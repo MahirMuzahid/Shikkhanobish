@@ -99,7 +99,7 @@ namespace Shikkhanobish
                                        trns.Student = student;
                                        trns.Class = pendningRating.Class;
                                        trns.Subject = pendningRating.Subject;
-                                       trns.Cost = pendningRating.Cost;
+                                       trns.StudentCost = pendningRating.Cost;
                                        trns.StudyTimeInAPp = pendningRating.Time;
                                        trns.Teacher = teacher;
                                        Trns = trns;

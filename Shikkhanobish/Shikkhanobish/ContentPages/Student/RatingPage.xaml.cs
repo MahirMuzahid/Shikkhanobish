@@ -18,11 +18,12 @@ namespace Shikkhanobish.ContentPages
     {
         private TransferInfo info = new TransferInfo();
         private Calculate calculate = new Calculate();
-
+        bool isft;
         public RatingPage(TransferInfo trnsInfo, bool IsFromTuition)
         {
             InitializeComponent ();
             info = trnsInfo;
+            isft = IsFromTuition;
             showEverything();
             if(IsFromTuition == false)
             {
@@ -42,7 +43,15 @@ namespace Shikkhanobish.ContentPages
             sClasslbl.Text = info.Class;
             sSubject.Text = info.SubjectName;//have to re write 
             inapptimelbl.Text = "" + info.StudyTimeInAPp;
-            costlbl.Text = "" + calculate.CalculateCost(info);
+            if( isft  == false)
+            {
+                costlbl.Text = "" + info.StudentCost;
+            }
+            else
+            {
+                costlbl.Text = "" + calculate.CalculateCost ( info );
+            }
+            
             Ratelbl.Text = "";
             sbtn.IsEnabled = false;
             SetIsPending ();
@@ -146,25 +155,26 @@ namespace Shikkhanobish.ContentPages
             }
             string url = "https://api.shikkhanobish.com/api/Master/UpdateInfo";
             HttpClient client = new HttpClient();
-            string jsonData = JsonConvert.SerializeObject(new
+            string jsonData = JsonConvert.SerializeObject ( new
             {
-                TeacherID = info.Teacher.TeacherID,
-                IsActive = 0,
-                IsOnTuition = 0,
-                StudentID = info.Student.StudentID,
-                Rating = info.GivenRating,
-                InAppMin = info.StudyTimeInAPp,
+                TeacherID = info.Teacher.TeacherID ,
+                IsActive = 0 ,
+                IsOnTuition = 0 ,
+                StudentID = info.Student.StudentID ,
+                Rating = info.GivenRating ,
+                InAppMin = info.StudyTimeInAPp ,
                 Tuition_Point = tuitionPoint ,
-                Teacher_Rank = rank,
-                Date = Date,
-                Subject = info.Subject,
-                SubjectName = info.SubjectName,
-                Class = tuitionClass,
-                IsPenidng = 0,
-                Teacher_Name = info.Teacher.TeacherName,
-                Cost = calculate.CalculateCost(info),
+                Teacher_Rank = rank ,
+                Date = Date ,
+                Subject = info.Subject ,
+                SubjectName = info.SubjectName ,
+                Class = tuitionClass ,
+                IsPenidng = 0 ,
+                Teacher_Name = info.Teacher.TeacherName ,
+                StudentCost = 0 ,
+                TeacherEarn = 0,
                 Student_Name = info.Student.Name
-            });
+            } ); ;
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait( false );
             string result = await response.Content.ReadAsStringAsync().ConfigureAwait( false );
