@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Text;
 using Rg.Plugins.Popup.Extensions;
 using Shikkhanobish.ContentPages.Common;
+using Xamarin.Essentials;
 
 namespace Shikkhanobish
 {
@@ -210,7 +211,7 @@ namespace Shikkhanobish
                     HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
                     string resultT = await responseT.Content.ReadAsStringAsync ();
                     var studentinfo = JsonConvert.DeserializeObject<Student> ( resultT );
-                    if(studentinfo.RechargedAmount < 3 && studentinfo.freeMin == 0)
+                    if(studentinfo.RechargedAmount < 2 && studentinfo.freeMin == 0)
                     {
                         Navigation.PushPopupAsync ( new PopUpForTextAlert ( "Not Enough Money" , "You do not have enough recharged amount to take tuition" , false ) );
                     }
@@ -451,19 +452,26 @@ namespace Shikkhanobish
                             transferNow.Class = selectedClass;
                             transferNow.Subject = subject;
                             transferNow.SubjectName = subjectName;
-                            await Application.Current.MainPage.Navigation.PushModalAsync ( new SearchedTeacher ( transferNow ) ).ConfigureAwait ( false );
+                            MainThread.BeginInvokeOnMainThread ( async ( ) => { await Application.Current.MainPage.Navigation.PushModalAsync ( new SearchedTeacher ( transferNow ) ).ConfigureAwait ( false ); } );
+                           
                         }
                     }
                     
                 }
                 else
                 {
-                    Errorlbl.Text = "Check network connection";
+                    MainThread.BeginInvokeOnMainThread ( ( ) =>
+                    {
+                        Errorlbl.Text = "Check network connection";
+                    } );                
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                Errorlbl.Text = "Check network connection";
+                MainThread.BeginInvokeOnMainThread ( ( ) =>
+                {
+                    Errorlbl.Text = ex.Message;
+                } );               
             }
             
             

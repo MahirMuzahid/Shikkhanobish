@@ -110,7 +110,7 @@
                 
                 <ScrollView Grid.Row="3">
                     
-                    <ListView BackgroundColor="White"  x:Name="StudentWalletHistoryListView" IsEnabled="False">
+                    <ListView BackgroundColor="White"  x:Name="StudentWalletHistoryListView" IsEnabled="true">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -163,7 +163,7 @@
                 </Grid>
                 <Label x:Name="historybacklbl" Text="No Tuition History"  Grid.Row="4" HorizontalOptions="Center" VerticalOptions="Center"/>
                 <ScrollView Grid.Row="5">
-                    <ListView BackgroundColor="White"  x:Name="StudentHistoryListView" IsEnabled="False">
+                    <ListView BackgroundColor="White"  x:Name="StudentHistoryListView" IsEnabled="true">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>

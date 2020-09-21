@@ -118,8 +118,7 @@ namespace Shikkhanobish
                                loginText = "Login";
                                ErrorText = "Connection Reset! Check internet connection";
                            }
-                            MainThread.BeginInvokeOnMainThread ( ( ) => { goPage ( pagenumber ); } );
-                                
+                            MainThread.BeginInvokeOnMainThread ( ( ) => { goPage ( pagenumber ); } );                               
                        }                      
                    }
                    else

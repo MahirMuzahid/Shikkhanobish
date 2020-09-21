@@ -21,63 +21,78 @@ namespace Shikkhanobish.Model
             {
                 if ( Class == "LS" )
                 {
-                    pmc = 3;
+                    pmc = 2;
                 }
                 else if ( Class == "S" )
                 {
-                    pmc = 4;
+                    pmc = 3;
                 }
                 else if ( Class == "HS" )
                 {
-                    pmc = 5;
+                    pmc = 4;
                 }
             }
             else if(rank == "Placement" && isStudent == true)
             {
                 if ( Class == "LS" )
                 {
-                    pmc = 3;
+                    pmc = 2;
                 }
                 else if ( Class == "S" )
                 {
-                    pmc = 4;
+                    pmc = 3;
                 }
                 else if ( Class == "HS" )
                 {
-                    pmc = 5;
+                    pmc = 4;
                 }
             }
             else if ( rank == "Newbie" )
             {
                 if (Class == "LS")
                 {
-                    pmc = 3;
+                    pmc = 2;
                 }
                 else if (Class == "S")
                 {
-                    pmc = 4;
+                    pmc = 3;
                 }
                 else if (Class == "HS")
                 {
-                    pmc = 5;
+                    pmc = 4;
                 }
             }
             else if (rank == "Average")
             {
                 if (Class == "LS")
                 {
-                    pmc = 3.25f;
+                    pmc = 2.50f;
                 }
                 else if (Class == "S")
                 {
-                    pmc = 4.25f;
+                    pmc = 3.50f;
                 }
                 else if (Class == "HS")
                 {
-                    pmc = 5.25f;
+                    pmc = 4.50f;
                 }
             }
             else if (rank == "Good")
+            {
+                if (Class == "LS")
+                {
+                    pmc = 3f;
+                }
+                else if (Class == "S")
+                {
+                    pmc = 4f;
+                }
+                else if (Class == "HS")
+                {
+                    pmc = 5f;
+                }
+            }
+            else if (rank == "Vetaran")
             {
                 if (Class == "LS")
                 {
@@ -90,21 +105,6 @@ namespace Shikkhanobish.Model
                 else if (Class == "HS")
                 {
                     pmc = 5.50f;
-                }
-            }
-            else if (rank == "Vetaran")
-            {
-                if (Class == "LS")
-                {
-                    pmc = 3.75f;
-                }
-                else if (Class == "S")
-                {
-                    pmc = 4.75f;
-                }
-                else if (Class == "HS")
-                {
-                    pmc = 5.75f;
                 }
             }
             else if (rank == "Master")
@@ -160,18 +160,8 @@ namespace Shikkhanobish.Model
             int totalMin = 0;
             Info = info;
             int cost = 0;
-            if(info.Teacher.Teacher_Rank == "Placement") {
-                totalMin = info.StudyTimeInAPp - info.Teacher.Total_Min;
-                if(totalMin < 0)
-                {
-                    totalMin = 0;
-                }
-            }
-            else
-            {
-                totalMin = info.StudyTimeInAPp;
-            }
-            
+            totalMin = info.StudyTimeInAPp;
+
             cost = ( int ) ( totalMin * RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode , info.Teacher.Total_Min , info.StudyTimeInAPp , false ) );
             cost = (int)(cost - (cost * .3));
             return cost;
@@ -180,7 +170,7 @@ namespace Shikkhanobish.Model
         {
             Info = info;
             int cost = 0;
-            if (info.StudyTimeInAPp > 0)
+            if (info.StudyTimeInAPp >= 0)
             {
                 int totalMin = info.StudyTimeInAPp - info.Student.freeMin;
                 cost = (int)(totalMin * RatingAndCostRange(info.Teacher.Teacher_Rank, info.ClassCode, info.Teacher.Total_Min, info.StudyTimeInAPp, true ) );
@@ -189,6 +179,32 @@ namespace Shikkhanobish.Model
             {
                 cost = 0;
             }
+            return cost;
+        }
+        public int CalculateCostPerminStudent ( TransferInfo info )
+        {
+            Info = info;
+            int cost = 0;
+            if ( info.StudyTimeInAPp >= 0 )
+            {
+                int totalMin = info.StudyTimeInAPp - info.Student.freeMin;
+                cost = ( int ) ( RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode , info.Teacher.Total_Min , info.StudyTimeInAPp , true ) );
+            }
+            else
+            {
+                cost = 0;
+            }
+            return cost;
+        }
+        public int CalculateCostPerminTeacher ( TransferInfo info )
+        {
+            int totalMin = 0;
+            Info = info;
+            int cost = 0;
+            totalMin = info.StudyTimeInAPp;
+
+            cost = ( int ) ( RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode , info.Teacher.Total_Min , info.StudyTimeInAPp , false ) );
+            cost = ( int )(cost * .3  );
             return cost;
         }
 

@@ -14,14 +14,15 @@
             <RowDefinition Height="18*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.5*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
-        <Label Text="History" Grid.Row="0"  FontSize="15" Grid.ColumnSpan="6" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF"/>
+        <Label Text="History" Grid.Row="0"  FontSize="15" Grid.ColumnSpan="7" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF"/>
         <BoxView BackgroundColor="#9761FD" Grid.Row="1" Grid.ColumnSpan="6"/>
         <Label Text="Teacher Name" FontSize="11" TextColor="white" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.Column="0" />
         <Label Text="Class" FontSize="11" TextColor="white" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" />
@@ -29,15 +30,17 @@
         <Label Text="Time" FontSize="11" TextColor="white" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.Column="3" />
         <Label Text="Date" FontSize="11" TextColor="white" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.Column="4" />
         <Label Text="Rating" FontSize="11" TextColor="white" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.Column="5" />
+        <Label Text="Cost" FontSize="11" TextColor="white" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.Column="6" />
         
-        <ScrollView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6">
-            <ListView BackgroundColor="White"  x:Name="StudentHistoryListView" IsEnabled="False">
-                <ListView.ItemTemplate>
+        <ScrollView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="7">
+            <ListView BackgroundColor="White"  x:Name="StudentHistoryListView" IsEnabled="true">
+                <ListView.ItemTemplate >
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
                                         <ColumnDefinition Width="1*" />
                                         <ColumnDefinition Width="1*" />
                                         <ColumnDefinition Width="1*" />
@@ -51,6 +54,7 @@
                                     <Label Text="{Binding Time}" FontSize="11" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center" />
                                     <Label Text="{Binding Date}" FontSize="11" Grid.Column="4" HorizontalOptions="Center" VerticalOptions="Center" />
                                     <Label Text="{Binding Ratting}" FontSize="11" Grid.Column="5" HorizontalOptions="Center" VerticalOptions="Center" />
+                                    <Label Text="{Binding Cost}" FontSize="11" Grid.Column="6" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Grid>
                             </StackLayout>
                         </ViewCell>

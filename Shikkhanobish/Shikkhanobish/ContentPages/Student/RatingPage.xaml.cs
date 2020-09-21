@@ -54,7 +54,7 @@ namespace Shikkhanobish.ContentPages
             
             Ratelbl.Text = "";
             sbtn.IsEnabled = false;
-            SetIsPending ();
+            //SetIsPending ();
         }
 
         private async void ostarClicked(object sender, EventArgs e)
