@@ -33,12 +33,11 @@ namespace Shikkhanobish
         public string _teacherRank;
         public string _availableMin;
         public bool _isEnableTeacher;
-        public int _pendingNumber;
+        public string _pendingNumber;
         double total;
         int count;
         public ProfileViewModel(Teacher t)
         {
-            GetPeddingInfo ( t.TeacherID );
             total = t.Five_Star * 5 + t.Four_Star * 4 + t.Three_Star * 3 + t.Two_Star * 2 + t.One_Star * 1;
             count = t.Five_Star  + t.Four_Star + t.Three_Star + t.Two_Star + t.One_Star;
             Name = t.TeacherName;
@@ -56,18 +55,12 @@ namespace Shikkhanobish
             OffredTuitionTime = " " + t.Total_Min;
             TotalTuitionCount = "" + t.Number_Of_Tution;
             TeacherRank = t.Teacher_Rank;
+            PendingNumber = "" + t.pendingcount;
+            
         }
-        public async Task GetPeddingInfo (int id)
-        {
-            string urlT = "https://api.shikkhanobish.com/api/Master/GetPendingForTeacher";
-            HttpClient clientT = new HttpClient ();
-            string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = id } );
-            StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
-            HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
-            string resultT = await responseT.Content.ReadAsStringAsync ();
-            var pendningRating = JsonConvert.DeserializeObject<List<IsPending>> ( resultT );
-            PendingNumber = pendningRating.Count;
-        }
+        int pending;
+
+       
         public string Name
         {
             get
@@ -115,7 +108,7 @@ namespace Shikkhanobish
                 }
             }
         }
-        public int PendingNumber
+        public string PendingNumber
         {
             get
             {

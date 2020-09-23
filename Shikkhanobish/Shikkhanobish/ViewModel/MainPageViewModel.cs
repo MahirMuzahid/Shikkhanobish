@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using Rg.Plugins.Popup.Extensions;
 using Android.Content.Res;
 using Shikkhanobish.ContentPages.Parents;
+using System.Collections.Generic;
 
 namespace Shikkhanobish
 {
@@ -75,6 +76,8 @@ namespace Shikkhanobish
                                
                                if(student.Name == null)
                                {
+                                   await GetPeddingInfo ( teacher.TeacherID ).ConfigureAwait(false);
+                                   teacher.pendingcount = pending;
                                    pagenumber = 0;
                                    //goPage ( 0 );
                                }                            
@@ -167,6 +170,18 @@ namespace Shikkhanobish
             {
                 await Application.Current.MainPage.Navigation.PushModalAsync ( new RatingPage ( Trns,false ) ).ConfigureAwait ( false );
             }
+        }
+        int pending;
+        public async Task GetPeddingInfo ( int id )
+        {
+            string urlT = "https://api.shikkhanobish.com/api/Master/GetPendingForTeacher";
+            HttpClient clientT = new HttpClient ();
+            string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = id } );
+            StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
+            string resultT = await responseT.Content.ReadAsStringAsync ();
+            var pendningRating = JsonConvert.DeserializeObject<List<IsPending>> ( resultT );
+            pending = pendningRating.Count;
         }
 
         //public int Error { get; set; }

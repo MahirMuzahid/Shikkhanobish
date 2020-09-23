@@ -225,7 +225,7 @@ namespace Shikkhanobish.ContentPages
                         {
                             isTeacherhere = true;
                             MainThread.BeginInvokeOnMainThread ( ( ) => {
-                                FilteredTeacher [ i ].IsActive = 0;
+                                FilteredTeacher [ i ].IsActive = 1;
                                 FilteredTeacher [ i ].TeacherStatus = "Call Now";
                                 FilteredTeacher [ i ].TeacherStatusColor = "#43CF56";
 

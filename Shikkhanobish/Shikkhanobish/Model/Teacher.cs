@@ -35,5 +35,7 @@
         public string TeacherStatus { get; set; }
         public string TeacherStatusColor { get; set; }
         public string FoundingTeacherColor { get; set; }
+
+        public int pendingcount;
     }
 }

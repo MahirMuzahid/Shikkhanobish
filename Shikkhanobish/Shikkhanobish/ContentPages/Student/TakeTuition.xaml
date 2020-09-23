@@ -19,6 +19,8 @@
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
@@ -27,8 +29,10 @@
             </Grid.ColumnDefinitions>
             <Label Text="Choose Subject" Grid.Row="0" Grid.RowSpan="4" TextColor="#FFFFFF" FontSize="25" HorizontalOptions="Center" VerticalOptions="Center" />
             <BoxView BackgroundColor="#CACACA" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" />
-            <Label x:Name="StudentNameTxt" Grid.Row="1" FontSize="20" FontAttributes="Bold" VerticalOptions="End" HorizontalOptions="Center" Grid.Column="2" TextColor="#FFFFFF" />
-            <Label x:Name="StudentIDTxt" Grid.Row="2" FontSize="15" VerticalOptions="Start" HorizontalOptions="Center" Grid.Column="2" TextColor="#FFFFFF" />
+            <Label x:Name="StudentNameTxt" Grid.Row="1" FontSize="15" FontAttributes="Bold" VerticalOptions="End" HorizontalOptions="Center" Grid.Column="2" TextColor="#FFFFFF" />
+            <Label x:Name="StudentIDTxt" Grid.Row="2" FontSize="13" VerticalOptions="Start" HorizontalOptions="Center" Grid.Column="2" TextColor="#FFFFFF" />
+            <Label Text="Recharged Amount" Grid.Row="3" FontSize="15" FontAttributes="Bold" VerticalOptions="End" HorizontalOptions="Center" Grid.Column="2" TextColor="#FFFFFF" />
+            <Label x:Name="amountTxt" Text="230" Grid.Row="4" FontSize="13" VerticalOptions="Start" HorizontalOptions="Center" Grid.Column="2" TextColor="#FFFFFF" />
         </Grid>
 
         <Grid Grid.Row="1" BackgroundColor="#9761FD" ColumnSpacing="0">

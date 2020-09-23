@@ -24,15 +24,20 @@ namespace Shikkhanobish
         int studentd;
         private TransferInfo transferNow = new TransferInfo();
 
-        public TakeTuition(int StudentID, string StudentName, string username, string pass)
+        public TakeTuition ( int StudentID , string StudentName , string username , string pass , float amount)
         {
-            InitializeComponent();
+            InitializeComponent ();
             studentd = StudentID;
             SearchBtn.Text = "Search Teacher";
             SearchBtn.TextColor = Color.FromHex ( "#2F2F2F" );
             BindingContext = new TaketuitionViewModel();
             StudentIDTxt.Text = "" + StudentID;
             StudentNameTxt.Text = "" + StudentName;
+            if(amount < 2)
+            {
+                amountTxt.TextColor = Color.Red;
+            }
+            amountTxt.Text = ""+ amount;
             transferNow.Student.UserName = username;
             transferNow.Student.Password = pass;
             transferNow.Student.Name = StudentName;

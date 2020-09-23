@@ -33,10 +33,10 @@ namespace ShikkhanobishRealTimeApi.Controllers
 
             return Ok ( "ok" );
         }
-        [HttpPost ( "sendTime" )]
-        public async Task<IActionResult> sendTime ( int sec, int teacherID )
+        [HttpPost ( "sendCost" )]
+        public async Task<IActionResult> sendCost ( float cost, int teacherID, int studentID )
         {
-            await _hubContext.Clients.All.SendAsync ( "sendTime" , sec , teacherID );
+            await _hubContext.Clients.All.SendAsync ( "sendCost" , cost , teacherID , studentID );
 
             return Ok ( "ok" );
         }

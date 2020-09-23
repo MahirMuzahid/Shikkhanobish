@@ -19,6 +19,7 @@ namespace Shikkhanobish.ContentPages
     [XamlCompilation ( XamlCompilationOptions.Compile )]
     public partial class TutionPage : ContentPage
     {
+        private bool iscut;
         private TransferInfo info = new TransferInfo ();
         private Timer timer = new Timer ();
         int sec, min;
@@ -27,6 +28,7 @@ namespace Shikkhanobish.ContentPages
 
         public TutionPage ( TransferInfo trnsInfo)
         {
+            iscut = false;
             InitializeComponent ();
             info = trnsInfo;
             sec = 0;
@@ -34,11 +36,6 @@ namespace Shikkhanobish.ContentPages
             firstTime = true;
             safelbl.Text = "Safe Time";
             tnamelbl.Text = trnsInfo.Teacher.TeacherName;
-            StaticPageForSavingInfoOnStop.StudentID = trnsInfo.Student.StudentID;
-            StaticPageForSavingInfoOnStop.TeacherName = trnsInfo.Teacher.TeacherName;
-            StaticPageForSavingInfoOnStop.TeacherID = trnsInfo.Teacher.TeacherID;
-            StaticPageForSavingInfoOnStop.Class = trnsInfo.Class;
-            StaticPageForSavingInfoOnStop.Subject = trnsInfo.Subject;
             SetIsPending ();
             Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , UpdateTimerAndInfo );           
             ConnectToServer ();
@@ -46,6 +43,7 @@ namespace Shikkhanobish.ContentPages
 
         private async void OnEndCall ( object sender , EventArgs e )
         {
+            iscut = true;
             CrossOpenTok.Current.EndSession ();
             _connection.StopAsync ();
             await CutVideoCAll ().ConfigureAwait(false);
@@ -114,39 +112,28 @@ namespace Shikkhanobish.ContentPages
                     StartTime ();
                 }
             }
-            if(firstTime == false && sec > 30 && info.Teacher.Teacher_Rank != "Placement")
+            if(firstTime == false && sec == 31 && info.Teacher.Teacher_Rank != "Placement")
             {
                 info.StudyTimeInAPp = min+1;
-                safelbl.Text = "Pay Time, Cost: " + cal.CalculateCost (info);                
-                StaticPageForSavingInfoOnStop.StudentCost = calculate.CalculateCost ( info );
-                StaticPageForSavingInfoOnStop.TeacherEarn = calculate.CalculateCostForTeacher ( info );
+                safelbl.Text = "Pay Time, Cost: " + cal.CalculateCost (info);
+                SendCostRoTeacher ( calculate.CalculateCostForTeacher ( info ) );
                 SetCost ( calculate.CalculateCost  (info ), calculate.CalculateCost ( info ) , calculate.CalculateCostForTeacher ( info ) );
             }
             timerlbl.Text = min + ":" + sec;
-
-            return true;
-        }
-
-        public async Task StartTime ( )
-        {
-            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/sendTime?sec=" + 1 + "&teacherID=" + info.Teacher.TeacherID;
-            HttpClient client = new HttpClient ();
-            StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
-            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
-            string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
-            var r = JsonConvert.DeserializeObject<string> ( result );
-        }
-
-        public async Task CutVideoCAll (  )
-        {
+            if( iscut == false)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
             
-            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/cutCall?stop=" + 1 +"&teacherID=" + info.Teacher.TeacherID + "&studentID=" + info.Student.StudentID + "&isStudent=" + true;
-            HttpClient client = new HttpClient ();
-            StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
-            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
-            string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
-            var r = JsonConvert.DeserializeObject<string> ( result );
         }
+
+        
+
+        
         HubConnection _connection = null;
         bool isConnected = false;
         string connectionStatus = "Closed";
@@ -213,8 +200,36 @@ namespace Shikkhanobish.ContentPages
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
             string result = await response.Content.ReadAsStringAsync ();
         }
+        public async Task CutVideoCAll ( )
+        {
 
+            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/cutCall?stop=" + 1 + "&teacherID=" + info.Teacher.TeacherID + "&studentID=" + info.Student.StudentID + "&isStudent=" + true;
+            HttpClient client = new HttpClient ();
+            StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
+            string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
+            var r = JsonConvert.DeserializeObject<string> ( result );
+        }
+        public async Task SendCostRoTeacher ( float cost)
+        {
 
+            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/sendCost?cost=" + cost + "&teacherID=" + info.Teacher.TeacherID + "&studentID=" + info.Student.StudentID;
+            HttpClient client = new HttpClient ();
+            StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
+            string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
+            var r = JsonConvert.DeserializeObject<string> ( result );
+        }
+
+        public async Task StartTime ( )
+        {
+            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/sendTime?sec=" + 1 + "&teacherID=" + info.Teacher.TeacherID;
+            HttpClient client = new HttpClient ();
+            StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
+            string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
+            var r = JsonConvert.DeserializeObject<string> ( result );
+        }
 
     }
 }

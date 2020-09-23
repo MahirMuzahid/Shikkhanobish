@@ -85,20 +85,12 @@ namespace Shikkhanobish.ContentPages
         }
 
 
-        private bool CheckPositionAndUpdateSlider ( )
+        private void CheckPositionAndUpdateSlider ( )
         {
-            timerlbl.TextColor = Color.Black;
-            safelbl.TextColor = Color.Green;
-            safelbl.Text = "Pay Time";
-            sec = sec + 1;
-            if ( sec == 59 )
-            {
-                min = min + 1;
-                sec = 0;
-            }           
-            timerlbl.Text = min + ":" + sec;
+            min = min + 1;
+         
+            timerlbl.Text = min + " Minute";
 
-            return true;
         }
 
         HubConnection _connection = null;
@@ -124,11 +116,14 @@ namespace Shikkhanobish.ContentPages
                 isConnected = true;
 
             };
-            _connection.On<int , int> ( "sendTime" , async ( sec , teacherID ) =>
+            _connection.On<float , int,int> ( "sendCost" , async ( cost , teacherID , studentID ) =>
             {
-                if ( info.Teacher.TeacherID == teacherID )
+                if ( info.Teacher.TeacherID == teacherID && info.Student.StudentID == studentID )
                 {
-                    Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , CheckPositionAndUpdateSlider );
+                    timerlbl.TextColor = Color.Black;
+                    safelbl.TextColor = Color.Green;
+                    safelbl.Text = "Earned: " + cost;
+                    CheckPositionAndUpdateSlider ();
                 }
 
             } );
