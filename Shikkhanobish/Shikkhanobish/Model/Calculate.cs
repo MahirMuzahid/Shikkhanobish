@@ -155,25 +155,25 @@ namespace Shikkhanobish.Model
             return rank; //it shows rank 
         }
 
-        public int CalculateCostForTeacher(TransferInfo info)
+        public float CalculateCostForTeacher(TransferInfo info)
         {
             int totalMin = 0;
             Info = info;
-            int cost = 0;
+            float cost = 0;
             totalMin = info.StudyTimeInAPp;
 
-            cost = ( int ) ( totalMin * RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode , info.Teacher.Total_Min , info.StudyTimeInAPp , false ) );
-            cost = (int)(cost - (cost * .3));
+            cost =  ( totalMin * RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode , info.Teacher.Total_Min , info.StudyTimeInAPp , false ) );
+            cost = ( float ) ( cost - (cost * .3) ) ;
             return cost;
         }
-        public int CalculateCost(TransferInfo info)
+        public float CalculateCost(TransferInfo info)
         {
             Info = info;
-            int cost = 0;
+            float cost = 0;
             if (info.StudyTimeInAPp >= 0)
             {
                 int totalMin = info.StudyTimeInAPp - info.Student.freeMin;
-                cost = (int)(totalMin * RatingAndCostRange(info.Teacher.Teacher_Rank, info.ClassCode, info.Teacher.Total_Min, info.StudyTimeInAPp, true ) );
+                cost = (totalMin * RatingAndCostRange(info.Teacher.Teacher_Rank, info.ClassCode, info.Teacher.Total_Min, info.StudyTimeInAPp, true ) );
             }
             else
             {
@@ -181,14 +181,14 @@ namespace Shikkhanobish.Model
             }
             return cost;
         }
-        public int CalculateCostPerminStudent ( TransferInfo info )
+        public float CalculateCostPerminStudent ( TransferInfo info )
         {
             Info = info;
-            int cost = 0;
+            float cost = 0;
             if ( info.StudyTimeInAPp >= 0 )
             {
                 int totalMin = info.StudyTimeInAPp - info.Student.freeMin;
-                cost = ( int ) ( RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode , info.Teacher.Total_Min , info.StudyTimeInAPp , true ) );
+                cost = ( RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode , info.Teacher.Total_Min , info.StudyTimeInAPp , true ) );
             }
             else
             {
@@ -196,15 +196,15 @@ namespace Shikkhanobish.Model
             }
             return cost;
         }
-        public int CalculateCostPerminTeacher ( TransferInfo info )
+        public float CalculateCostPerminTeacher ( TransferInfo info )
         {
             int totalMin = 0;
             Info = info;
-            int cost = 0;
+            float cost = 0;
             totalMin = info.StudyTimeInAPp;
 
-            cost = ( int ) ( RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode , info.Teacher.Total_Min , info.StudyTimeInAPp , false ) );
-            cost = ( int )(cost * .3  );
+            cost =  ( RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode , info.Teacher.Total_Min , info.StudyTimeInAPp , false ) );
+            cost = (cost * .3f  );
             return cost;
         }
 

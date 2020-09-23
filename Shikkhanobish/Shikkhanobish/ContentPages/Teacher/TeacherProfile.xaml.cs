@@ -35,6 +35,8 @@ namespace Shikkhanobish
             var image = new Image { Source = "BackColor.jpg" };
             activelbl.Text = "Inactive";
             setRankInfo ();
+            setOnTuitionOFF ();
+            setIsActiveOffOrOn ( 0 );
             ConnectToServer ();
         }
 
@@ -192,33 +194,24 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_7(object sender, EventArgs e)
         {
+
             ac++;
 
             if(ac%2 == 1)
             {
+                ShowOffLineInStudentWindowRealTime (true);
                 takeTuition = true;
                 activelbl.Text = "Active";
                 activeback.BackgroundColor = Color.FromHex ( "#54E36B" );
-                string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsActive";
-                HttpClient clientT = new HttpClient ();
-                string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = teacher.TeacherID , state = 1 } );
-                StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
-                HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
-                string resultT = await responseT.Content.ReadAsStringAsync ();
-                var response = JsonConvert.DeserializeObject<Response> ( resultT );
+                setIsActiveOffOrOn ( 1 );
             }
             else
             {
+                ShowOffLineInStudentWindowRealTime (false);
                 takeTuition = false;
                 activelbl.Text = "Inactive";
                 activeback.BackgroundColor = Color.FromHex ( "#A7A7A7" );
-                string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsActive";
-                HttpClient clientT = new HttpClient ();
-                string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = teacher.TeacherID , state = 0 } );
-                StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
-                HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
-                string resultT = await responseT.Content.ReadAsStringAsync ();
-                var response = JsonConvert.DeserializeObject<Response> ( resultT );                             
+                setIsActiveOffOrOn (0);
             }
             
         }
@@ -282,6 +275,39 @@ namespace Shikkhanobish
                 
                 
             } );
+        }
+
+        public async void setOnTuitionOFF (  )
+        {
+            string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsOnTuition";
+            HttpClient clientT = new HttpClient ();
+            string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = teacher.TeacherID , state = 0 } );
+            StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
+            string resultT = await responseT.Content.ReadAsStringAsync ();
+            var response = JsonConvert.DeserializeObject<Response> ( resultT );
+        }
+
+        public async void setIsActiveOffOrOn(int state)
+        {
+            string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsActive";
+            HttpClient clientT = new HttpClient ();
+            string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = teacher.TeacherID , state = state } );
+            StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
+            string resultT = await responseT.Content.ReadAsStringAsync ();
+            var response = JsonConvert.DeserializeObject<Response> ( resultT );
+        }
+
+        public async Task ShowOffLineInStudentWindowRealTime ( bool isOnline)
+        {
+            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/TurnOffActiveStatus?TeacherID=" + teacher.TeacherID + "&isOnline="+ isOnline;
+            HttpClient client = new HttpClient ();
+            StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
+            string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
+            var r = JsonConvert.DeserializeObject<string> ( result );
+        
         }
     }
 }

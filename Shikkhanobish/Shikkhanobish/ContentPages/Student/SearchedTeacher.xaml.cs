@@ -10,6 +10,9 @@ using Xamarin.Forms;
 
 using Xamarin.Forms.Xaml;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR.Client;
+using Xamarin.Essentials;
+using Android.Database;
 
 namespace Shikkhanobish.ContentPages
 {
@@ -20,6 +23,11 @@ namespace Shikkhanobish.ContentPages
         private List<TeacherID> TeacherIDListBySearch = new List<TeacherID>();
         private List<Teacher> TeacherList = new List<Teacher>();
         private List<Teacher> FilteredTeacher = new List<Teacher>();
+        HubConnection _connection = null;
+        bool isConnected = false;
+        string connectionStatus = "Closed";
+        string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub", msgFromApi = "";
+        int cutCallFirstTime = 0;
 
         public SearchedTeacher(TransferInfo transInfo)
         {
@@ -27,8 +35,7 @@ namespace Shikkhanobish.ContentPages
             info = transInfo;
             getTeacherID ();
             getTeacher ();
-
-
+            ConnectToServer ();
         }
 
         public async Task getTeacherID()
@@ -85,7 +92,12 @@ namespace Shikkhanobish.ContentPages
                 count = FilteredTeacher[i].Five_Star + FilteredTeacher[i].Four_Star + FilteredTeacher[i].Three_Star + FilteredTeacher[i].Two_Star + FilteredTeacher[i].One_Star;
                 if ( FilteredTeacher [ i ].IsOnTuition == 1 )
                 {
-                    FilteredTeacher [ i ].TeacherStatus = "Ofline";
+                    FilteredTeacher [ i ].TeacherStatus = "On Tuition";
+                    FilteredTeacher [ i ].TeacherStatusColor = "#939393";
+                }
+                else if( FilteredTeacher [ i ].IsActive == 0 )
+                {
+                    FilteredTeacher [ i ].TeacherStatus = "Offline";
                     FilteredTeacher [ i ].TeacherStatusColor = "#939393";
                 }
                 else
@@ -150,7 +162,7 @@ namespace Shikkhanobish.ContentPages
 
         public async void beSure()
         {
-            if(info.Teacher.IsOnTuition == 0)
+            if ( info.Teacher.IsOnTuition == 0 && info.Teacher.IsActive == 1)
             {
                 await Navigation.PushPopupAsync ( new PopUpForSelectedTeacher ( info ) ).ConfigureAwait ( false );
             }
@@ -158,5 +170,86 @@ namespace Shikkhanobish.ContentPages
         }
 
         
+        public async Task ConnectToServer ( )
+        {
+
+            _connection = new HubConnectionBuilder ()
+                .WithUrl ( url )
+                .Build ();
+
+            await _connection.StartAsync ();
+            isConnected = true;
+            connectionStatus = "Connected";
+
+            _connection.Closed += async ( s ) =>
+            {
+                isConnected = false;
+                connectionStatus = "Disconnected";
+                await _connection.StartAsync ();
+                isConnected = true;
+
+            };
+            _connection.On<int,bool > ( "TurnOffActiveStatus" , async ( TeacherID, isOnline ) =>
+            {
+                bool isTeacherhere = false;
+                if(isOnline == false)
+                {
+                    for ( int i = 0; i < FilteredTeacher.Count; i++ )
+                    {
+                        if ( FilteredTeacher [ i ].TeacherID == TeacherID )
+                        {
+                            isTeacherhere = true;
+                            FilteredTeacher [ i ].IsActive = 0;
+                            FilteredTeacher [ i ].TeacherStatus = "Offline";
+                            FilteredTeacher [ i ].TeacherStatusColor = "#939393";
+                        }
+                    }
+                    if(isTeacherhere == true)
+                    {
+                        await Task.Run ( ( ) =>
+                        {
+                            MainThread.BeginInvokeOnMainThread ( ( ) =>
+                            {
+                                TeacherListView.ItemsSource = null;
+                                TeacherListView.ItemsSource = FilteredTeacher;
+                            } );
+                        } ).ConfigureAwait ( false );
+                    }
+                    
+                }
+                if ( isOnline == true )
+                {
+                    for ( int i = 0; i < FilteredTeacher.Count; i++ )
+                    {
+                        if ( FilteredTeacher [ i ].TeacherID == TeacherID )
+                        {
+                            isTeacherhere = true;
+                            MainThread.BeginInvokeOnMainThread ( ( ) => {
+                                FilteredTeacher [ i ].IsActive = 0;
+                                FilteredTeacher [ i ].TeacherStatus = "Call Now";
+                                FilteredTeacher [ i ].TeacherStatusColor = "#43CF56";
+
+                            } );
+                        }
+                    }
+                    if ( isTeacherhere == true )
+                    {
+                        await Task.Run ( ( ) =>
+                        {
+                            MainThread.BeginInvokeOnMainThread ( ( ) =>
+                            {
+                                TeacherListView.ItemsSource = null;
+                                TeacherListView.ItemsSource = FilteredTeacher;
+                            } );
+                        } ).ConfigureAwait ( false );
+                        
+                    }
+
+                }
+
+            } );
+        }
+
+
     }
 }

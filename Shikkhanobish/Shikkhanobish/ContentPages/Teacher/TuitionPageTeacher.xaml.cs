@@ -40,7 +40,7 @@ namespace Shikkhanobish.ContentPages
         }
         protected override bool OnBackButtonPressed ( )
         {
-            Navigation.PushPopupAsync ( new PopUpForTextAlert ( "" , "" , true ) );
+            Navigation.PushPopupAsync ( new PopUpForTextAlert ( "Do You want to cut the call?" , "If you want to cus the call, press cut video icon" , false ) );
             return true;
         }
         public async Task CutVideoCAll ( )

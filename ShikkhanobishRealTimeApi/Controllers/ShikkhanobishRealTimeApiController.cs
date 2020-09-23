@@ -47,6 +47,13 @@ namespace ShikkhanobishRealTimeApi.Controllers
 
             return Ok ( "Sent End CAll event" );
         }
+        [HttpPost ( "TurnOffActiveStatus" )]
+        public async Task<IActionResult> TurnOffActiveStatus ( int TeacherID, bool isOnline )
+        {
+            await _hubContext.Clients.All.SendAsync ( "TurnOffActiveStatus" , TeacherID ,isOnline);
+
+            return Ok ( "Turn off active status" );
+        }
 
     }
 }

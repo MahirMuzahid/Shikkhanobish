@@ -39,13 +39,13 @@ namespace Shikkhanobish.ContentPages
             {
                 return;
             }
-            setOnTuitionON ();
+            setOnTuitionOFFOrOn(1);
             ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , true );
             await Application.Current.MainPage.Navigation.PushModalAsync ( new TuitionPageTeacher ( Info ) ).ConfigureAwait ( false );
         }
         protected  override bool OnBackButtonPressed ( )
         {
-            setOnTuitionOFF ();
+            setOnTuitionOFFOrOn (0);
             ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , false );
             popPage ();
             //End Call session
@@ -58,7 +58,7 @@ namespace Shikkhanobish.ContentPages
         //for teacher
         private async void canclebtn_Clicked ( object sender , EventArgs e )
         {
-            setOnTuitionOFF ();
+            setOnTuitionOFFOrOn(0);
             ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , false );
             await Application.Current.MainPage.Navigation.PopModalAsync ();
         }
@@ -99,25 +99,16 @@ namespace Shikkhanobish.ContentPages
             //CrossOpenTok.Current.Error += (m) => TakeTuition.DisplayAlert("ERROR", m, "OK");
         }
 
-        public async void setOnTuitionOFF ( )
+        public async void setOnTuitionOFFOrOn (int oforon )
         {
             string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsOnTuition";
             HttpClient clientT = new HttpClient ();
-            string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = Info.Teacher.TeacherID , state = 0 } );
+            string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = Info.Teacher.TeacherID , state = oforon } );
             StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
             HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
             string resultT = await responseT.Content.ReadAsStringAsync ();
             var response = JsonConvert.DeserializeObject<Response> ( resultT );
         }
-        public async void setOnTuitionON ( )
-        {
-            string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsOnTuition";
-            HttpClient clientT = new HttpClient ();
-            string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = Info.Teacher.TeacherID , state = 1 } );
-            StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
-            HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
-            string resultT = await responseT.Content.ReadAsStringAsync ();
-            var response = JsonConvert.DeserializeObject<Response> ( resultT );
-        }
+        
     }
 }

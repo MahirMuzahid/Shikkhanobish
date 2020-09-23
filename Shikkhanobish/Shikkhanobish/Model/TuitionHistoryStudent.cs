@@ -10,7 +10,7 @@
         public string Date { get; set; }
         public int Ratting { get; set; }        
         public string Teacher_Name { get; set; }
-        public int Cost { get; set; }
+        public float Cost { get; set; }
 
     }
 }

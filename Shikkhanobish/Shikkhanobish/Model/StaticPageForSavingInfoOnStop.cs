@@ -11,7 +11,7 @@ namespace Shikkhanobish.Model
         public static int TeacherID { get; set; }
         public static string Class { get;  set; }
         public static string Subject { get; set; }
-        public static int StudentCost { get; set; }
-        public static int TeacherEarn { get; set; }
+        public static float StudentCost { get; set; }
+        public static float TeacherEarn { get; set; }
     }
 }

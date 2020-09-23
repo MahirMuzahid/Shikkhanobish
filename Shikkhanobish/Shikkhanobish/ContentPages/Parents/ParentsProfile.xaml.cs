@@ -23,7 +23,7 @@ namespace Shikkhanobish.ContentPages
         Parent parentinfo;
         Student student;
         string topsub = "";
-        int totalSpent = 0;
+        float totalSpent = 0;
         public ParentsProfile ( Parent p)
         {
             InitializeComponent ();
@@ -145,7 +145,7 @@ namespace Shikkhanobish.ContentPages
                 subjects.Add (studentHistory [ i ].Subject);
             }
             topsub = countTopSubject ( subjects );
-            int totalCost = 0;
+            float totalCost = 0;
             
             for(int i = 0; i < studentHistory.Count; i++ )
             {

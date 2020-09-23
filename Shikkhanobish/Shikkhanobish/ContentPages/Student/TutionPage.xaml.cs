@@ -48,7 +48,6 @@ namespace Shikkhanobish.ContentPages
         {
             CrossOpenTok.Current.EndSession ();
             _connection.StopAsync ();
-            await TransferPoint ().ConfigureAwait(false);
             await CutVideoCAll ().ConfigureAwait(false);
             gotoRatingPage ();           
            
@@ -77,7 +76,7 @@ namespace Shikkhanobish.ContentPages
 
         protected override bool OnBackButtonPressed ( )
         {
-            Navigation.PushPopupAsync ( new PopUpForTextAlert ( "" , "" , true ) );
+            Navigation.PushPopupAsync ( new PopUpForTextAlert ( "Do You want to cut the call?" , "If you want to cus the call, press cut video icon" , false ) );
             return true;
         }
         public async void gotoRatingPage ( )
@@ -182,7 +181,6 @@ namespace Shikkhanobish.ContentPages
                     if ( info.Student.StudentID == studentID )
                     {
                         CrossOpenTok.Current.EndSession ();
-                        TransferPoint ();
                         _connection.StopAsync ();
                         gotoRatingPage ();
                     }
@@ -191,22 +189,7 @@ namespace Shikkhanobish.ContentPages
             } );
         }
 
-        public async Task TransferPoint ()
-        {
-            int TeacherEarn = calculate.CalculateCostForTeacher ( info );
-            int StudentCost = calculate.CalculateCost ( info );
-            info.StudentCost = StudentCost;
-            info.TeacherEarn = TeacherEarn;
-
-
-            string urlT = "https://api.shikkhanobish.com/api/Master/TransferPoint";
-            HttpClient clientT = new HttpClient ();
-            string jsonDataT = JsonConvert.SerializeObject ( new { TeacherEarn = TeacherEarn , StudentCost = StudentCost , StudentID = info.Student.StudentID, TeacherID =info.Teacher.TeacherID } );
-            StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
-            HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
-            string resultT = await responseT.Content.ReadAsStringAsync ();
-            var r = JsonConvert.DeserializeObject<Response> ( resultT );
-        }
+        
         public async void SetIsPending ( )
         {
             string url = "https://api.shikkhanobish.com/api/Master/SetPending";
@@ -216,11 +199,11 @@ namespace Shikkhanobish.ContentPages
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
             string result = await response.Content.ReadAsStringAsync ();
         }
-        int previouscostst, previousearnteach;
-        public async void SetCost ( int cost, int stcost, int teacherearn)
+        float previouscostst, previousearnteach;
+        public async void SetCost ( float cost, float stcost, float teacherearn)
         {
-            int miancostst = stcost - previouscostst;
-            int mianearnt = teacherearn - previousearnteach;
+            float miancostst = stcost - previouscostst;
+            float mianearnt = teacherearn - previousearnteach;
             previouscostst = stcost;
             previousearnteach = teacherearn;
             string url = "https://api.shikkhanobish.com/api/Master/SetCostinIspending";
@@ -230,6 +213,7 @@ namespace Shikkhanobish.ContentPages
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
             string result = await response.Content.ReadAsStringAsync ();
         }
+
 
 
     }

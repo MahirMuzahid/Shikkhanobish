@@ -8,7 +8,7 @@
         public string Class { get; set; }
         public string Subject { get; set; }
         public int Time { get; set; }
-        public int Cost { get; set; }
+        public float Cost { get; set; }
         public string Response { get; set; }
     }
 }
