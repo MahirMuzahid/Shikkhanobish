@@ -37,8 +37,8 @@ namespace Shikkhanobish.ContentPages
             safelbl.Text = "Safe Time";
             tnamelbl.Text = trnsInfo.Teacher.TeacherName;
             SetIsPending ();
-            Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , UpdateTimerAndInfo );           
             ConnectToServer ();
+            Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , UpdateTimerAndInfo );                      
         }
 
         private async void OnEndCall ( object sender , EventArgs e )
