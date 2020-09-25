@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Shikkhanobish.ContentPages;
+using Shikkhanobish.Model;
 using System;
 using System.Net.Http;
 using System.Text;
@@ -53,7 +54,6 @@ namespace Shikkhanobish
             else
             {
                 Sentbtn.Text = "Sending Code";
-                string vrtext = "{ \"status\":\"Sms sent successfully\"}";
                 Phonenumber = PlaceholderEntry.Text;
                 string url = "https://api.shikkhanobish.com/api/Master/RecoverInfoStudent";
                 HttpClient client = new HttpClient();
@@ -68,11 +68,10 @@ namespace Shikkhanobish
                     studentorTeacher = 0;
                     VerificationNumber = random.Next(1000, 9999);
                     string text = "Your Username or Password reset verification code is: " + VerificationNumber;
-                    string urlv = "https://www.bdgosms.com/send/?req=out&apikey=bdgov23fNg7nWmb9alTIXYSMD16GewhLBH&numb=" + Phonenumber + "&sms=" + text;
-                    HttpClient clientv = new HttpClient();
-                    HttpResponseMessage responsev = await clientv.GetAsync(urlv);
-                    string resultv = await responsev.Content.ReadAsStringAsync().ConfigureAwait(true);
-                    if (resultv[0] == '{')
+                    string apiKey = "bdgoQKW5OyLe748FUlrBmgCEXZn3oivhuf";
+                    Massage ms = new Massage ();
+                    ms.SendMsg ( Phonenumber , text , apiKey );
+                    if (ms.isSent == true)
                     {
                         Sentbtn.Text = "Verify";
                         PlaceholderEntry.Text = null;
@@ -80,21 +79,43 @@ namespace Shikkhanobish
                     }
                     else
                     {
-                        studentorTeacher = 1;
-                        Teacher teacher = new Teacher();
-                        string urlt = "https://api.shikkhanobish.com/api/Master/RecoverInfoTeacher";
-                        HttpClient clientt = new HttpClient();
-                        string jsonDatat = JsonConvert.SerializeObject(new { phonenumber = Phonenumber });
-                        StringContent contentt = new StringContent(jsonDatat, Encoding.UTF8, "application/json");
-                        HttpResponseMessage responset = await clientt.PostAsync(urlt, contentt).ConfigureAwait(true);
-                        string resultt = await responset.Content.ReadAsStringAsync();
-                        teacher = JsonConvert.DeserializeObject<Teacher>(resultt);
-                    }
+                        Errorlbl.Text = "Invalid Number. Maybe number is switched off";
+                    }                  
                 }
                 else
                 {
-                    Sentbtn.Text = "Send";
-                    Errorlbl.Text = "This number is not registered";
+                    studentorTeacher = 1;
+                    Teacher teacher = new Teacher ();
+                    string urlt = "https://api.shikkhanobish.com/api/Master/RecoverInfoTeacher";
+                    HttpClient clientt = new HttpClient ();
+                    string jsonDatat = JsonConvert.SerializeObject ( new { phonenumber = Phonenumber } );
+                    StringContent contentt = new StringContent ( jsonDatat , Encoding.UTF8 , "application/json" );
+                    HttpResponseMessage responset = await clientt.PostAsync ( urlt , contentt ).ConfigureAwait ( true );
+                    string resultt = await responset.Content.ReadAsStringAsync ();
+                    teacher = JsonConvert.DeserializeObject<Teacher> ( resultt );
+                    if ( teacher.UserName != null )
+                    {
+                        VerificationNumber = random.Next ( 1000 , 9999 );
+                        string text = "Your Username or Password reset verification code is: " + VerificationNumber;
+                        string apiKey = "bdgoQKW5OyLe748FUlrBmgCEXZn3oivhuf";
+                        Massage ms = new Massage ();
+                        ms.SendMsg ( Phonenumber , text , apiKey );
+                        if ( ms.isSent == true )
+                        {
+                            Sentbtn.Text = "Verify";
+                            PlaceholderEntry.Text = null;
+                            PlaceholderEntry.Placeholder = "Enter 4 Digit Code";
+                        }
+                        else
+                        {
+                            Errorlbl.Text = "Invalid Number. Maybe number is switched off";
+                        }
+                    }
+                    else
+                    {
+                        Errorlbl.Text = "There is no account with this phone number";
+                    }
+
                 }
             }
         }

@@ -10,11 +10,6 @@
              x:Class="Shikkhanobish.ContentPages.TutionPage">
 
     <Grid BackgroundColor="#FCFCFC" ColumnSpacing="0" RowSpacing="0"  BindableLayout.ItemsSource="{Binding Path=StreamIdCollection, Source={x:Static tokService:CrossOpenTok.Current}}">
-        <BindableLayout.ItemTemplate>
-            <DataTemplate>
-                <tok:OpenTokSubscriberView HeightRequest="500" StreamId="{Binding .}" />
-            </DataTemplate>
-        </BindableLayout.ItemTemplate>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
@@ -26,7 +21,7 @@
             <ColumnDefinition Width="1*" />
 
         </Grid.ColumnDefinitions>
-        
+        <tok:OpenTokSubscriberView Grid.RowSpan="4" Grid.ColumnSpan="2" StreamId="{Binding .}" />
         <tok:OpenTokPublisherView x:Name="ownvideo" Grid.Column="1" Grid.Row="2" Margin="20"/>
 
         <Image Source="endcall.png" Grid.Row="3"  Grid.Column="0" Grid.ColumnSpan="2" Aspect="AspectFit" Margin="7"/>

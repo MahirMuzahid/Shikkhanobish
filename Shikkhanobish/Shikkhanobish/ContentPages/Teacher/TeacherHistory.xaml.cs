@@ -13,17 +13,17 @@ namespace Shikkhanobish
     public partial class TeacherHistory : ContentPage
     {
         private List<TuitionHistoryTeacher> teacherHistory = new List<TuitionHistoryTeacher>();
-
-        public TeacherHistory()
+        int TeacherID;
+        public TeacherHistory(int id)
         {
-            InitializeComponent();
+            TeacherID = id;
+            InitializeComponent ();
             ShowTeacherStory();
         }
 
         //Link will be added
         public async void ShowTeacherStory()
         {
-            int TeacherID = 1017;
             string url = "https://api.shikkhanobish.com/api/Master/GetTuitionHistoryTeacher";
             HttpClient client = new HttpClient();
             string jsonData = JsonConvert.SerializeObject(new { TeacherID = TeacherID });

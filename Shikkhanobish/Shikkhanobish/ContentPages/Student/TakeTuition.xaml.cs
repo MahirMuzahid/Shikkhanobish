@@ -501,6 +501,7 @@ namespace Shikkhanobish
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
+            FilteredTeacher.Clear();
             clicked++;
             if(clicked%2 == 1)
             {

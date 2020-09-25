@@ -122,7 +122,7 @@
                             <BoxView  Grid.Row="2" Grid.Column="0" CornerRadius="20" BackgroundColor="#C0C2FF "/>
                             <Label Text="{Binding TeacherRank}" Grid.Row="2"  Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#5A5922" FontSize="12" />
                             <BoxView  Grid.Row="2" Grid.Column="1" CornerRadius="20" BackgroundColor="#FF9595 "/>
-                            <Label Text="{Binding PendingNumber}" Grid.Row="2"  Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#5A5922" FontSize="12" />
+                            <Label x:Name="pendinglbl" Text="{Binding PendingNumber}" Grid.Row="2"  Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#5A5922" FontSize="12" />
                             <BoxView  Grid.Row="2" Grid.Column="2" CornerRadius="20" BackgroundColor="#FFC0F5 "/>
                             <Label Text="{Binding  OffredTuitionTime}" Grid.Row="2" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#5A5922" FontSize="12" />
                         </Grid>

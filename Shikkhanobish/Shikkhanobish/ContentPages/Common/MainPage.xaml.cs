@@ -3,6 +3,7 @@ using Rg.Plugins.Popup.Extensions;
 using Shikkhanobish.ContentPages;
 using Shikkhanobish.ContentPages.Parents;
 using Shikkhanobish.Model;
+using Shikkhanobish.ViewModel;
 using System;
 using System.ComponentModel;
 using System.Net.Http;
@@ -134,8 +135,36 @@ namespace Shikkhanobish
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
             string result = await response.Content.ReadAsStringAsync ();
             var student = JsonConvert.DeserializeObject<Student> ( result );
-            MainThread.BeginInvokeOnMainThread ( ( ) => { Application.Current.MainPage.Navigation.PushModalAsync ( new StudentProfile ( student ) ).ConfigureAwait ( false ); } );
+            if ( student.IsPending == 1 )
+            {
+                string urlT = "https://api.shikkhanobish.com/api/Master/GetPending";
+                HttpClient clientT = new HttpClient ();
+                string jsonDataT = JsonConvert.SerializeObject ( new { StudentID = student.StudentID } );
+                StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
+                HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
+                string resultT = await responseT.Content.ReadAsStringAsync ();
+                var pendningRating = JsonConvert.DeserializeObject<IsPending> ( resultT );
+                urlT = "https://api.shikkhanobish.com/api/Master/GetInfoByTeacherID";
+                jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = pendningRating.TeacherID } );
+                contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
+                responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
+                resultT = await responseT.Content.ReadAsStringAsync ();
+                var teacher = JsonConvert.DeserializeObject<Teacher> ( resultT );
+                TransferInfo trns = new TransferInfo ();
+                trns.Student = student;
+                trns.Class = pendningRating.Class;
+                trns.Subject = pendningRating.Subject;
+                trns.StudentCost = pendningRating.Cost;
+                trns.StudyTimeInAPp = pendningRating.Time;
+                trns.Teacher = teacher;
+                await Application.Current.MainPage.Navigation.PushModalAsync ( new RatingPage ( trns , false ) ).ConfigureAwait ( false );
+            }
+            else
+            {
+                MainThread.BeginInvokeOnMainThread ( ( ) => { Application.Current.MainPage.Navigation.PushModalAsync ( new StudentProfile ( student ) ).ConfigureAwait ( false ); } );
+            }
         }
+                
 
         public async Task SearchParent(string password, int parentCode)
         {

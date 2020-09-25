@@ -40,7 +40,18 @@ namespace Shikkhanobish
             setIsActiveOffOrOn ( 0 );
             ConnectToServer ();
         }
-
+        public async Task GetPeddingInfo ( int id )
+        {
+            string urlT = "https://api.shikkhanobish.com/api/Master/GetPendingForTeacher";
+            HttpClient clientT = new HttpClient ();
+            string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = id } );
+            StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
+            string resultT = await responseT.Content.ReadAsStringAsync ();
+            var pendningRating = JsonConvert.DeserializeObject<List<IsPending>> ( resultT );
+            var pending = pendningRating.Count;
+            pendinglbl.Text = "" + pending;
+        }
         public async void setRankInfo ( )
         {
             total = teacher.Five_Star * 5 + teacher.Four_Star * 4 + teacher.Three_Star * 3 + teacher.Two_Star * 2 + teacher.One_Star * 1;
@@ -158,10 +169,7 @@ namespace Shikkhanobish
         }
 
 
-        private async void Button_Clicked_3(object sender, EventArgs e)
-        {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new TeacherHistory()).ConfigureAwait( false );
-        }
+        
 
         protected override bool OnBackButtonPressed()
         {
@@ -184,9 +192,9 @@ namespace Shikkhanobish
             await Application.Current.MainPage.Navigation.PushModalAsync(new MainPage()).ConfigureAwait( false );
         }
 
-        private void Button_Clicked_5(object sender, EventArgs e)
+        private async void Button_Clicked_5(object sender, EventArgs e)
         {
-            this.IsPresented = true;
+            await Application.Current.MainPage.Navigation.PushModalAsync ( new TeacherHistory (teacher.TeacherID) ).ConfigureAwait ( false );
         }
 
         private async void Button_Clicked_6(object sender, EventArgs e)

@@ -278,6 +278,12 @@ namespace Shikkhanobish.ContentPages
             ShowWalletHisotry ();
         }
 
+        private async void Button_Clicked_2 ( object sender , EventArgs e )
+        {
+            SecureStorage.RemoveAll ();
+            await Application.Current.MainPage.Navigation.PushModalAsync ( new MainPage () ).ConfigureAwait ( false );
+        }
+
         protected override bool OnBackButtonPressed ( )
         {
             Navigation.PushPopupAsync ( new PopUpForTextAlert ( "" , "" , true ) );

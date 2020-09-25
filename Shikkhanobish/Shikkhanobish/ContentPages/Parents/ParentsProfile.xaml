@@ -31,7 +31,8 @@
                 <Label Text="Parents Code: 1345" Grid.Row="3" Grid.Column="0" FontSize="14" FontAttributes="Italic" Margin="20,0,0,0"/>
                 <Label Text="Student Name: Iqbal Hossain" Grid.Row="4" Grid.Column="0" FontSize="14" FontAttributes="Italic" Margin="20,0,0,0"/>
                 <Label Text="Father" Grid.Row="5" Grid.Column="0" FontSize="14" FontAttributes="Italic" Margin="20,0,0,0" />
-                <Button Text="Recharge Account" Grid.Row="6" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center" FontSize="11" BackgroundColor="#41D274" Margin="20,0,0,6" CornerRadius="10" TextColor="#FFFFFF" FontAttributes="Bold" Clicked="Button_Clicked"/>
+                <Button Text="Recharge Account" Grid.Row="6" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center" FontSize="11" BackgroundColor="#41D274" Margin="20,0,0,6" CornerRadius="10" TextColor="#FFFFFF" FontAttributes="Bold" Clicked="Button_Clicked_2"/>
+                <Button Text="Logout" Grid.Row="6" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Start" FontSize="11" BackgroundColor="#D26941" Margin="40,0,10,6" CornerRadius="10" TextColor="#FFFFFF" FontAttributes="Bold" Clicked="Button_Clicked"/>
                 <Label x:Name="Errorlbl" Grid.Row="6" HorizontalOptions="End" VerticalOptions="Center" TextColor="Red"/>
 
 
