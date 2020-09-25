@@ -160,10 +160,12 @@ namespace Shikkhanobish
         {
             if(i == 0)
             {
+                SetInfoInInternalStorage ( teacher.UserName, teacher.Password, "Teacher", 0);
                 await Application.Current.MainPage.Navigation.PushModalAsync ( new TeacherProfile ( teacher ) ).ConfigureAwait ( false );
             }
             if(i == 1 )
             {
+                SetInfoInInternalStorage ( student.UserName , student.Password , "Student" , 0 );
                 await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentProfile ( student ) ).ConfigureAwait ( false );
             }
             if ( i == 2 )
@@ -273,6 +275,14 @@ namespace Shikkhanobish
         protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public async Task SetInfoInInternalStorage (string username, string password, string usertype, int parentCode)
+        {
+            await SecureStorage.SetAsync ( "username" , username ).ConfigureAwait ( false );
+            await SecureStorage.SetAsync ( "password" , password ).ConfigureAwait ( false );
+            await SecureStorage.SetAsync ( "usertype" , usertype ).ConfigureAwait ( false );
+            await SecureStorage.SetAsync ( "parentCode" , ""+parentCode ).ConfigureAwait ( false );
         }
     }
 }

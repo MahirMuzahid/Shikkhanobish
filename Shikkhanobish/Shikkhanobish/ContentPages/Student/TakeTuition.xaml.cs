@@ -31,8 +31,87 @@ namespace Shikkhanobish
         private List<Teacher> TeacherList = new List<Teacher> ();
         private List<Teacher> FilteredTeacher = new List<Teacher> ();
         public bool ok;
+        List<string> subjectNameC6to8 = new List<string> ();
+        List<string> subjectNameC9to10s = new List<string> ();        
+        List<string> subjectNameC9to10a = new List<string> ();        
+        List<string> subjectNameC9to10c = new List<string> ();
+        List<string> subjectNameC11to12a = new List<string> ();
+        List<string> subjectNameC11to12c = new List<string> ();
+        List<string> subjectNameC11to12s = new List<string> ();
+
+        List<string> groupName = new List<string> ();
+
+
+
+
         public TakeTuition ( int StudentID , string StudentName , string username , string pass , float amount)
-        {
+        { subjectNameC6to8.Add ( "Bangla 1st Paper" );
+            subjectNameC6to8.Add ( "Bangla 2nd Paper" );
+            subjectNameC6to8.Add ( "Englist 1st Paper" );
+            subjectNameC6to8.Add ( "English 2nd Paper" );
+            subjectNameC6to8.Add ( "Math" );
+
+            groupName.Add ( "Science" );
+            groupName.Add ( "Commerce" );
+            groupName.Add ( "Arts" );
+
+            subjectNameC9to10s.Add ( "Bangla 1st Paper" );
+            subjectNameC9to10s.Add ( "Bangla 2nd Paper" );
+            subjectNameC9to10s.Add ( "Englist 1st Paper" );
+            subjectNameC9to10s.Add ( "English 2nd Paper" );
+            subjectNameC9to10s.Add ( "ICT" );
+            subjectNameC9to10s.Add ( "Physics" );
+            subjectNameC9to10s.Add ( "Cheistry" );
+            subjectNameC9to10s.Add ( "Biology" );
+            subjectNameC9to10s.Add ( "Math" );
+
+            subjectNameC9to10c.Add ( "Bangla 1st Paper" );
+            subjectNameC9to10c.Add ( "Bangla 2nd Paper" );
+            subjectNameC9to10c.Add ( "Englist 1st Paper" );
+            subjectNameC9to10c.Add ( "English 2nd Paper" );
+            subjectNameC9to10c.Add ( "ICT" );
+            subjectNameC9to10c.Add ( "Economics" );
+            subjectNameC9to10c.Add ( "Accounting" );
+            subjectNameC9to10c.Add ( "Finance & Banking" );
+            subjectNameC9to10c.Add ( "Business Entrepreneurship" );
+
+            subjectNameC9to10a.Add ( "Bangla 1st Paper" );
+            subjectNameC9to10a.Add ( "Bangla 2nd Paper" );
+            subjectNameC9to10a.Add ( "Englist 1st Paper" );
+            subjectNameC9to10a.Add ( "English 2nd Paper" );
+            subjectNameC9to10a.Add ( "ICT" );
+            subjectNameC9to10a.Add ( "Geology" );
+            subjectNameC9to10a.Add ( "Career Education" );
+
+            subjectNameC11to12s.Add ( "Bangla 1st Paper" );
+            subjectNameC11to12s.Add ( "Bangla 2nd Paper" );
+            subjectNameC11to12s.Add ( "Englist 1st Paper" );
+            subjectNameC11to12s.Add ( "English 2nd Paper" );
+            subjectNameC11to12s.Add ( "ICT" );
+            subjectNameC11to12s.Add ( "Physics 1st Paper" );
+            subjectNameC11to12s.Add ( "Physics 2nd Paper" );
+            subjectNameC11to12s.Add ( "Cheistry 1st Paper" );
+            subjectNameC11to12s.Add ( "Cheistry 2nd Paper" );
+            subjectNameC11to12s.Add ( "Biology 1st Paper" );
+            subjectNameC11to12s.Add ( "Biology 2nd Paper" );
+            subjectNameC11to12s.Add ( "Math 1st Paper" );
+            subjectNameC11to12s.Add ( "Math 2nd Paper" );
+
+            subjectNameC11to12c.Add ( "Bangla 1st Paper" );
+            subjectNameC11to12c.Add ( "Bangla 2nd Paper" );
+            subjectNameC11to12c.Add ( "Englist 1st Paper" );
+            subjectNameC11to12c.Add ( "English 2nd Paper" );
+            subjectNameC11to12c.Add ( "ICT" );
+            subjectNameC11to12c.Add ( "Economics" );
+            subjectNameC11to12c.Add ( "Accounting" );
+            subjectNameC11to12c.Add ( "Finance & Banking" );
+
+            subjectNameC11to12a.Add ( "Bangla 1st Paper" );
+            subjectNameC11to12a.Add ( "Bangla 2nd Paper" );
+            subjectNameC11to12a.Add ( "Englist 1st Paper" );
+            subjectNameC11to12a.Add ( "English 2nd Paper" );
+            subjectNameC11to12a.Add ( "ICT" );
+            subjectNameC11to12a.Add ( "Logic" );
             InitializeComponent ();
             clicked = 0;
             IsCancled = false;
@@ -62,114 +141,71 @@ namespace Shikkhanobish
             GroupBoxView.BackgroundColor = Color.FromHex("#CDCDCD");
             GroupTxt.TextColor = Color.FromHex("#808080");
             SearchBtn.IsEnabled = false;
+           
         }
         string preClass = "";
         private void ClassPicker_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            SubjectPicker.Items.Clear();
-            GroupPicker.Items.Clear();
+        {          
             selectedClass = ClassPicker.SelectedItem.ToString();
             if (selectedClass == "Class 6"|| selectedClass == "Class 7"|| selectedClass == "Class 8" )
             {               
                 preClass = selectedClass;
-                SubjectPicker.Items.Add("Bangla 1st Paper");
-                SubjectPicker.Items.Add("Bangla 2nd Paper");
-                SubjectPicker.Items.Add("Englist 1st Paper");
-                SubjectPicker.Items.Add("English 2nd Paper");
-                SubjectPicker.Items.Add("Math");
+                SubjectPicker.ItemsSource = subjectNameC6to8;
                 GroupPicker.IsEnabled = false;
                 GroupBoxView.BackgroundColor = Color.FromHex("#CDCDCD");
                 GroupTxt.TextColor = Color.FromHex("#808080");
             }           
             else if (selectedClass == "Class 9" || selectedClass == "Class 10" || selectedClass == "Class 11" || selectedClass == "Class 12")
             {
+                SubjectPicker.SelectedIndex = 0;
                 GroupPicker.IsEnabled = true;
-                GroupPicker.Items.Add("Science");
-                GroupPicker.Items.Add("Commerce");
-                GroupPicker.Items.Add("Arts");               
+                GroupPicker.ItemsSource = groupName;
                 GroupBoxView.BackgroundColor = Color.FromHex( "#7FDD78FF" );
                 GroupTxt.TextColor = Color.FromHex( "#00203F" );
             }
+
         }
 
         private void GroupPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SubjectPicker.Items.Clear();
-            if (GroupPicker.Items.Count != 0)
+            try
             {
-                selectedGroup = GroupPicker.SelectedItem.ToString ();
-                if ((selectedClass == "Class 9" || selectedClass == "Class 10") & selectedGroup == "Science")
-                {
-                    SubjectPicker.Items.Add("Bangla 1st Paper");
-                    SubjectPicker.Items.Add("Bangla 2nd Paper");
-                    SubjectPicker.Items.Add("Englist 1st Paper");
-                    SubjectPicker.Items.Add("English 2nd Paper");
-                    SubjectPicker.Items.Add("ICT");
-                    SubjectPicker.Items.Add("Physics");
-                    SubjectPicker.Items.Add("Cheistry");
-                    SubjectPicker.Items.Add("Biology");
-                    SubjectPicker.Items.Add("Math");
+                if ( GroupPicker.Items.Count != 0 )
+                {                    
+                    selectedGroup = GroupPicker.SelectedItem.ToString ();
+                    if ( ( selectedClass == "Class 9" || selectedClass == "Class 10" ) & selectedGroup == "Science" )
+                    {
+                        SubjectPicker.ItemsSource = subjectNameC9to10s;
+                    }
+                    else if ( ( selectedClass == "Class 9" || selectedClass == "Class 10" ) & selectedGroup == "Commerce" )
+                    {
+                        SubjectPicker.ItemsSource = subjectNameC9to10c;
+                    }
+                    else if ( ( selectedClass == "Class 9" || selectedClass == "Class 10" ) & selectedGroup == "Arts" )
+                    {
+
+                        SubjectPicker.ItemsSource = subjectNameC9to10a;
+                    }
+                    else if ( ( selectedClass == "Class 11" || selectedClass == "Class 12" ) & selectedGroup == "Science" )
+                    {
+                        SubjectPicker.ItemsSource = subjectNameC11to12s;
+                    }
+                    else if ( ( selectedClass == "Class 11" || selectedClass == "Class 12" ) & selectedGroup == "Commerce" )
+                    {
+                        SubjectPicker.ItemsSource = subjectNameC11to12c;
+                    }
+                    else if ( ( selectedClass == "Class 11" || selectedClass == "Class 12" ) & selectedGroup == "Arts" )
+                    {
+                        SubjectPicker.ItemsSource = subjectNameC11to12a;
+                    }
                 }
-                if ((selectedClass == "Class 9" || selectedClass == "Class 10") & selectedGroup == "Commerce")
-                {
-                    SubjectPicker.Items.Add("Bangla 1st Paper");
-                    SubjectPicker.Items.Add("Bangla 2nd Paper");
-                    SubjectPicker.Items.Add("Englist 1st Paper");
-                    SubjectPicker.Items.Add("English 2nd Paper");
-                    SubjectPicker.Items.Add("ICT");
-                    SubjectPicker.Items.Add("Economics");
-                    SubjectPicker.Items.Add("Accounting");
-                    SubjectPicker.Items.Add("Finance & Banking");
-                    SubjectPicker.Items.Add("Business Entrepreneurship");
-                }
-                if ((selectedClass == "Class 9" || selectedClass == "Class 10") & selectedGroup == "Arts")
-                {
-                    SubjectPicker.Items.Add("Bangla 1st Paper");
-                    SubjectPicker.Items.Add("Bangla 2nd Paper");
-                    SubjectPicker.Items.Add("Englist 1st Paper");
-                    SubjectPicker.Items.Add("English 2nd Paper");
-                    SubjectPicker.Items.Add("ICT");
-                    SubjectPicker.Items.Add("Geology");
-                    SubjectPicker.Items.Add("Career Education");
-                }
-                if ((selectedClass == "Class 11" || selectedClass == "Class 12") & selectedGroup == "Science")
-                {
-                    SubjectPicker.Items.Add("Bangla 1st Paper");
-                    SubjectPicker.Items.Add("Bangla 2nd Paper");
-                    SubjectPicker.Items.Add("Englist 1st Paper");
-                    SubjectPicker.Items.Add("English 2nd Paper");
-                    SubjectPicker.Items.Add("ICT");
-                    SubjectPicker.Items.Add("Physics 1st Paper");
-                    SubjectPicker.Items.Add("Physics 2nd Paper");
-                    SubjectPicker.Items.Add("Cheistry 1st Paper");
-                    SubjectPicker.Items.Add("Cheistry 2nd Paper");
-                    SubjectPicker.Items.Add("Biology 1st Paper");
-                    SubjectPicker.Items.Add("Biology 2nd Paper");
-                    SubjectPicker.Items.Add("Math 1st Paper");
-                    SubjectPicker.Items.Add("Math 2nd Paper");
-                }
-                if ((selectedClass == "Class 11" || selectedClass == "Class 12") & selectedGroup == "Commerce")
-                {
-                    SubjectPicker.Items.Add("Bangla 1st Paper");
-                    SubjectPicker.Items.Add("Bangla 2nd Paper");
-                    SubjectPicker.Items.Add("Englist 1st Paper");
-                    SubjectPicker.Items.Add("English 2nd Paper");
-                    SubjectPicker.Items.Add("ICT");
-                    SubjectPicker.Items.Add("Economics");
-                    SubjectPicker.Items.Add("Accounting");
-                    SubjectPicker.Items.Add("Finance & Banking");
-                    SubjectPicker.Items.Add("Statistics");
-                }
-                if ((selectedClass == "Class 11" || selectedClass == "Class 12") & selectedGroup == "Arts")
-                {
-                    SubjectPicker.Items.Add("Bangla 1st Paper");
-                    SubjectPicker.Items.Add("Bangla 2nd Paper");
-                    SubjectPicker.Items.Add("Englist 1st Paper");
-                    SubjectPicker.Items.Add("English 2nd Paper");
-                    SubjectPicker.Items.Add("ICT");
-                    SubjectPicker.Items.Add("Logic");
-                }
+                SubjectPicker.SelectedIndex = 1;
             }
+            catch (Exception ex )
+            {
+
+            }
+            
         }
 
         private async void SubjectPicker_SelectedIndexChanged(object sender, EventArgs e)

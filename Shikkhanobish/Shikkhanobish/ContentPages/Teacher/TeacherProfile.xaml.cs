@@ -12,6 +12,7 @@ using Xamarin.Forms.Xaml;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
 using Shikkhanobish.ViewModel;
+using Xamarin.Essentials;
 
 namespace Shikkhanobish
 {
@@ -179,6 +180,7 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_4(object sender, EventArgs e)
         {
+            SecureStorage.RemoveAll ();
             await Application.Current.MainPage.Navigation.PushModalAsync(new MainPage()).ConfigureAwait( false );
         }
 

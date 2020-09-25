@@ -9,6 +9,7 @@ using Rg.Plugins.Popup.Extensions;
 using Shikkhanobish.ContentPages;
 using Plugin.Connectivity;
 using Shikkhanobish.ContentPages.Common;
+using Xamarin.Essentials;
 
 namespace Shikkhanobish
 {
@@ -37,6 +38,7 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_4(object sender, EventArgs e)
         {
+            SecureStorage.RemoveAll();
             await Application.Current.MainPage.Navigation.PushModalAsync(new MainPage()).ConfigureAwait( false );
         }
 
