@@ -38,6 +38,7 @@ namespace Shikkhanobish
             setRankInfo ();
             setOnTuitionOFF ();
             setIsActiveOffOrOn ( 0 );
+            GetPeddingInfo (teacher.TeacherID);
             ConnectToServer ();
         }
         public async Task GetPeddingInfo ( int id )

@@ -12,6 +12,7 @@ using Xamarin.Forms.Xaml;
 using Microsoft.AspNetCore.SignalR.Client;
 using Newtonsoft.Json;
 using System.Diagnostics.Tracing;
+using OpenTokSDK;
 
 namespace Shikkhanobish.ContentPages
 {
@@ -71,21 +72,21 @@ namespace Shikkhanobish.ContentPages
         }
         protected async void GetKeys ()
         {
-
-            apiKey = 46485492;
-            SessionID = "2_MX40NjQ4NTQ5Mn5-MTU5ODc2MDk4MTU2M35vTDBMZjU0c21BcGhtNTE2Ylp1cllSS1F-fg";
-            Token = "T1==cGFydG5lcl9pZD00NjQ4NTQ5MiZzaWc9NTRmZjBhYzFkZGQ2MmZkZGJhZjI4NWY5NmE1Y2E2MzQ0OTVhZTMxMjpzZXNzaW9uX2lkPTJfTVg0ME5qUTROVFE1TW41LU1UVTVPRGMyTURrNE1UVTJNMzV2VERCTVpqVTBjMjFCY0dodE5URTJZbHAxY2xsU1MxRi1mZyZjcmVhdGVfdGltZT0xNTk4NzYwOTkwJm5vbmNlPTAuODYzMzk2NTI0NTQxNzAxNyZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNjAxMzUyOTg4JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";
+               
             using ( var client = new HttpClient () )
             {
                 try
                 {
-                    //var resp = await client.GetAsync(Config.KeysUrl);
-                    //var json = await resp.Content.ReadAsStringAsync();
-                    //var keys = JsonConvert.DeserializeObject<Keys>(json);
-
-                    CrossOpenTok.Current.ApiKey = "46485492";// keys.ApiKey;
-                    CrossOpenTok.Current.SessionId = "2_MX40NjQ4NTQ5Mn5-MTU5ODc2MDk4MTU2M35vTDBMZjU0c21BcGhtNTE2Ylp1cllSS1F-fg";//keys.SessionId;
-                    CrossOpenTok.Current.UserToken = "T1==cGFydG5lcl9pZD00NjQ4NTQ5MiZzaWc9NTRmZjBhYzFkZGQ2MmZkZGJhZjI4NWY5NmE1Y2E2MzQ0OTVhZTMxMjpzZXNzaW9uX2lkPTJfTVg0ME5qUTROVFE1TW41LU1UVTVPRGMyTURrNE1UVTJNMzV2VERCTVpqVTBjMjFCY0dodE5URTJZbHAxY2xsU1MxRi1mZyZjcmVhdGVfdGltZT0xNTk4NzYwOTkwJm5vbmNlPTAuODYzMzk2NTI0NTQxNzAxNyZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNjAxMzUyOTg4JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";//keys.Token;
+                    apiKey = 46485492;
+                    string apiSecreat = "c255c95670bc11eecaf5950baf375d7478f74665";
+                    OpenTok opentok = new OpenTok ( apiKey , apiSecreat );
+                    opentok.SetDefaultRequestTimeout ( 15 );
+                    var session = opentok.CreateSession ();
+                    SessionID = session.Id;
+                    Token = opentok.GenerateToken ( SessionID );
+                    CrossOpenTok.Current.ApiKey = ""+apiKey;// keys.ApiKey;
+                    CrossOpenTok.Current.SessionId = SessionID;//keys.SessionId;
+                    CrossOpenTok.Current.UserToken = Token;//keys.Token;
                 }
                 catch ( Exception ex )
                 {

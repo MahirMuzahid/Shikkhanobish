@@ -59,7 +59,7 @@ namespace Shikkhanobish
                 HttpClient client = new HttpClient();
                 string jsonData = JsonConvert.SerializeObject(new { phonenumber = Phonenumber });
                 StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
+                HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(false);
                 string result = await response.Content.ReadAsStringAsync();
                 student = JsonConvert.DeserializeObject<Student>(result);
                 Username = student.UserName;
@@ -70,7 +70,7 @@ namespace Shikkhanobish
                     string text = "Your Username or Password reset verification code is: " + VerificationNumber;
                     string apiKey = "bdgoQKW5OyLe748FUlrBmgCEXZn3oivhuf";
                     Massage ms = new Massage ();
-                    ms.SendMsg ( Phonenumber , text , apiKey );
+                    await ms.SendMsg ( Phonenumber , text , apiKey ).ConfigureAwait(false);
                     if (ms.isSent == true)
                     {
                         Sentbtn.Text = "Verify";
@@ -99,7 +99,7 @@ namespace Shikkhanobish
                         string text = "Your Username or Password reset verification code is: " + VerificationNumber;
                         string apiKey = "bdgoQKW5OyLe748FUlrBmgCEXZn3oivhuf";
                         Massage ms = new Massage ();
-                        ms.SendMsg ( Phonenumber , text , apiKey );
+                        await ms.SendMsg ( Phonenumber , text , apiKey ).ConfigureAwait(false);
                         if ( ms.isSent == true )
                         {
                             Sentbtn.Text = "Verify";
