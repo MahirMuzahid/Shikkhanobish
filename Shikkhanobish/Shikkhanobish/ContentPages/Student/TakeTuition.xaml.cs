@@ -13,6 +13,7 @@ using Xamarin.Essentials;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Shikkhanobish.Model;
+using System.Collections.ObjectModel;
 
 namespace Shikkhanobish
 {
@@ -31,13 +32,14 @@ namespace Shikkhanobish
         private List<Teacher> TeacherList = new List<Teacher> ();
         private List<Teacher> FilteredTeacher = new List<Teacher> ();
         public bool ok;
-        List<string> subjectNameC6to8 = new List<string> ();
-        List<string> subjectNameC9to10s = new List<string> ();        
-        List<string> subjectNameC9to10a = new List<string> ();        
-        List<string> subjectNameC9to10c = new List<string> ();
-        List<string> subjectNameC11to12a = new List<string> ();
-        List<string> subjectNameC11to12c = new List<string> ();
-        List<string> subjectNameC11to12s = new List<string> ();
+
+        ObservableCollection<string> subjectNameC6to8 = new ObservableCollection<string> ();
+        ObservableCollection<string> subjectNameC9to10s = new ObservableCollection<string> ();
+        ObservableCollection<string> subjectNameC9to10a = new ObservableCollection<string> ();
+        ObservableCollection<string> subjectNameC9to10c = new ObservableCollection<string> ();
+        ObservableCollection<string> subjectNameC11to12a = new ObservableCollection<string> ();
+        ObservableCollection<string> subjectNameC11to12c = new ObservableCollection<string> ();
+        ObservableCollection<string> subjectNameC11to12s = new ObservableCollection<string> ();
 
         List<string> groupName = new List<string> ();
 
@@ -45,7 +47,8 @@ namespace Shikkhanobish
 
 
         public TakeTuition ( int StudentID , string StudentName , string username , string pass , float amount)
-        { subjectNameC6to8.Add ( "Bangla 1st Paper" );
+        { 
+            subjectNameC6to8.Add ( "Bangla 1st Paper" );
             subjectNameC6to8.Add ( "Bangla 2nd Paper" );
             subjectNameC6to8.Add ( "Englist 1st Paper" );
             subjectNameC6to8.Add ( "English 2nd Paper" );
@@ -136,7 +139,7 @@ namespace Shikkhanobish
             ClassPicker.Items.Add("Class 9");
             ClassPicker.Items.Add("Class 10");
             ClassPicker.Items.Add("Class 11");
-            ClassPicker.Items.Add("Class 12");
+            ClassPicker.Items.Add("Class 12");           
             GroupPicker.IsEnabled = false;
             GroupBoxView.BackgroundColor = Color.FromHex("#CDCDCD");
             GroupTxt.TextColor = Color.FromHex("#808080");
@@ -145,7 +148,12 @@ namespace Shikkhanobish
         }
         string preClass = "";
         private void ClassPicker_SelectedIndexChanged(object sender, EventArgs e)
-        {          
+        {   
+            if(SubjectPicker.Items.Count > 0)
+            {
+                SubjectPicker.ItemsSource =  null;
+                GroupPicker.ItemsSource = null;
+            }
             selectedClass = ClassPicker.SelectedItem.ToString();
             if (selectedClass == "Class 6"|| selectedClass == "Class 7"|| selectedClass == "Class 8" )
             {               
@@ -157,7 +165,6 @@ namespace Shikkhanobish
             }           
             else if (selectedClass == "Class 9" || selectedClass == "Class 10" || selectedClass == "Class 11" || selectedClass == "Class 12")
             {
-                SubjectPicker.SelectedIndex = 0;
                 GroupPicker.IsEnabled = true;
                 GroupPicker.ItemsSource = groupName;
                 GroupBoxView.BackgroundColor = Color.FromHex( "#7FDD78FF" );
@@ -171,7 +178,8 @@ namespace Shikkhanobish
             try
             {
                 if ( GroupPicker.Items.Count != 0 )
-                {                    
+                {
+                    
                     selectedGroup = GroupPicker.SelectedItem.ToString ();
                     if ( ( selectedClass == "Class 9" || selectedClass == "Class 10" ) & selectedGroup == "Science" )
                     {
@@ -183,7 +191,6 @@ namespace Shikkhanobish
                     }
                     else if ( ( selectedClass == "Class 9" || selectedClass == "Class 10" ) & selectedGroup == "Arts" )
                     {
-
                         SubjectPicker.ItemsSource = subjectNameC9to10a;
                     }
                     else if ( ( selectedClass == "Class 11" || selectedClass == "Class 12" ) & selectedGroup == "Science" )
@@ -199,7 +206,6 @@ namespace Shikkhanobish
                         SubjectPicker.ItemsSource = subjectNameC11to12a;
                     }
                 }
-                SubjectPicker.SelectedIndex = 1;
             }
             catch (Exception ex )
             {
@@ -213,7 +219,6 @@ namespace Shikkhanobish
             SearchBtn.IsEnabled = true;
             SearchBtn.BackgroundColor = Color.FromHex ( "#4AB3D8" );
             SearchBtn.TextColor = Color.FromHex ( "#FFFFFF" );
-            selectedSubject = SubjectPicker.SelectedItem.ToString ();
         }
 
         public async Task finalizeClassAndSubject()
@@ -501,6 +506,7 @@ namespace Shikkhanobish
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
+            selectedSubject = SubjectPicker.SelectedItem.ToString ();
             FilteredTeacher.Clear();
             clicked++;
             if(clicked%2 == 1)
@@ -509,7 +515,7 @@ namespace Shikkhanobish
                 if ( ok == true )
                 {
                     IsCancled = false;
-                    Errorlbl.TextColor = Color.DarkSeaGreen;
+                    Errorlbl.TextColor = Color.DarkSlateGray;
                     Errorlbl.Text = "You can click Search Button, to cancle search.";
                     Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , searchAgain );
                 }

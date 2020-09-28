@@ -98,7 +98,7 @@
     <EmbeddedResource Update="ContentPages\Student\RatingPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="ContentPages\Student\ResetInfo.xaml">
+    <EmbeddedResource Update="ContentPages\Common\ResetInfo.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="ContentPages\Student\SearchedTeacher.xaml">

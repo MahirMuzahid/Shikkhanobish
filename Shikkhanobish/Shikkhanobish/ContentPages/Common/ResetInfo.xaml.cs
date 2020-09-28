@@ -53,7 +53,9 @@ namespace Shikkhanobish.ContentPages
                         var r = JsonConvert.DeserializeObject<Response>(resultt);
                         if (r.Status == 0)
                         {
-                            await Application.Current.MainPage.Navigation.PushModalAsync(new MainPage()).ConfigureAwait( false );
+                            MainThread.BeginInvokeOnMainThread ( async ( ) => {
+                                await Application.Current.MainPage.Navigation.PushModalAsync(new MainPage()).ConfigureAwait( false );
+                            } );
                         }
                     }
                     else
