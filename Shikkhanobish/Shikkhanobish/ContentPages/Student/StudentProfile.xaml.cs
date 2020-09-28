@@ -10,6 +10,7 @@ using Shikkhanobish.ContentPages;
 using Plugin.Connectivity;
 using Shikkhanobish.ContentPages.Common;
 using Xamarin.Essentials;
+using System.Threading.Tasks;
 
 namespace Shikkhanobish
 {
@@ -26,10 +27,17 @@ namespace Shikkhanobish
             _Student = student;
             InitializeComponent();
             BindingContext = new StudentProfileVideoModel(student);
+            SetInfoInInternalStorage ( student.UserName , student.Password , "Student" , 0 );
             //GetPremiumStudent(student.StudentID);
         }
+        public async Task SetInfoInInternalStorage ( string username , string password , string usertype , int parentCode )
+        {
+            await SecureStorage.SetAsync ( "username" , username ).ConfigureAwait ( false );
+            await SecureStorage.SetAsync ( "password" , password ).ConfigureAwait ( false );
+            await SecureStorage.SetAsync ( "usertype" , usertype ).ConfigureAwait ( false );
+            await SecureStorage.SetAsync ( "parentCode" , "" + parentCode ).ConfigureAwait ( false );
+        }
 
-        
         protected override bool OnBackButtonPressed ( )
         {
             Navigation.PushPopupAsync ( new PopUpForTextAlert ( "" , "" , true ) );

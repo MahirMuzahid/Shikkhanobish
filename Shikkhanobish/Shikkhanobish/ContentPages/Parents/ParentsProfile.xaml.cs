@@ -31,7 +31,14 @@ namespace Shikkhanobish.ContentPages
             getstudnetinfo ();                                           
             walletbacklbl.IsVisible = false;
             historybacklbl.IsVisible = false;
-            
+            SetInfoInInternalStorage ( "" , "" , "Parent" , p.ParentID );
+        }
+        public async Task SetInfoInInternalStorage ( string username , string password , string usertype , int parentCode )
+        {
+            await SecureStorage.SetAsync ( "username" , username ).ConfigureAwait ( false );
+            await SecureStorage.SetAsync ( "password" , password ).ConfigureAwait ( false );
+            await SecureStorage.SetAsync ( "usertype" , usertype ).ConfigureAwait ( false );
+            await SecureStorage.SetAsync ( "parentCode" , "" + parentCode ).ConfigureAwait ( false );
         }
         public async Task getstudnetinfo()
         {

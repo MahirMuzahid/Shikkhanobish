@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Rg.Plugins.Popup.Pages;
+using Shikkhanobish.Model;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -13,6 +14,8 @@ namespace Shikkhanobish.ContentPages
     public partial class PopUpForTeacherWallet : PopupPage
     {
         Teacher teacher = new Teacher ();
+        private Random random;
+
         public PopUpForTeacherWallet (Teacher t )
         {
             InitializeComponent ();
@@ -32,6 +35,8 @@ namespace Shikkhanobish.ContentPages
             }
         }
 
+        public object VerificationNumber { get; private set; }
+
         private void agreebtn_Clicked ( object sender , EventArgs e )
         {
             pnentry.IsVisible = true;
@@ -42,19 +47,32 @@ namespace Shikkhanobish.ContentPages
             wthdrawbtn.Text = "Send Otp";
         }
 
-        private void wthdrawbtn_Clicked ( object sender , EventArgs e )
+        private async void wthdrawbtn_Clicked ( object sender , EventArgs e )
         {
             if(wthdrawbtn.Text == "Send Otp" )
             {
                 if ( cpentry.Text == teacher.Password )
                 {
-                    //send otp to phonenumber
-                    erroelbl.Text = "Message: OTP sent to this number: xxxxxxx8954";
-                    wthdrawbtn.Text = "Confirm";
-                    otpentry.IsVisible = true;
-                    pnentry.IsVisible = false;
-                    cpentry.IsVisible = false;
-                    erroelbl.TextColor = Color.Black;
+                    string Phonenumber = teacher.PhoneNumber;
+                    VerificationNumber = random.Next ( 1000 , 9999 );
+                    string text = "Your Username or Password reset verification code is: " + VerificationNumber;
+                    string apiKey = "bdgoQKW5OyLe748FUlrBmgCEXZn3oivhuf";
+                    Massage ms = new Massage ();
+                    await ms.SendMsg ( Phonenumber , text , apiKey ).ConfigureAwait ( false );
+                    if(ms.isSent == true)
+                    {
+                        erroelbl.Text = "Message: OTP sent to this number: xxxxxxx" + teacher.PhoneNumber [ 7 ] + teacher.PhoneNumber [ 8 ] + teacher.PhoneNumber [ 9 ] + teacher.PhoneNumber [ 10 ];
+                        wthdrawbtn.Text = "Confirm";
+                        otpentry.IsVisible = true;
+                        pnentry.IsVisible = false;
+                        cpentry.IsVisible = false;
+                        erroelbl.TextColor = Color.Black;
+                    }
+                    else
+                    {
+                        erroelbl.Text = "Either number is off or out of network.";
+                    }
+                    
 
                 }
                 else

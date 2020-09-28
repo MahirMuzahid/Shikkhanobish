@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -27,6 +27,7 @@ namespace Shikkhanobish.ContentPages
             {
                 mainEntry.Placeholder = "New Username";
                 confirmEntry.Placeholder = "Confirm Username";
+                confirmEntry.IsVisible = false;
             }
             if (IsPasswordOrUsername == 0)
             {
@@ -41,7 +42,7 @@ namespace Shikkhanobish.ContentPages
             {
                 if (mainEntry.Text.Length > 6 || mainEntry.Text.Any(char.IsUpper) || mainEntry.Text.Any(char.IsDigit))
                 {
-                    if (mainEntry.Text == confirmEntry.Text)
+                    if (mainEntry.Text == confirmEntry.Text && mainEntry.Text != "" )
                     {
                         string urlt = "https://api.shikkhanobish.com/api/Master/SetnewPasswordOrUsername";
                         HttpClient clientt = new HttpClient();
@@ -55,13 +56,21 @@ namespace Shikkhanobish.ContentPages
                             await Application.Current.MainPage.Navigation.PushModalAsync(new MainPage()).ConfigureAwait( false );
                         }
                     }
+                    else
+                    {
+                        MainThread.BeginInvokeOnMainThread ( ( ) => {
+                            Errorblb.Text = "Passwords doesn't maatch or emptry field";
+                        } );
+                    }
                 }
                 else
                 {
-                    Errorblb.Text = "Password should be atleast 6 character and one capital latter and one digit";
+                    MainThread.BeginInvokeOnMainThread ( ( ) => {
+                        Errorblb.Text = "Password should be atleast 6 character and one capital latter and one digit";
+                    } );
                 }
             }
-            else if (mainEntry.Text != "" && mainEntry.Text == confirmEntry.Text)
+            else if (mainEntry.Text != "")
             {
                 string urlt = "https://api.shikkhanobish.com/api/Master/SetnewPasswordOrUsername";
                 HttpClient clientt = new HttpClient();
@@ -77,7 +86,9 @@ namespace Shikkhanobish.ContentPages
             }
             else
             {
-                Errorblb.Text = "Enter valid Username";
+                MainThread.BeginInvokeOnMainThread ( ( ) => {
+                    Errorblb.Text = "Empty field";
+                } );
             }
         }
     }

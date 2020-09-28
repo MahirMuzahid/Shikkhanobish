@@ -43,11 +43,7 @@ namespace Shikkhanobish.ContentPages.Parents
                 loginbtn.Text = "Login";
             }
             else
-            {
-                await SecureStorage.SetAsync ( "username" , "" ).ConfigureAwait ( false );
-                await SecureStorage.SetAsync ( "password" , "" ).ConfigureAwait ( false );
-                await SecureStorage.SetAsync ( "usertype" , "Parent" ).ConfigureAwait ( false );
-                await SecureStorage.SetAsync ( "parentCode" , "" + parent.ParentID ).ConfigureAwait ( false );
+            {                
                 await Navigation.PopPopupAsync ().ConfigureAwait ( false );
                 MainThread.BeginInvokeOnMainThread ( async ( ) => { await Application.Current.MainPage.Navigation.PushModalAsync ( new ParentsProfile ( parent ) ).ConfigureAwait ( false ); } );
             }

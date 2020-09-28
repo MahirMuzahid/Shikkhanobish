@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Shikkhanobish.ContentPages;
+using Shikkhanobish.Model;
 using System;
 using System.Net.Http;
 using System.Text;
@@ -15,6 +16,7 @@ namespace Shikkhanobish
         public Student studentm = new Student();
         public string Result;
         public int vrNumber, ts;
+        Massage ms = new Massage ();
 
         public VerifyPhonenumber(Student student, int teacherorstudent)
         {
@@ -40,11 +42,8 @@ namespace Shikkhanobish
             {
                 text = "Your Verification Number From Shikkhanobish Teacher Registration is: " + VerificationNumber;
             }
-            string url = "https://www.bdgosms.com/send/?req=out&apikey=bdgoQKW5OyLe748FUlrBmgCEXZn3oivhuf&numb=0" + RecevierNumber + "&sms=" + text;
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync(url);
-            string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
-            Result = result;
+            string apiKey = "bdgoQKW5OyLe748FUlrBmgCEXZn3oivhuf";
+            await ms.SendMsg (("0"+ RecevierNumber ) , text, apiKey ).ConfigureAwait(false);
             vrNumber = VerificationNumber;
         }
 
@@ -63,7 +62,7 @@ namespace Shikkhanobish
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            if (Result[0] == '{')
+            if (ms.isSent == true)
             {
                 if (codeEntry.Text == vrNumber.ToString())
                 {

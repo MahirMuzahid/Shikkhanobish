@@ -4,7 +4,7 @@ using Shikkhanobish.Model;
 using System;
 using System.Net.Http;
 using System.Text;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -63,6 +63,7 @@ namespace Shikkhanobish
                 string result = await response.Content.ReadAsStringAsync();
                 student = JsonConvert.DeserializeObject<Student>(result);
                 Username = student.UserName;
+               
                 if (student.UserName != null)
                 {
                     studentorTeacher = 0;
@@ -73,13 +74,19 @@ namespace Shikkhanobish
                     await ms.SendMsg ( Phonenumber , text , apiKey ).ConfigureAwait(false);
                     if (ms.isSent == true)
                     {
-                        Sentbtn.Text = "Verify";
-                        PlaceholderEntry.Text = null;
-                        PlaceholderEntry.Placeholder = "Enter 4 Digit Code";
+                        MainThread.BeginInvokeOnMainThread ( ( ) => {
+                            Sentbtn.Text = "Verify";
+                            PlaceholderEntry.Text = null;
+                            PlaceholderEntry.Placeholder = "Enter 4 Digit Code";
+                        } );
+                        
                     }
                     else
                     {
-                        Errorlbl.Text = "Invalid Number. Maybe number is switched off";
+                        MainThread.BeginInvokeOnMainThread ( ( ) => {
+                            Sentbtn.Text = "Send";
+                            Errorlbl.Text = "Invalid Number. Maybe number is switched off";
+                        } );
                     }                  
                 }
                 else
@@ -102,18 +109,26 @@ namespace Shikkhanobish
                         await ms.SendMsg ( Phonenumber , text , apiKey ).ConfigureAwait(false);
                         if ( ms.isSent == true )
                         {
+                            MainThread.BeginInvokeOnMainThread ( ( ) => {
                             Sentbtn.Text = "Verify";
                             PlaceholderEntry.Text = null;
                             PlaceholderEntry.Placeholder = "Enter 4 Digit Code";
+                            } );
                         }
                         else
                         {
-                            Errorlbl.Text = "Invalid Number. Maybe number is switched off";
+                            MainThread.BeginInvokeOnMainThread ( ( ) => {
+                                Sentbtn.Text = "Send";
+                                Errorlbl.Text = "Invalid Number. Maybe number is switched off";
+                            } );
                         }
                     }
                     else
                     {
-                        Errorlbl.Text = "There is no account with this phone number";
+                        MainThread.BeginInvokeOnMainThread ( ( ) => {
+                            Sentbtn.Text = "Send";
+                            Errorlbl.Text = "There is no account with this phone number";
+                        } );
                     }
 
                 }
