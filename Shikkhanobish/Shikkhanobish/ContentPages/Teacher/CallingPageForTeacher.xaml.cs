@@ -110,6 +110,46 @@ namespace Shikkhanobish.ContentPages
             string resultT = await responseT.Content.ReadAsStringAsync ();
             var response = JsonConvert.DeserializeObject<Response> ( resultT );
         }
-        
+
+
+        HubConnection _connection = null;
+        bool isConnected = false;
+        string connectionStatus = "Closed";
+        string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub", msgFromApi = "";
+
+
+        int cutCallFirstTime = 0;
+        public async Task ConnectToServer ( )
+        {
+
+            _connection = new HubConnectionBuilder ()
+                .WithUrl ( url )
+                .Build ();
+
+            await _connection.StartAsync ();
+            isConnected = true;
+            connectionStatus = "Connected";
+
+            _connection.Closed += async ( s ) =>
+            {
+                isConnected = false;
+                connectionStatus = "Disconnected";
+                await _connection.StartAsync ();
+                isConnected = true;
+
+            };
+            _connection.On<int , int , int , bool> ( "cutCall" , async ( stop , teacherID , studentID , isStudent ) =>
+            {
+                cutCallFirstTime++;
+                if ( isStudent == true && cutCallFirstTime == 1 && teacherID == Info.Teacher.TeacherID)
+                {
+                    setOnTuitionOFFOrOn ( 0 );
+                    ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , false );
+                    await Application.Current.MainPage.Navigation.PopModalAsync ();
+                }
+
+            } );
+        }
+
     }
 }
