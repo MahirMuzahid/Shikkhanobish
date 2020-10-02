@@ -71,7 +71,7 @@
     <EmbeddedResource Update="ContentPages\Common\ForgotPasswordWindow.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="ContentPages\Teacher\GetInstIDandRules.xaml">
+    <EmbeddedResource Update="ContentPages\Common\GetInstIDandRules.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="ContentPages\Parents\ParentsProfile.xaml">
