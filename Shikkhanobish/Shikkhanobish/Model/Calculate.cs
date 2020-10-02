@@ -172,7 +172,7 @@ namespace Shikkhanobish.Model
             float cost = 0;
             if (info.StudyTimeInAPp >= 0)
             {
-                int totalMin = info.StudyTimeInAPp - info.Student.freeMin;
+                int totalMin = info.StudyTimeInAPp;
                 cost = (totalMin * RatingAndCostRange(info.Teacher.Teacher_Rank, info.ClassCode, info.Teacher.Total_Min, info.StudyTimeInAPp, true ) );
             }
             else
@@ -187,7 +187,7 @@ namespace Shikkhanobish.Model
             float cost = 0;
             if ( info.StudyTimeInAPp >= 0 )
             {
-                int totalMin = info.StudyTimeInAPp - info.Student.freeMin;
+                int totalMin = info.StudyTimeInAPp;
                 cost = ( RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode , info.Teacher.Total_Min , info.StudyTimeInAPp , true ) );
             }
             else

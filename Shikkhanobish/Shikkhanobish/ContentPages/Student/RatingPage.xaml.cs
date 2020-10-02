@@ -9,6 +9,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Rg.Plugins.Popup.Extensions;
 using Shikkhanobish.ContentPages.Common;
+using Shikkhanobish.ContentPages.Student;
 
 namespace Shikkhanobish.ContentPages
 {
@@ -205,9 +206,9 @@ namespace Shikkhanobish.ContentPages
             FinishTHeUpdate();
         }
 
-        private void Button_Clicked_1 ( object sender , EventArgs e )
+        private async void Button_Clicked_1 ( object sender , EventArgs e )
         {
-            //report teacher
+            await Navigation.PushPopupAsync ( new PopUpForReport ( info ) ).ConfigureAwait ( false );
         }
 
         public async void SetIsPending ()

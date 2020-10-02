@@ -288,7 +288,7 @@ namespace Shikkhanobish
                 ConfirmationText = "Password Doesn't match!";
                 BindButtonText = "Try Again";
             }
-            else if (checkStudent.PhoneNumber.Length != 11 || checkStudent.PhoneNumber == null)
+            else if (checkStudent.PhoneNumber.Length != 11 || checkStudent.PhoneNumber == null || !checkStudent.PhoneNumber.Any(char.IsDigit))
             {
                 ConfirmationText = "Enter valid Phone Number!";
                 BindButtonText = "Try Again";
@@ -308,7 +308,7 @@ namespace Shikkhanobish
                 ConfirmationText = "Empty Institution Name!";
                 BindButtonText = "Try Again";
             }
-            else if (checkStudent.Password.Length < 6 || !checkStudent.Password.Any(char.IsUpper) || !checkStudent.Password.Any(char.IsDigit))
+            else if (checkStudent.Password.Length < 6 || !checkStudent.Password.Any(char.IsUpper))
             {
                 ConfirmationText = "Password length must be at least 6 and must be one Uppercase character and must be one integer(0-9)";
                 BindButtonText = "Try Again";

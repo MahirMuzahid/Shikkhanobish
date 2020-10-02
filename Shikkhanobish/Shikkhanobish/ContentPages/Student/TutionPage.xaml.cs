@@ -112,12 +112,20 @@ namespace Shikkhanobish.ContentPages
                     StartTime ();
                 }
             }
-            if(firstTime == false && sec == 31 && info.Teacher.Teacher_Rank != "Placement")
+            if(firstTime == false && sec == 31)
             {
                 info.StudyTimeInAPp = min+1;
                 safelbl.Text = "Pay Time, Cost: " + cal.CalculateCost (info);
                 SendCostRoTeacher ( calculate.CalculateCostForTeacher ( info ) );
-                SetCost ( calculate.CalculateCost  (info ), calculate.CalculateCost ( info ) , calculate.CalculateCostForTeacher ( info ) );
+                if(min  <= info.Student.freeMin)
+                {
+                    SetCost ( calculate.CalculateCost ( info ) , 0 , calculate.CalculateCostForTeacher ( info ) );
+                }
+                else
+                {
+                    SetCost ( calculate.CalculateCost ( info ) , calculate.CalculateCostPerminStudent ( info ) , calculate.CalculateCostForTeacher ( info ) );
+                }
+                
             }
             timerlbl.Text = min + ":" + sec;
             if( iscut == false)

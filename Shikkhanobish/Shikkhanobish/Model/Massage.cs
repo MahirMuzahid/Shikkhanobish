@@ -10,12 +10,19 @@ namespace Shikkhanobish.Model
     class Massage
     {
         public bool isSent { get; set; }
-        public async Task SendMsg (string number, string msg, string apiKey)
+        public async Task SendMsg (string number, string msg)
         {
-            string url = "https://www.bdgosms.com/send/?req=out&apikey="+ apiKey+"&numb=" + number + "&sms=" + msg;
+          
+            string url = "https://api.shikkhanobish.com/api/Masters/GetKeys";
             HttpClient client = new HttpClient ();
-            HttpResponseMessage response = await client.GetAsync ( url ).ConfigureAwait ( false );
-            string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( false );
+            HttpResponseMessage response = await client.GetAsync ( url ).ConfigureAwait ( true );
+            string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
+            var keys = JsonConvert.DeserializeObject<ApiKey> ( result );
+            string apiKey = keys.msgapi;
+            url = "https://www.bdgosms.com/send/?req=out&apikey="+ apiKey+"&numb=" + number + "&sms=" + msg;
+            client = new HttpClient ();
+            response = await client.GetAsync ( url ).ConfigureAwait ( false );
+            result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( false );
             if ( result [ 0] == '{' )
             {
                 isSent = true;
