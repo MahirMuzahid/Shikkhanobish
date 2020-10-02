@@ -1,4 +1,8 @@
-﻿namespace Shikkhanobish
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Shikkhanobish
 {
     public class Student
     {

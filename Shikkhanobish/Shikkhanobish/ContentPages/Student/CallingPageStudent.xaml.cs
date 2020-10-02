@@ -95,8 +95,13 @@ namespace Shikkhanobish.ContentPages
             {
                 try
                 {
-                    apiKey = 46485492;
-                    string apiSecreat = "c255c95670bc11eecaf5950baf375d7478f74665";
+                    string url = "https://api.shikkhanobish.com/api/Masters/GetKeys";
+                    HttpClient clientNew = new HttpClient ();
+                    HttpResponseMessage response = await clientNew.GetAsync ( url ).ConfigureAwait ( true );
+                    string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
+                    var keys = JsonConvert.DeserializeObject<ApiKey> ( result );
+                    apiKey = keys.videoCallApiKey;
+                    string apiSecreat =keys.videoCAllAPiSecreate;
                     OpenTok opentok = new OpenTok ( apiKey , apiSecreat );
                     opentok.SetDefaultRequestTimeout ( 15 );
                     var session = opentok.CreateSession ();
