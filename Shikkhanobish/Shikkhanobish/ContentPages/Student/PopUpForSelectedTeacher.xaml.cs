@@ -38,9 +38,13 @@ namespace Shikkhanobish.ContentPages
             clLbl.Text = Info.Class;
             subLbl.Text = Info.SubjectName;
             ctLbl.Text = "Cost: " + Info.Teacher.Amount + " taka/min";
+           
         }
 
+        
 
-       
+
+
+
     }
 }
