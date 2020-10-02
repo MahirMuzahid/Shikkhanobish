@@ -24,8 +24,15 @@ namespace Shikkhanobish.ContentPages
         private string SessionID, Token;
         private bool isstudent;
         private int i;
+        private int sec;
+
+        HubConnection _connection = null;
+        bool isConnected = false;
+        string connectionStatus = "Closed";
+        string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub", msgFromApi = "";
         public CallingPageStudent ( TransferInfo info )
         {
+            sec = 0;
             InitializeComponent ();
             Info = info;
             ConnectToServer ();
@@ -36,19 +43,31 @@ namespace Shikkhanobish.ContentPages
             calllbl.Text = "Calling teacher...";
             GetKeys ();
             checkSession ();
+            Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , startCountdown );
 
 
+        }
+        private bool startCountdown ( )
+        {
+            sec++;
+            if ( sec > 15 )
+            {
+                callOut ();
+                return false;
+            }
+            return true;
+        }
+        public async Task callOut ( )
+        {
+            CutVideoCAll ();
+            await Application.Current.MainPage.Navigation.PopModalAsync ();
+            CrossOpenTok.Current.EndSession ();
+            _connection.StopAsync ();
         }
         protected override bool OnBackButtonPressed ( )
         {
-            CrossOpenTok.Current.EndSession ();
-            _connection.StopAsync ();
-            popPage ();
+            callOut ();
             return true;
-        }
-        public async void popPage()
-        {
-            await Application.Current.MainPage.Navigation.PopModalAsync ();
         }
         public async void checkSession ( )
         {
@@ -57,8 +76,8 @@ namespace Shikkhanobish.ContentPages
                 return;
             }
             await ConnectToServer ().ConfigureAwait ( false );
-            await ConnectWithTeacher ( SessionID , Token , Info.Student.StudentID , Info.Teacher.TeacherID , Info.SubjectName , Info.Class , Info.Teacher.Amount , Info.Teacher.TeacherName ) .ConfigureAwait ( false );    
-            
+            await ConnectWithTeacher ( SessionID , Token , Info.Student.StudentID , Info.Teacher.TeacherID , Info.SubjectName , Info.Class , Info.Teacher.Amount , Info.Teacher.TeacherName ).ConfigureAwait ( false );
+
         }
 
         public async Task ConnectWithTeacher ( string SessionId , string UserToken , int studentID , int teacherID , string Cls , string subject , double cost , string studentName )
@@ -68,11 +87,10 @@ namespace Shikkhanobish.ContentPages
             StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
             string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
-           // var r = JsonConvert.DeserializeObject<string> ( result );
         }
-        protected async void GetKeys ()
+        protected async void GetKeys ( )
         {
-               
+
             using ( var client = new HttpClient () )
             {
                 try
@@ -84,37 +102,32 @@ namespace Shikkhanobish.ContentPages
                     var session = opentok.CreateSession ();
                     SessionID = session.Id;
                     Token = opentok.GenerateToken ( SessionID );
-                    CrossOpenTok.Current.ApiKey = ""+apiKey;// keys.ApiKey;
-                    CrossOpenTok.Current.SessionId = SessionID;//keys.SessionId;
-                    CrossOpenTok.Current.UserToken = Token;//keys.Token;
+                    CrossOpenTok.Current.ApiKey = "" + apiKey;
+                    CrossOpenTok.Current.UserToken = Token;
                 }
                 catch ( Exception ex )
                 {
-                    // await MainPage.DisplayAlert(null, "MAKE SURE YOU SET API URL FOR RETRIEVING NECESSARY KEYS (Config.cs) OR YOU MAY HARDCODE THEM.", "GOT IT");
+
                 }
             }
-            //CrossOpenTok.Current.Error += (m) => TakeTuition.DisplayAlert("ERROR", m, "OK");
+
         }
 
 
-        //for teacher
-        
         private async void cancleStbtn_Clicked ( object sender , EventArgs e )
         {
-            await Application.Current.MainPage.Navigation.PopModalAsync ();
-            CrossOpenTok.Current.EndSession ();
-            _connection.StopAsync ();
+            callOut ();
         }
+        public async Task CutVideoCAll ( )
+        {
 
-        //for student
-
-        HubConnection _connection = null;
-        bool isConnected = false;
-        string connectionStatus = "Closed";
-        string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub", msgFromApi = "";
-
-        
-
+            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/cutCall?stop=" + 1 + "&teacherID=" + Info.Teacher.TeacherID + "&studentID=" + Info.Student.StudentID + "&isStudent=" + true;
+            HttpClient client = new HttpClient ();
+            StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
+            string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
+            var r = JsonConvert.DeserializeObject<string> ( result );
+        }
         public async Task ConnectToServer ( )
         {
             _connection = new HubConnectionBuilder ()
@@ -136,7 +149,7 @@ namespace Shikkhanobish.ContentPages
             _connection.On<int , int , bool> ( "SendStudentThatCallRecivedOrIgnored" , async ( studentID , teacherID , recivedOrNot ) =>
             {
                 i++;
-                if(i == 1)
+                if ( i == 1 )
                 {
                     if ( Info.Teacher.TeacherID == teacherID && isstudent == false )
                     {
@@ -146,12 +159,12 @@ namespace Shikkhanobish.ContentPages
                         }
                         else
                         {
-                            await Application.Current.MainPage.Navigation.PopModalAsync ();
+                            callOut ();
                         }
                     }
                 }
-                
-                
+
+
             } );
         }
     }
