@@ -10,6 +10,8 @@ using Xamarin.Forms.Xaml;
 using Rg.Plugins.Popup.Extensions;
 using Shikkhanobish.ContentPages.Common;
 using Shikkhanobish.ContentPages.Student;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Shikkhanobish.ContentPages
 {
@@ -231,6 +233,81 @@ namespace Shikkhanobish.ContentPages
             StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
             string result = await response.Content.ReadAsStringAsync ();
+        }
+
+        public async Task CalculateAutomateVoucher ()
+        {
+            int limit, amoun;
+
+            int usedMin = info.StudyTimeInAPp + info.Student.TotalTuitionTIme;
+
+            for( int i = 0; i < info.Offers.Count; i++ )
+            {
+                if(info.Offers[i].type == "Goal_Taka" )
+                {
+                    bool isVoucherUsed = false;
+                    if(info.Offers[i].limit >= usedMin)
+                    {
+                        string url = "https://api.shikkhanobish.com/api/Master/GetVoucherInfo";
+                        HttpClient client = new HttpClient ();
+                        string jsonData = JsonConvert.SerializeObject ( new { StudentID = info.Student.StudentID } );
+                        StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
+                        HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
+                        string result = await response.Content.ReadAsStringAsync ();
+                        var vsLIst = JsonConvert.DeserializeObject<List<VoucherAndOfferHistory>> ( result );
+                        for(int j = 0; j < vsLIst.Count; j++ )
+                        {
+                            if(vsLIst[i].voucherID == info.Offers[i].voucherID )
+                            {
+                                isVoucherUsed = true;
+                                continue;
+                            }
+                        }
+                        if(isVoucherUsed == false)
+                        {
+                            url = "https://api.shikkhanobish.com/api/Master/AddMinOrAddFundStudent";
+                            client = new HttpClient ();
+                            jsonData = JsonConvert.SerializeObject ( new { StudentID = info.Student.StudentID, Counter = 2, Amount = info.Offers[i].amount } );
+                            content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
+                            response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
+                            result = await response.Content.ReadAsStringAsync ();
+                            var r = JsonConvert.DeserializeObject<Response> ( result );
+                        }
+                    }           
+                }
+                if ( info.Offers [ i ].type == "Goal_Min" )
+                {
+                    bool isVoucherUsed = false;
+                    if ( info.Offers [ i ].limit >= usedMin )
+                    {
+                        string url = "https://api.shikkhanobish.com/api/Master/GetVoucherInfo";
+                        HttpClient client = new HttpClient ();
+                        string jsonData = JsonConvert.SerializeObject ( new { StudentID = info.Student.StudentID } );
+                        StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
+                        HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
+                        string result = await response.Content.ReadAsStringAsync ();
+                        var vsLIst = JsonConvert.DeserializeObject<List<VoucherAndOfferHistory>> ( result );
+                        for ( int j = 0; j < vsLIst.Count; j++ )
+                        {
+                            if ( vsLIst [ i ].voucherID == info.Offers [ i ].voucherID )
+                            {
+                                isVoucherUsed = true;
+                                continue;
+                            }
+                        }
+                        if ( isVoucherUsed == false )
+                        {
+                            url = "https://api.shikkhanobish.com/api/Master/AddMinOrAddFundStudent";
+                            client = new HttpClient ();
+                            jsonData = JsonConvert.SerializeObject ( new { StudentID = info.Student.StudentID , Counter = 1 , Amount = info.Offers [ i ].amount } );
+                            content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
+                            response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
+                            result = await response.Content.ReadAsStringAsync ();
+                            var r = JsonConvert.DeserializeObject<Response> ( result );
+                        }
+                    }
+                }
+            }
         }
     }
 }

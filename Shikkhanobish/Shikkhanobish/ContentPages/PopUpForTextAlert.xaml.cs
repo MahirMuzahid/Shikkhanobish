@@ -37,7 +37,7 @@ namespace Shikkhanobish.ContentPages.Common
         {
             if(quit == true)
             {
-                System.Environment.Exit ( 0 );
+                Android.OS.Process.KillProcess ( Android.OS.Process.MyPid () );
             }
             else
             {

@@ -46,7 +46,7 @@ namespace Shikkhanobish
 
 
 
-        public TakeTuition ( int StudentID , string StudentName , string username , string pass , float amount)
+        public TakeTuition ( int StudentID , string StudentName , string username , string pass , float amount, List<OfferAndVoucherSource> offers)
         { 
             subjectNameC6to8.Add ( "Bangla 1st Paper" );
             subjectNameC6to8.Add ( "Bangla 2nd Paper" );
@@ -129,6 +129,7 @@ namespace Shikkhanobish
                 amountTxt.TextColor = Color.Red;
             }
             amountTxt.Text = ""+ amount;
+            transferNow.Offers = offers;
             transferNow.Student.UserName = username;
             transferNow.Student.Password = pass;
             transferNow.Student.Name = StudentName;
@@ -594,8 +595,8 @@ namespace Shikkhanobish
         {
             string urlN = "https://api.shikkhanobish.com/api/Master/GetTeacher";
             HttpClient clientN = new HttpClient ();
-            HttpResponseMessage responseN = await clientN.GetAsync ( urlN ).ConfigureAwait ( true );
-            string resultN = await responseN.Content.ReadAsStringAsync ().ConfigureAwait ( true );
+            HttpResponseMessage responseN = await clientN.GetAsync ( urlN ).ConfigureAwait ( false );
+            string resultN = await responseN.Content.ReadAsStringAsync ().ConfigureAwait ( false );
             TeacherList = JsonConvert.DeserializeObject<List<Teacher>> ( resultN );
             await getTeacherID ().ConfigureAwait(false);
             if( TeacherIDListBySearch.Count > 0)

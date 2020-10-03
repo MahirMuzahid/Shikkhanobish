@@ -11,6 +11,8 @@ using Plugin.Connectivity;
 using Shikkhanobish.ContentPages.Common;
 using Xamarin.Essentials;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using Shikkhanobish.ViewModel;
 
 namespace Shikkhanobish
 {
@@ -19,6 +21,7 @@ namespace Shikkhanobish
     {
         public int StudentID;
         private Student _Student;
+        public List<OfferAndVoucherSource> offers;
 
 
         public StudentProfile( Student student )
@@ -29,6 +32,8 @@ namespace Shikkhanobish
             InitializeComponent ();
             BindingContext = new StudentProfileVideoModel(_Student);
             SetInfoInInternalStorage ( student.UserName , student.Password , "Student" , 0 );
+            GetVoucherImage ();
+
             //GetPremiumStudent(student.StudentID);
         }
         public async Task SetInfoInInternalStorage ( string username , string password , string usertype , int parentCode )
@@ -39,6 +44,18 @@ namespace Shikkhanobish
             await SecureStorage.SetAsync ( "parentCode" , "" + parentCode ).ConfigureAwait ( false );
         }
 
+        public async Task GetVoucherImage ()
+        {
+            string urlT = "https://api.shikkhanobish.com/api/Master/GetVoucherSource";
+            HttpClient clientT = new HttpClient ();
+            string jsonData = JsonConvert.SerializeObject ( new {  } );
+            StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage responseT = await clientT.PostAsync ( urlT , content ).ConfigureAwait ( false );
+            string resultT = await responseT.Content.ReadAsStringAsync ();
+            var voucherInfo = JsonConvert.DeserializeObject<List<OfferAndVoucherSource>> ( resultT );
+            offers = voucherInfo;
+            cvForVoucher.ItemsSource = voucherInfo;
+        }
         protected override bool OnBackButtonPressed ( )
         {
             Navigation.PushPopupAsync ( new PopUpForTextAlert ( "" , "" , true ) );
@@ -75,7 +92,7 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_7(object sender, EventArgs e)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new TakeTuition(StudentID, _Student.Name, _Student.UserName, _Student.Password, _Student.RechargedAmount)).ConfigureAwait( false );
+            await Application.Current.MainPage.Navigation.PushModalAsync(new TakeTuition(StudentID, _Student.Name, _Student.UserName, _Student.Password, _Student.RechargedAmount, offers ) ).ConfigureAwait( false );
         }
         private async void Button_Clicked_8 ( object sender , EventArgs e )
         {        

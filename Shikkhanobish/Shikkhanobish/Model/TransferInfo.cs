@@ -1,9 +1,13 @@
-﻿namespace Shikkhanobish.ViewModel
+﻿using Shikkhanobish.Model;
+using System.Collections.Generic;
+
+namespace Shikkhanobish.ViewModel
 {
     public class TransferInfo
     {
         public Student Student = new Student();
         public Teacher Teacher = new Teacher();
+        public List<OfferAndVoucherSource> Offers = new List<OfferAndVoucherSource> ();
         public string Class { get; set; }
         public int StudyTimeInAPp { get; set; }
         public int GivenRating { get; set; }
