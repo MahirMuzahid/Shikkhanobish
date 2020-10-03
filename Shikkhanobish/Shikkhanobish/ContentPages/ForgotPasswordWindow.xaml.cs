@@ -69,9 +69,8 @@ namespace Shikkhanobish
                     studentorTeacher = 0;
                     VerificationNumber = random.Next(1000, 9999);
                     string text = "Your Username or Password reset verification code is: " + VerificationNumber;
-                    string apiKey = "bdgoQKW5OyLe748FUlrBmgCEXZn3oivhuf";
                     Massage ms = new Massage ();
-                    await ms.SendMsg ( Phonenumber , text , apiKey ).ConfigureAwait(false);
+                    await ms.SendMsg ( Phonenumber , text ).ConfigureAwait(false);
                     if (ms.isSent == true)
                     {
                         MainThread.BeginInvokeOnMainThread ( ( ) => {
@@ -106,7 +105,7 @@ namespace Shikkhanobish
                         string text = "Your Username or Password reset verification code is: " + VerificationNumber;
                         string apiKey = "bdgoQKW5OyLe748FUlrBmgCEXZn3oivhuf";
                         Massage ms = new Massage ();
-                        await ms.SendMsg ( Phonenumber , text , apiKey ).ConfigureAwait(false);
+                        await ms.SendMsg ( Phonenumber , text ).ConfigureAwait(false);
                         if ( ms.isSent == true )
                         {
                             MainThread.BeginInvokeOnMainThread ( ( ) => {

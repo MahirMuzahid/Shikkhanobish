@@ -24,6 +24,7 @@ namespace Shikkhanobish
         public StudentProfile( Student student )
         {
             StudentID = student.StudentID;
+            _Student = student;
             this.IsPresented = false;           
             InitializeComponent ();
             BindingContext = new StudentProfileVideoModel(_Student);

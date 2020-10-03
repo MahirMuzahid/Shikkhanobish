@@ -32,7 +32,7 @@
         <Entry x:Name="AgeEntry" Placeholder="Age" Grid.Row="3" FontSize="12" HorizontalTextAlignment="Center" />
         <Entry x:Name="ClassEntry" Placeholder="Class" Grid.Row="4"   FontSize="12" HorizontalTextAlignment="Center" />
         <Entry x:Name="InstEntry" Placeholder="Institution Name" Grid.Row="5"   FontSize="12" HorizontalTextAlignment="Center" />
-        <Entry x:Name="pnentry" Placeholder="Phone Number" Grid.Row="5"   FontSize="12" HorizontalTextAlignment="Center" />
+        <Entry x:Name="pnentry" Placeholder="Phone Number" Grid.Row="6"   FontSize="12" HorizontalTextAlignment="Center" />
         <Entry x:Name="UserEntry" Placeholder="Username" Grid.Row="7" FontSize="12" HorizontalTextAlignment="Center" />
         <Entry x:Name="PassEntry" Placeholder="Password" Grid.Row="8"   FontSize="12" HorizontalTextAlignment="Center" />
 

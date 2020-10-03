@@ -39,22 +39,9 @@ namespace Shikkhanobish.ContentPages.Student
             }
         }
 
-        private async Task Button_ClickedAsync ( object sender , EventArgs e )
+        private async Task Button_Clicked ( object sender , EventArgs e )
         {
-            if ( hrschk.IsChecked == true || otherchk.IsChecked == true || inbhvchk.IsChecked == true || twchk.IsChecked == true )
-            {
-                ReportText = reportTxtentry.Text;
-                string url = "https://api.shikkhanobish.com/api/Master/ReportTeacher";
-                HttpClient client = new HttpClient ();
-                string jsonData = JsonConvert.SerializeObject ( new { StudentID = trans.Student.StudentID, TeacherID = trans.Teacher.TeacherID , ReportType = ReportType , ReportText = ReportText } );
-                StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
-                HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
-                var result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
-                var hisotyList = JsonConvert.DeserializeObject<List<TuitionHistoryStudent>> ( result );
-                errorlbl.TextColor = Color.Green;
-                errorlbl.Text = "Report Done";
-                reportbtn.IsEnabled = false;
-            }
+            
         }
 
         private void hrschk_CheckedChanged ( object sender , CheckedChangedEventArgs e )
@@ -79,6 +66,24 @@ namespace Shikkhanobish.ContentPages.Student
             }
             else if ( hrschk.IsChecked == false && otherchk.IsChecked == false && inbhvchk.IsChecked == false && twchk.IsChecked == false )
             {
+                reportbtn.IsEnabled = false;
+            }
+        }
+
+        private async void reportbtn_Clicked ( object sender , EventArgs e )
+        {
+            if ( hrschk.IsChecked == true || otherchk.IsChecked == true || inbhvchk.IsChecked == true || twchk.IsChecked == true )
+            {
+                ReportText = reportTxtentry.Text;
+                string url = "https://api.shikkhanobish.com/api/Master/ReportTeacher";
+                HttpClient client = new HttpClient ();
+                string jsonData = JsonConvert.SerializeObject ( new { StudentID = trans.Student.StudentID , TeacherID = trans.Teacher.TeacherID , ReportType = ReportType , ReportText = ReportText } );
+                StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
+                HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
+                var result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
+                var hisotyList = JsonConvert.DeserializeObject<List<TuitionHistoryStudent>> ( result );
+                errorlbl.TextColor = Color.Green;
+                errorlbl.Text = "Report Done";
                 reportbtn.IsEnabled = false;
             }
         }
