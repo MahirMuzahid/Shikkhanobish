@@ -40,13 +40,13 @@ namespace Shikkhanobish.ContentPages
             {
                 return;
             }
-            setOnTuitionOFFOrOn(1);
+            setOnTuitionOFFOrOn ( 1 );
             ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , true );
             await Application.Current.MainPage.Navigation.PushModalAsync ( new TuitionPageTeacher ( Info ) ).ConfigureAwait ( false );
         }
-        protected  override bool OnBackButtonPressed ( )
+        protected override bool OnBackButtonPressed ( )
         {
-            setOnTuitionOFFOrOn (0);
+            setOnTuitionOFFOrOn ( 0 );
             ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , false );
             popPage ();
             //End Call session
@@ -59,7 +59,7 @@ namespace Shikkhanobish.ContentPages
         //for teacher
         private async void canclebtn_Clicked ( object sender , EventArgs e )
         {
-            setOnTuitionOFFOrOn(0);
+            setOnTuitionOFFOrOn ( 0 );
             ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , false );
             await Application.Current.MainPage.Navigation.PopModalAsync ();
         }
@@ -100,7 +100,7 @@ namespace Shikkhanobish.ContentPages
             //CrossOpenTok.Current.Error += (m) => TakeTuition.DisplayAlert("ERROR", m, "OK");
         }
 
-        public async void setOnTuitionOFFOrOn (int oforon )
+        public async void setOnTuitionOFFOrOn ( int oforon )
         {
             string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsOnTuition";
             HttpClient clientT = new HttpClient ();
@@ -141,7 +141,7 @@ namespace Shikkhanobish.ContentPages
             _connection.On<int , int , int , bool> ( "cutCall" , async ( stop , teacherID , studentID , isStudent ) =>
             {
                 cutCallFirstTime++;
-                if ( isStudent == true && cutCallFirstTime == 1 && teacherID == Info.Teacher.TeacherID)
+                if ( isStudent == true && cutCallFirstTime == 1 && teacherID == Info.Teacher.TeacherID )
                 {
                     setOnTuitionOFFOrOn ( 0 );
                     ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , false );
