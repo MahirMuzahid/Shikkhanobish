@@ -21,7 +21,7 @@ namespace Shikkhanobish.ContentPages
     {
         private List<TuitionHistoryStudent> studentHistory = new List<TuitionHistoryStudent> ();
         Parent parentinfo;
-        Student student;
+        StudentClass student;
         string topsub = "";
         float totalSpent = 0;
         public ParentsProfile ( Parent p)
@@ -52,7 +52,7 @@ namespace Shikkhanobish.ContentPages
             StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
             var result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
-            student = JsonConvert.DeserializeObject<Student> ( result );
+            student = JsonConvert.DeserializeObject<StudentClass> ( result );
             await callInfo ();
             List<ParentsCardInfo> Pci = new List<ParentsCardInfo> ();
             ParentsCardInfo pci1 = new ParentsCardInfo ();

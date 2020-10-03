@@ -43,7 +43,7 @@ namespace Shikkhanobish.ContentPages.Parents
                 StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
                 HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
                 var result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
-                var student = JsonConvert.DeserializeObject<Student> ( result );
+                var student = JsonConvert.DeserializeObject<StudentClass> ( result );
 
                 if ( student.Name == null )
                 {

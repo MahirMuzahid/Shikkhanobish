@@ -42,20 +42,22 @@ namespace Shikkhanobish
             {
                 text = "Your Verification Number From Shikkhanobish Teacher Registration is: " + VerificationNumber;
             }
-            string apiKey = "bdgoQKW5OyLe748FUlrBmgCEXZn3oivhuf";
-            await ms.SendMsg (("0"+ RecevierNumber ) , text, apiKey ).ConfigureAwait(false);
+            await ms.SendMsg (("0"+ RecevierNumber ) , text ).ConfigureAwait(false);
             vrNumber = VerificationNumber;
         }
 
         private async void Button_Clicked_1(object sender, EventArgs e)
         {
+
             if ( ts == 0 )
             {
+                
                 await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentProfile ( studentm ) ).ConfigureAwait ( false );
             }
             if ( ts == 1 )
             {
-                await Application.Current.MainPage.Navigation.PushModalAsync ( new GetInstIDandRules ( studentm ) ).ConfigureAwait ( false );
+                OldStToNewSt chng = new OldStToNewSt ();
+                await Application.Current.MainPage.Navigation.PushModalAsync ( new GetInstIDandRules ( chng.S_TO_Sc(studentm) ) ).ConfigureAwait ( false );
             }
             
         }
@@ -82,7 +84,8 @@ namespace Shikkhanobish
                     }
                     else if (ts == 1)
                     {
-                        await Application.Current.MainPage.Navigation.PushModalAsync(new GetInstIDandRules(studentm)).ConfigureAwait( false );
+                        OldStToNewSt chng = new OldStToNewSt ();
+                        await Application.Current.MainPage.Navigation.PushModalAsync(new GetInstIDandRules( chng.S_TO_Sc(studentm) ) ).ConfigureAwait( false );
                     }
                 }
                 else

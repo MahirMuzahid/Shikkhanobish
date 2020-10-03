@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Shikkhanobish.ContentPages;
 using Shikkhanobish.Model;
 using System;
 using System.Net.Http;
@@ -16,9 +17,9 @@ namespace Shikkhanobish
         private Teacher teacher = new Teacher();
         private int taken = 10000000, studentID;
         private string InstituitionID, Name;
-        private Student studenT = new Student();
+        private StudentClass studenT = new StudentClass ();
 
-        public RegisterAsTeacher(Student student, string InstitutionID)
+        public RegisterAsTeacher(StudentClass student, string InstitutionID)
         {
             InstituitionID = InstitutionID;
             studenT = student;

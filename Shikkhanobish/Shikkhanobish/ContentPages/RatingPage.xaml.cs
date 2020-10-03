@@ -9,6 +9,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Rg.Plugins.Popup.Extensions;
 using Shikkhanobish.ContentPages.Common;
+using Shikkhanobish.ContentPages.Student;
 
 namespace Shikkhanobish.ContentPages
 {
@@ -185,17 +186,20 @@ namespace Shikkhanobish.ContentPages
 
         public async void backtoProfile()
         {
-            Student student = new Student();
+            StudentClass student = new StudentClass ();
             string url = "https://api.shikkhanobish.com/api/Master/GetInfoByLogin";
             HttpClient client = new HttpClient();
             string jsonData = JsonConvert.SerializeObject(new { UserName = info.Student.UserName, Password = info.Student.Password });
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait( false );
             string result = await response.Content.ReadAsStringAsync();
-            student = JsonConvert.DeserializeObject<Student>(result);
+            student = JsonConvert.DeserializeObject<StudentClass>(result);
+            OldStToNewSt chng = new OldStToNewSt ();
+
+            
             Device.BeginInvokeOnMainThread ( async ( ) =>
             {
-                await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentProfile ( student ) ).ConfigureAwait ( false );
+                await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentProfile ( chng.Sc_TO_S ( student ) ) ).ConfigureAwait ( false );
             } );
             
         }
@@ -205,9 +209,9 @@ namespace Shikkhanobish.ContentPages
             FinishTHeUpdate();
         }
 
-        private void Button_Clicked_1 ( object sender , EventArgs e )
+        private async void Button_Clicked_1 ( object sender , EventArgs e )
         {
-            //report teacher
+            await Navigation.PushPopupAsync ( new PopUpForReport ( info ) ).ConfigureAwait ( false );
         }
 
         public async void SetIsPending ()

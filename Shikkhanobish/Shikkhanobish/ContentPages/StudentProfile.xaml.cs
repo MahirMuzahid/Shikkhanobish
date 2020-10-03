@@ -20,13 +20,13 @@ namespace Shikkhanobish
         public int StudentID;
         private Student _Student;
 
-        public StudentProfile(Student student)
+
+        public StudentProfile( Student student )
         {
             StudentID = student.StudentID;
-            this.IsPresented = false;
-            _Student = student;
-            InitializeComponent();
-            BindingContext = new StudentProfileVideoModel(student);
+            this.IsPresented = false;           
+            InitializeComponent ();
+            BindingContext = new StudentProfileVideoModel(_Student);
             SetInfoInInternalStorage ( student.UserName , student.Password , "Student" , 0 );
             //GetPremiumStudent(student.StudentID);
         }

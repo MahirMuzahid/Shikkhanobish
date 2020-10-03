@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Shikkhanobish.ContentPages;
 using Shikkhanobish.Model;
 using System.ComponentModel;
 using System.Net.Http;
@@ -25,7 +26,7 @@ namespace Shikkhanobish
         public string _availableMin;
         public string _isPremium;
 
-        public StudentProfileVideoModel(Student student)
+        public StudentProfileVideoModel( Student student )
         {
             Name = student.Name;
             StudentIDTxt = "ID: " + student.StudentID;

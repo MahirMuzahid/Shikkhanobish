@@ -25,6 +25,7 @@ namespace Shikkhanobish.ContentPages
         private bool isstudent;
         private int i;
         private int sec;
+        
 
         HubConnection _connection = null;
         bool isConnected = false;
@@ -50,14 +51,14 @@ namespace Shikkhanobish.ContentPages
         private bool startCountdown ( )
         {
             sec++;
-            if(sec > 15)
+            if ( sec > 15 )
             {
                 callOut ();
                 return false;
             }
             return true;
         }
-        public async Task callOut()
+        public async Task callOut ( )
         {
             CutVideoCAll ();
             await Application.Current.MainPage.Navigation.PopModalAsync ();
@@ -76,8 +77,8 @@ namespace Shikkhanobish.ContentPages
                 return;
             }
             await ConnectToServer ().ConfigureAwait ( false );
-            await ConnectWithTeacher ( SessionID , Token , Info.Student.StudentID , Info.Teacher.TeacherID , Info.SubjectName , Info.Class , Info.Teacher.Amount , Info.Teacher.TeacherName ) .ConfigureAwait ( false );    
-            
+            await ConnectWithTeacher ( SessionID , Token , Info.Student.StudentID , Info.Teacher.TeacherID , Info.SubjectName , Info.Class , Info.Teacher.Amount , Info.Teacher.TeacherName ).ConfigureAwait ( false );
+
         }
 
         public async Task ConnectWithTeacher ( string SessionId , string UserToken , int studentID , int teacherID , string Cls , string subject , double cost , string studentName )
@@ -88,9 +89,9 @@ namespace Shikkhanobish.ContentPages
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
             string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
         }
-        protected async void GetKeys ()
+        protected async void GetKeys ( )
         {
-               
+
             using ( var client = new HttpClient () )
             {
                 try
@@ -102,15 +103,15 @@ namespace Shikkhanobish.ContentPages
                     var session = opentok.CreateSession ();
                     SessionID = session.Id;
                     Token = opentok.GenerateToken ( SessionID );
-                    CrossOpenTok.Current.ApiKey = ""+apiKey;
+                    CrossOpenTok.Current.ApiKey = "" + apiKey;
                     CrossOpenTok.Current.UserToken = Token;
                 }
                 catch ( Exception ex )
                 {
-                  
+
                 }
             }
-            
+
         }
 
 
@@ -149,7 +150,7 @@ namespace Shikkhanobish.ContentPages
             _connection.On<int , int , bool> ( "SendStudentThatCallRecivedOrIgnored" , async ( studentID , teacherID , recivedOrNot ) =>
             {
                 i++;
-                if(i == 1)
+                if ( i == 1 )
                 {
                     if ( Info.Teacher.TeacherID == teacherID && isstudent == false )
                     {
@@ -163,8 +164,8 @@ namespace Shikkhanobish.ContentPages
                         }
                     }
                 }
-                
-                
+
+
             } );
         }
     }

@@ -9,10 +9,10 @@ namespace Shikkhanobish.ContentPages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class GetInstIDandRules : ContentPage
     {
-        public Student student;
+        public StudentClass student;
         public string InstitutionID;
 
-        public GetInstIDandRules(Student s)
+        public GetInstIDandRules( StudentClass s )
         {
             InitializeComponent();
             student = s;
