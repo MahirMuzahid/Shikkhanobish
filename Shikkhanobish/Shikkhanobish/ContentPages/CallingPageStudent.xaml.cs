@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 using Newtonsoft.Json;
 using System.Diagnostics.Tracing;
 using OpenTokSDK;
+using System.Net;
 
 namespace Shikkhanobish.ContentPages
 {
@@ -25,14 +26,17 @@ namespace Shikkhanobish.ContentPages
         private bool isstudent;
         private int i;
         private int sec;
-        
+        VideoCAllApiInfo api = new VideoCAllApiInfo();
+        public Session Session { get; protected set; }
+        public OpenTok OpenTok { get; protected set; }
 
         HubConnection _connection = null;
         bool isConnected = false;
         string connectionStatus = "Closed";
+        bool isAcceptedByTeacher = false;
         string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub", msgFromApi = "";
         public CallingPageStudent ( TransferInfo info )
-        {
+        {           
             sec = 0;
             InitializeComponent ();
             Info = info;
@@ -42,7 +46,9 @@ namespace Shikkhanobish.ContentPages
             subLbl.Text = Info.SubjectName;
             ctLbl.Text = "Cost: " + Info.Teacher.Amount + " taka/min";
             calllbl.Text = "Calling teacher...";
-            GetKeys ();
+            CrossOpenTok.Current.ApiKey = "" + 46485492;
+            CrossOpenTok.Current.UserToken = api.Token ;
+            CrossOpenTok.Current.SessionId = api.Session.Id;
             checkSession ();
             Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , startCountdown );
 
@@ -53,10 +59,37 @@ namespace Shikkhanobish.ContentPages
             sec++;
             if ( sec > 15 )
             {
-                callOut ();
-                return false;
+                if(isAcceptedByTeacher == false)
+                {
+                    setOnTuitionOFF ();
+                    setIsActiveOffOrOn ();
+                    callOut ();
+                    return false;
+                }
+               
             }
             return true;
+        }
+        public async void setOnTuitionOFF ( )
+        {
+            string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsOnTuition";
+            HttpClient clientT = new HttpClient ();
+            string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = Info.Teacher.TeacherID , state = 0 } );
+            StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
+            string resultT = await responseT.Content.ReadAsStringAsync ();
+            var response = JsonConvert.DeserializeObject<Response> ( resultT );
+        }
+
+        public async void setIsActiveOffOrOn ( )
+        {
+            string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsActive";
+            HttpClient clientT = new HttpClient ();
+            string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = Info.Teacher.TeacherID , state = 0 } );
+            StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
+            string resultT = await responseT.Content.ReadAsStringAsync ();
+            var response = JsonConvert.DeserializeObject<Response> ( resultT );
         }
         public async Task callOut ( )
         {
@@ -77,7 +110,7 @@ namespace Shikkhanobish.ContentPages
                 return;
             }
             await ConnectToServer ().ConfigureAwait ( false );
-            await ConnectWithTeacher ( SessionID , Token , Info.Student.StudentID , Info.Teacher.TeacherID , Info.SubjectName , Info.Class , Info.Teacher.Amount , Info.Teacher.TeacherName ).ConfigureAwait ( false );
+            await ConnectWithTeacher ( api.Session.Id , api.Token , Info.Student.StudentID , Info.Teacher.TeacherID , Info.SubjectName , Info.Class , Info.Teacher.Amount , Info.Teacher.TeacherName ).ConfigureAwait ( false );
 
         }
 
@@ -92,25 +125,16 @@ namespace Shikkhanobish.ContentPages
         protected async void GetKeys ( )
         {
 
-            using ( var client = new HttpClient () )
-            {
-                try
-                {
-                    apiKey = 46485492;
-                    string apiSecreat = "c255c95670bc11eecaf5950baf375d7478f74665";
-                    OpenTok opentok = new OpenTok ( apiKey , apiSecreat );
-                    opentok.SetDefaultRequestTimeout ( 15 );
-                    var session = opentok.CreateSession ();
-                    SessionID = session.Id;
-                    Token = opentok.GenerateToken ( SessionID );
-                    CrossOpenTok.Current.ApiKey = "" + apiKey;
-                    CrossOpenTok.Current.UserToken = Token;
-                }
-                catch ( Exception ex )
-                {
-
-                }
-            }
+            apiKey = 46485492;
+            string apiSecreat = "c255c95670bc11eecaf5950baf375d7478f74665";
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            this.OpenTok = new OpenTok ( apiKey , apiSecreat );
+            OpenTok.SetDefaultRequestTimeout ( 15 );
+            OpenTok.Debug = true;
+            this.Session = this.OpenTok.CreateSession ();
+            SessionID = Session.Id;
+            Token = OpenTok.GenerateToken ( SessionID );
+            
 
         }
 
@@ -156,6 +180,7 @@ namespace Shikkhanobish.ContentPages
                     {
                         if ( recivedOrNot == true )
                         {
+                            isAcceptedByTeacher = true;
                             await Application.Current.MainPage.Navigation.PushModalAsync ( new TutionPage ( Info ) ).ConfigureAwait ( false );
                         }
                         else

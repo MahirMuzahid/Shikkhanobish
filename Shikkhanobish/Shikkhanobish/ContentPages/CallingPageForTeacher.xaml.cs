@@ -31,7 +31,9 @@ namespace Shikkhanobish.ContentPages
             subLbl.Text = Info.SubjectName;
             ctLbl.Text = "Cost: " + Info.Teacher.Amount + " taka/min";
             calllbl.Text = "Student Call...";
-            GetKeys ();
+            CrossOpenTok.Current.ApiKey = "46485492";
+            CrossOpenTok.Current.SessionId = info.SessionID;
+            CrossOpenTok.Current.UserToken = info.UserToken;
         }
 
         private async void callbtn_Clicked ( object sender , EventArgs e )
@@ -72,33 +74,7 @@ namespace Shikkhanobish.ContentPages
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
             string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
             var r = JsonConvert.DeserializeObject<string> ( result );
-        }
-
-        protected async void GetKeys ( )
-        {
-
-            apiKey = 46485492;
-            SessionID = "2_MX40NjQ4NTQ5Mn5-MTYwMTIwNTc0NzY4OX5USmhraGhKNzduREtjamtsRjdOZWg2dnV-fg";
-            Token = "T1==cGFydG5lcl9pZD00NjQ4NTQ5MiZzaWc9ODZmMzg4ZGU1YTljNGIzMTVmZTRkZDA1ZDAwYzE5ZjhmNjc2OWU1MTpzZXNzaW9uX2lkPTJfTVg0ME5qUTROVFE1TW41LU1UWXdNVEl3TlRjME56WTRPWDVVU21ocmFHaEtOemR1UkV0amFtdHNSamRPWldnMmRuVi1mZyZjcmVhdGVfdGltZT0xNjAxMjA1Nzg1Jm5vbmNlPTAuOTcxNzE2ODQ3NjU1NTQ4NCZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNjAzNzk3Nzg1JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";
-            using ( var client = new HttpClient () )
-            {
-                try
-                {
-                    //var resp = await client.GetAsync(Config.KeysUrl);
-                    //var json = await resp.Content.ReadAsStringAsync();
-                    //var keys = JsonConvert.DeserializeObject<Keys>(json);
-
-                    CrossOpenTok.Current.ApiKey = "46485492";// keys.ApiKey;
-                    CrossOpenTok.Current.SessionId = "2_MX40NjQ4NTQ5Mn5-MTU5ODc2MDk4MTU2M35vTDBMZjU0c21BcGhtNTE2Ylp1cllSS1F-fg";//keys.SessionId;
-                    CrossOpenTok.Current.UserToken = "T1==cGFydG5lcl9pZD00NjQ4NTQ5MiZzaWc9NTRmZjBhYzFkZGQ2MmZkZGJhZjI4NWY5NmE1Y2E2MzQ0OTVhZTMxMjpzZXNzaW9uX2lkPTJfTVg0ME5qUTROVFE1TW41LU1UVTVPRGMyTURrNE1UVTJNMzV2VERCTVpqVTBjMjFCY0dodE5URTJZbHAxY2xsU1MxRi1mZyZjcmVhdGVfdGltZT0xNTk4NzYwOTkwJm5vbmNlPTAuODYzMzk2NTI0NTQxNzAxNyZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNjAxMzUyOTg4JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";//keys.Token;
-                }
-                catch ( Exception ex )
-                {
-                    // await MainPage.DisplayAlert(null, "MAKE SURE YOU SET API URL FOR RETRIEVING NECESSARY KEYS (Config.cs) OR YOU MAY HARDCODE THEM.", "GOT IT");
-                }
-            }
-            //CrossOpenTok.Current.Error += (m) => TakeTuition.DisplayAlert("ERROR", m, "OK");
-        }
+        }     
 
         public async void setOnTuitionOFFOrOn ( int oforon )
         {
