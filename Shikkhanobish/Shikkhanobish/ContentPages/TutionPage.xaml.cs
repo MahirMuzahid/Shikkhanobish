@@ -24,10 +24,11 @@ namespace Shikkhanobish.ContentPages
         private Timer timer = new Timer ();
         int sec, min;
         int ownthing = 0, i=0;
-        bool firstTime ,isstudent;
+        bool firstTime ,isstudent, isNewTeacher;
 
         public TutionPage ( TransferInfo trnsInfo)
         {
+            isNewTeacher = false;
             iscut = false;
             InitializeComponent ();
             info = trnsInfo;
@@ -38,6 +39,10 @@ namespace Shikkhanobish.ContentPages
             tnamelbl.Text = trnsInfo.Teacher.TeacherName;
             SetIsPending ();
             ConnectToServer ();
+            if(trnsInfo.Teacher.Total_Min <= 20)
+            {
+                isNewTeacher = true;
+            }
             Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , UpdateTimerAndInfo );                      
         }
 
@@ -116,14 +121,14 @@ namespace Shikkhanobish.ContentPages
             {
                 info.StudyTimeInAPp = min+1;
                 safelbl.Text = "Pay Time, Cost: " + cal.CalculateCost (info);
-                SendCostRoTeacher ( calculate.CalculateCostForTeacher ( info ) );
+                SendCostRoTeacher ( calculate.CalculateCostForTeacher ( info , isNewTeacher) );
                 if(min  <= info.Student.freeMin)
                 {
-                    SetCost ( calculate.CalculateCost ( info ) , 0 , calculate.CalculateCostForTeacher ( info ) );
+                    SetCost ( 0 , 0 , calculate.CalculateCostForTeacher ( info, isNewTeacher ) );
                 }
                 else
                 {
-                    SetCost ( calculate.CalculateCost ( info ) , calculate.CalculateCostPerminStudent ( info ) , calculate.CalculateCostForTeacher ( info ) );
+                    SetCost ( calculate.CalculateCost ( info ) , calculate.CalculateCostPerminStudent ( info ) , calculate.CalculateCostForTeacher ( info , isNewTeacher) );
                 }
                 
             }

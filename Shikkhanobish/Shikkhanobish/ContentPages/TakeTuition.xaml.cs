@@ -689,7 +689,7 @@ namespace Shikkhanobish
                 {
                     FilteredTeacher [ i ].Color = "#CA6AF1";
                 }
-                FilteredTeacher [ i ].Amount = cal.RatingAndCostRange ( FilteredTeacher [ i ].Teacher_Rank , transferNow.ClassCode , transferNow.Teacher.Total_Min , 30 , true );
+                FilteredTeacher [ i ].Amount = cal.RatingAndCostRange ( FilteredTeacher [ i ].Teacher_Rank , transferNow.ClassCode  );
             }
         }
     }

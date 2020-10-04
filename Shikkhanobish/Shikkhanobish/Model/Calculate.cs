@@ -9,30 +9,10 @@ namespace Shikkhanobish.Model
         public TransferInfo Info;
         public int CalculatedTuitionTime;
 
-        public float RatingAndCostRange ( string rank , string Class , int totalTime , int inappmin , bool isStudent )
+        public float RatingAndCostRange ( string rank , string Class )
         {
             float pmc = 0;
-
-            if ( totalTime + inappmin < 20 && isStudent == false )
-            {
-                pmc = 0;
-            }
-            else if ( totalTime + inappmin > 20 && rank == "Placement" && isStudent == false )
-            {
-                if ( Class == "LS" )
-                {
-                    pmc = 2;
-                }
-                else if ( Class == "S" )
-                {
-                    pmc = 3;
-                }
-                else if ( Class == "HS" )
-                {
-                    pmc = 4;
-                }
-            }
-            else if(rank == "Placement" && isStudent == true)
+            if ( rank == "Placement" )
             {
                 if ( Class == "LS" )
                 {
@@ -155,25 +135,21 @@ namespace Shikkhanobish.Model
             return rank; //it shows rank 
         }
 
-        public float CalculateCostForTeacher(TransferInfo info)
-        {
-            int totalMin = 0;
-            Info = info;
-            float cost = 0;
-            totalMin = info.StudyTimeInAPp;
-
-            cost =  ( totalMin * RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode , info.Teacher.Total_Min , info.StudyTimeInAPp , false ) );
-            cost = ( float ) ( cost - (cost * .3) ) ;
-            return cost;
-        }
+       
         public float CalculateCost(TransferInfo info)
         {
             Info = info;
             float cost = 0;
-            if (info.StudyTimeInAPp >= 0)
+            if (info.StudyTimeInAPp >= 0 )
             {
-                int totalMin = info.StudyTimeInAPp;
-                cost = (totalMin * RatingAndCostRange(info.Teacher.Teacher_Rank, info.ClassCode, info.Teacher.Total_Min, info.StudyTimeInAPp, true ) );
+                if( info.StudyTimeInAPp > info.Student.freeMin)
+                {
+                    cost = ( info.StudyTimeInAPp * RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode ) );
+                }
+                else
+                {
+                    cost = 0;
+                }
             }
             else
             {
@@ -187,13 +163,48 @@ namespace Shikkhanobish.Model
             float cost = 0;
             if ( info.StudyTimeInAPp >= 0 )
             {
-                int totalMin = info.StudyTimeInAPp;
-                cost = ( RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode , info.Teacher.Total_Min , info.StudyTimeInAPp , true ) );
+                if ( info.StudyTimeInAPp > info.Student.freeMin )
+                {
+                    cost = ( RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode ) );
+                }
+                else
+                {
+                    cost = 0;
+                }
             }
             else
             {
                 cost = 0;
             }
+            return cost;
+        }
+
+        public float CalculateCostForTeacher ( TransferInfo info , bool newTeacher )
+        {
+           
+            Info = info;
+            float cost = 0;
+            if(info.Teacher.Total_Min + info.StudyTimeInAPp > 20)
+            {
+                if(newTeacher == true)
+                {
+                    int min = info.Teacher.Total_Min - info.StudyTimeInAPp;
+
+                    if(min < 0)
+                    {
+                        min = min * -1;
+                    }
+                    cost = ( min * RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode ) );
+                }
+                else
+                {
+                    cost = ( info.StudyTimeInAPp * RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode ) );
+                }
+                
+            }
+
+            
+            cost = ( float ) ( cost - ( cost * .2 ) );
             return cost;
         }
         public float CalculateCostPerminTeacher ( TransferInfo info )
@@ -203,7 +214,7 @@ namespace Shikkhanobish.Model
             float cost = 0;
             totalMin = info.StudyTimeInAPp;
 
-            cost =  ( RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode , info.Teacher.Total_Min , info.StudyTimeInAPp , false ) );
+            cost =  ( RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode ) );
             cost = (cost * .3f  );
             return cost;
         }
