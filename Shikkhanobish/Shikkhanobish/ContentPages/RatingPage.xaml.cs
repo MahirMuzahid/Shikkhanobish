@@ -12,6 +12,7 @@ using Shikkhanobish.ContentPages.Common;
 using Shikkhanobish.ContentPages.Student;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Xamarin.Essentials;
 
 namespace Shikkhanobish.ContentPages
 {
@@ -22,16 +23,26 @@ namespace Shikkhanobish.ContentPages
         private TransferInfo info = new TransferInfo();
         private Calculate calculate = new Calculate();
         bool isft;
+        string subjectName;
         public RatingPage(TransferInfo trnsInfo, bool IsFromTuition)
         {
-            InitializeComponent ();
+            InitializeComponent ();           
             info = trnsInfo;
             isft = IsFromTuition;
-            showEverything();
-            if(IsFromTuition == false)
+            if ( IsFromTuition == false )
             {
-                Navigation.PushPopupAsync ( new PopUpForTextAlert ("Rate Your Teacher Please" ,"You didn't rate your teacher last time you took tuition" , false));
+                GetSubjectName ();
+                Navigation.PushPopupAsync ( new PopUpForTextAlert ( "Rate Your Teacher Please" , "You didn't rate your teacher last time you took tuition" , false ) );
             }
+            showEverything ();           
+        }
+        public async void GetSubjectName ()
+        {
+            subjectName = await SecureStorage.GetAsync ( "subject_name" ).ConfigureAwait ( false );
+        }
+        public void OffReportBtn()
+        {
+            rptbtn.IsVisible = false;
         }
         protected override bool OnBackButtonPressed ( )
         {
@@ -44,7 +55,7 @@ namespace Shikkhanobish.ContentPages
             tnamelbl.Text = info.Teacher.TeacherName;
             tIDlbl.Text = "" + info.Teacher.TeacherID;
             sClasslbl.Text = info.Class;
-            sSubject.Text = info.SubjectName;//have to re write 
+            sSubject.Text = subjectName;
             inapptimelbl.Text = "" + info.StudyTimeInAPp;
             if( isft  == false)
             {
@@ -62,79 +73,129 @@ namespace Shikkhanobish.ContentPages
 
         private async void ostarClicked(object sender, EventArgs e)
         {
-            oply.Fill = Brush.Gold;
+            sbtn.BackgroundColor = Color.FromHex ( "#6DC8B6" );
+            oply.Stroke = Brush.Gray;
+            tply.Stroke = Brush.Gray;
+            thply.Stroke = Brush.Gray;
+            fply.Stroke = Brush.Gray;
+            fiply.Stroke = Brush.Gray;
+            oply.Fill = Brush.Red;
             tply.Fill = Brush.White;
             thply.Fill = Brush.White;
             fply.Fill = Brush.White;
             fiply.Fill = Brush.White;
-            await pbar.ProgressTo ( 0.2, 500 , Easing.Linear );
+            oply.Stroke = Brush.Red;
             pbar.ProgressColor = Color.FromHex ( "#FF5A5A" );
             info.GivenRating = 1;
             Ratelbl.Text = "Newbie";
             Ratelbl.TextColor = Color.FromHex ( "#FF5A5A" );
             sbtn.IsEnabled = true;
+            await pbar.ProgressTo ( 0.2, 500 , Easing.Linear );           
+           
         }
 
         private async void tstarClicked(object sender, EventArgs e)
         {
-            oply.Fill = Brush.Gold;
-            tply.Fill = Brush.Gold;
+            sbtn.BackgroundColor = Color.FromHex ( "#6DC8B6" );
+            oply.Stroke = Brush.Gray;
+            tply.Stroke = Brush.Gray;
+            thply.Stroke = Brush.Gray;
+            fply.Stroke = Brush.Gray;
+            fiply.Stroke = Brush.Gray;
+            oply.Fill = Brush.Yellow;
+            tply.Fill = Brush.Yellow;
+            oply.Stroke = Brush.Yellow;
+            tply.Stroke = Brush.Yellow;
             thply.Fill = Brush.White;
             fply.Fill = Brush.White;
             fiply.Fill = Brush.White;
-            await pbar.ProgressTo ( 0.4 , 500 , Easing.Linear );
-            pbar.ProgressColor = Color.FromHex ( "#F0BE05" );
             info.GivenRating = 2;
             Ratelbl.Text = "Avarage";
             sbtn.IsEnabled = true;
             Ratelbl.TextColor = Color.FromHex ( "#F0BE05" );
+            pbar.ProgressColor = Color.FromHex ( "#F0BE05" );
+            await pbar.ProgressTo ( 0.4 , 500 , Easing.Linear );           
+            
         }
 
         private async void thstarClicked(object sender, EventArgs e)
         {
-            oply.Fill = Brush.Gold;
-            tply.Fill = Brush.Gold;
-            thply.Fill = Brush.Gold;
+            sbtn.BackgroundColor = Color.FromHex ( "#6DC8B6" );
+            oply.Stroke = Brush.Gray;
+            tply.Stroke = Brush.Gray;
+            thply.Stroke = Brush.Gray;
+            fply.Stroke = Brush.Gray;
+            fiply.Stroke = Brush.Gray;
+            oply.Fill = Brush.Green;
+            tply.Fill = Brush.Green;
+            thply.Fill = Brush.Green;
+            oply.Stroke = Brush.Green;
+            tply.Stroke = Brush.Green;
+            thply.Stroke = Brush.Green;
             fply.Fill = Brush.White;
             fiply.Fill = Brush.White;
-            await pbar.ProgressTo ( 0.6 , 500 , Easing.Linear );
-            pbar.ProgressColor = Color.FromHex ( "#3BCF64" );
             info.GivenRating = 3;
             Ratelbl.Text = "Good";
             sbtn.IsEnabled = true;
             Ratelbl.TextColor = Color.FromHex ( "#3BCF64" );
+            pbar.ProgressColor = Color.FromHex ( "#3BCF64" );
+            await pbar.ProgressTo ( 0.6 , 500 , Easing.Linear );         
+            
 
         }
 
         private async void fstarClicked(object sender, EventArgs e)
         {
-            oply.Fill = Brush.Gold;
-            tply.Fill = Brush.Gold;
-            thply.Fill = Brush.Gold;
-            fply.Fill = Brush.Gold;
+            sbtn.BackgroundColor = Color.FromHex ( "#6DC8B6" );
+            oply.Stroke = Brush.Gray;
+            tply.Stroke = Brush.Gray;
+            thply.Stroke = Brush.Gray;
+            fply.Stroke = Brush.Gray;
+            fiply.Stroke = Brush.Gray;
+            oply.Fill = Brush.DeepSkyBlue;
+            tply.Fill = Brush.DeepSkyBlue;
+            thply.Fill = Brush.DeepSkyBlue;
+            fply.Fill = Brush.DeepSkyBlue;
+            oply.Stroke = Brush.DeepSkyBlue;
+            tply.Stroke = Brush.DeepSkyBlue;
+            thply.Stroke = Brush.DeepSkyBlue;
+            fply.Stroke = Brush.DeepSkyBlue;
             fiply.Fill = Brush.White;
-            await pbar.ProgressTo ( 0.8 , 500 , Easing.Linear );
-            pbar.ProgressColor = Color.FromHex ( "#50B2ED" );
             info.GivenRating = 4;
             Ratelbl.Text = "Veteran";
             sbtn.IsEnabled = true;
             Ratelbl.TextColor = Color.FromHex ( "#50B2ED" );
+            pbar.ProgressColor = Color.FromHex ( "#50B2ED" );
+            await pbar.ProgressTo ( 0.8 , 500 , Easing.Linear );           
+            
 
         }
 
         private async void fistarClicked(object sender, EventArgs e)
         {
-            oply.Fill = Brush.Gold;
-            tply.Fill = Brush.Gold;
-            thply.Fill = Brush.Gold;
-            fply.Fill = Brush.Gold;
-            fiply.Fill = Brush.Gold;
-            await pbar.ProgressTo ( 1 , 500 , Easing.Linear );
+            sbtn.BackgroundColor = Color.FromHex ( "#6DC8B6" );
+            oply.Stroke = Brush.Gray;
+            tply.Stroke = Brush.Gray;
+            thply.Stroke = Brush.Gray;
+            fply.Stroke = Brush.Gray;
+            fiply.Stroke = Brush.Gray;
+            oply.Fill = Brush.MediumPurple;
+            tply.Fill = Brush.MediumPurple;
+            thply.Fill = Brush.MediumPurple;
+            fply.Fill = Brush.MediumPurple;
+            fiply.Fill = Brush.MediumPurple;
+            oply.Stroke = Brush.MediumPurple;
+            tply.Stroke = Brush.MediumPurple;
+            thply.Stroke = Brush.MediumPurple;
+            fply.Stroke = Brush.MediumPurple;
+            fiply.Stroke = Brush.MediumPurple;
             pbar.ProgressColor = Color.FromHex ( "#B161F3" );
             info.GivenRating = 5;
             Ratelbl.Text = "Master";
             sbtn.IsEnabled = true;
             Ratelbl.TextColor = Color.FromHex ( "#B161F3" );
+            await pbar.ProgressTo ( 1 , 500 , Easing.Linear );            
+           
         }
 
         public async void FinishTHeUpdate()

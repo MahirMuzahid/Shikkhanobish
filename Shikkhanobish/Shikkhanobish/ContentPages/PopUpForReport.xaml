@@ -47,9 +47,9 @@
             <Label Text="Time Waste" Grid.Column="1" Grid.Row="3" HorizontalOptions="Start" VerticalOptions="Center" FontSize="16"/>
             <Label Text="Other" Grid.Column="1" Grid.Row="4" HorizontalOptions="Start" VerticalOptions="Center" FontSize="16"/>
 
-            <Entry x:Name="reportTxtentry" Grid.ColumnSpan="2" Grid.Row="5" Placeholder="Write your complain"/>
+            <Entry x:Name="reportTxtentry" Grid.ColumnSpan="2" Grid.Row="5" Placeholder="Write your complain" FontSize="14"/>
             <Button x:Name="reportbtn" Text="Report" Grid.ColumnSpan="2" Grid.Row="6" BackgroundColor="#DC4444" TextColor="#FFFFFF" FontSize="15" Clicked="reportbtn_Clicked"/>
-            <Label x:Name="errorlbl" Text="Error" TextColor="Red" Grid.ColumnSpan="2" Grid.Row="7" />
+            <Label x:Name="errorlbl"  TextColor="Red" Grid.ColumnSpan="2" Grid.Row="7" />
 
         </Grid>
     </Frame>

@@ -23,6 +23,11 @@ namespace Shikkhanobish.ContentPages.Student
         {
             InitializeComponent ();         
             trans = tr;
+            errorlbl.Text = "";
+            reportbtn.IsEnabled = false;
+            reportTxtentry.IsEnabled = false;
+            reportTxtentry.Placeholder = "";
+            reportbtn.BackgroundColor = Color.FromHex ( "#F0F0F0" );
             namelbl.Text = "Teacher: " + tr.Teacher.TeacherName;
         }
 
@@ -32,16 +37,25 @@ namespace Shikkhanobish.ContentPages.Student
             {
                 ReportType = "Other";
                 reportbtn.IsEnabled = true;
+                reportTxtentry.IsEnabled = true;
+                reportTxtentry.Placeholder = "Write your complain here...";
+                reportbtn.BackgroundColor = Color.FromHex ( "#DC4444" );
             }
             else if ( hrschk.IsChecked == false && otherchk.IsChecked == false && inbhvchk.IsChecked == false && twchk.IsChecked == false )
             {
                 reportbtn.IsEnabled = false;
+                reportTxtentry.IsEnabled = false;
+                reportTxtentry.Placeholder = "";
+                reportTxtentry.Text = "";
+                reportbtn.BackgroundColor = Color.FromHex ( "#F0F0F0" );
             }
-        }
 
-        private async Task Button_Clicked ( object sender , EventArgs e )
-        {
-            
+            if( otherchk.IsChecked == false )
+            {
+                reportTxtentry.IsEnabled = false;
+                reportTxtentry.Text = "";
+                reportTxtentry.Placeholder = "";
+            }
         }
 
         private void hrschk_CheckedChanged ( object sender , CheckedChangedEventArgs e )
@@ -50,10 +64,12 @@ namespace Shikkhanobish.ContentPages.Student
             {
                 ReportType = "Harresment";
                 reportbtn.IsEnabled = true;
+                reportbtn.BackgroundColor = Color.FromHex ( "#DC4444" );
             }
             else if( hrschk.IsChecked == false && otherchk.IsChecked == false && inbhvchk.IsChecked == false  && twchk.IsChecked == false)
             {
                 reportbtn.IsEnabled = false;
+                reportbtn.BackgroundColor = Color.FromHex ( "#F0F0F0" );
             }
         }
 
@@ -63,13 +79,28 @@ namespace Shikkhanobish.ContentPages.Student
             {
                 ReportType = "Inappropiate Behave";
                 reportbtn.IsEnabled = true;
+                reportbtn.BackgroundColor = Color.FromHex ( "#DC4444" );
             }
             else if ( hrschk.IsChecked == false && otherchk.IsChecked == false && inbhvchk.IsChecked == false && twchk.IsChecked == false )
             {
                 reportbtn.IsEnabled = false;
+                reportbtn.BackgroundColor = Color.FromHex ( "#F0F0F0" );
             }
         }
-
+        private void twchk_CheckedChanged ( object sender , CheckedChangedEventArgs e )
+        {
+            if ( twchk.IsChecked == true )
+            {
+                ReportType = "Time Waste";
+                reportbtn.IsEnabled = true;
+                reportbtn.BackgroundColor = Color.FromHex ( "#DC4444" );
+            }
+            else if ( hrschk.IsChecked == false && otherchk.IsChecked == false && inbhvchk.IsChecked == false && twchk.IsChecked == false )
+            {
+                reportbtn.IsEnabled = false;
+                reportbtn.BackgroundColor = Color.FromHex ( "#F0F0F0" );
+            }
+        }
         private async void reportbtn_Clicked ( object sender , EventArgs e )
         {
             if ( hrschk.IsChecked == true || otherchk.IsChecked == true || inbhvchk.IsChecked == true || twchk.IsChecked == true )
@@ -81,24 +112,14 @@ namespace Shikkhanobish.ContentPages.Student
                 StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
                 HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
                 var result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
-                var hisotyList = JsonConvert.DeserializeObject<List<TuitionHistoryStudent>> ( result );
+                var res = JsonConvert.DeserializeObject<Response> ( result );
                 errorlbl.TextColor = Color.Green;
                 errorlbl.Text = "Report Done";
                 reportbtn.IsEnabled = false;
+                await Navigation.PopPopupAsync ().ConfigureAwait ( false );
             }
         }
 
-        private void twchk_CheckedChanged ( object sender , CheckedChangedEventArgs e )
-        {
-            if ( twchk.IsChecked == true )
-            {
-                ReportType = "Time Waste";
-                reportbtn.IsEnabled = true;
-            }
-            else if ( hrschk.IsChecked == false && otherchk.IsChecked == false && inbhvchk.IsChecked == false && twchk.IsChecked == false )
-            {
-                reportbtn.IsEnabled = false;
-            }
-        }
+        
     }
 }

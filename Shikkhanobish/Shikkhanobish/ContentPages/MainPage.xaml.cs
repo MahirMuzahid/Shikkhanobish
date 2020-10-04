@@ -157,7 +157,8 @@ namespace Shikkhanobish
                 trns.StudentCost = pendningRating.Cost;
                 trns.StudyTimeInAPp = pendningRating.Time;
                 trns.Teacher = teacher;
-                await Application.Current.MainPage.Navigation.PushModalAsync ( new RatingPage ( trns , false ) ).ConfigureAwait ( false );
+                
+                MainThread.BeginInvokeOnMainThread ( ( ) => { Application.Current.MainPage.Navigation.PushModalAsync ( new RatingPage ( trns , false ) ).ConfigureAwait ( false ); } );
             }
             else
             {

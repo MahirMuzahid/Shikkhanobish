@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using Shikkhanobish.Model;
 using Shikkhanobish.ContentPages.Common;
 using Rg.Plugins.Popup.Extensions;
+using Xamarin.Essentials;
 
 namespace Shikkhanobish.ContentPages
 {
@@ -38,6 +39,8 @@ namespace Shikkhanobish.ContentPages
             safelbl.Text = "Safe Time";
             tnamelbl.Text = trnsInfo.Teacher.TeacherName;
             SetIsPending ();
+            //SetSubject ();
+            SecureStorage.SetAsync ( "subject_name" , info.SubjectName ).ConfigureAwait ( false );
             ConnectToServer ();
             if(trnsInfo.Teacher.Total_Min <= 20)
             {
@@ -45,7 +48,10 @@ namespace Shikkhanobish.ContentPages
             }
             Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , UpdateTimerAndInfo );                      
         }
-
+        public async void SetSubject ()
+        {
+            await SecureStorage.SetAsync ( "subject_name" , info.SubjectName ).ConfigureAwait ( false );
+        }
         private async void OnEndCall ( object sender , EventArgs e )
         {
             iscut = true;
@@ -84,7 +90,6 @@ namespace Shikkhanobish.ContentPages
         }
         public async void gotoRatingPage ( )
         {
-            //info.StudyTimeInAPp = Int32.Parse(TimeEntry.Text);
             if(sec > 30)
             {
                 min = min+1;
@@ -120,7 +125,7 @@ namespace Shikkhanobish.ContentPages
             if(firstTime == false && sec == 31)
             {
                 info.StudyTimeInAPp = min+1;
-                safelbl.Text = "Pay Time, Cost: " + cal.CalculateCost (info);
+                safelbl.Text = "Cost: " + cal.CalculateCost (info);
                 SendCostRoTeacher ( calculate.CalculateCostForTeacher ( info , isNewTeacher) );
                 if(min  <= info.Student.freeMin)
                 {

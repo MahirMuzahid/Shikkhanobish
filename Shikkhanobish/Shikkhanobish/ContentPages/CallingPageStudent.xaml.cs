@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using System.Diagnostics.Tracing;
 using OpenTokSDK;
 using System.Net;
+using Xamarin.Essentials;
 
 namespace Shikkhanobish.ContentPages
 {
@@ -51,7 +52,6 @@ namespace Shikkhanobish.ContentPages
             CrossOpenTok.Current.SessionId = api.Session.Id;
             checkSession ();
             Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , startCountdown );
-
 
         }
         private bool startCountdown ( )
@@ -121,22 +121,7 @@ namespace Shikkhanobish.ContentPages
             StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
             string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
-        }
-        protected async void GetKeys ( )
-        {
-
-            apiKey = 46485492;
-            string apiSecreat = "c255c95670bc11eecaf5950baf375d7478f74665";
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            this.OpenTok = new OpenTok ( apiKey , apiSecreat );
-            OpenTok.SetDefaultRequestTimeout ( 15 );
-            OpenTok.Debug = true;
-            this.Session = this.OpenTok.CreateSession ();
-            SessionID = Session.Id;
-            Token = OpenTok.GenerateToken ( SessionID );
-            
-
-        }
+        }       
 
 
         private async void cancleStbtn_Clicked ( object sender , EventArgs e )
@@ -181,7 +166,20 @@ namespace Shikkhanobish.ContentPages
                         if ( recivedOrNot == true )
                         {
                             isAcceptedByTeacher = true;
-                            await Application.Current.MainPage.Navigation.PushModalAsync ( new TutionPage ( Info ) ).ConfigureAwait ( false );
+                            string urlT = "https://api.shikkhanobish.com/api/Master/GetInfoByStudentID ";
+                            HttpClient clientT = new HttpClient ();
+                            string jsonDataT = JsonConvert.SerializeObject ( new { StudentID = Info.Student.StudentID } );
+                            StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
+                            HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
+                            string resultT = await responseT.Content.ReadAsStringAsync ();
+                            var studentClass = JsonConvert.DeserializeObject<StudentClass> ( resultT );
+
+                            OldStToNewSt cn = new OldStToNewSt ();
+
+                            var student = cn.Sc_TO_S ( studentClass );
+                            Info.Student = student;
+                            MainThread.BeginInvokeOnMainThread ( ( ) => {  Application.Current.MainPage.Navigation.PushModalAsync ( new TutionPage ( Info ) ).ConfigureAwait ( false ); } );
+                            
                         }
                         else
                         {
