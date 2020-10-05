@@ -34,6 +34,12 @@ namespace Shikkhanobish.ContentPages
                 GetSubjectName ();
                 Navigation.PushPopupAsync ( new PopUpForTextAlert ( "Rate Your Teacher Please" , "You didn't rate your teacher last time you took tuition" , false ) );
             }
+            else
+            {
+                subjectName = info.SubjectName;
+            }
+            
+
             showEverything ();           
         }
         public async void GetSubjectName ()
@@ -57,15 +63,7 @@ namespace Shikkhanobish.ContentPages
             sClasslbl.Text = info.Class;
             sSubject.Text = subjectName;
             inapptimelbl.Text = "" + info.StudyTimeInAPp;
-            if( isft  == false)
-            {
-                costlbl.Text = "" + info.StudentCost;
-            }
-            else
-            {
-                costlbl.Text = "" + calculate.CalculateCost ( info );
-            }
-            
+            costlbl.Text = "" + info.StudentCost;
             Ratelbl.Text = "";
             sbtn.IsEnabled = false;
             //SetIsPending ();
@@ -281,7 +279,7 @@ namespace Shikkhanobish.ContentPages
         {
             string url = "https://api.shikkhanobish.com/api/Master/SetPending";
             HttpClient client = new HttpClient ();
-            string jsonData = JsonConvert.SerializeObject ( new {  StudentID = info.Student.StudentID , TeacherName = info.Teacher.TeacherName, TeacherID = info.Teacher.TeacherID , Class = info.Class, Subject = info.Subject , Cost = calculate.CalculateCost ( info ) } );
+            string jsonData = JsonConvert.SerializeObject ( new {  StudentID = info.Student.StudentID , TeacherName = info.Teacher.TeacherName, TeacherID = info.Teacher.TeacherID , Class = info.Class, Subject = info.Subject , Cost = info.StudentCost } );
             StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
             string result = await response.Content.ReadAsStringAsync ();

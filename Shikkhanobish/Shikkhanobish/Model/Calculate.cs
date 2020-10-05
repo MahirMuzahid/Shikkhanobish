@@ -136,7 +136,7 @@ namespace Shikkhanobish.Model
         }
 
        
-        public float CalculateCost(TransferInfo info)
+        public float CalculateCost(TransferInfo info )
         {
             Info = info;
             float cost = 0;
@@ -144,7 +144,9 @@ namespace Shikkhanobish.Model
             {
                 if( info.StudyTimeInAPp > info.Student.freeMin)
                 {
-                    cost = ( info.StudyTimeInAPp * RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode ) );
+                    int min = info.StudyTimeInAPp - info.Student.freeMin;                  
+                    cost = ( min * RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode ) );                   
+                    
                 }
                 else
                 {
@@ -203,20 +205,22 @@ namespace Shikkhanobish.Model
                 
             }
 
-            
+        
             cost = ( float ) ( cost - ( cost * .2 ) );
             return cost;
         }
-        public float CalculateCostPerminTeacher ( TransferInfo info )
+        public float CalculateCostPerminTeacher ( TransferInfo info,bool newTeacher )
         {
-            int totalMin = 0;
             Info = info;
             float cost = 0;
-            totalMin = info.StudyTimeInAPp;
+            if ( info.Teacher.Total_Min + info.StudyTimeInAPp > 20 )
+            {
+                cost = (  RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode ) );
 
-            cost =  ( RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode ) );
-            cost = (cost * .3f  );
+            }
+            cost = ( float ) ( cost - ( cost * .2 ) );
             return cost;
+
         }
 
         public int CalculateTuitionPoint(TransferInfo info)

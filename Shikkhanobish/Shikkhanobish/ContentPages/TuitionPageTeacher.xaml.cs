@@ -85,7 +85,7 @@ namespace Shikkhanobish.ContentPages
         }
 
 
-        private void CheckPositionAndUpdateSlider ( )
+        private void UpdateMin ( )
         {
             min = min + 1;
          
@@ -116,14 +116,24 @@ namespace Shikkhanobish.ContentPages
                 isConnected = true;
 
             };
-            _connection.On<float , int,int> ( "sendCost" , async ( cost , teacherID , studentID ) =>
+            _connection.On<int> ( "sendTime" , async ( teacherID  ) =>
+            {
+                if ( info.Teacher.TeacherID == teacherID )
+                {
+                    timerlbl.TextColor = Color.Black;
+                    safelbl.TextColor = Color.Green;
+                    safelbl.Text = "PayTime";
+                }
+
+            } );
+            _connection.On<float , int , int> ( "sendCost" , async ( cost , teacherID , studentID ) =>
             {
                 if ( info.Teacher.TeacherID == teacherID && info.Student.StudentID == studentID )
                 {
                     timerlbl.TextColor = Color.Black;
                     safelbl.TextColor = Color.Green;
                     safelbl.Text = "Earned: " + cost;
-                    CheckPositionAndUpdateSlider ();
+                    UpdateMin ();
                 }
 
             } );

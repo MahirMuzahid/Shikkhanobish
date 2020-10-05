@@ -40,6 +40,13 @@ namespace ShikkhanobishRealTimeApi.Controllers
 
             return Ok ( "ok" );
         }
+        [HttpPost ( "sendTime" )]
+        public async Task<IActionResult> sendTime ( int teacherID  )
+        {
+            await _hubContext.Clients.All.SendAsync ( "sendTime" ,teacherID );
+
+            return Ok ( "ok" );
+        }
         [HttpPost ( "cutCall" )]
         public async Task<IActionResult> cutCall ( int stop , int teacherID, int studentID, bool isStudent )
         {

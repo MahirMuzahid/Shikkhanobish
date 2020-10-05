@@ -40,12 +40,13 @@ namespace Shikkhanobish.ContentPages
             tnamelbl.Text = trnsInfo.Teacher.TeacherName;
             SetIsPending ();
             //SetSubject ();
-            SecureStorage.SetAsync ( "subject_name" , info.SubjectName ).ConfigureAwait ( false );
+            SecureStorage.SetAsync ( "subject_name" , info.SubjectName );
             ConnectToServer ();
             if(trnsInfo.Teacher.Total_Min <= 20)
             {
                 isNewTeacher = true;
             }
+   
             Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , UpdateTimerAndInfo );                      
         }
         public async void SetSubject ()
@@ -54,6 +55,7 @@ namespace Shikkhanobish.ContentPages
         }
         private async void OnEndCall ( object sender , EventArgs e )
         {
+            info.StudentCost = calculate.CalculateCost ( info  );
             iscut = true;
             CrossOpenTok.Current.EndSession ();
             _connection.StopAsync ();
@@ -112,7 +114,7 @@ namespace Shikkhanobish.ContentPages
             {
                 safelbl.IsVisible = true;
                 timerlbl.TextColor = Color.Green;
-                if(sec == 20)
+                if(sec == 10)
                 {
                     sec = 0;
                     firstTime = false;
@@ -125,15 +127,15 @@ namespace Shikkhanobish.ContentPages
             if(firstTime == false && sec == 31)
             {
                 info.StudyTimeInAPp = min+1;
-                safelbl.Text = "Cost: " + cal.CalculateCost (info);
+                safelbl.Text = "Cost: " + cal.CalculateCost (info );
                 SendCostRoTeacher ( calculate.CalculateCostForTeacher ( info , isNewTeacher) );
-                if(min  <= info.Student.freeMin)
+                if(min  < info.Student.freeMin)
                 {
-                    SetCost ( 0 , 0 , calculate.CalculateCostForTeacher ( info, isNewTeacher ) );
+                    SetCost ( 0 , 0 , calculate.CalculateCostForTeacher ( info, isNewTeacher ),1 );
                 }
                 else
                 {
-                    SetCost ( calculate.CalculateCost ( info ) , calculate.CalculateCostPerminStudent ( info ) , calculate.CalculateCostForTeacher ( info , isNewTeacher) );
+                    SetCost ( calculate.CalculateCost ( info  ) , calculate.CalculateCostPerminStudent ( info) , calculate.CalculateCostForTeacher ( info , isNewTeacher) ,0);
                 }
                 
             }
@@ -205,7 +207,7 @@ namespace Shikkhanobish.ContentPages
             string result = await response.Content.ReadAsStringAsync ();
         }
         float previouscostst, previousearnteach;
-        public async void SetCost ( float cost, float stcost, float teacherearn)
+        public async void SetCost ( float cost, float stcost, float teacherearn, int FreeMinMinus )
         {
             float miancostst = stcost - previouscostst;
             float mianearnt = teacherearn - previousearnteach;
@@ -213,7 +215,7 @@ namespace Shikkhanobish.ContentPages
             previousearnteach = teacherearn;
             string url = "https://api.shikkhanobish.com/api/Master/SetCostinIspending";
             HttpClient client = new HttpClient ();
-            string jsonData = JsonConvert.SerializeObject ( new { StudentID = info.Student.StudentID ,  Cost = cost, Time = info.StudyTimeInAPp , StudentCostMin  = miancostst , TeacherEarnMin = mianearnt , TeacherID = info.Teacher.TeacherID} );
+            string jsonData = JsonConvert.SerializeObject ( new { StudentID = info.Student.StudentID ,  Cost = cost, Time = info.StudyTimeInAPp , StudentCostMin  = miancostst , TeacherEarnMin = mianearnt , TeacherID = info.Teacher.TeacherID, FreeMinMinus = FreeMinMinus } );
             StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
             string result = await response.Content.ReadAsStringAsync ();
@@ -221,12 +223,12 @@ namespace Shikkhanobish.ContentPages
         public async Task CutVideoCAll ( )
         {
 
-            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/cutCall?stop=" + 1 + "&teacherID=" + info.Teacher.TeacherID + "&studentID=" + info.Student.StudentID + "&isStudent=" + true;
+            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/cutCall?stop=" + 1 + "&teacherID=" + info.Teacher.TeacherID + "&studentID=" + info.Student.StudentID + "&isStudent=true";
             HttpClient client = new HttpClient ();
             StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
             string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
-            var r = JsonConvert.DeserializeObject<string> ( result );
+            
         }
         public async Task SendCostRoTeacher ( float cost)
         {
@@ -241,7 +243,7 @@ namespace Shikkhanobish.ContentPages
 
         public async Task StartTime ( )
         {
-            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/sendTime?sec=" + 1 + "&teacherID=" + info.Teacher.TeacherID;
+            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/sendTime?teacherID="+ info.Teacher.TeacherID;
             HttpClient client = new HttpClient ();
             StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );

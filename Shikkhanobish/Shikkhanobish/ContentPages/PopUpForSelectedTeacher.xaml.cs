@@ -23,7 +23,7 @@ namespace Shikkhanobish.ContentPages
         private string SessionID, Token;
         private async void Button_Clicked ( object sender , EventArgs e )
         {
-            
+            callbtn.Text = "Calling...";
             await Application.Current.MainPage.Navigation.PushModalAsync ( new CallingPageStudent(Info) );
             await Navigation.PopPopupAsync ().ConfigureAwait ( false );
         }
