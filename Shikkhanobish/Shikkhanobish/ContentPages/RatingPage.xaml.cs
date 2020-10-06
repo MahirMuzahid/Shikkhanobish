@@ -23,6 +23,9 @@ namespace Shikkhanobish.ContentPages
     {
         private TransferInfo info = new TransferInfo();
         private Calculate calculate = new Calculate();
+        public List<OfferAndVoucherSource> offers = new List<OfferAndVoucherSource> ();
+        public List<VoucherAndOfferHistory> offerHistory = new List<VoucherAndOfferHistory> ();
+        public List<VoucherAndOfferHistory> offerHistoryTeacher = new List<VoucherAndOfferHistory> ();
         bool isft;
         string subjectName;
         public RatingPage(TransferInfo trnsInfo, bool IsFromTuition)
@@ -322,7 +325,7 @@ namespace Shikkhanobish.ContentPages
                         {
                             string url = "https://api.shikkhanobish.com/api/Master/AddMinOrAddFundStudent";
                             HttpClient client = new HttpClient ();
-                            string jsonData = JsonConvert.SerializeObject ( new { StudentID = info.Student.StudentID, Counter = 2, Amount = offers[i].amount } );
+                            string jsonData = JsonConvert.SerializeObject ( new { StudentID = info.Student.StudentID, Counter = 2, Amount = offers[i].amount, TeacherID = "" } );
                             StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
                             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
                             var result = await response.Content.ReadAsStringAsync ();
@@ -350,7 +353,7 @@ namespace Shikkhanobish.ContentPages
                         {
                             string url = "https://api.shikkhanobish.com/api/Master/AddMinOrAddFundStudent";
                             HttpClient client = new HttpClient ();
-                            string jsonData = JsonConvert.SerializeObject ( new { StudentID = info.Student.StudentID , Counter = 1 , Amount = offers [ i ].amount } );
+                            string jsonData = JsonConvert.SerializeObject ( new { StudentID = info.Student.StudentID , Counter = 1 , Amount = offers [ i ].amount ,TeacherID = "" } );
                             StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
                             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
                             var result = await response.Content.ReadAsStringAsync ();
@@ -361,12 +364,40 @@ namespace Shikkhanobish.ContentPages
 
                         }
                     }
-                }               
+                }
+                else if ( offers [ i ].type == "Goal_Taka" )
+                {
+                    bool isVoucherUsed = false;
+                    if ( usedMin >= offers [ i ].limit )
+                    {
+                        for ( int j = 0; j < offerHistoryTeacher.Count; j++ )
+                        {
+                            if ( offerHistoryTeacher [ j ].voucherID == offers [ i ].voucherID )
+                            {
+                                isVoucherUsed = true;
+                                continue;
+                            }
+                        }
+                        if ( isVoucherUsed == false )
+                        {
+                            string url = "https://api.shikkhanobish.com/api/Master/AddMinOrAddFundStudent";
+                            HttpClient client = new HttpClient ();
+                            string jsonData = JsonConvert.SerializeObject ( new { StudentID = "" , Counter = 3 , Amount = offers [ i ].amount , TeacherID = info.Teacher.TeacherID } );
+                            StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
+                            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
+                            var result = await response.Content.ReadAsStringAsync ();
+                            var r = JsonConvert.DeserializeObject<Response> ( result );
+                            SetVoucherHistory ( offers [ i ].voucherID );
+                            int amount = offers [ i ].amount;
+                            MainThread.BeginInvokeOnMainThread ( ( ) => { Navigation.PushPopupAsync ( new PopUpForTextAlert ( "Congratulation!!" , "You got " + amount + " minuites free for completing " + usedMin + " min tuition. " , false ) ); } );
+
+                        }
+                    }
+                }
             }
         }
 
-        public List<OfferAndVoucherSource> offers = new List<OfferAndVoucherSource> ();
-        public List<VoucherAndOfferHistory> offerHistory = new List<VoucherAndOfferHistory> ();
+       
         public async Task GetVoucherOffers ( )
         {
             string urlT = "https://api.shikkhanobish.com/api/Master/GetVoucherSource";
@@ -389,6 +420,16 @@ namespace Shikkhanobish.ContentPages
             string result = await response.Content.ReadAsStringAsync ();
             offerHistory = JsonConvert.DeserializeObject<List<VoucherAndOfferHistory>> ( result );
         }
+        public async Task GetVoucherHistoryTeacher ( )
+        {
+            string url = "https://api.shikkhanobish.com/api/Master/GetVoucherInfo";
+            HttpClient client = new HttpClient ();
+            string jsonData = JsonConvert.SerializeObject ( new { StudentID = info.Teacher.TeacherID } );
+            StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
+            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
+            string result = await response.Content.ReadAsStringAsync ();
+            offerHistoryTeacher = JsonConvert.DeserializeObject<List<VoucherAndOfferHistory>> ( result );
+        }
         public async Task SetVoucherHistory ( int vID)
         {
             string url = "https://api.shikkhanobish.com/api/Master/SetVoucherInfo";
@@ -400,9 +441,63 @@ namespace Shikkhanobish.ContentPages
             var r = JsonConvert.DeserializeObject<Response> ( result );
         }
 
-        private void voucher_Clicked ( object sender , EventArgs e )
+        private async void voucher_Clicked ( object sender , EventArgs e )
         {
-
+            bool isVoucherUsed = false;
+            int count = 0;
+            for (int i = 0; i < offers.Count; i++ )
+            { 
+                if(offers[i].code == voucherentry.Text)
+                {
+                    count++;
+                    for ( int j = 0; j < offerHistory.Count; j++ )
+                    {
+                        if ( offerHistory [ j ].voucherID == offers [ i ].voucherID )
+                        {
+                            isVoucherUsed = true;
+                            continue;
+                        }
+                    }
+                    if ( isVoucherUsed == false )
+                    {
+                        float cut = 0;
+                        string url = "https://api.shikkhanobish.com/api/Master/AddAmountOnAcceptedVoucher";
+                        HttpClient client = new HttpClient ();
+                        if ( info.StudyTimeInAPp > offers [ i ].limit )
+                        {
+                            cut = ( offers [ i ].amount * offers [ i ].limit ) / 100;
+                        }
+                        else
+                        {
+                            cut = ( offers [ i ].amount * info.StudyTimeInAPp ) / 100f;
+                        }
+                        string jsonData = JsonConvert.SerializeObject ( new { StudentID = info.Student.StudentID , amount = cut } );
+                        StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
+                        HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
+                        var result = await response.Content.ReadAsStringAsync ();
+                        var r = JsonConvert.DeserializeObject<Response> ( result );
+                        SetVoucherHistory ( offers [ i ].voucherID );
+                        MainThread.BeginInvokeOnMainThread ( ( ) => {
+                            costlbl.Text = info.StudentCost + " - " + offers [ i ].amount + "% = " + cut;
+                            costlbl.BackgroundColor = Color.ForestGreen;
+                        } );
+                        break;
+                    }
+                }               
+            }
+            if (  count != offers.Count)
+            {
+                if( isVoucherUsed == true)
+                {
+                    MainThread.BeginInvokeOnMainThread ( ( ) => { Navigation.PushPopupAsync ( new PopUpForTextAlert ( "Invalid Voucher" , "Voucher already used" , false ) ); } );
+                    
+                }
+                else
+                {
+                    MainThread.BeginInvokeOnMainThread ( ( ) => { Navigation.PushPopupAsync ( new PopUpForTextAlert ( "Invalid Voucher" , "Voucher is not applicable" , false ) ); } );
+                }
+                
+            }
         }
     }
 }

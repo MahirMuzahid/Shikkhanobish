@@ -30,7 +30,7 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Label Text="Enter bkash trasection ID of your payment" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF"/>
+            <Label Text="Enter phone number from which you sent money and bkash trasection ID of your payment" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF"/>
             <Entry x:Name="pnlbl" Placeholder="Phone Number" PlaceholderColor="White" Grid.Column="0" Grid.Row="1"/>
             <Entry x:Name="trxlbl" Placeholder="TrxID" PlaceholderColor="White" Grid.Column="1" Grid.Row="1"/>
             <Entry x:Name="passlbl" Placeholder="Password" PlaceholderColor="White" Grid.Column="0" Grid.Row="2"/>

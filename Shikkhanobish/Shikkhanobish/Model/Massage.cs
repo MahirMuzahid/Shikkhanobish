@@ -13,7 +13,7 @@ namespace Shikkhanobish.Model
         public async Task SendMsg (string number, string msg)
         {
           
-            string url = "https://api.shikkhanobish.com/api/Masters/GetKeys";
+            string url = "https://api.shikkhanobish.com/api/Master/GetKeys";
             HttpClient client = new HttpClient ();
             HttpResponseMessage response = await client.GetAsync ( url ).ConfigureAwait ( true );
             string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );

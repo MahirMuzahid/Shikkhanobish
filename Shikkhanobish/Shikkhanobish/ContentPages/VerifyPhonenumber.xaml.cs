@@ -31,7 +31,6 @@ namespace Shikkhanobish
             Numberlbl.Text = "" + studentm.PhoneNumber;
             Random random = new Random();
             string Password = "Biggan12345";
-            int RecevierNumber = int.Parse(studentm.PhoneNumber);
             int VerificationNumber = random.Next(1000, 9999);
             string text = "";
             if (ts == 0)
@@ -42,7 +41,7 @@ namespace Shikkhanobish
             {
                 text = "Your Verification Number From Shikkhanobish Teacher Registration is: " + VerificationNumber;
             }
-            await ms.SendMsg (("0"+ RecevierNumber ) , text ).ConfigureAwait(false);
+            await ms.SendMsg ( studentm.PhoneNumber  , text ).ConfigureAwait(false);
             vrNumber = VerificationNumber;
         }
 
@@ -71,16 +70,26 @@ namespace Shikkhanobish
                     if (ts == 0)
                     {
                         string url = "https://api.shikkhanobish.com/api/Master/RegisterStudent";
-                        HttpClient client = new HttpClient();
-                        string jsonData = JsonConvert.SerializeObject(studentm);
+                        HttpClient client = new HttpClient();                      
+                        string jsonData = JsonConvert.SerializeObject( new { 
+                            UserName = studentm.UserName ,
+                            Password = studentm.Password ,
+                            PhoneNumber = studentm.PhoneNumber ,
+                            Name = studentm.Name ,
+                            Age = studentm.Age ,
+                            Class = studentm.Class ,
+                            InstitutionName = studentm.InstitutionName ,
+                            RechargedAmount = 0 ,
+                            IsPending = 0 ,
+                            TotalTuitionTime = 0 ,
+                            TotalTeacherCount = 0 ,
+                            AvarageRating = 0 ,
+                        } );
                         StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
                         HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
                         string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
                         Response responseData = JsonConvert.DeserializeObject<Response>(result);
-                        if (responseData.Status == 0)
-                        {
-                            LoginByUserNameAndPassword ();
-                        }
+                        LoginByUserNameAndPassword ();
                     }
                     else if (ts == 1)
                     {

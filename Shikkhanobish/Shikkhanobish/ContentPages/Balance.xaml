@@ -50,7 +50,7 @@
                 </Grid.RowDefinitions>
                 <Label Text="To add coin in your wallet follow these steps" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="15" FontAttributes="Bold" TextColor="White"/>
                 <Label Text="1. Go to Bkash and use &quot;send money&quot; option" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" FontSize="13" TextColor="White"/>
-                <Label Text="2. Enter this number 01833368125" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" FontSize="13" TextColor="White"/>
+                <Label Text="2. Enter this number 01753202936" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" FontSize="13" TextColor="White"/>
                 <Label Text="3. Enter amount" Grid.Row="4" HorizontalOptions="Center" VerticalOptions="Center" FontSize="13" TextColor="White"/>
                 <Label x:Name="StudentIdlbl" Grid.Row="5" HorizontalOptions="Center" VerticalOptions="Center" FontSize="13" TextColor="White"/>
                 <Label Text="5. Enter Password and send" Grid.Row="6" HorizontalOptions="Center" VerticalOptions="Center" FontSize="13" TextColor="White"/>

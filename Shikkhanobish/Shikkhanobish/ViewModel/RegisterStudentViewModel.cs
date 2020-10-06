@@ -139,7 +139,7 @@ namespace Shikkhanobish
         //This shit will change(custom teacher checking api)----------------------------------------------------------------------------------------------
         public async void checkUsernameAndPhonenumberTeacher()
         {
-            string url = "https://api.shikkhanobish.com/api/Masters/SearchUserName";
+            string url = "https://api.shikkhanobish.com/api/Master/SearchUserName";
             HttpClient client = new HttpClient();
             string jsonData = JsonConvert.SerializeObject(new { UserName = UserName, PhoneNumber = PhoneNumber });
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
@@ -236,7 +236,7 @@ namespace Shikkhanobish
 
         public async void checkUserNamenadPhoneNumber()
         {
-            string url = "https://api.shikkhanobish.com/api/Masters/SearchUserName";
+            string url = "https://api.shikkhanobish.com/api/Master/SearchUserName";//HAVE TO CHANGE 
             HttpClient client = new HttpClient();
             string jsonData = JsonConvert.SerializeObject(new { UserName = UserName, PhoneNumber = PhoneNumber });
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
