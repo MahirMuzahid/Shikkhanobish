@@ -26,6 +26,7 @@ namespace Shikkhanobish
         private bool takeTuition;
         double total, avg;
         int count;
+        
         public TeacherProfile(Teacher t)
         {
             takeTuition = false;

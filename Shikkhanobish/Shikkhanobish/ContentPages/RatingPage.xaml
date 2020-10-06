@@ -15,6 +15,7 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
+            <RowDefinition Height=".7*" />
             <RowDefinition Height=".5*" />
             <RowDefinition Height="7*" />
         </Grid.RowDefinitions>
@@ -23,7 +24,7 @@
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
         <BoxView BackgroundColor="#9761FD" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"  />
-        <BoxView BackgroundColor="#F2F2F2" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="6"  Margin="0,0,0,5" />
+        <BoxView BackgroundColor="#F2F2F2" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="7"  Margin="0,0,0,5" />
         <Label Text="Rate Your Teacher" FontAttributes="Bold" FontSize="16" TextColor="White" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" />
         <Label Text="Teacher Name:" Grid.Column="0" Grid.Row="1" HorizontalOptions="End" VerticalOptions="Center" />
         
@@ -35,14 +36,16 @@
         <Label Text="Time:" Grid.Column="0" Grid.Row="5" HorizontalOptions="End" VerticalOptions="Center" />
         <Label Text="Cost:" Grid.Column="0" Grid.Row="6" HorizontalOptions="End" VerticalOptions="Center" />
 
-        <Label x:Name="tnamelbl" Text="Teacher Name:" Grid.Column="1" Grid.Row="1" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" />
-        <Label x:Name="tIDlbl" Text="Teacher ID:" Grid.Column="1" Grid.Row="2" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" />
-        <Label x:Name="sClasslbl" Text="Class:" Grid.Column="1" Grid.Row="3" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" />
-        <Label x:Name="sSubject" Text="Subject:" Grid.Column="1" Grid.Row="4" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" />
-        <Label x:Name="inapptimelbl" Text="Time:" Grid.Column="1" Grid.Row="5" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" />
-        <Label x:Name="costlbl" Text="Cost:" Grid.Column="1" Grid.Row="6" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" />
-        <Label Text="Rate Your Teacher" Grid.Row="7" FontAttributes="Bold" FontSize="15" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Start"/>
-        <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" RowSpacing="3" BackgroundColor="#FFFFFF">
+        <Label x:Name="tnamelbl"  Grid.Column="1" Grid.Row="1" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" BackgroundColor="#000000" />
+        <Label x:Name="tIDlbl"  Grid.Column="1" Grid.Row="2" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" />
+        <Label x:Name="sClasslbl"  Grid.Column="1" Grid.Row="3" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" />
+        <Label x:Name="sSubject"  Grid.Column="1" Grid.Row="4" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" />
+        <Label x:Name="inapptimelbl"  Grid.Column="1" Grid.Row="5" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" />
+        <Label x:Name="costlbl"  Grid.Column="1" Grid.Row="6" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" />
+        <Entry Grid.ColumnSpan="2" WidthRequest="100" Grid.Row="7" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <Button x:Name="voucher"  Text="Add Voucher" FontSize="9" Grid.Column="1" Grid.Row="7" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold"  TextColor="#5BD28E" BackgroundColor="#007F0505" Clicked="voucher_Clicked"/>
+        <Label Text="Rate Your Teacher" Grid.Row="8" FontAttributes="Bold" FontSize="15" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Start"/>
+        <Grid Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" RowSpacing="3" BackgroundColor="#FFFFFF">
             <Grid.RowDefinitions>
                 <RowDefinition Height=".35*" />
                 <RowDefinition Height=".03*" />

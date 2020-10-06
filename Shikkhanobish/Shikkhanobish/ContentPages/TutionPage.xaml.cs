@@ -26,7 +26,7 @@ namespace Shikkhanobish.ContentPages
         int sec, min;
         int ownthing = 0, i=0;
         bool firstTime ,isstudent, isNewTeacher;
-
+        float totalCost;
         public TutionPage ( TransferInfo trnsInfo)
         {
             isNewTeacher = false;
@@ -131,10 +131,12 @@ namespace Shikkhanobish.ContentPages
                 SendCostRoTeacher ( calculate.CalculateCostForTeacher ( info , isNewTeacher) );
                 if(min  < info.Student.freeMin)
                 {
+                    totalCost = 0;
                     SetCost ( 0 , 0 , calculate.CalculateCostForTeacher ( info, isNewTeacher ),1 );
                 }
                 else
                 {
+                    totalCost = calculate.CalculateCost ( info );
                     SetCost ( calculate.CalculateCost ( info  ) , calculate.CalculateCostPerminStudent ( info) , calculate.CalculateCostForTeacher ( info , isNewTeacher) ,0);
                 }
                 
