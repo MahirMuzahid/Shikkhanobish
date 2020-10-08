@@ -92,7 +92,10 @@ namespace Shikkhanobish.ContentPages
         }
         public async void gotoRatingPage ( )
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync ( new RatingPage ( info,true ) ).ConfigureAwait ( false );
+            Device.BeginInvokeOnMainThread ( async ( ) =>
+            {
+                await Application.Current.MainPage.Navigation.PushModalAsync ( new RatingPage ( info , true ) ).ConfigureAwait ( false );
+            } );
         }
         Calculate calculate = new Calculate();
         TransferInfo timeinfo = new TransferInfo ();

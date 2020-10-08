@@ -12,7 +12,7 @@ using Xamarin.Forms.OpenTok.Android.Service;
 
 namespace Shikkhanobish.Droid
 {
-    [Activity ( Label = "Shikkhanobish" , Icon = "@mipmap/icon" , Theme = "@style/MainTheme" , MainLauncher = true , ScreenOrientation = ScreenOrientation.Portrait )]
+    [Activity ( Label = "Shikkhanobish" , Icon = "@drawable/shikkhaicon" , Theme = "@style/MainTheme" , MainLauncher = true , ScreenOrientation = ScreenOrientation.Portrait )]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         [Obsolete]

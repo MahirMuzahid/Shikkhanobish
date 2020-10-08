@@ -489,12 +489,12 @@ namespace Shikkhanobish.ContentPages
             {
                 if( isVoucherUsed == true)
                 {
-                    MainThread.BeginInvokeOnMainThread ( ( ) => { Navigation.PushPopupAsync ( new PopUpForTextAlert ( "Invalid Voucher" , "Voucher already used" , false ) ); } );
+                    MainThread.BeginInvokeOnMainThread ( ( ) => { Navigation.PushPopupAsync ( new PopUpForTextAlert ( "Invalid Voucher" , "This voucher already used" , false ) ); } );
                     
                 }
                 else
                 {
-                    MainThread.BeginInvokeOnMainThread ( ( ) => { Navigation.PushPopupAsync ( new PopUpForTextAlert ( "Invalid Voucher" , "Voucher is not applicable" , false ) ); } );
+                    MainThread.BeginInvokeOnMainThread ( ( ) => { Navigation.PushPopupAsync ( new PopUpForTextAlert ( "Invalid Voucher" , "This voucher is not applicable" , false ) ); } );
                 }
                 
             }
