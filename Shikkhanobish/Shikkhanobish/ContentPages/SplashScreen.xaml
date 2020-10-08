@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Shikkhanobish.ContentPages.SplashScreen">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1.7*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height=".3*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <Image Source="logo.png" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="End"/>
+        <ProgressBar x:Name="progress" Grid.Row="2" Margin="60"/>
+        <Label x:Name="loadinglbl" Text="Loading Shikkhanobish..." Grid.Row="2" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,20"/>
+    </Grid>
+</ContentPage>

@@ -223,7 +223,7 @@ namespace Shikkhanobish.ContentPages
         {
             string url = "https://api.shikkhanobish.com/api/Master/GetStudentWalletInfo";
             HttpClient client = new HttpClient ();
-            string jsonData = JsonConvert.SerializeObject ( new { StudentID =  23 } );
+            string jsonData = JsonConvert.SerializeObject ( new { StudentID =  parentinfo.StudentID } );
             StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
             string result = await response.Content.ReadAsStringAsync ();

@@ -5,6 +5,7 @@ using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -100,6 +101,7 @@ namespace Shikkhanobish
                 else
                 {
                     Msglbl.Text = "Code doesn't match! Try again.";
+                    //92746
                 }
             }
             else if (codeEntry.Text == null)
@@ -123,7 +125,10 @@ namespace Shikkhanobish
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
             string result = await response.Content.ReadAsStringAsync ();
             Student student = JsonConvert.DeserializeObject<Student> ( result );
-            await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentProfile ( student ) ).ConfigureAwait ( false );
+            MainThread.BeginInvokeOnMainThread ( async ( ) =>
+            {
+                await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentProfile ( student ) ).ConfigureAwait ( false );
+            } );
         }
     }
 }

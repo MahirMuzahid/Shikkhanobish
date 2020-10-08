@@ -11,6 +11,7 @@ using Rg.Plugins.Popup.Pages;
 using System.Net.Http;
 using Newtonsoft.Json;
 using Shikkhanobish.Model;
+using Xamarin.Essentials;
 
 namespace Shikkhanobish.ContentPages.Parents
 {
@@ -21,6 +22,7 @@ namespace Shikkhanobish.ContentPages.Parents
         public PopupForParentsRegistration ( )
         {
             InitializeComponent ();
+            gender = "none";
         }
 
         private async void Button_Clicked ( object sender , EventArgs e )
@@ -34,6 +36,10 @@ namespace Shikkhanobish.ContentPages.Parents
             {
                 errorlbl.Text = "Password length must be at least 6 and must be one Uppercase character and must be one integer(0-9)";
                 errorlbl.TextColor = Color.Red;
+            }
+            else if(gender == "none")
+            {
+                errorlbl.Text = "Please Select Gender";
             }
             else
             {
@@ -63,6 +69,12 @@ namespace Shikkhanobish.ContentPages.Parents
                     {
                         errorlbl.Text = "Registretion done!";
                         errorlbl.TextColor = Color.Gold;
+                        jsonData = JsonConvert.SerializeObject ( new { ParentID = pcodeenty.Text , Password = passenty.Text } );
+                        content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
+                        response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
+                        result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
+                        var parent = JsonConvert.DeserializeObject<Parent> ( result );
+                        MainThread.BeginInvokeOnMainThread ( async ( ) => { await Application.Current.MainPage.Navigation.PushModalAsync ( new ParentsProfile ( parent ) ).ConfigureAwait ( false ); } );
                     }
                     else
                     {

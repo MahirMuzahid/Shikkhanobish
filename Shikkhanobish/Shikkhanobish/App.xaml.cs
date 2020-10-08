@@ -29,7 +29,7 @@ namespace Shikkhanobish
             {
                 StaticPageForOnSleep.isSleep = false;
                 StaticPageForOnSleep.isCallPending = false;
-                MainPage = new MainPage ();
+                MainPage = new SplashScreen();
             }
             
                      

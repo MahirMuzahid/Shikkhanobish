@@ -245,5 +245,8 @@
   <ItemGroup>
     <AndroidResource Include="Resources\Raw\ringtone.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\logo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
