@@ -6,6 +6,7 @@ namespace Shikkhanobish.Interface
 {
     public interface INotification
     {
+        event EventHandler NotificationReceived;
         void CreateNotification ( String title , String message );
     }
 }

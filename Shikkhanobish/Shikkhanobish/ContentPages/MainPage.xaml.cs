@@ -26,6 +26,7 @@ namespace Shikkhanobish
         public Parent parent = new Parent();
         public MainPage()
         {
+            StaticPageForOnSleep.isParent = false;
             isThereLoggedUser = false;          
             InitializeComponent ();
             var image = new Image { Source = "loginwindow.png" };
@@ -123,7 +124,7 @@ namespace Shikkhanobish
             HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
             string resultT = await responseT.Content.ReadAsStringAsync ();
             var teacher = JsonConvert.DeserializeObject<Teacher> ( resultT );
-            
+            StaticPageForOnSleep.isStudent = false;
             MainThread.BeginInvokeOnMainThread ( ( )  => { Application.Current.MainPage.Navigation.PushModalAsync ( new TeacherProfile ( teacher ) ).ConfigureAwait ( false ) ; } );
         }
         public async Task SearchStudent ( string UserName , string Password )
@@ -157,11 +158,12 @@ namespace Shikkhanobish
                 trns.StudentCost = pendningRating.Cost;
                 trns.StudyTimeInAPp = pendningRating.Time;
                 trns.Teacher = teacher;
-                
+                StaticPageForOnSleep.isStudent = true;
                 MainThread.BeginInvokeOnMainThread ( ( ) => { Application.Current.MainPage.Navigation.PushModalAsync ( new RatingPage ( trns , false ) ).ConfigureAwait ( false ); } );
             }
             else
             {
+                StaticPageForOnSleep.isStudent = true;
                 MainThread.BeginInvokeOnMainThread ( ( ) => { Application.Current.MainPage.Navigation.PushModalAsync ( new StudentProfile ( student ) ).ConfigureAwait ( false ); } );
             }
         }
@@ -176,6 +178,7 @@ namespace Shikkhanobish
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
             var result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
             var parent = JsonConvert.DeserializeObject<Parent> ( result );
+            StaticPageForOnSleep.isParent = true;
             MainThread.BeginInvokeOnMainThread ( async ( ) => { await Application.Current.MainPage.Navigation.PushModalAsync ( new ParentsProfile ( parent ) ).ConfigureAwait ( false ); } );
         }
     }

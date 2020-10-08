@@ -15,6 +15,7 @@ using Shikkhanobish;
 using Shikkhanobish.Droid;
 using Xamarin.Forms;
 using Shikkhanobish.Interface;
+using Shikkhanobish.Model;
 
 [assembly: Dependency ( typeof ( NotificationHelper ) )]
 namespace Shikkhanobish.Droid
@@ -25,6 +26,7 @@ namespace Shikkhanobish.Droid
         private NotificationManager mNotificationManager;
         private NotificationCompat.Builder mBuilder;
         public static String NOTIFICATION_CHANNEL_ID = "10023";
+        public event EventHandler NotificationReceived;
 
         public NotificationHelper ( )
         {
@@ -49,16 +51,18 @@ namespace Shikkhanobish.Droid
                 mBuilder.SetSmallIcon ( Resource.Drawable.onlylogo );
                 mBuilder.SetContentTitle ( title )
                         .SetSound ( sound )
-                        .SetAutoCancel ( true )
+                        .SetAutoCancel ( false )
                         .SetTimeoutAfter (15000)
                         .SetContentTitle ( title )
                         .SetContentText ( message )
                         .SetChannelId ( NOTIFICATION_CHANNEL_ID )
                         .SetPriority ( ( int ) NotificationPriority.High )
-                        .SetVibrate ( new long [ 0 ] )
+                        .SetVibrate ( new long [ 2 ] )
                         .SetDefaults ( ( int ) NotificationDefaults.Sound | ( int ) NotificationDefaults.Vibrate )
                         .SetVisibility ( ( int ) NotificationVisibility.Public )
                         .SetSmallIcon ( Resource.Drawable.onlylogo )
+                        .SetColor ( 80 )
+                        .SetVisibility(50)
                         .SetContentIntent ( pendingIntent );
 
 
@@ -90,6 +94,16 @@ namespace Shikkhanobish.Droid
             {
                 //
             }
+        }
+
+        public void ReceiveNotification(string title, string message)
+        {
+            var args = new NotificationEventArgs()
+            {
+                Title = title,
+                Message = message,
+            };
+            NotificationReceived?.Invoke(null, args);
         }
     }
 }

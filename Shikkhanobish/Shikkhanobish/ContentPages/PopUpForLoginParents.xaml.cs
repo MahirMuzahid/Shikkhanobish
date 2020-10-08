@@ -45,6 +45,7 @@ namespace Shikkhanobish.ContentPages.Parents
             else
             {                
                 await Navigation.PopPopupAsync ().ConfigureAwait ( false );
+                StaticPageForOnSleep.isParent = true;
                 MainThread.BeginInvokeOnMainThread ( async ( ) => { await Application.Current.MainPage.Navigation.PushModalAsync ( new ParentsProfile ( parent ) ).ConfigureAwait ( false ); } );
             }
             

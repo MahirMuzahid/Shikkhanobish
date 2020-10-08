@@ -36,6 +36,7 @@ namespace Shikkhanobish
 
         public MainPageViewModel()
         {
+            StaticPageForOnSleep.isParent = false;
             loginText = "Login";
         }
         
@@ -160,16 +161,17 @@ namespace Shikkhanobish
         {
             if(i == 0)
             {
-                
+                StaticPageForOnSleep.isStudent = false;
                 await Application.Current.MainPage.Navigation.PushModalAsync ( new TeacherProfile ( teacher ) ).ConfigureAwait ( false );
             }
             if(i == 1 )
             {
-                
+                StaticPageForOnSleep.isStudent = true;
                 await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentProfile ( student ) ).ConfigureAwait ( false );
             }
             if ( i == 2 )
             {
+                StaticPageForOnSleep.isStudent = true;
                 await Application.Current.MainPage.Navigation.PushModalAsync ( new RatingPage ( Trns,false ) ).ConfigureAwait ( false );
             }
         }

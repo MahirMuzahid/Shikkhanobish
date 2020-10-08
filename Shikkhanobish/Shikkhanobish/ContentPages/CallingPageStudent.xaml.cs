@@ -30,14 +30,15 @@ namespace Shikkhanobish.ContentPages
         VideoCAllApiInfo api = new VideoCAllApiInfo();
         public Session Session { get; protected set; }
         public OpenTok OpenTok { get; protected set; }
-
+        bool isCallCutByStudent;
         HubConnection _connection = null;
         bool isConnected = false;
         string connectionStatus = "Closed";
         bool isAcceptedByTeacher = false;
         string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub", msgFromApi = "";
         public CallingPageStudent ( TransferInfo info )
-        {           
+        {
+            isCallCutByStudent = false;
             sec = 0;
             InitializeComponent ();
             Info = info;
@@ -68,6 +69,10 @@ namespace Shikkhanobish.ContentPages
                 }
                
             }
+            if( isCallCutByStudent == true)
+            {
+                return false;
+            }
             return true;
         }
         public async void setOnTuitionOFF ( )
@@ -93,13 +98,14 @@ namespace Shikkhanobish.ContentPages
         }
         public async Task callOut ( )
         {
-            CutVideoCAll ();
-            await Application.Current.MainPage.Navigation.PopModalAsync ();
+            CutVideoCAllForTeacher ();            
             CrossOpenTok.Current.EndSession ();
             _connection.StopAsync ();
+            await Application.Current.MainPage.Navigation.PopModalAsync ();
         }
         protected override bool OnBackButtonPressed ( )
         {
+            isCallCutByStudent = true;
             callOut ();
             return true;
         }
@@ -126,9 +132,10 @@ namespace Shikkhanobish.ContentPages
 
         private async void cancleStbtn_Clicked ( object sender , EventArgs e )
         {
+            isCallCutByStudent = true;
             callOut ();
         }
-        public async Task CutVideoCAll ( )
+        public async Task CutVideoCAllForTeacher ( )
         {
 
             string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/cutCall?stop=" + 1 + "&teacherID=" + Info.Teacher.TeacherID + "&studentID=" + Info.Student.StudentID + "&isStudent=" + true;
@@ -145,17 +152,7 @@ namespace Shikkhanobish.ContentPages
                 .Build ();
 
             await _connection.StartAsync ();
-            isConnected = true;
-            connectionStatus = "Connected";
-
-            _connection.Closed += async ( s ) =>
-            {
-                isConnected = false;
-                connectionStatus = "Disconnected";
-                await _connection.StartAsync ();
-                isConnected = true;
-
-            };
+           
             _connection.On<int , int , bool> ( "SendStudentThatCallRecivedOrIgnored" , async ( studentID , teacherID , recivedOrNot ) =>
             {
                 i++;
@@ -183,7 +180,9 @@ namespace Shikkhanobish.ContentPages
                         }
                         else
                         {
-                            callOut ();
+                            await Application.Current.MainPage.Navigation.PopModalAsync ();
+                            CrossOpenTok.Current.EndSession ();
+                            _connection.StopAsync ();
                         }
                     }
                 }

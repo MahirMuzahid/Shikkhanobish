@@ -1,11 +1,13 @@
 ﻿using Newtonsoft.Json;
 using Plugin.LocalNotification;
 using Shikkhanobish.ContentPages;
+using Shikkhanobish.Interface;
 using Shikkhanobish.Model;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Shikkhanobish
@@ -13,10 +15,24 @@ namespace Shikkhanobish
 
     public partial class App : Application
     {
+        INotification notificationManager;
         public App()
         {
             InitializeComponent ();
-           MainPage = new MainPage();
+            if ( StaticPageForOnSleep.isStudent == false && StaticPageForOnSleep.isParent == false && StaticPageForOnSleep.isCallPending == true && StaticPageForOnSleep.isSleep == true)
+            {
+                MainThread.BeginInvokeOnMainThread ( async ( ) => {                   
+                    MainPage = new  CallingPageForTeacher ( StaticPageForOnSleep.info );
+                } );
+            }
+            else
+            {
+                StaticPageForOnSleep.isSleep = false;
+                StaticPageForOnSleep.isCallPending = false;
+                MainPage = new MainPage ();
+            }
+            
+                     
         }
         
         protected override void OnStart()
@@ -27,10 +43,14 @@ namespace Shikkhanobish
         protected async override void OnSleep()
         {
 
+            StaticPageForOnSleep.isSleep = true;
         }
 
         protected override void OnResume()
         {
+            StaticPageForOnSleep.isSleep = false;
+            
+            
             // Handle when your app resumes
         }
         

@@ -48,6 +48,7 @@ namespace Shikkhanobish.ContentPages
         }
         protected override bool OnBackButtonPressed ( )
         {
+            StaticPageForOnSleep.isCallPending = false;
             setOnTuitionOFFOrOn ( 0 );
             ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , false );
             popPage ();
@@ -56,11 +57,13 @@ namespace Shikkhanobish.ContentPages
         }
         public async void popPage ( )
         {
+            StaticPageForOnSleep.isCallPending = false;
             await Application.Current.MainPage.Navigation.PopModalAsync ();
         }
         //for teacher
         private async void canclebtn_Clicked ( object sender , EventArgs e )
         {
+            StaticPageForOnSleep.isCallPending = false;
             setOnTuitionOFFOrOn ( 0 );
             ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , false );
             await Application.Current.MainPage.Navigation.PopModalAsync ();
@@ -119,6 +122,7 @@ namespace Shikkhanobish.ContentPages
                 cutCallFirstTime++;
                 if ( isStudent == true && cutCallFirstTime == 1 && teacherID == Info.Teacher.TeacherID )
                 {
+                    StaticPageForOnSleep.isCallPending = false;
                     setOnTuitionOFFOrOn ( 0 );
                     ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , false );
                     await Application.Current.MainPage.Navigation.PopModalAsync ();

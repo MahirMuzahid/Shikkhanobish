@@ -77,7 +77,7 @@ namespace Shikkhanobish
             {
                 if ( CrossConnectivity.Current.IsConnected )
                 {
-                    MainThread.BeginInvokeOnMainThread ( ( ) => { DependencyService.Get<INotification> ().CreateNotification ( "Shikkhanobish" , "This is a notification" ); } );
+                    await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentHistory ( _Student.StudentID ) ).ConfigureAwait ( false );
                 }
             }
             catch(Exception ex)

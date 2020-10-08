@@ -61,7 +61,7 @@ namespace Shikkhanobish.ContentPages.Parents
                     var r = JsonConvert.DeserializeObject<Response> ( result );
                     if ( r.Status == 0 )
                     {
-                        errorlbl.Text = "Register done!";
+                        errorlbl.Text = "Registretion done!";
                         errorlbl.TextColor = Color.Gold;
                     }
                     else

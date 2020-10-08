@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
 using Shikkhanobish.ViewModel;
 using Xamarin.Essentials;
+using Shikkhanobish.Interface;
 
 namespace Shikkhanobish
 {
@@ -42,6 +43,8 @@ namespace Shikkhanobish
             GetPeddingInfo (teacher.TeacherID);
             ConnectToServer ();
             SetInfoInInternalStorage ( teacher.UserName , teacher.Password , "Teacher" , 0 );
+            StaticPageForOnSleep.isCallPending = false;
+
         }
         public async Task SetInfoInInternalStorage ( string username , string password , string usertype , int parentCode )
         {
@@ -289,7 +292,23 @@ namespace Shikkhanobish
                         Info.Student.StudentID = studentID;
                         Info.Teacher = teacher;
                         Info.Teacher.Amount = cost;
-                        await Application.Current.MainPage.Navigation.PushModalAsync ( new CallingPageForTeacher ( Info ) ).ConfigureAwait ( false );
+                        activelbl.Text = "Inactive";
+                        activeback.BackgroundColor = Color.FromHex ( "#A7A7A7" );
+                        ShowOffLineInStudentWindowRealTime (false);
+                        if ( StaticPageForOnSleep.isSleep == true)
+                        {
+                            StaticPageForOnSleep.isCallPending = true;
+                            StaticPageForOnSleep.info = Info;
+                            MainThread.BeginInvokeOnMainThread ( ( ) => { DependencyService.Get<INotification> ().CreateNotification ( "Shikkhanobish" , studentName + " is calling you for tuition. Tap to continue..." ); } );
+                        }
+                        else
+                        {
+                            MainThread.BeginInvokeOnMainThread ( async ( ) => {
+                                await Application.Current.MainPage.Navigation.PushModalAsync ( new CallingPageForTeacher ( Info ) ).ConfigureAwait ( false );
+                            } );
+                        }
+                        
+                       
                     }
                 }
                 
