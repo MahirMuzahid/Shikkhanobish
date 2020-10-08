@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Plugin.LocalNotification;
 using Shikkhanobish.ContentPages;
 using Shikkhanobish.Model;
 using System.Linq;
@@ -16,9 +17,8 @@ namespace Shikkhanobish
         {
             InitializeComponent ();
            MainPage = new MainPage();
-           // MainPage = new ParentsProfile ();
         }
-
+        
         protected override void OnStart()
         {
             // Handle when your app starts

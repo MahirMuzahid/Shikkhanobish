@@ -1,9 +1,11 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Plugin.CurrentActivity;
+using Plugin.LocalNotification;
 using System;
 using System.Linq;
 using Xamarin.Forms.OpenTok.Android.Service;
@@ -25,18 +27,21 @@ namespace Shikkhanobish.Droid
             global::Xamarin.Forms.Forms.Init ( this , savedInstanceState );
             base.SetTheme ( global::Android.Resource.Style.ThemeHoloLight );
 
-            //this.Window.AddFlags(WindowManagerFlags.Fullscreen);
-            //this.Window.AddFlags(WindowManagerFlags.KeepScreenOn);
 
-            //this.Window.ClearFlags(WindowManagerFlags.Fullscreen);
 
             CrossCurrentActivity.Current.Activity = this;
-
-            LoadApplication ( new App () );
-            Window.SetStatusBarColor ( Android.Graphics.Color.Rgb ( 151 , 97 , 253 ) );
+            //NotificationCenter.CreateNotificationChannel ( new Plugin.LocalNotification.Platform.Droid.NotificationChannelRequest
+            //{
+            //    //Group = ""
+            //    Sound = Resource.Raw.ringtone.ToString ()
+            //} );
 
             //Intialize plugin
             Rg.Plugins.Popup.Popup.Init ( this , savedInstanceState );
+            LoadApplication ( new App () );
+            Window.SetStatusBarColor ( Android.Graphics.Color.Rgb ( 151 , 97 , 253 ) );
+
+            //NotificationCenter.NotifyNotificationTapped ( intent );
         }
 
         public override void OnRequestPermissionsResult ( int requestCode , string [] permissions , [GeneratedEnum] Android.Content.PM.Permission [] grantResults )
@@ -61,6 +66,12 @@ namespace Shikkhanobish.Droid
             {
 
             }
+        }
+
+        protected async override void OnNewIntent ( Intent intent )
+        {
+            //NotificationCenter.NotifyNotificationTapped ( intent );
+            base.OnNewIntent ( intent );
         }
 
     }

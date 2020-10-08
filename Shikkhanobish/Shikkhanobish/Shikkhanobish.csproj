@@ -22,8 +22,9 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="OpenTok" Version="3.4.0" />
-    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.5" />
-    <PackageReference Include="Syncfusion.Xamarin.Core" Version="18.2.0.59" />
+    <PackageReference Include="Plugin.LocalNotification" Version="5.1.0" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.6" />
+    <PackageReference Include="Syncfusion.Xamarin.Core" Version="18.3.0.38" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
     <PackageReference Include="VG.XFShapeView" Version="1.0.5" />
     <PackageReference Include="Xam.Plugin.Connectivity" Version="3.2.0" />

@@ -13,6 +13,8 @@ using Xamarin.Essentials;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Shikkhanobish.ViewModel;
+using Shikkhanobish.Interface;
+using Plugin.LocalNotification;
 
 namespace Shikkhanobish
 {
@@ -33,6 +35,7 @@ namespace Shikkhanobish
             BindingContext = new StudentProfileVideoModel(_Student);
             SetInfoInInternalStorage ( student.UserName , student.Password , "Student" , 0 );
             GetVoucherImage ();
+           //
 
             //GetPremiumStudent(student.StudentID);
         }
@@ -74,10 +77,10 @@ namespace Shikkhanobish
             {
                 if ( CrossConnectivity.Current.IsConnected )
                 {
-                    await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentHistory ( _Student.StudentID ) ).ConfigureAwait ( false );
+                    MainThread.BeginInvokeOnMainThread ( ( ) => { DependencyService.Get<INotification> ().CreateNotification ( "Shikkhanobish" , "This is a notification" ); } );
                 }
             }
-            catch
+            catch(Exception ex)
             {
 
             }
