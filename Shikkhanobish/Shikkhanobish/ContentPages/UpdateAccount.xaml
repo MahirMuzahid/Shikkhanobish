@@ -27,16 +27,16 @@
         </Grid.RowDefinitions>
         <BoxView BackgroundColor="#9761FD" Grid.Row="0" />
 
-        <Label Text="Update Info" Grid.Row="0" FontSize="14" VerticalOptions="Center" HorizontalOptions="Center"  TextColor="#FFFFFF"></Label>
-        <Entry x:Name="NameEntry" Placeholder="Name" Grid.Row="2"   FontSize="12" HorizontalTextAlignment="Center" />
-        <Entry x:Name="AgeEntry" Placeholder="Age" Grid.Row="3" FontSize="12" HorizontalTextAlignment="Center" />
-        <Entry x:Name="ClassEntry" Placeholder="Class" Grid.Row="4"   FontSize="12" HorizontalTextAlignment="Center" />
-        <Entry x:Name="InstEntry" Placeholder="Institution Name" Grid.Row="5"   FontSize="12" HorizontalTextAlignment="Center" />
-        <Entry x:Name="pnentry" Placeholder="Phone Number" Grid.Row="6"   FontSize="12" HorizontalTextAlignment="Center" />
-        <Entry x:Name="UserEntry" Placeholder="Username" Grid.Row="7" FontSize="12" HorizontalTextAlignment="Center" />
-        <Entry x:Name="PassEntry" Placeholder="Password" Grid.Row="8"   FontSize="12" HorizontalTextAlignment="Center" />
+        <Label Text="Update Info" Grid.Row="0" FontSize="16" VerticalOptions="Center" HorizontalOptions="Center"  TextColor="#FFFFFF"></Label>
+        <Entry x:Name="NameEntry" Placeholder="Name" Grid.Row="2"   FontSize="15" HorizontalTextAlignment="Center" />
+        <Entry x:Name="AgeEntry" Placeholder="Age" Grid.Row="3" FontSize="15" HorizontalTextAlignment="Center" />
+        <Entry x:Name="ClassEntry" Placeholder="Class" Grid.Row="4"   FontSize="15" HorizontalTextAlignment="Center" />
+        <Entry x:Name="InstEntry" Placeholder="Institution Name" Grid.Row="5"   FontSize="15" HorizontalTextAlignment="Center" />
+        <Entry x:Name="pnentry" Placeholder="Phone Number" Grid.Row="6"   FontSize="15" HorizontalTextAlignment="Center" />
+        <Entry x:Name="UserEntry" Placeholder="Username" Grid.Row="7" FontSize="15" HorizontalTextAlignment="Center" />
+        <Entry x:Name="PassEntry" Placeholder="Password" Grid.Row="8"   FontSize="15" HorizontalTextAlignment="Center" />
 
-        <Entry  x:Name="CurPassEntry" Placeholder="Enter Current Password" Grid.Row="10" IsPassword="True"    FontSize="12" />
+        <Entry  x:Name="CurPassEntry" Placeholder="Enter Current Password" Grid.Row="10" IsPassword="True"    FontSize="15" />
         
         <Label x:Name="Errortxt" Grid.Row="11" TextColor="#F20909"  HorizontalOptions="Center" VerticalOptions="Center"/>
         <Button x:Name="upbtn" Text="Update" BackgroundColor="#853CE6" Grid.Row="12" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF" Clicked="Button_Clicked" CornerRadius="13" />

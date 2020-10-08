@@ -4,7 +4,7 @@ using Shikkhanobish.Model;
 using System;
 using System.Net.Http;
 using System.Text;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -431,17 +431,17 @@ namespace Shikkhanobish
                 }
                 else if (responsE.Status == 0)
                 {
-                    ErrorText.Text = responsE.Massage;
-                    Teacher t = new Teacher();
-                    t.UserName = studenT.UserName;
-                    t.Password = studenT.Password;
-                    t.PhoneNumber = studenT.PhoneNumber;
-                    t.TeacherName = studenT.Name;
-                    t.Age = studenT.Age;
-                    t.Class = studenT.Class;
-                    t.InstitutionName = studenT.InstitutionName;
-                    t.InstitutionID = InstituitionID;
-                    //await Application.Current.MainPage.Navigation.PushModalAsync(new TeacherProfile(t)).ConfigureAwait(true);
+                    string urlT = "https://api.shikkhanobish.com/api/Master/GetInfoByLoginTeacher";
+                    HttpClient clientT = new HttpClient ();
+                    string jsonDataT = JsonConvert.SerializeObject ( new { UserName = studenT.UserName , Password = studenT.Password } );
+                    StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
+                    HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
+                    string resultT = await responseT.Content.ReadAsStringAsync ();
+                    var teacher = JsonConvert.DeserializeObject<Teacher> ( resultT );
+                    MainThread.BeginInvokeOnMainThread ( async ( ) =>
+                    {
+                        await Application.Current.MainPage.Navigation.PushModalAsync ( new TeacherProfile ( teacher ) ).ConfigureAwait ( true );
+                    } );
                 }
             }
         }

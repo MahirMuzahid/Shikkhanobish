@@ -155,7 +155,7 @@
                         </Grid.ColumnDefinitions>
                         <BoxView x:Name="activeback" Grid.RowSpan="2" Grid.ColumnSpan="2" CornerRadius="10" />
                         <Image Source="teacheractivecall.png" Grid.Row="0" Grid.RowSpan="1" Grid.ColumnSpan="2" HorizontalOptions="Center" Aspect="AspectFill" Margin="5"/>
-                        <Label x:Name="activelbl" FontSize="16" TextColor="#FFFFFF" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="Center" Grid.ColumnSpan="2" VerticalOptions="Start" />
+                        <Label x:Name="activelbl" FontSize="14" TextColor="#FFFFFF" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="Center" Grid.ColumnSpan="2" VerticalOptions="Start" />
                         <Button Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="#00FFFFFF" Clicked="Button_Clicked_7" />
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="1" RowSpacing="0" Padding="20">
