@@ -27,7 +27,7 @@
         <Label Text="Subject" FontSize="11" TextColor="white" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.Column="2" />
         <Label Text="Time" FontSize="11" TextColor="white" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.Column="3" />
         <Label Text="Date" FontSize="11" TextColor="white" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.Column="4" />
-        <Label Text="Rating" FontSize="11" TextColor="white" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.Column="5" />
+        <Label Text="Rating" FontSize="11" TextColor="white" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Grid.Column="5" /> 
 
         <ScrollView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6">
             <ListView BackgroundColor="White"  x:Name="TeacherHistoryListView" IsEnabled="true">
