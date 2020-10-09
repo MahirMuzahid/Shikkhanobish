@@ -31,7 +31,7 @@ namespace Shikkhanobish.ContentPages
             getstudnetinfo ();                                           
             walletbacklbl.IsVisible = false;
             historybacklbl.IsVisible = false;
-            SetInfoInInternalStorage ( "" , "" , "Parent" , p.ParentID );
+            SetInfoInInternalStorage ( "" , p.Password , "Parent" , p.ParentID );
         }
         public async Task SetInfoInInternalStorage ( string username , string password , string usertype , int parentCode )
         {
@@ -61,7 +61,7 @@ namespace Shikkhanobish.ContentPages
             ParentsCardInfo pci4 = new ParentsCardInfo ();
             pci1.ImageSource = "rechargeins.jpg";
             pci1.Text = "Recharge Instruction";
-            pci1.info = "Send money to 01833368125 and use reference code: " + student.StudentID;//have to rewrite
+            pci1.info = "Send money to 01753202936 and use reference code: " + student.StudentID;
             pci1.TextColors = "#FF000000";
             pci1.fontSize = 13;
             Pci.Add ( pci1 );
@@ -260,8 +260,20 @@ namespace Shikkhanobish.ContentPages
             
         }
 
-        private void Button_Clicked ( object sender , EventArgs e )
+        private async void Button_Clicked ( object sender , EventArgs e )
         {
+            SecureStorage.RemoveAll ();
+            await Application.Current.MainPage.Navigation.PushModalAsync ( new MainPage () ).ConfigureAwait ( false );
+        }
+
+        private void Button_Clicked_1 ( object sender , EventArgs e )
+        {
+            ShowWalletHisotry ();
+        }
+
+        private void Button_Clicked_2 ( object sender , EventArgs e )
+        {
+
             try
             {
                 if ( CrossConnectivity.Current.IsConnected )
@@ -278,17 +290,6 @@ namespace Shikkhanobish.ContentPages
             {
                 Errorlbl.Text = "Check internet connection";
             }
-        }
-
-        private void Button_Clicked_1 ( object sender , EventArgs e )
-        {
-            ShowWalletHisotry ();
-        }
-
-        private async void Button_Clicked_2 ( object sender , EventArgs e )
-        {
-            SecureStorage.RemoveAll ();
-            await Application.Current.MainPage.Navigation.PushModalAsync ( new MainPage () ).ConfigureAwait ( false );
         }
 
         protected override bool OnBackButtonPressed ( )

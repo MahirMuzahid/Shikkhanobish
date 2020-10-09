@@ -37,7 +37,10 @@ namespace Shikkhanobish
         public MainPageViewModel()
         {
             StaticPageForOnSleep.isParent = false;
-            loginText = "Login";
+            MainThread.BeginInvokeOnMainThread ( async ( ) =>
+            {
+                loginText = "Login";
+            } );
         }
         
         public Command Login

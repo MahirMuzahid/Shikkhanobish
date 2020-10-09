@@ -35,7 +35,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                                <Grid>
+                                <Grid HeightRequest="90">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1*" />
                                         <ColumnDefinition Width="1*" />
