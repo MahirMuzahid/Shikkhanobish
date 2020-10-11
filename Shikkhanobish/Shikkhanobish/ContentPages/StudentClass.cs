@@ -22,5 +22,6 @@ namespace Shikkhanobish.ContentPages
         public int freeMin { get; set; }
         public double AvarageRating { get; set; }
         public int ParentCode { get; set; }
+        public string Response { get; set; }
     }
 }

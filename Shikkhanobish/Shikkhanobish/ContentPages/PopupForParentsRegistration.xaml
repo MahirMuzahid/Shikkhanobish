@@ -39,7 +39,7 @@
             <Button x:Name="fbtn" Text="Father" FontSize="12" Grid.Row="6" HorizontalOptions="Start" BackgroundColor="#F3F3F3" CornerRadius="15" Margin="5" Clicked="Button_Clicked_1"/>
             <Button x:Name="mbtn" Text="Mother" FontSize="12" Grid.Row="6" HorizontalOptions="End" BackgroundColor="#F3F3F3" CornerRadius="15" Margin="5" Clicked="Button_Clicked_2"/>
             <Button Text="Register" Grid.Row="7" BackgroundColor="#7BE6F2" CornerRadius="20" Margin="5" Clicked="Button_Clicked"/>
-            <Label x:Name="errorlbl" Text="Error" Grid.Row="8" TextColor="#FF0000"/>
+            <Label x:Name="errorlbl"  Grid.Row="8" TextColor="#FF0000"/>
         </Grid>
     </Frame>
 </pages:PopupPage>

@@ -53,7 +53,7 @@ namespace Shikkhanobish.ContentPages.Parents
 
                 if ( student.Name == null )
                 {
-                    errorlbl.Text = "Parent code is not correct!";
+                    errorlbl.Text = student.Response;
                     errorlbl.TextColor = Color.Red;
                 }
                 else

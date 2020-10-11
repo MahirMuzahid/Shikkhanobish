@@ -39,7 +39,7 @@ namespace Shikkhanobish.ContentPages.Parents
             var parent = JsonConvert.DeserializeObject<Parent> ( result );
             if(parent.ParentName== null)
             {
-                errorlbl.Text = "Password or parent code is incorrect";
+                errorlbl.Text = parent.Response;
                 loginbtn.Text = "Login";
             }
             else
