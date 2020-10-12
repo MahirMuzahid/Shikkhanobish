@@ -39,7 +39,10 @@ namespace Shikkhanobish.ContentPages.Parents
             var parent = JsonConvert.DeserializeObject<Parent> ( result );
             if(parent.ParentName== null)
             {
-                errorlbl.Text = parent.Response;
+                MainThread.BeginInvokeOnMainThread(() =>
+               {
+                   errorlbl.Text = parent.Response;
+               });
                 loginbtn.Text = "Login";
             }
             else

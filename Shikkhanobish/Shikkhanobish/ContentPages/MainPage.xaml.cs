@@ -30,9 +30,9 @@ namespace Shikkhanobish
             MainThread.BeginInvokeOnMainThread ( async ( ) =>
             {
                 var image = new Image { Source = "loginwindow.png" };
-                
+                BindingContext = new MainPageViewModel();
             } );
-            BindingContext = new MainPageViewModel ();
+            
         }
        
 
