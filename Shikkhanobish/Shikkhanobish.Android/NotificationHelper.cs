@@ -32,6 +32,8 @@ namespace Shikkhanobish.Droid
         {
             mContext = global::Android.App.Application.Context;
         }
+
+        [Obsolete]
         public void CreateNotification ( String title , String message )
         {
             try

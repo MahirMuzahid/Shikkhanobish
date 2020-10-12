@@ -245,8 +245,6 @@
     <AndroidResource Include="Resources\drawable\logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="appstore.png" />
-    <Content Include="playstore.png" />
     <AndroidResource Include="Resources\drawable\shikkhaicon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

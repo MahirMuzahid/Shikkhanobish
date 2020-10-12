@@ -2,6 +2,7 @@
 using Shikkhanobish.ContentPages;
 using Shikkhanobish.Model;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using Xamarin.Essentials;
@@ -21,6 +22,7 @@ namespace Shikkhanobish
 
         public RegisterAsTeacher(StudentClass student, string InstitutionID)
         {
+            isFoundingTeacherCodeOK = true;
             InstituitionID = InstitutionID;
             studenT = student;
             InitializeComponent();
@@ -346,106 +348,174 @@ namespace Shikkhanobish
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            bool checkCommon = CheckCommon();
-            bool checkGroup = CheckGroup();
-            CheckHighSchool();
-            teacher.InstitutionID = InstituitionID;
-            teacher.StudentID = studentID;
-            registerteacher.Name = Name;
-            if (checkCommon == true && checkGroup == true)
+            try
             {
-                registerteacher.TeacherID = studentID + 100000;
-                string url = "https://api.shikkhanobish.com/api/Master/RegisterTeacher";
-                HttpClient client = new HttpClient();
-                string jsonData = JsonConvert.SerializeObject(new
+                registerbtn.Text = "Wait...";
+                bool checkCommon = CheckCommon();
+                bool checkGroup = CheckGroup();
+                CheckHighSchool();
+                if(codeEntrt.Text != "" || codeEntrt.Text != null)
                 {
-                    LSBAN01 = registerteacher.LSBAN01,
-                    LSBAN02 = registerteacher.LSBAN02,
-                    LSENG01 = registerteacher.LSENG01,
-                    LSENG02 = registerteacher.LSENG02,
-                    LSICT = registerteacher.LSICT,
-                    LSBGS = registerteacher.LSBGS,
-                    LSAGR = registerteacher.LSAGR,
-                    LSCRE = registerteacher.LSCRE,
-                    LSGSC = registerteacher.LSGSC,
-                    LSMATH = registerteacher.LSMATH,
-                    SBAN01 = registerteacher.SBAN01,
-                    SBAN02 = registerteacher.SBAN02,
-                    SENG01 = registerteacher.SENG01,
-                    SENG02 = registerteacher.SENG02,
-                    SGMATH = registerteacher.SGMATH,
-                    SREL = registerteacher.SREL,
-                    SICT = registerteacher.SICT,
-                    SGSC = registerteacher.SGSC,
-                    SPHY = registerteacher.SPHY,
-                    SCHE = registerteacher.SCHE,
-                    SBIO = registerteacher.SBIO,
-                    SHMATH = registerteacher.SHMATH,
-                    SECO = registerteacher.SECO,
-                    SACC = registerteacher.SACC,
-                    SFIN = registerteacher.SFIN,
-                    SAGR = registerteacher.SAGR,
-                    SHOM = registerteacher.SHOM,
-                    SBENT = registerteacher.SBENT,
-                    SCRE = registerteacher.SCRE,
-                    SBGS = registerteacher.SBGS,
-                    SGEO = registerteacher.SGEO,
-                    SPEDU = registerteacher.SPEDU,
-                    HSBAN01 = registerteacher.HSBAN01,
-                    HSBAN02 = registerteacher.HSBAN02,
-                    HSENG01 = registerteacher.HSENG01,
-                    HSENG02 = registerteacher.HSENG02,
-                    HSPHY01 = registerteacher.HSPHY01,
-                    HSPHY02 = registerteacher.HSPHY02,
-                    HSCHE01 = registerteacher.HSCHE01,
-                    HSCHE02 = registerteacher.HSCHE02,
-                    HSBIO01 = registerteacher.HSBIO01,
-                    HSBIO02 = registerteacher.HSBIO02,
-                    HSMATH01 = registerteacher.HSMATH01,
-                    HSMATH02 = registerteacher.HSMATH02,
-                    HSICT = registerteacher.HSICT,
-                    HSSTAT = registerteacher.HSSTAT,
-                    HSLOG = registerteacher.HSLOG,
-                    HSFOOD = registerteacher.HSFOOD,
-                    HSFIN = registerteacher.HSFIN,
-                    HSACC = registerteacher.HSACC,
-                    HSECO = registerteacher.HSECO,
-
-                    InstituitionID = InstituitionID,
-                    TeacherName = studenT.Name,
-                    UserName = studenT.UserName,
-                    Password = studenT.Password,
-                    PhoneNumber = studenT.PhoneNumber,
-                    Age = studenT.Age,
-                    Class = studenT.Class,
-                    InstitutionName = studenT.InstitutionName,
-                    RechargedAmount = studenT.RechargedAmount
-                }); ;
-                StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
-                string result = await response.Content.ReadAsStringAsync();
-                var responsE = JsonConvert.DeserializeObject<Response>(result);
-                if (responsE.Status == 1)
-                {
-                    ErrorText.Text = responsE.Massage;
+                    CheckFoundingTeacherCode(Int32.Parse(codeEntrt.Text));
                 }
-                else if (responsE.Status == 0)
+                else
                 {
-                    string urlT = "https://api.shikkhanobish.com/api/Master/GetInfoByLoginTeacher";
-                    HttpClient clientT = new HttpClient ();
-                    string jsonDataT = JsonConvert.SerializeObject ( new { UserName = studenT.UserName , Password = studenT.Password } );
-                    StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
-                    HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
-                    string resultT = await responseT.Content.ReadAsStringAsync ();
-                    var teacher = JsonConvert.DeserializeObject<Teacher> ( resultT );
-                    MainThread.BeginInvokeOnMainThread ( async ( ) =>
+                    isFoundingTeacherCodeOK = true;
+                }
+                if(((codeEntrt.Text != "" || codeEntrt.Text != null) && isFoundingTeacherCodeOK == true) || (codeEntrt.Text == "" || codeEntrt.Text == null))
+                {
+                    teacher.InstitutionID = InstituitionID;
+                    teacher.StudentID = studentID;
+                    registerteacher.Name = Name;
+                    if (checkCommon == true && checkGroup == true)
                     {
-                        await Application.Current.MainPage.Navigation.PushModalAsync ( new TeacherProfile ( teacher ) ).ConfigureAwait ( true );
-                    } );
+                        registerteacher.TeacherID = studentID + 100000;
+                        string url = "https://api.shikkhanobish.com/api/Master/RegisterTeacher";
+                        HttpClient client = new HttpClient();
+                        string jsonData = JsonConvert.SerializeObject(new
+                        {
+                            LSBAN01 = registerteacher.LSBAN01,
+                            LSBAN02 = registerteacher.LSBAN02,
+                            LSENG01 = registerteacher.LSENG01,
+                            LSENG02 = registerteacher.LSENG02,
+                            LSICT = registerteacher.LSICT,
+                            LSBGS = registerteacher.LSBGS,
+                            LSAGR = registerteacher.LSAGR,
+                            LSCRE = registerteacher.LSCRE,
+                            LSGSC = registerteacher.LSGSC,
+                            LSMATH = registerteacher.LSMATH,
+                            SBAN01 = registerteacher.SBAN01,
+                            SBAN02 = registerteacher.SBAN02,
+                            SENG01 = registerteacher.SENG01,
+                            SENG02 = registerteacher.SENG02,
+                            SGMATH = registerteacher.SGMATH,
+                            SREL = registerteacher.SREL,
+                            SICT = registerteacher.SICT,
+                            SGSC = registerteacher.SGSC,
+                            SPHY = registerteacher.SPHY,
+                            SCHE = registerteacher.SCHE,
+                            SBIO = registerteacher.SBIO,
+                            SHMATH = registerteacher.SHMATH,
+                            SECO = registerteacher.SECO,
+                            SACC = registerteacher.SACC,
+                            SFIN = registerteacher.SFIN,
+                            SAGR = registerteacher.SAGR,
+                            SHOM = registerteacher.SHOM,
+                            SBENT = registerteacher.SBENT,
+                            SCRE = registerteacher.SCRE,
+                            SBGS = registerteacher.SBGS,
+                            SGEO = registerteacher.SGEO,
+                            SPEDU = registerteacher.SPEDU,
+                            HSBAN01 = registerteacher.HSBAN01,
+                            HSBAN02 = registerteacher.HSBAN02,
+                            HSENG01 = registerteacher.HSENG01,
+                            HSENG02 = registerteacher.HSENG02,
+                            HSPHY01 = registerteacher.HSPHY01,
+                            HSPHY02 = registerteacher.HSPHY02,
+                            HSCHE01 = registerteacher.HSCHE01,
+                            HSCHE02 = registerteacher.HSCHE02,
+                            HSBIO01 = registerteacher.HSBIO01,
+                            HSBIO02 = registerteacher.HSBIO02,
+                            HSMATH01 = registerteacher.HSMATH01,
+                            HSMATH02 = registerteacher.HSMATH02,
+                            HSICT = registerteacher.HSICT,
+                            HSSTAT = registerteacher.HSSTAT,
+                            HSLOG = registerteacher.HSLOG,
+                            HSFOOD = registerteacher.HSFOOD,
+                            HSFIN = registerteacher.HSFIN,
+                            HSACC = registerteacher.HSACC,
+                            HSECO = registerteacher.HSECO,
+
+                            InstituitionID = InstituitionID,
+                            TeacherName = studenT.Name,
+                            UserName = studenT.UserName,
+                            Password = studenT.Password,
+                            PhoneNumber = studenT.PhoneNumber,
+                            Age = studenT.Age,
+                            Class = studenT.Class,
+                            InstitutionName = studenT.InstitutionName,
+                            RechargedAmount = studenT.RechargedAmount
+                        }); ;
+                        StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                        HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
+                        string result = await response.Content.ReadAsStringAsync();
+                        var responsE = JsonConvert.DeserializeObject<Response>(result);
+                        if (responsE.Status == 1)
+                        {
+                            ErrorText.Text = responsE.Massage;
+                        }
+                        else if (responsE.Status == 0)
+                        {
+                            string urlT = "https://api.shikkhanobish.com/api/Master/GetInfoByLoginTeacher";
+                            HttpClient clientT = new HttpClient();
+                            string jsonDataT = JsonConvert.SerializeObject(new { UserName = studenT.UserName, Password = studenT.Password });
+                            StringContent contentT = new StringContent(jsonDataT, Encoding.UTF8, "application/json");
+                            HttpResponseMessage responseT = await clientT.PostAsync(urlT, contentT).ConfigureAwait(false);
+                            string resultT = await responseT.Content.ReadAsStringAsync();
+                            var teacher = JsonConvert.DeserializeObject<Teacher>(resultT);
+                            if (isFoundingTeacherCodeOK == true )
+                            {
+                                urlT = "https://api.shikkhanobish.com/api/Master/SetFoundingTeacherToOne";
+                                clientT = new HttpClient();
+                                jsonDataT = JsonConvert.SerializeObject(new { TeacherID = teacher.TeacherID});
+                                contentT = new StringContent(jsonDataT, Encoding.UTF8, "application/json");
+                                responseT = await clientT.PostAsync(urlT, contentT).ConfigureAwait(false);
+                                resultT = await responseT.Content.ReadAsStringAsync();
+                                var r = JsonConvert.DeserializeObject<Response>(resultT);
+                            }
+                            MainThread.BeginInvokeOnMainThread(async () =>
+                            {
+                                await Application.Current.MainPage.Navigation.PushModalAsync(new TeacherProfile(teacher)).ConfigureAwait(true);
+                            });
+                        }
+                    }
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                ErrorText.Text = ex.Message;
+                registerbtn.Text = "Register Now";
+            }
+                                
+            
+        }
+        bool isFoundingTeacherCodeOK;
+        public async void CheckFoundingTeacherCode(int code)
+        {
+            string urlT = "https://api.shikkhanobish.com/api/Master/GetFounderTeacherCode";
+            HttpClient clientT = new HttpClient();
+            HttpResponseMessage responseT = await clientT.GetAsync(urlT).ConfigureAwait(false);
+            string resultT = await responseT.Content.ReadAsStringAsync();
+            var codeList = JsonConvert.DeserializeObject<List<AllFoundingTeacherCode>>(resultT);
+            bool found = false;
+            for(int i = 0; i < codeList.Count; i++)
+            {
+                if(codeList[i].Code == code)
+                {
+                    found = true;
+                    break;
                 }
             }
-        }
 
+            if(found == true)
+            {
+                urlT = "https://api.shikkhanobish.com/api/Master/DeleteFouningTeacherCode";
+                clientT = new HttpClient();
+                string jsonDataT = JsonConvert.SerializeObject(new { Code = code });
+                StringContent contentT = new StringContent(jsonDataT, Encoding.UTF8, "application/json");
+                responseT = await clientT.PostAsync(urlT, contentT).ConfigureAwait(false);
+                resultT = await responseT.Content.ReadAsStringAsync();
+                var Response = JsonConvert.DeserializeObject<Response>(resultT);
+                isFoundingTeacherCodeOK = true;
+                
+            }
+            else
+            {
+                ErrorText.Text = "This Founding Teacher code is not valid";
+                isFoundingTeacherCodeOK = false;
+            }
+        }
         public bool CheckCommon()
         {
             int checkCounter = 0;
