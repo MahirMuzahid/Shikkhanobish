@@ -11,7 +11,6 @@ using Xamarin.Forms;
 using Plugin.Connectivity;
 using System;
 using Android.Net;
-using Xamarin.Essentials;
 using Javax.Net.Ssl;
 using Xamarin.Forms.OpenTok;
 using System.Threading.Tasks;
@@ -29,7 +28,6 @@ namespace Shikkhanobish
         public string _loginText;
         public Student student = new Student();
         public Teacher teacher = new Teacher();
-        private INavigation navigation;
         public string text;
         public string _errorText;
         public TransferInfo Trns = new TransferInfo ();
@@ -37,7 +35,7 @@ namespace Shikkhanobish
         public MainPageViewModel()
         {
             StaticPageForOnSleep.isParent = false;
-            MainThread.BeginInvokeOnMainThread ( async ( ) =>
+            MainThread.BeginInvokeOnMainThread (( ) =>
             {
                 loginText = "Login";
             } );
@@ -49,90 +47,97 @@ namespace Shikkhanobish
             {
                 return new Command( async() =>
                {
-                   
-                   if ( Connectivity.NetworkAccess == NetworkAccess.Internet)
+                   try
                    {
-                       int pagenumber = 0;
-                       if (UserName == null && Password == null)
+                       if (Connectivity.NetworkAccess == NetworkAccess.Internet)
                        {
-                           ErrorText = "User Name and Password is empty!";
-                           loginText = "Login";
-                       }
-                       else if (UserName == null)
-                       {
-                           ErrorText = "User Name is empty!";
-                           loginText = "Login";
-                       }
-                       else if (Password == null)
-                       {
-                           ErrorText = "Password is empty!";
-                           loginText = "Login";
-                       }
-                       else
-                       {
-                           try
+                           int pagenumber = 0;
+                           if (UserName == null && Password == null)
                            {
-                               loginText = "Wait...";
-                               await SearchTeacher ();
-                               await SearchStudent ();
-                               //Task.Run ( ()=>SearchTeacher ());
-                               //Task.Run ( ( ) => SearchStudent () );
-                               
-                               if(student.Name == null)
+                               ErrorText = "User Name and Password is empty!";
+                               loginText = "Login";
+                           }
+                           else if (UserName == null)
+                           {
+                               ErrorText = "User Name is empty!";
+                               loginText = "Login";
+                           }
+                           else if (Password == null)
+                           {
+                               ErrorText = "Password is empty!";
+                               loginText = "Login";
+                           }
+                           else
+                           {
+                               try
                                {
-                                   await GetPeddingInfo ( teacher.TeacherID ).ConfigureAwait(false);
-                                   teacher.pendingcount = pending;
-                                   pagenumber = 0;
-                                   //goPage ( 0 );
-                               }                            
-                               else
-                               {
-                                   if ( student.IsPending == 1 )
+                                   loginText = "Wait...";
+                                   await SearchTeacher().ConfigureAwait(false);
+                                   await SearchStudent().ConfigureAwait(false);
+                                   //Task.Run ( ()=>SearchTeacher ());
+                                   //Task.Run ( ( ) => SearchStudent () );
+
+                                   if (student.Name == null)
                                    {
-                                       string urlT = "https://api.shikkhanobish.com/api/Master/GetPending";
-                                       HttpClient clientT = new HttpClient ();
-                                       string jsonDataT = JsonConvert.SerializeObject ( new { StudentID = student.StudentID } );
-                                       StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
-                                       HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
-                                       string resultT = await responseT.Content.ReadAsStringAsync ();
-                                       var pendningRating = JsonConvert.DeserializeObject<IsPending> ( resultT );
-                                       urlT = "https://api.shikkhanobish.com/api/Master/GetInfoByTeacherID";
-                                       jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = pendningRating.TeacherID } );
-                                       contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
-                                       responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
-                                       resultT = await responseT.Content.ReadAsStringAsync ();
-                                       var teacher = JsonConvert.DeserializeObject<Teacher> ( resultT );
-                                       TransferInfo trns = new TransferInfo ();
-                                       trns.Student = student;
-                                       trns.Class = pendningRating.Class;
-                                       trns.Subject = pendningRating.Subject;
-                                       trns.StudentCost = pendningRating.Cost;
-                                       trns.StudyTimeInAPp = pendningRating.Time;
-                                       trns.Teacher = teacher;
-                                       Trns = trns;
-                                       pagenumber = 2;
-                                      // goPage ( 2 );
+                                       await GetPeddingInfo(teacher.TeacherID).ConfigureAwait(false);
+                                       teacher.pendingcount = pending;
+                                       pagenumber = 0;
+                                       //goPage ( 0 );
                                    }
                                    else
                                    {
-                                       pagenumber = 1;
-                                       //goPage ( 1 );
+                                       if (student.IsPending == 1)
+                                       {
+                                           string urlT = "https://api.shikkhanobish.com/api/Master/GetPending";
+                                           HttpClient clientT = new HttpClient();
+                                           string jsonDataT = JsonConvert.SerializeObject(new { StudentID = student.StudentID });
+                                           StringContent contentT = new StringContent(jsonDataT, Encoding.UTF8, "application/json");
+                                           HttpResponseMessage responseT = await clientT.PostAsync(urlT, contentT).ConfigureAwait(false);
+                                           string resultT = await responseT.Content.ReadAsStringAsync().ConfigureAwait(false);
+                                           var pendningRating = JsonConvert.DeserializeObject<IsPending>(resultT);
+                                           urlT = "https://api.shikkhanobish.com/api/Master/GetInfoByTeacherID";
+                                           jsonDataT = JsonConvert.SerializeObject(new { TeacherID = pendningRating.TeacherID });
+                                           contentT = new StringContent(jsonDataT, Encoding.UTF8, "application/json");
+                                           responseT = await clientT.PostAsync(urlT, contentT).ConfigureAwait(false);
+                                           resultT = await responseT.Content.ReadAsStringAsync().ConfigureAwait(false);
+                                           var teacher = JsonConvert.DeserializeObject<Teacher>(resultT);
+                                           TransferInfo trns = new TransferInfo();
+                                           trns.Student = student;
+                                           trns.Class = pendningRating.Class;
+                                           trns.Subject = pendningRating.Subject;
+                                           trns.StudentCost = pendningRating.Cost;
+                                           trns.StudyTimeInAPp = pendningRating.Time;
+                                           trns.Teacher = teacher;
+                                           Trns = trns;
+                                           pagenumber = 2;
+                                           // goPage ( 2 );
+                                       }
+                                       else
+                                       {
+                                           pagenumber = 1;
+                                           //goPage ( 1 );
+                                       }
                                    }
                                }
+                               catch
+                               {
+                                   loginText = "Login";
+                                   ErrorText = "Connection Reset! Check internet connection";
+                               }
+                               MainThread.BeginInvokeOnMainThread(() => { goPage(pagenumber); });
                            }
-                           catch ( Exception ex )
-                           {
-                               loginText = "Login";
-                               ErrorText = "Connection Reset! Check internet connection";
-                           }
-                            MainThread.BeginInvokeOnMainThread ( ( ) => { goPage ( pagenumber ); } );                               
-                       }                      
+                       }
+                       else
+                       {
+                           ErrorText = "Check Internet Connection";
+                           loginText = "Login";
+                       }
                    }
-                   else
+                   catch (Exception ex)
                    {
-                       ErrorText = "Check Internet Connection";
-                       loginText = "Login";
+                       ErrorText = ex.Message;
                    }
+                   
                    
                });
             }
@@ -142,22 +147,31 @@ namespace Shikkhanobish
         public async Task SearchTeacher()
         {
             string urlT = "https://api.shikkhanobish.com/api/Master/GetInfoByLoginTeacher";
-            HttpClient clientT = new HttpClient ();
-            string jsonDataT = JsonConvert.SerializeObject ( new { UserName = UserName , Password = Password } );
-            StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
-            HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
-            string resultT = await responseT.Content.ReadAsStringAsync ();
-            teacher = JsonConvert.DeserializeObject<Teacher> ( resultT );
+            using (HttpClient clientT = new HttpClient()) 
+            {
+                string jsonDataT = JsonConvert.SerializeObject(new { UserName = UserName, Password = Password });
+                using (StringContent content = new StringContent(jsonDataT, Encoding.UTF8, "application/json"))
+                {
+                    HttpResponseMessage responseT = await clientT.PostAsync(urlT, content).ConfigureAwait(false);
+                    string resultT = await responseT.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    teacher = JsonConvert.DeserializeObject<Teacher>(resultT);
+                }
+                
+            }                          
         }
         public async Task SearchStudent ( )
         {
             string url = "https://api.shikkhanobish.com/api/Master/GetInfoByLogin";
-            HttpClient client = new HttpClient ();
-            string jsonData = JsonConvert.SerializeObject ( new { UserName = UserName , Password = Password } );
-            StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
-            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
-            string result = await response.Content.ReadAsStringAsync ();
-            student = JsonConvert.DeserializeObject<Student> ( result );
+            using (HttpClient client = new HttpClient())
+            {
+                string jsonData = JsonConvert.SerializeObject(new { UserName = UserName, Password = Password });
+                using (StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json"))
+                {
+                    HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
+                    string result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    student = JsonConvert.DeserializeObject<Student>(result);
+                }                                 
+            }                       
         }
 
         public async void goPage(int i)
@@ -182,17 +196,23 @@ namespace Shikkhanobish
         public async Task GetPeddingInfo ( int id )
         {
             string urlT = "https://api.shikkhanobish.com/api/Master/GetPendingForTeacher";
-            HttpClient clientT = new HttpClient ();
-            string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = id } );
-            StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
-            HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
-            string resultT = await responseT.Content.ReadAsStringAsync ();
-            var pendningRating = JsonConvert.DeserializeObject<List<IsPending>> ( resultT );
-            pending = pendningRating.Count;
+            using (HttpClient clientT = new HttpClient())
+            {
+                string jsonDataT = JsonConvert.SerializeObject(new { TeacherID = id });
+                using (StringContent contentT = new StringContent(jsonDataT, Encoding.UTF8, "application/json")) {
+                    HttpResponseMessage responseT = await clientT.PostAsync(urlT, contentT).ConfigureAwait(false);
+                    string resultT = await responseT.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    var pendningRating = JsonConvert.DeserializeObject<List<IsPending>>(resultT);
+                    pending = pendningRating.Count;
+                }
+                
+            }
+            
+            
         }
 
         //public int Error { get; set; }
-        public Command RegisterStudent
+        public static Command RegisterStudent
         {
             get
             {
@@ -203,7 +223,7 @@ namespace Shikkhanobish
             }
         }
 
-        public Command ForgotPassword
+        public static Command ForgotPassword
         {
             get
             {
@@ -282,7 +302,7 @@ namespace Shikkhanobish
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public async Task SetInfoInInternalStorage (string username, string password, string usertype, int parentCode)
+        public static async Task SetInfoInInternalStorage (string username, string password, string usertype, int parentCode)
         {
             await SecureStorage.SetAsync ( "username" , username ).ConfigureAwait ( false );
             await SecureStorage.SetAsync ( "password" , password ).ConfigureAwait ( false );

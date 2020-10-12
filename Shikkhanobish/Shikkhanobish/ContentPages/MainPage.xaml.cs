@@ -17,17 +17,13 @@ namespace Shikkhanobish
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
-        private INavigation navigation;
         bool isThereLoggedUser;
-        public Student student = new Student ();
-        public Teacher teacher = new Teacher ();
-        public Parent parent = new Parent();
         public MainPage()
         {
             StaticPageForOnSleep.isParent = false;
             isThereLoggedUser = false;          
             InitializeComponent ();
-            MainThread.BeginInvokeOnMainThread ( async ( ) =>
+            MainThread.BeginInvokeOnMainThread ( ( ) =>
             {
                 var image = new Image { Source = "loginwindow.png" };
                 BindingContext = new MainPageViewModel();

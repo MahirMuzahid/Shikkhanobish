@@ -41,7 +41,7 @@ namespace Shikkhanobish
         {
             get
             {
-                return new Command(async () =>
+                return new Command( () =>
                 {
                     try
                     {
@@ -77,7 +77,7 @@ namespace Shikkhanobish
                             BindButtonText = "Try Again";
                         }
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         ConfirmationText = "Connection Reset! Check internet connection";
                     }
@@ -90,7 +90,7 @@ namespace Shikkhanobish
         {
             get
             {
-                return new Command(async () =>
+                return new Command( () =>
                 {
                     try
                     {
@@ -127,7 +127,7 @@ namespace Shikkhanobish
                             BindButtonTextTeacher = "Try Again";
                         }
                     }
-                    catch ( Exception ex )
+                    catch
                     {
                         ConfirmationText = "Connection Reset! Check internet connection";
                     }
@@ -140,33 +140,36 @@ namespace Shikkhanobish
         public async void checkUsernameAndPhonenumberTeacher()
         {
             string url = "https://api.shikkhanobish.com/api/Master/SearchUserName";
-            HttpClient client = new HttpClient();
-            string jsonData = JsonConvert.SerializeObject(new { UserName = UserName, PhoneNumber = PhoneNumber });
-            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
-            string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
-            var RUserName = JsonConvert.DeserializeObject<Student>(result);
-            if (RUserName.UserName != null)
+            using (HttpClient client = new HttpClient())
             {
-                if (RUserName.UserName == UserName)
+                string jsonData = JsonConvert.SerializeObject(new { UserName = UserName, PhoneNumber = PhoneNumber });
+                StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
+                string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
+                var RUserName = JsonConvert.DeserializeObject<Student>(result);
+                if (RUserName.UserName != null)
                 {
-                    ConfirmationText = "User Name already exist";
-                    BindButtonTextTeacher = "Try Again";
-                }
-                else if (RUserName.PhoneNumber == PhoneNumber)
-                {
-                    ConfirmationText = "You can use only one phonenumber per account";
-                    BindButtonTextTeacher = "Try Again";
+                    if (RUserName.UserName == UserName)
+                    {
+                        ConfirmationText = "User Name already exist";
+                        BindButtonTextTeacher = "Try Again";
+                    }
+                    else if (RUserName.PhoneNumber == PhoneNumber)
+                    {
+                        ConfirmationText = "You can use only one phonenumber per account";
+                        BindButtonTextTeacher = "Try Again";
+                    }
+                    else
+                    {
+                        checkinfoTeacher();
+                    }
                 }
                 else
                 {
                     checkinfoTeacher();
                 }
             }
-            else
-            {
-                checkinfoTeacher();
-            }
+            
         }
 
         public async void checkinfoTeacher()
@@ -237,33 +240,36 @@ namespace Shikkhanobish
         public async void checkUserNamenadPhoneNumber()
         {
             string url = "https://api.shikkhanobish.com/api/Master/SearchUserName";//HAVE TO CHANGE 
-            HttpClient client = new HttpClient();
-            string jsonData = JsonConvert.SerializeObject(new { UserName = UserName, PhoneNumber = PhoneNumber });
-            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
-            string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
-            var RUserName = JsonConvert.DeserializeObject<Student>(result);
-            if (RUserName.UserName != null)
+            using (HttpClient client = new HttpClient())
             {
-                if (RUserName.UserName == UserName)
+                string jsonData = JsonConvert.SerializeObject(new { UserName = UserName, PhoneNumber = PhoneNumber });
+                StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
+                string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
+                var RUserName = JsonConvert.DeserializeObject<Student>(result);
+                if (RUserName.UserName != null)
                 {
-                    ConfirmationText = "User Name already exist";
-                    BindButtonText = "Try Again";
-                }
-                else if (RUserName.PhoneNumber == PhoneNumber)
-                {
-                    ConfirmationText = "You can use only one phonenumber per account";
-                    BindButtonText = "Try Again";
+                    if (RUserName.UserName == UserName)
+                    {
+                        ConfirmationText = "User Name already exist";
+                        BindButtonText = "Try Again";
+                    }
+                    else if (RUserName.PhoneNumber == PhoneNumber)
+                    {
+                        ConfirmationText = "You can use only one phonenumber per account";
+                        BindButtonText = "Try Again";
+                    }
+                    else
+                    {
+                        checkInfo();
+                    }
                 }
                 else
                 {
                     checkInfo();
                 }
             }
-            else
-            {
-                checkInfo();
-            }
+            
         }
 
         public async void checkInfo()
@@ -425,11 +431,8 @@ namespace Shikkhanobish
             }
             set
             {
-                if (value != null)
-                {
-                    _age = value;
-                    OnPropertyChanged();
-                }
+                _age = value;
+                OnPropertyChanged();
             }
         }
 
