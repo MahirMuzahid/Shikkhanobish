@@ -105,10 +105,10 @@ namespace Shikkhanobish.Model
             return pmc;
         }
 
-        public string RankRange(int tuitionPoint, double avg, int totalTuitionTime)
+        public static string RankRange(int tuitionPoint, double avg, int totalTuitionTime)
         {
             string rank = null;
-            if (totalTuitionTime < 20)
+            if (totalTuitionTime < 15)
             {
                 rank = "Placement";
             }
@@ -116,7 +116,7 @@ namespace Shikkhanobish.Model
             {
                 rank = "Newbie";
             }
-            else if (tuitionPoint <= 3999 && avg >= 3.750f || (tuitionPoint > 3999 && avg < 3.75f))
+            else if (tuitionPoint <= 3999 && avg >= 3.75f || (tuitionPoint > 3999 && avg < 3.75f))
             {
                 rank = "Average";
             }
@@ -128,7 +128,7 @@ namespace Shikkhanobish.Model
             {
                 rank = "Veteran";
             }
-            else if (tuitionPoint > 16000 && avg >= 4.50f)
+            else if (tuitionPoint > 16000 && avg >= 4.30f)
             {
                 rank = "Master";
             }
@@ -186,7 +186,7 @@ namespace Shikkhanobish.Model
            
             Info = info;
             float cost = 0;
-            if(info.Teacher.Total_Min + info.StudyTimeInAPp > 20)
+            if(info.Teacher.Total_Min + info.StudyTimeInAPp > 15)
             {
                 if(newTeacher == true)
                 {
@@ -213,7 +213,7 @@ namespace Shikkhanobish.Model
         {
             Info = info;
             float cost = 0;
-            if ( info.Teacher.Total_Min + info.StudyTimeInAPp > 20 )
+            if ( info.Teacher.Total_Min + info.StudyTimeInAPp > 15 )
             {
                 cost = (  RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode ) );
 
@@ -232,7 +232,7 @@ namespace Shikkhanobish.Model
 
         public string CalculateRank(TransferInfo info)
         {
-            return RankRange(info.Teacher.OverallTP, info.Teacher.Avarage, CalculatedTuitionTime);
+            return RankRange(info.Teacher.OverallTP, info.Teacher.Avarage, info.Teacher.Total_Min);
         }
 
 

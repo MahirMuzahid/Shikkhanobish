@@ -100,44 +100,61 @@ namespace Shikkhanobish.ContentPages
         Calculate calculate = new Calculate();
         TransferInfo timeinfo = new TransferInfo ();
         Calculate cal = new Calculate ();
-        private bool UpdateTimerAndInfo ( )
+        private bool UpdateTimerAndInfo()
         {
             sec = sec + 1;
-            if ( sec == 60 )
+            if (sec == 60)
             {
                 min = min + 1;
                 sec = 0;
             }
-            if(firstTime ==  true)
+            if (firstTime == true)
             {
                 safelbl.IsVisible = true;
                 timerlbl.TextColor = Color.Green;
-                if(sec == 10)
+                if (sec == 10)
                 {
                     sec = 0;
-                    firstTime = false;
-                    safelbl.Text = "Pay Time";
                     safelbl.TextColor = Color.DarkSlateBlue;
                     timerlbl.TextColor = Color.Black;
-                    StartTime ();
+                    StartTime();
+                    info.StudyTimeInAPp = min + 1;
+                    safelbl.Text = "Cost: " + cal.CalculateCost(info);
+                    SendCostRoTeacher(calculate.CalculateCostForTeacher(info, isNewTeacher));
+                    if (min < info.Student.freeMin)
+                    {
+                        totalCost = 0;
+                        SetCost(0, 0, calculate.CalculateCostForTeacher(info, isNewTeacher), 1);
+                    }
+                    else
+                    {
+                        totalCost = calculate.CalculateCost(info);
+                        SetCost(calculate.CalculateCost(info), calculate.CalculateCostPerminStudent(info), calculate.CalculateCostForTeacher(info, isNewTeacher), 0);
+                    }
                 }
             }
-            if(firstTime == false && sec == 31)
+            if (sec == 31)
             {
-                info.StudyTimeInAPp = min+1;
-                safelbl.Text = "Cost: " + cal.CalculateCost (info );
-                SendCostRoTeacher ( calculate.CalculateCostForTeacher ( info , isNewTeacher) );
-                if(min  < info.Student.freeMin)
+                if(firstTime == true)
                 {
-                    totalCost = 0;
-                    SetCost ( 0 , 0 , calculate.CalculateCostForTeacher ( info, isNewTeacher ),1 );
+                    firstTime = false;
                 }
-                else
+                else if(firstTime == false)
                 {
-                    totalCost = calculate.CalculateCost ( info );
-                    SetCost ( calculate.CalculateCost ( info  ) , calculate.CalculateCostPerminStudent ( info) , calculate.CalculateCostForTeacher ( info , isNewTeacher) ,0);
+                    info.StudyTimeInAPp = min + 1;
+                    safelbl.Text = "Cost: " + cal.CalculateCost(info);
+                    SendCostRoTeacher(calculate.CalculateCostForTeacher(info, isNewTeacher));
+                    if (min < info.Student.freeMin)
+                    {
+                        totalCost = 0;
+                        SetCost(0, 0, calculate.CalculateCostForTeacher(info, isNewTeacher), 1);
+                    }
+                    else
+                    {
+                        totalCost = calculate.CalculateCost(info);
+                        SetCost(calculate.CalculateCost(info), calculate.CalculateCostPerminStudent(info), calculate.CalculateCostForTeacher(info, isNewTeacher), 0);
+                    }
                 }
-                
             }
             timerlbl.Text = min + ":" + sec;
             if( iscut == false)

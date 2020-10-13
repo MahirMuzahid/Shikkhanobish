@@ -203,8 +203,16 @@ namespace Shikkhanobish.ContentPages
         {
             int tuitionPoint = calculate.CalculateTuitionPoint ( info );
             info.Teacher.OverallTP = tuitionPoint + info.Teacher.Tuition_Point;
-            string tuitionClass = null, 
-            rank = calculate.CalculateRank(info);
+            string tuitionClass = null, rank=  null;
+            if(isft == true)
+            {
+                info.Teacher.Total_Min = info.Teacher.Total_Min + info.StudyTimeInAPp;
+                rank = calculate.CalculateRank(info);
+            }
+            else
+            {
+                calculate.CalculateRank(info);
+            }
             String Date = DateTime.Now.ToString();
             for (int i = 0; i < info.Class.Length; i++)
             {

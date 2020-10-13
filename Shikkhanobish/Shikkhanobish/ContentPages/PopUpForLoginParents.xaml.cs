@@ -30,27 +30,42 @@ namespace Shikkhanobish.ContentPages.Parents
             loginbtn.Text = "Wait";
             string code = pcodeenty.Text;
             string pass = passenty.Text;
-            string url = "https://api.shikkhanobish.com/api/Master/GetParentInfo";
-            HttpClient client = new HttpClient ();
-            string jsonData = JsonConvert.SerializeObject ( new { ParentID = code , Password = pass } );
-            StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
-            HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
-            var result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
-            var parent = JsonConvert.DeserializeObject<Parent> ( result );
-            if(parent.ParentName== null)
+            if(code.Length == 0 )
             {
-                MainThread.BeginInvokeOnMainThread(() =>
-               {
-                   errorlbl.Text = parent.Response;
-               });
-                loginbtn.Text = "Login";
+                errorlbl.Text = "Password can't be empty";
+            }
+            else if (code.Length == 0)
+            {
+                errorlbl.Text = "Code can't be empty";
             }
             else
-            {                
-                await Navigation.PopPopupAsync ().ConfigureAwait ( false );
-                StaticPageForOnSleep.isParent = true;
-                MainThread.BeginInvokeOnMainThread ( async ( ) => { await Application.Current.MainPage.Navigation.PushModalAsync ( new ParentsProfile ( parent ) ).ConfigureAwait ( false ); } );
+            {
+                string url = "https://api.shikkhanobish.com/api/Master/GetParentInfo";
+                using (HttpClient client = new HttpClient())
+                {
+                    string jsonData = JsonConvert.SerializeObject(new { ParentID = code, Password = pass });
+                    StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
+                    var result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
+                    var parent = JsonConvert.DeserializeObject<Parent>(result);
+                    if (parent.ParentName == null)
+                    {
+                        MainThread.BeginInvokeOnMainThread(() =>
+                        {
+                            errorlbl.Text = parent.Response;
+                        });
+                        loginbtn.Text = "Login";
+                    }
+                    else
+                    {
+                        await Navigation.PopPopupAsync().ConfigureAwait(false);
+                        StaticPageForOnSleep.isParent = true;
+                        MainThread.BeginInvokeOnMainThread(async () => { await Application.Current.MainPage.Navigation.PushModalAsync(new ParentsProfile(parent)).ConfigureAwait(false); });
+                    }
+                }
+                
             }
+            
             
         }
 

@@ -8,20 +8,44 @@
              x:Class="Shikkhanobish.ContentPages.GetInstIDandRules">
     <Grid BackgroundColor="White">
         <Grid.RowDefinitions>
+            <RowDefinition Height="1.3*" />
+            <RowDefinition Height="1.5*" />
+            <RowDefinition Height="2*" />
             <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1.2*" />
-            <RowDefinition Height=".4*" />
             <RowDefinition Height="8*" />
+            <RowDefinition Height="1.1*" />
             <RowDefinition Height="1*" />
-            <RowDefinition Height=".3*" />
+            <RowDefinition Height=".2*" />
         </Grid.RowDefinitions>
         <BoxView BackgroundColor="#9761FD" Grid.Row="0" />
         <Label Text="Teacher Registration" Grid.Row="0" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#FFFFFF" />
         <Entry x:Name="InstitutionIDEntry" Placeholder="Institution ID" Grid.Row="1" VerticalOptions="Center" />
-        <Label Text="Enter you college or university ID number. If you didnt pass SSC, you can't apply for teacher. If you dont have institution ID write : NA" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Start" />
-        <Label Text="Terms and Conditions of Teachers" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" FontSize="15" FontAttributes="Bold" TextColor="#444444" />
+        <Label Text="Enter you college or university ID number. If you didnt pass SSC, you can't apply for teacher. If you dont have institution ID write : NA" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Start"  Margin="7"/>
+        <Label Text="General Conditions of Teachers" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" FontSize="15" FontAttributes="Bold" TextColor="#444444" />
+        <Grid Grid.Row="4" ColumnSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".2*"/>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Label Text="1. Teachers have to pass 15 minutes Placement rank to monetize their account" Grid.Row="1" Grid.ColumnSpan="2" Margin="20,0,0,0" FontSize="15" />
+            <Label Text="2. Shikkhanobish will cut 20% from teachers during every tuition" Grid.Row="2" Margin="20,0,0,0" FontSize="15" Grid.ColumnSpan="2" />
+            <Label Text="3. Shikkhanobish holds every right to ban, delete any teacher account" Grid.Row="3" Margin="20,0,0,0" FontSize="15" Grid.ColumnSpan="2"/>
+            <Label Text="4. Teachers can't withdraw money if they do not have more than 50 points" Grid.Row="4" Margin="20,0,0,0" FontSize="15" Grid.ColumnSpan="2"/>
+            <Label Text="5. More than 5 report will temporary close their account." Grid.Row="5" Margin="20,0,0,0" FontSize="15" Grid.ColumnSpan="2"/>
+            <CheckBox x:Name="chkbx"  Grid.Row="6" HorizontalOptions="Start" VerticalOptions="Center" CheckedChanged="chkbx_CheckedChanged" Margin="5,0,0,0"/>
+            <Label Text="I agree to the" Grid.Row="6" HorizontalOptions="End" VerticalOptions="Center" FontSize="15" />
+            <Button Text="Temrs and Conditions" Grid.Row="6" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" FontSize="12" BackgroundColor="#00711111" TextColor="#2E63C5" Clicked="Button_Clicked_1"/>
+        </Grid>
         
-        <Button Text="Choose Subject" Grid.Row="5" Clicked="Button_Clicked" BackgroundColor="#41B4ED"   CornerRadius="10" TextColor="#FFFFFF" HorizontalOptions="Center" />
+        <Button x:Name="chsubbtn" Text="Choose Subject" Grid.Row="5" Clicked="Button_Clicked" BackgroundColor="#41B4ED"   CornerRadius="10" TextColor="#FFFFFF" HorizontalOptions="Center" />
     </Grid>
 </ContentPage>
