@@ -16,7 +16,6 @@ namespace Shikkhanobish
         private int VerificationNumber;
         private Random random = new Random();
         private string Phonenumber;
-        private string Result = null;
         private Student student = new Student();
         private int studentorTeacher = 0;
         public string Username;
@@ -31,6 +30,7 @@ namespace Shikkhanobish
 
         private async void Sentbtn_Clicked(object sender, EventArgs e)
         {
+            Errorlbl.Text = "";
             if (Sentbtn.Text == "Verify")
             {
                 if (VerificationNumber.ToString() == PlaceholderEntry.Text)

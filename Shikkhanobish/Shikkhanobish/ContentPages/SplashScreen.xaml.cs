@@ -112,7 +112,7 @@ namespace Shikkhanobish.ContentPages
             var studentcl = JsonConvert.DeserializeObject<StudentClass> ( result );
             OldStToNewSt convert = new OldStToNewSt ();
             var student = convert.Sc_TO_S ( studentcl );
-            MainThread.BeginInvokeOnMainThread ( async ( ) => {
+            MainThread.BeginInvokeOnMainThread ( ( ) => {
                 loadinglbl.Text = "Loging As " + student.Name + "...";
             } );
             if ( student.IsPending == 1 )

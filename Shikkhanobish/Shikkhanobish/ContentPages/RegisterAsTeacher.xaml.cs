@@ -363,6 +363,7 @@ namespace Shikkhanobish
                     }
                     catch(Exception ex)
                     {
+                        isFoundingTeacherCodeOK = false;
                         ErrorText.Text = ex.Message;
                     }
                     
@@ -478,6 +479,7 @@ namespace Shikkhanobish
                                             }
                                                 
                                         }
+                                        
                                         MainThread.BeginInvokeOnMainThread(async () =>
                                         {
                                             await Application.Current.MainPage.Navigation.PushModalAsync(new TeacherProfile(teacher)).ConfigureAwait(true);

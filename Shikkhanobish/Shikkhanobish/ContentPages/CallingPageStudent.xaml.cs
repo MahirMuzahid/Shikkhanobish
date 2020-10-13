@@ -22,8 +22,6 @@ namespace Shikkhanobish.ContentPages
     public partial class CallingPageStudent : ContentPage
     {
         private TransferInfo Info;
-        private int apiKey;
-        private string SessionID, Token;
         private bool isstudent;
         private int i;
         private int sec;
@@ -32,12 +30,11 @@ namespace Shikkhanobish.ContentPages
         public OpenTok OpenTok { get; protected set; }
         bool isCallCutByStudent;
         HubConnection _connection = null;
-        bool isConnected = false;
-        string connectionStatus = "Closed";
         bool isAcceptedByTeacher = false;
-        string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub", msgFromApi = "";
+        string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub";
         public CallingPageStudent ( TransferInfo info )
         {
+            searchdontcount = 0;
             isCallCutByStudent = false;
             sec = 0;
             InitializeComponent ();
@@ -47,16 +44,27 @@ namespace Shikkhanobish.ContentPages
             clLbl.Text = Info.Class;
             subLbl.Text = Info.SubjectName;
             ctLbl.Text = "Cost: " + Info.Teacher.Amount + " taka/min";
-            calllbl.Text = "Calling teacher...";
-            CrossOpenTok.Current.ApiKey = "" + 46485492;
-            CrossOpenTok.Current.UserToken = api.Token ;
-            CrossOpenTok.Current.SessionId = api.Session.Id;
-            checkSession ();
+            StaticPageForGeneralUse.TappedTeacherIdForTuition = info.Teacher.TeacherID;
             Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , startCountdown );
 
         }
+        int searchdontcount;
         private bool startCountdown ( )
         {
+            searchdontcount++;
+            if (searchdontcount == 1)
+            {
+                calllbl.Text = "Calling Teacher.";
+            }
+            else if (searchdontcount == 2)
+            {
+                calllbl.Text = "Calling Teacher..";
+            }
+            else if (searchdontcount == 3)
+            {
+                searchdontcount = 0;
+                calllbl.Text = "Calling Teacher...";
+            }
             sec++;
             if ( sec > 15 )
             {
@@ -98,26 +106,21 @@ namespace Shikkhanobish.ContentPages
         }
         public async Task callOut ( )
         {
-            CutVideoCAllForTeacher ();            
+            CutVideoCAllForTeacher ();          
             CrossOpenTok.Current.EndSession ();
-            _connection.StopAsync ();
-            await Application.Current.MainPage.Navigation.PopModalAsync ();
+            await _connection.StopAsync ().ConfigureAwait(false);
+            StaticPageForGeneralUse eventcall = new StaticPageForGeneralUse();
+            eventcall.PlaceTeacherStatusToOffile();
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                await Application.Current.MainPage.Navigation.PopModalAsync().ConfigureAwait(false);
+            });
         }
         protected override bool OnBackButtonPressed ( )
         {
             isCallCutByStudent = true;
             callOut ();
             return true;
-        }
-        public async void checkSession ( )
-        {
-            if ( !CrossOpenTok.Current.TryStartSession () )
-            {
-                return;
-            }
-            await ConnectToServer ().ConfigureAwait ( false );
-            await ConnectWithTeacher ( api.Session.Id , api.Token , Info.Student.StudentID , Info.Teacher.TeacherID , Info.SubjectName , Info.Class , Info.Teacher.Amount , Info.Teacher.TeacherName ).ConfigureAwait ( false );
-
         }
 
         public async Task ConnectWithTeacher ( string SessionId , string UserToken , int studentID , int teacherID , string Cls , string subject , double cost , string studentName )
@@ -130,7 +133,7 @@ namespace Shikkhanobish.ContentPages
         }       
 
 
-        private async void cancleStbtn_Clicked ( object sender , EventArgs e )
+        private void cancleStbtn_Clicked ( object sender , EventArgs e )
         {
             isCallCutByStudent = true;
             callOut ();

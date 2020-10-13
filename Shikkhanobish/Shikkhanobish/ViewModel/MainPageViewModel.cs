@@ -212,24 +212,31 @@ namespace Shikkhanobish
         }
 
         //public int Error { get; set; }
-        public static Command RegisterStudent
+        public Command RegisterStudent
         {
             get
             {
-                return new Command(async () =>
+                
+                return new Command( () =>
                 {
-                    await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterStudent()).ConfigureAwait( false );
+                    MainThread.BeginInvokeOnMainThread(async() =>
+                    {
+                        await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterStudent()).ConfigureAwait(false);
+                    });
                 });
             }
         }
 
-        public static Command ForgotPassword
+        public Command ForgotPassword
         {
             get
             {
-                return new Command(async () =>
+                return new Command( () =>
                 {
-                    await Application.Current.MainPage.Navigation.PushModalAsync(new ForgotPasswordWindow()).ConfigureAwait( false );
+                    MainThread.BeginInvokeOnMainThread(async() =>
+                    {
+                        await Application.Current.MainPage.Navigation.PushModalAsync(new ForgotPasswordWindow()).ConfigureAwait(false);
+                    });
                 });
             }
         }

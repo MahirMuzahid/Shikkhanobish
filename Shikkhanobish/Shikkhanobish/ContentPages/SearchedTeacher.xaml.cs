@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
 using Xamarin.Essentials;
 using Android.Database;
+using Xamarin.Forms.OpenTok.Service;
 
 namespace Shikkhanobish.ContentPages
 {
@@ -22,13 +23,14 @@ namespace Shikkhanobish.ContentPages
         private TransferInfo info = new TransferInfo();
         private List<TeacherID> TeacherIDListBySearch = new List<TeacherID>();
         private List<Teacher> TeacherList = new List<Teacher>();
-        private List<Teacher> FilteredTeacher = new List<Teacher>();
+        public List<Teacher> FilteredTeacher = new List<Teacher>();
         HubConnection _connection = null;
+        VideoCAllApiInfo api = new VideoCAllApiInfo();
         bool isConnected = false;
         string connectionStatus = "Closed";
         string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub", msgFromApi = "";
         int cutCallFirstTime = 0;
-
+        StaticPageForGeneralUse Event = new StaticPageForGeneralUse(); 
         public SearchedTeacher(TransferInfo transInfo, List<Teacher> teacherList)
         {
             InitializeComponent();
@@ -36,8 +38,24 @@ namespace Shikkhanobish.ContentPages
             FilteredTeacher = teacherList;
             SetEveryThing ();
             ConnectToServer ();
+            CrossOpenTok.Current.ApiKey = "" + 46485492;
+            CrossOpenTok.Current.UserToken = api.Token;
+            CrossOpenTok.Current.SessionId = api.Session.Id;
+            StaticPageForGeneralUse.EndCall += new Model.EventHandler(GetInfoFromEvent);
         }
 
+        public void GetInfoFromEvent(object sender, EventArgs e)
+        {
+            for (int i = 0; i < FilteredTeacher.Count; i++)
+            {
+                if (StaticPageForGeneralUse.TappedTeacherIdForTuition == FilteredTeacher[i].TeacherID)
+                {
+                    FilteredTeacher[i].IsActive = 0;
+                    FilteredTeacher[i].TeacherStatus = "Offline";
+                    FilteredTeacher[i].TeacherStatusColor = "#939393";
+                }
+            }
+        }
         public void SetEveryThing()
         {
             TeacherListView.ItemsSource = FilteredTeacher;
@@ -54,7 +72,7 @@ namespace Shikkhanobish.ContentPages
         {
             if ( info.Teacher.IsOnTuition == 0 && info.Teacher.IsActive == 1)
             {
-                await Navigation.PushPopupAsync ( new PopUpForSelectedTeacher ( info ) ).ConfigureAwait ( false );
+                await Navigation.PushPopupAsync ( new PopUpForSelectedTeacher ( info , api.Session.Id, api.Token) ).ConfigureAwait ( false );
             }
                       
         }

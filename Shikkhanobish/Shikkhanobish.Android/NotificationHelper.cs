@@ -26,7 +26,7 @@ namespace Shikkhanobish.Droid
         private NotificationManager mNotificationManager;
         private NotificationCompat.Builder mBuilder;
         public static String NOTIFICATION_CHANNEL_ID = "10023";
-        public event EventHandler NotificationReceived;
+        public event System.EventHandler NotificationReceived;
 
         public NotificationHelper ( )
         {

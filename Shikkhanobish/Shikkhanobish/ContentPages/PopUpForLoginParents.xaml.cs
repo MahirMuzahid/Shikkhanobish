@@ -27,43 +27,60 @@ namespace Shikkhanobish.ContentPages.Parents
 
         private async void Button_Clicked ( object sender , EventArgs e )
         {
-            loginbtn.Text = "Wait";
-            string code = pcodeenty.Text;
-            string pass = passenty.Text;
-            if(code.Length == 0 )
+            try
             {
-                errorlbl.Text = "Password can't be empty";
-            }
-            else if (code.Length == 0)
-            {
-                errorlbl.Text = "Code can't be empty";
-            }
-            else
-            {
-                string url = "https://api.shikkhanobish.com/api/Master/GetParentInfo";
-                using (HttpClient client = new HttpClient())
+                loginbtn.Text = "Wait";
+                string code = pcodeenty.Text;
+                string pass = passenty.Text;
+                if (code.Length == 0)
                 {
-                    string jsonData = JsonConvert.SerializeObject(new { ParentID = code, Password = pass });
-                    StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
-                    var result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
-                    var parent = JsonConvert.DeserializeObject<Parent>(result);
-                    if (parent.ParentName == null)
+                    MainThread.BeginInvokeOnMainThread( () =>
                     {
-                        MainThread.BeginInvokeOnMainThread(() =>
-                        {
-                            errorlbl.Text = parent.Response;
-                        });
-                        loginbtn.Text = "Login";
-                    }
-                    else
-                    {
-                        await Navigation.PopPopupAsync().ConfigureAwait(false);
-                        StaticPageForOnSleep.isParent = true;
-                        MainThread.BeginInvokeOnMainThread(async () => { await Application.Current.MainPage.Navigation.PushModalAsync(new ParentsProfile(parent)).ConfigureAwait(false); });
-                    }
+                        errorlbl.Text = "Password can't be empty";
+                    });
                 }
-                
+                else if (code.Length == 0)
+                {
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        errorlbl.Text = "Code can't be empty";
+                    });
+                }
+                else
+                {
+                    string url = "https://api.shikkhanobish.com/api/Master/GetParentInfo";
+                    using (HttpClient client = new HttpClient())
+                    {
+                        string jsonData = JsonConvert.SerializeObject(new { ParentID = code, Password = pass });
+                        StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                        HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
+                        var result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
+                        var parent = JsonConvert.DeserializeObject<Parent>(result);
+                        if (parent.ParentName == null)
+                        {
+                            MainThread.BeginInvokeOnMainThread(() =>
+                            {
+                                errorlbl.Text = parent.Response;
+                            });
+                            loginbtn.Text = "Login";
+                        }
+                        else
+                        {
+                            await Navigation.PopPopupAsync().ConfigureAwait(false);
+                            StaticPageForOnSleep.isParent = true;
+                            MainThread.BeginInvokeOnMainThread(async () => { await Application.Current.MainPage.Navigation.PushModalAsync(new ParentsProfile(parent)).ConfigureAwait(false); });
+                        }
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MainThread.BeginInvokeOnMainThread( () =>
+                {
+                    errorlbl.Text = ex.Message;
+                });
             }
             
             

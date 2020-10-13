@@ -22,10 +22,9 @@ namespace Shikkhanobish.ContentPages
     {
         private bool iscut;
         private TransferInfo info = new TransferInfo ();
-        private Timer timer = new Timer ();
         int sec, min;
-        int ownthing = 0, i=0;
-        bool firstTime ,isstudent, isNewTeacher;
+        int ownthing = 0;
+        bool firstTime , isNewTeacher;
         float totalCost;
         public TutionPage ( TransferInfo trnsInfo)
         {
@@ -90,7 +89,7 @@ namespace Shikkhanobish.ContentPages
             Navigation.PushPopupAsync ( new PopUpForTextAlert ( "Do You want to cut the call?" , "If you want to cut the call, press cut video icon" , false ) );
             return true;
         }
-        public async void gotoRatingPage ( )
+        public void gotoRatingPage ( )
         {
             Device.BeginInvokeOnMainThread ( async ( ) =>
             {
@@ -98,7 +97,6 @@ namespace Shikkhanobish.ContentPages
             } );
         }
         Calculate calculate = new Calculate();
-        TransferInfo timeinfo = new TransferInfo ();
         Calculate cal = new Calculate ();
         private bool UpdateTimerAndInfo()
         {
@@ -174,7 +172,7 @@ namespace Shikkhanobish.ContentPages
         HubConnection _connection = null;
         bool isConnected = false;
         string connectionStatus = "Closed";
-        string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub", msgFromApi = "";
+        string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub";
 
 
         int cutCallFirstTime = 0;
@@ -197,7 +195,7 @@ namespace Shikkhanobish.ContentPages
                 isConnected = true;
 
             };
-            _connection.On<int , int , int , bool> ( "cutCall" , async ( stop , teacherID , studentID , isStudent ) =>
+            _connection.On<int , int , int , bool> ( "cutCall" , ( stop , teacherID , studentID , isStudent ) =>
             {
                 cutCallFirstTime++;
                 if ( isStudent == false  && cutCallFirstTime == 1)
