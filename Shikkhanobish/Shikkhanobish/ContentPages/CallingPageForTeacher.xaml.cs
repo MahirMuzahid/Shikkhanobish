@@ -25,6 +25,7 @@ namespace Shikkhanobish.ContentPages
         public CallingPageForTeacher ( TransferInfo info )
         {
             InitializeComponent ();
+            isCallCutByStudent = false;
             Info = info;
             tnLbl.Text = Info.Student.Name;
             clLbl.Text = Info.Class;
@@ -34,8 +35,32 @@ namespace Shikkhanobish.ContentPages
             CrossOpenTok.Current.ApiKey = "46485492";
             CrossOpenTok.Current.SessionId = info.SessionID;
             CrossOpenTok.Current.UserToken = info.UserToken;
+            Device.StartTimer(TimeSpan.FromSeconds(1.0), startCountdown);
         }
-
+        int sec = 0;
+        bool isCallCutByStudent;
+        private bool startCountdown()
+        {
+            
+            sec++;
+            if (sec > 15)
+            {
+                    StaticPageForOnSleep.isCallPending = false;
+                    setOnTuitionOFFOrOn(0);
+                    ConnectWithStudent(Info.Student.StudentID, Info.Teacher.TeacherID, false);
+                    Application.Current.MainPage.Navigation.PopModalAsync();
+                    return false;                
+            }
+            if (isCallCutByStudent == true)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+            
+        }
         private async void callbtn_Clicked ( object sender , EventArgs e )
         {
             if ( !CrossOpenTok.Current.TryStartSession () )
@@ -122,6 +147,7 @@ namespace Shikkhanobish.ContentPages
                 cutCallFirstTime++;
                 if ( isStudent == true && cutCallFirstTime == 1 && teacherID == Info.Teacher.TeacherID )
                 {
+                    isCallCutByStudent = true;
                     StaticPageForOnSleep.isCallPending = false;
                     setOnTuitionOFFOrOn ( 0 );
                     ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , false );

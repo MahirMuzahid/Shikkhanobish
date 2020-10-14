@@ -40,22 +40,10 @@ namespace Shikkhanobish.ContentPages
             ConnectToServer ();
             CrossOpenTok.Current.ApiKey = "" + 46485492;
             CrossOpenTok.Current.UserToken = api.Token;
-            CrossOpenTok.Current.SessionId = api.Session.Id;
-            StaticPageForGeneralUse.EndCall += new Model.EventHandler(GetInfoFromEvent);
+            CrossOpenTok.Current.SessionId = api.Session.Id;            
         }
 
-        public void GetInfoFromEvent(object sender, EventArgs e)
-        {
-            for (int i = 0; i < FilteredTeacher.Count; i++)
-            {
-                if (StaticPageForGeneralUse.TappedTeacherIdForTuition == FilteredTeacher[i].TeacherID)
-                {
-                    FilteredTeacher[i].IsActive = 0;
-                    FilteredTeacher[i].TeacherStatus = "Offline";
-                    FilteredTeacher[i].TeacherStatusColor = "#939393";
-                }
-            }
-        }
+        
         public void SetEveryThing()
         {
             TeacherListView.ItemsSource = FilteredTeacher;
@@ -65,19 +53,34 @@ namespace Shikkhanobish.ContentPages
         {
             var selectedTeacher = e.Item as Teacher;
             info.Teacher = selectedTeacher;
-            beSure();
+            isPermiteed();
+            
         }
 
         public async void beSure()
         {
             if ( info.Teacher.IsOnTuition == 0 && info.Teacher.IsActive == 1)
             {
+
                 await Navigation.PushPopupAsync ( new PopUpForSelectedTeacher ( info , api.Session.Id, api.Token) ).ConfigureAwait ( false );
             }
                       
         }
 
-        
+        public async void isPermiteed()
+        {
+            var cmStatus = await Permissions.CheckStatusAsync<Permissions.Camera>();
+            var mediaStatus = await Permissions.CheckStatusAsync<Permissions.Media>();
+            if (cmStatus == PermissionStatus.Granted && mediaStatus == PermissionStatus.Granted)
+            {
+                beSure();
+            }
+            else
+            {
+                CrossOpenTok.Current.TryStartSession();
+            }
+
+        }
         public async Task ConnectToServer ( )
         {
 

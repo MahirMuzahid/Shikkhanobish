@@ -15,6 +15,8 @@ using System.Diagnostics.Tracing;
 using OpenTokSDK;
 using System.Net;
 using Xamarin.Essentials;
+using Rg.Plugins.Popup.Extensions;
+using Shikkhanobish.ContentPages.Common;
 
 namespace Shikkhanobish.ContentPages
 {
@@ -34,18 +36,18 @@ namespace Shikkhanobish.ContentPages
         string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub";
         public CallingPageStudent ( TransferInfo info )
         {
-            searchdontcount = 0;
-            isCallCutByStudent = false;
-            sec = 0;
-            InitializeComponent ();
-            Info = info;
-            ConnectToServer ();
-            tnLbl.Text = Info.Teacher.TeacherName;
-            clLbl.Text = Info.Class;
-            subLbl.Text = Info.SubjectName;
-            ctLbl.Text = "Cost: " + Info.Teacher.Amount + " taka/min";
-            StaticPageForGeneralUse.TappedTeacherIdForTuition = info.Teacher.TeacherID;
-            Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , startCountdown );
+                InitializeComponent();
+                searchdontcount = 0;
+                isCallCutByStudent = false;
+                sec = 0;
+                Info = info;
+                ConnectToServer();
+                tnLbl.Text = Info.Teacher.TeacherName;
+                clLbl.Text = Info.Class;
+                subLbl.Text = Info.SubjectName;
+                ctLbl.Text = "Cost: " + Info.Teacher.Amount + " taka/min";
+                // StaticPageForGeneralUse.TappedTeacherIdForTuition = info.Teacher.TeacherID;
+                Device.StartTimer(TimeSpan.FromSeconds(1.0), startCountdown);                    
 
         }
         int searchdontcount;
@@ -87,7 +89,7 @@ namespace Shikkhanobish.ContentPages
         {
             string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsOnTuition";
             HttpClient clientT = new HttpClient ();
-            string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = Info.Teacher.TeacherID , state = 0 } );
+            string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = Info.Teacher.TeacherID , state = 1 } );
             StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
             HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
             string resultT = await responseT.Content.ReadAsStringAsync ();
@@ -106,15 +108,19 @@ namespace Shikkhanobish.ContentPages
         }
         public async Task callOut ( )
         {
-            CutVideoCAllForTeacher ();          
-            CrossOpenTok.Current.EndSession ();
-            await _connection.StopAsync ().ConfigureAwait(false);
-            StaticPageForGeneralUse eventcall = new StaticPageForGeneralUse();
-            eventcall.PlaceTeacherStatusToOffile();
             MainThread.BeginInvokeOnMainThread(async () =>
             {
                 await Application.Current.MainPage.Navigation.PopModalAsync().ConfigureAwait(false);
             });
+            
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                calllbl.Text = "Cancle Calling...";
+            });         
+            CutVideoCAllForTeacher ();          
+            //CrossOpenTok.Current.EndSession ();
+            _connection.StopAsync ();
+            
         }
         protected override bool OnBackButtonPressed ( )
         {
@@ -145,8 +151,8 @@ namespace Shikkhanobish.ContentPages
             HttpClient client = new HttpClient ();
             StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
-            string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
-            var r = JsonConvert.DeserializeObject<string> ( result );
+           // string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
+            //var r = JsonConvert.DeserializeObject<string> ( result );
         }
         public async Task ConnectToServer ( )
         {
