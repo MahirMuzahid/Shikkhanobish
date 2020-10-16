@@ -31,7 +31,7 @@ namespace Shikkhanobish.ContentPages
             var usertype = await SecureStorage.GetAsync ( "usertype" ).ConfigureAwait ( false );
             var parentcode = await SecureStorage.GetAsync ( "parentCode" ).ConfigureAwait ( false );
             MainThread.BeginInvokeOnMainThread ( ( ) => {
-                loadinglbl.Text = "Checking Loged User...";
+                loadinglbl.Text = "Checking Logged User...";
             } );
             if ( usertype == "Student" )
             {

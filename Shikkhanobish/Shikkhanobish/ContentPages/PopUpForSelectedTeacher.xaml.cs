@@ -11,6 +11,7 @@ using System.Net.Http;
 using Rg.Plugins.Popup.Extensions;
 using Xamarin.Essentials;
 using Android.SE.Omapi;
+using Shikkhanobish.ContentPages.Common;
 
 namespace Shikkhanobish.ContentPages
 {
@@ -19,21 +20,24 @@ namespace Shikkhanobish.ContentPages
     {
         private TransferInfo Info;
         string SessionID, Token;
+        string permission;
         private async void Button_Clicked ( object sender , EventArgs e )
         {
-
-            if(!CrossOpenTok.Current.TryStartSession())
+            try
             {
-                callbtn.Text = "Call Again";
-                return;
-            }          
-            await ConnectWithTeacher(SessionID, Token, Info.Student.StudentID, Info.Teacher.TeacherID, Info.SubjectName, Info.Class, Info.Teacher.Amount, Info.Teacher.TeacherName).ConfigureAwait(false);
-            MainThread.BeginInvokeOnMainThread(async () =>
-            {
-                await Application.Current.MainPage.Navigation.PushModalAsync(new CallingPageStudent(Info)).ConfigureAwait(false);
-            });
+                ConnectWithTeacher(SessionID, Token, Info.Student.StudentID, Info.Teacher.TeacherID, Info.SubjectName, Info.Class, Info.Teacher.Amount, Info.Teacher.TeacherName);
+                MainThread.BeginInvokeOnMainThread(async () =>
+                {
+                    await Application.Current.MainPage.Navigation.PushModalAsync(new CallingPageStudent(Info)).ConfigureAwait(false);
+                });
 
-            await Navigation.PopPopupAsync ().ConfigureAwait ( false );
+                await Navigation.PopPopupAsync().ConfigureAwait(false);
+            }
+            catch(Exception ex)
+            {
+                await Navigation.PushPopupAsync(new PopUpForTextAlert("Error",ex.Message,false )).ConfigureAwait(false);
+            }
+            
         }
 
         public async Task ConnectWithTeacher(string SessionId, string UserToken, int studentID, int teacherID, string Cls, string subject, double cost, string studentName)
@@ -54,11 +58,9 @@ namespace Shikkhanobish.ContentPages
             tnLbl.Text = Info.Teacher.TeacherName;
             clLbl.Text = Info.Class;
             subLbl.Text = Info.SubjectName;
-            ctLbl.Text = "Cost: " + Info.Teacher.Amount + " taka/min";
-           
-
+            ctLbl.Text = "Cost: " + Info.Teacher.Amount + " taka/min";;
         }
-
+        
         
 
 

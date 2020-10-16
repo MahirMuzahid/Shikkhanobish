@@ -519,6 +519,7 @@ namespace Shikkhanobish
                     Errorlbl.TextColor = Color.DarkSlateGray;
                     Errorlbl.Text = "You can click Search Button, to cancle search.";
                     Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , searchAgain );
+                    Device.StartTimer(TimeSpan.FromSeconds(1.0), updateTimer);
                 }
                 else
                 {
@@ -536,43 +537,53 @@ namespace Shikkhanobish
             
             
         }//Search Button
+        private bool updateTimer()
+        {
+            if (IsCancled == false)
+            {
+                searchdontcount++;
+                if (searchdontcount == 1)
+                {
+                    SearchBtn.Text = "Searching...";
+                }
+                else if (searchdontcount == 2)
+                {
+                    SearchBtn.Text = "Searching.";
+                }
+                else if (searchdontcount == 3)
+                {
+                    searchdontcount = 0;
+                    SearchBtn.Text = "Searching.";
+                }
+                return true;
+            }
+            else
+            {
+                SearchBtn.Text = "Search";
+                return false;
+            }
 
+        }
         private bool searchAgain ( )
         {
             if(IsCancled == false)
             {
                 if ( FilteredTeacher.Count > 0 )
                 {
-                    IsCancled = false;
-                    Errorlbl.Text = "";
-                    SearchBtn.Text = "Search";
+                    IsCancled = true;
+                    Errorlbl.Text = "";                   
                     clicked = 0;
                     MainThread.BeginInvokeOnMainThread ( async ( ) => { await Application.Current.MainPage.Navigation.PushModalAsync ( new SearchedTeacher ( transferNow , FilteredTeacher ) ).ConfigureAwait ( false ); } );
                     return false;
                 }
                 else
-                {
-                    searchdontcount++;
-                    if ( searchdontcount == 1 )
-                    {
-                        SearchBtn.Text = "Searching.";
-                    }
-                    else if ( searchdontcount == 2 )
-                    {
-                        SearchBtn.Text = "Searching..";
-                    }
-                    else if ( searchdontcount == 3 )
-                    {
-                        searchdontcount = 0;
-                        SearchBtn.Text = "Searching...";
-                    }
+                {                 
                     getTeacher ();
                     return true;
                 }
             }
             else
-            {
-                SearchBtn.Text = "Search";
+            {               
                 return false;
             }
             

@@ -77,7 +77,7 @@
     <AndroidPackageFormat>apk</AndroidPackageFormat>
     <AndroidDexTool>dx</AndroidDexTool>
     <AndroidLinkTool>r8</AndroidLinkTool>
-    <AndroidLinkSkip>Shikkhanobish</AndroidLinkSkip>
+    <AndroidLinkSkip>Microsoft.AspNetCore.SignalR.Client;Shikkhanobish;Xamarin.Forms.OpenTok.Service;Shikkhanobish.Android</AndroidLinkSkip>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
