@@ -22,7 +22,7 @@ namespace Shikkhanobish
             if ( StaticPageForOnSleep.isStudent == false && StaticPageForOnSleep.isParent == false && StaticPageForOnSleep.isCallPending == true && StaticPageForOnSleep.isSleep == true)
             {
                 MainThread.BeginInvokeOnMainThread ( async ( ) => {                   
-                    MainPage = new  CallingPageForTeacher ( StaticPageForOnSleep.info );
+                    MainPage = new  CallingPageForTeacher ( StaticPageForOnSleep.info, 1);
                 } );
             }
             else

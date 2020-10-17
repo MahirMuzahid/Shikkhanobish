@@ -68,7 +68,7 @@ namespace Shikkhanobish.ContentPages
                 calllbl.Text = "Calling Teacher...";
             }
             sec++;
-            if ( sec > 15 )
+            if ( sec > 30 )
             {
                 if(isAcceptedByTeacher == false)
                 {

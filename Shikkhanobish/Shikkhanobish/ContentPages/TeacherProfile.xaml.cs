@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 using Shikkhanobish.ViewModel;
 using Xamarin.Essentials;
 using Shikkhanobish.Interface;
+using Xamarin.Forms.OpenTok.Service;
 
 namespace Shikkhanobish
 {
@@ -44,6 +45,16 @@ namespace Shikkhanobish
             ConnectToServer ();
             SetInfoInInternalStorage ( teacher.UserName , teacher.Password , "Teacher" , 0 );
             StaticPageForOnSleep.isCallPending = false;
+            isPermiteed();
+        }
+        public async void isPermiteed()
+        {
+            var cmStatus = await Permissions.CheckStatusAsync<Permissions.Camera>();
+            var mediaStatus = await Permissions.CheckStatusAsync<Permissions.Media>();
+            if (cmStatus != PermissionStatus.Granted || mediaStatus != PermissionStatus.Granted)
+            {
+                CrossOpenTok.Current.TryStartSession();
+            }
 
         }
         public async Task SetInfoInInternalStorage ( string username , string password , string usertype , int parentCode )
@@ -304,7 +315,7 @@ namespace Shikkhanobish
                         else
                         {
                             MainThread.BeginInvokeOnMainThread ( async ( ) => {
-                                await Application.Current.MainPage.Navigation.PushModalAsync ( new CallingPageForTeacher ( Info ) ).ConfigureAwait ( false );
+                                await Application.Current.MainPage.Navigation.PushModalAsync ( new CallingPageForTeacher ( Info,0 ) ).ConfigureAwait ( false );
                             } );
                         }
                         

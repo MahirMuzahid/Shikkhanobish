@@ -8,6 +8,7 @@ namespace Shikkhanobish.Model
     {
         public TransferInfo Info;
         public int CalculatedTuitionTime;
+        int TeacherPlaceMentTime = 15;
 
         public float RatingAndCostRange ( string rank , string Class )
         {
@@ -105,10 +106,10 @@ namespace Shikkhanobish.Model
             return pmc;
         }
 
-        public static string RankRange(int tuitionPoint, double avg, int totalTuitionTime)
+        public  string RankRange(int tuitionPoint, double avg, int totalTuitionTime)
         {
             string rank = null;
-            if (totalTuitionTime < 15)
+            if (totalTuitionTime < TeacherPlaceMentTime)
             {
                 rank = "Placement";
             }
@@ -132,95 +133,16 @@ namespace Shikkhanobish.Model
             {
                 rank = "Master";
             }
-            return rank; //it shows rank 
+            return rank; 
         }
 
        
-        public float CalculateCost(TransferInfo info )
-        {
-            Info = info;
-            float cost = 0;
-            if (info.StudyTimeInAPp >= 0 )
-            {
-                if( info.StudyTimeInAPp > info.Student.freeMin)
-                {
-                    int min = info.StudyTimeInAPp - info.Student.freeMin;                  
-                    cost = ( min * RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode ) );                   
-                    
-                }
-                else
-                {
-                    cost = 0;
-                }
-            }
-            else
-            {
-                cost = 0;
-            }
-            return cost;
-        }
-        public float CalculateCostPerminStudent ( TransferInfo info )
-        {
-            Info = info;
-            float cost = 0;
-            if ( info.StudyTimeInAPp >= 0 )
-            {
-                if ( info.StudyTimeInAPp > info.Student.freeMin )
-                {
-                    cost = ( RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode ) );
-                }
-                else
-                {
-                    cost = 0;
-                }
-            }
-            else
-            {
-                cost = 0;
-            }
-            return cost;
-        }
-
-        public float CalculateCostForTeacher ( TransferInfo info , bool newTeacher )
-        {
-           
-            Info = info;
-            float cost = 0;
-            if(info.Teacher.Total_Min + info.StudyTimeInAPp > 15)
-            {
-                if(newTeacher == true)
-                {
-                    int min = info.Teacher.Total_Min - info.StudyTimeInAPp;
-
-                    if(min < 0)
-                    {
-                        min = min * -1;
-                    }
-                    cost = ( min * RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode ) );
-                }
-                else
-                {
-                    cost = ( info.StudyTimeInAPp * RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode ) );
-                }
-                
-            }
-
         
-            cost = ( float ) ( cost - ( cost * .2 ) );
-            return cost;
-        }
-        public float CalculateCostPerminTeacher ( TransferInfo info,bool newTeacher )
+        public float CalculateCost ( TransferInfo info )
         {
             Info = info;
-            float cost = 0;
-            if ( info.Teacher.Total_Min + info.StudyTimeInAPp > 15 )
-            {
-                cost = (  RatingAndCostRange ( info.Teacher.Teacher_Rank , info.ClassCode ) );
-
-            }
-            cost = ( float ) ( cost - ( cost * .2 ) );
+            var cost = (RatingAndCostRange(info.Teacher.Teacher_Rank, info.ClassCode));
             return cost;
-
         }
 
         public int CalculateTuitionPoint(TransferInfo info)

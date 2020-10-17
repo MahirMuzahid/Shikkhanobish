@@ -24,9 +24,11 @@ namespace Shikkhanobish.ContentPages
         private int apiKey;
         private string SessionID, Token;
         private bool isstudent;
-        public CallingPageForTeacher ( TransferInfo info )
+        private int fromWhere;
+        public CallingPageForTeacher ( TransferInfo info , int fw)
         {
             InitializeComponent ();
+            fromWhere = fw;
             isCallCut = false;
             Info = info;
             tnLbl.Text = Info.Student.Name;
@@ -37,6 +39,7 @@ namespace Shikkhanobish.ContentPages
             CrossOpenTok.Current.ApiKey = "46485492";
             CrossOpenTok.Current.SessionId = info.SessionID;
             CrossOpenTok.Current.UserToken = info.UserToken;
+            ConnectToServer();
             Device.StartTimer(TimeSpan.FromSeconds(1.0), startCountdown);
         }
         int sec = 0;
@@ -48,7 +51,7 @@ namespace Shikkhanobish.ContentPages
                 return false;
             }
             sec++;
-            if (sec > 15)
+            if (sec > 25)
             {
                 popPage();
                 return false;                
@@ -61,11 +64,6 @@ namespace Shikkhanobish.ContentPages
         }
         private async void callbtn_Clicked ( object sender , EventArgs e )
         {
-
-            if ( !CrossOpenTok.Current.TryStartSession () )
-            {
-                return;
-            }
             setOnTuitionOFFOrOn ( 1 );
             ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , true );
             isCallCut = true;
@@ -85,7 +83,15 @@ namespace Shikkhanobish.ContentPages
             StaticPageForOnSleep.isCallPending = false;
             setOnTuitionOFFOrOn(0);
             ConnectWithStudent(Info.Student.StudentID, Info.Teacher.TeacherID, false);
-            await Application.Current.MainPage.Navigation.PopModalAsync();
+            if(fromWhere == 0)
+            {
+                await Application.Current.MainPage.Navigation.PopModalAsync();
+            }
+            else
+            {
+                await Application.Current.MainPage.Navigation.PushModalAsync(new TeacherProfile(Info.Teacher)).ConfigureAwait(false);
+            }
+            
         }
         //for teacher
         private async void canclebtn_Clicked ( object sender , EventArgs e )
@@ -116,11 +122,7 @@ namespace Shikkhanobish.ContentPages
 
 
         HubConnection _connection = null;
-        bool isConnected = false;
-        string connectionStatus = "Closed";
-        string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub", msgFromApi = "";
-
-
+        string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub";
         int cutCallFirstTime = 0;
         public async Task ConnectToServer ( )
         {
@@ -128,19 +130,7 @@ namespace Shikkhanobish.ContentPages
             _connection = new HubConnectionBuilder ()
                 .WithUrl ( url )
                 .Build ();
-
             await _connection.StartAsync ();
-            isConnected = true;
-            connectionStatus = "Connected";
-
-            _connection.Closed += async ( s ) =>
-            {
-                isConnected = false;
-                connectionStatus = "Disconnected";
-                await _connection.StartAsync ();
-                isConnected = true;
-
-            };
             _connection.On<int , int , int , bool> ( "cutCall" , async ( stop , teacherID , studentID , isStudent ) =>
             {
                 cutCallFirstTime++;
@@ -150,11 +140,20 @@ namespace Shikkhanobish.ContentPages
                     StaticPageForOnSleep.isCallPending = false;
                     setOnTuitionOFFOrOn ( 0 );
                     ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , false );
-                    await Application.Current.MainPage.Navigation.PopModalAsync ();
+                    if (fromWhere == 0)
+                    {
+                        await Application.Current.MainPage.Navigation.PopModalAsync();
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.Navigation.PushModalAsync(new TeacherProfile(Info.Teacher)).ConfigureAwait(false);
+                    }
                 }
 
             } );
         }
+
+        
 
     }
 }

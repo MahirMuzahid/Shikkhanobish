@@ -7,10 +7,11 @@ namespace Shikkhanobish.Model
 {
     public class StaticPageForOnSleep
     {
-        public static bool isSleep { get; set; } 
+        public static bool isSleep { get; set; }
         public static bool isStudent { get; set; }
         public static bool isParent { get; set; }
         public static bool isCallPending { get; set; }
         public static TransferInfo info { get; set; }
+        public static int CallRecivingTime { get; set; }
     }
 }

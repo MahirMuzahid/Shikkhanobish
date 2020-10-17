@@ -26,10 +26,21 @@ namespace Shikkhanobish.ContentPages
         int ownthing = 0;
         bool firstTime , isNewTeacher;
         float totalCost;
+        float costPerMinInThisTuition, TotalCostInThisTuitionForStudent, costPerMinInThisTuitionForTeacher;
+        Calculate calculate = new Calculate();
+        HubConnection _connection = null;
+        bool isConnected = false;
+        string connectionStatus = "Closed";
+        string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub";
+        int cutCallFirstTime;
+        bool cutThisCallNow;
+        int TeacherPlaceMentTime = 15;
         public TutionPage ( TransferInfo trnsInfo)
         {
             isNewTeacher = false;
+            cutThisCallNow = false;
             iscut = false;
+            cutCallFirstTime = 0;
             InitializeComponent ();
             info = trnsInfo;
             sec = 0;
@@ -41,28 +52,30 @@ namespace Shikkhanobish.ContentPages
             //SetSubject ();
             SecureStorage.SetAsync ( "subject_name" , info.SubjectName );
             ConnectToServer ();
-            if(trnsInfo.Teacher.Total_Min <= 20)
-            {
-                isNewTeacher = true;
-            }
-   
+            costPerMinInThisTuition = calculate.CalculateCost(info);
+           
             Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , UpdateTimerAndInfo );                      
         }
+        /// <summary>
+        /// Noraml Function
+        /// </summary>
         public async void SetSubject ()
         {
             await SecureStorage.SetAsync ( "subject_name" , info.SubjectName ).ConfigureAwait ( false );
         }
         private async void OnEndCall ( object sender , EventArgs e )
         {
-            info.StudentCost = calculate.CalculateCost ( info  );
-            iscut = true;
-            CrossOpenTok.Current.EndSession ();
-            _connection.StopAsync ();
-            await CutVideoCAll ().ConfigureAwait(false);
-            gotoRatingPage ();           
-           
+            EndCall();
         }
-        
+        public async void EndCall ()
+        {
+            info.StudentCost = calculate.CalculateCost(info);
+            iscut = true;
+            CrossOpenTok.Current.EndSession();
+            _connection.StopAsync();
+            await CutVideoCAll().ConfigureAwait(false);
+            gotoRatingPage();
+        }
         private void OnSwapCamera ( object sender , EventArgs e )
         {
             CrossOpenTok.Current.CycleCamera ();
@@ -83,7 +96,6 @@ namespace Shikkhanobish.ContentPages
             }
             
         }
-
         protected override bool OnBackButtonPressed ( )
         {
             Navigation.PushPopupAsync ( new PopUpForTextAlert ( "Do You want to cut the call?" , "If you want to cut the call, press cut video icon" , false ) );
@@ -96,8 +108,14 @@ namespace Shikkhanobish.ContentPages
                 await Application.Current.MainPage.Navigation.PushModalAsync ( new RatingPage ( info , true ) ).ConfigureAwait ( false );
             } );
         }
-        Calculate calculate = new Calculate();
-        Calculate cal = new Calculate ();
+
+
+
+
+
+        /// <summary>
+        /// Every Second Call
+        /// </summary>
         private bool UpdateTimerAndInfo()
         {
             sec = sec + 1;
@@ -106,51 +124,49 @@ namespace Shikkhanobish.ContentPages
                 min = min + 1;
                 sec = 0;
             }
-            if (firstTime == true)
+            info.StudyTimeInAPp = min;
+            if(sec == 15)
             {
-                safelbl.IsVisible = true;
-                timerlbl.TextColor = Color.Green;
-                if (sec == 15)
+                StartTime();
+                if(sec == 31 && firstTime == true)
                 {
                     firstTime = false;
-                    sec = 0;
-                    safelbl.TextColor = Color.DarkSlateBlue;
-                    timerlbl.TextColor = Color.Black;
-                    StartTime();
-                    info.StudyTimeInAPp = min + 1;
-                    safelbl.Text = "Cost: " + cal.CalculateCost(info);
-                    SendCostRoTeacher(calculate.CalculateCostForTeacher(info, isNewTeacher));
-                    if (min < info.Student.freeMin)
-                    {
-                        totalCost = 0;
-                        SetCost(0, 0, calculate.CalculateCostForTeacher(info, isNewTeacher), 1);
-                    }
-                    else
-                    {
-                        totalCost = calculate.CalculateCost(info);
-                        SetCost(calculate.CalculateCost(info), calculate.CalculateCostPerminStudent(info), calculate.CalculateCostForTeacher(info, isNewTeacher), 0);
-                    }
                 }
+                
             }
-            if (sec == 31)
-            {
-                if(firstTime == false)
+            if (sec == 31 && firstTime == false)
+            {         
+                if (cutThisCallNow)
                 {
-                    info.StudyTimeInAPp = min + 1;
-                    safelbl.Text = "Cost: " + cal.CalculateCost(info);
-                    SendCostRoTeacher(calculate.CalculateCostForTeacher(info, isNewTeacher));
-                    if (min < info.Student.freeMin)
+                    EndCall();
+                }
+                else
+                {
+                    //Student
+                    if (IsCostCountAvailableForStudent())
                     {
-                        totalCost = 0;
-                        SetCost(0, 0, calculate.CalculateCostForTeacher(info, isNewTeacher), 1);
+                        var cost = CalculateTotalCostStudent();
+                        safelbl.Text = "Cost: " + cost;
+                        SetCost(0);
                     }
                     else
                     {
-                        totalCost = calculate.CalculateCost(info);
-                        SetCost(calculate.CalculateCost(info), calculate.CalculateCostPerminStudent(info), calculate.CalculateCostForTeacher(info, isNewTeacher), 0);
+                        SetCost(1);
                     }
-                }
-            }
+                    //Teacher
+                    if (IsCostCountAvailableForTeacher())
+                    {
+                        CalculateTotalCostTeacher();
+                        SendCostRoTeacher(costPerMinInThisTuitionForTeacher);
+                    }
+                    else
+                    {
+                        SendCostRoTeacher(0);
+                    }
+
+                }                            
+                IsLastMinLimit();
+            }                      
             timerlbl.Text = min + ":" + sec;
             if( iscut == false)
             {
@@ -163,16 +179,13 @@ namespace Shikkhanobish.ContentPages
             
         }
 
-        
-
-        
-        HubConnection _connection = null;
-        bool isConnected = false;
-        string connectionStatus = "Closed";
-        string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub";
 
 
-        int cutCallFirstTime = 0;
+
+
+        /// <summary>
+        /// SignalR Function
+        /// </summary>
         public async Task ConnectToServer ( )
         {
 
@@ -208,7 +221,14 @@ namespace Shikkhanobish.ContentPages
             } );
         }
 
-        
+
+
+
+
+        /// <summary>
+        /// All Usend Indivual Function In this page
+        /// </summary>
+
         public async void SetIsPending ( )
         {
             string url = "https://api.shikkhanobish.com/api/Master/SetPending";
@@ -219,15 +239,11 @@ namespace Shikkhanobish.ContentPages
             string result = await response.Content.ReadAsStringAsync ();
         }
         float previouscostst, previousearnteach;
-        public async void SetCost ( float cost, float stcost, float teacherearn, int FreeMinMinus )
+        public async void SetCost ( int FreeMinMinus)
         {
-            float miancostst = stcost - previouscostst;
-            float mianearnt = teacherearn - previousearnteach;
-            previouscostst = stcost;
-            previousearnteach = teacherearn;
             string url = "https://api.shikkhanobish.com/api/Master/SetCostinIspending";
             HttpClient client = new HttpClient ();
-            string jsonData = JsonConvert.SerializeObject ( new { StudentID = info.Student.StudentID ,  Cost = cost, Time = info.StudyTimeInAPp , StudentCostMin  = miancostst , TeacherEarnMin = mianearnt , TeacherID = info.Teacher.TeacherID, FreeMinMinus = FreeMinMinus } );
+            string jsonData = JsonConvert.SerializeObject ( new { StudentID = info.Student.StudentID ,  Cost = TotalCostInThisTuitionForStudent, Time = info.StudyTimeInAPp , StudentCostMin  = costPerMinInThisTuition , TeacherEarnMin = costPerMinInThisTuitionForTeacher, TeacherID = info.Teacher.TeacherID, FreeMinMinus = FreeMinMinus } );
             StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
             string result = await response.Content.ReadAsStringAsync ();
@@ -262,6 +278,56 @@ namespace Shikkhanobish.ContentPages
             string result = await response.Content.ReadAsStringAsync ().ConfigureAwait ( true );
             var r = JsonConvert.DeserializeObject<string> ( result );
         }
+        public bool IsCostCountAvailableForStudent()
+        {
+            if(info.StudyTimeInAPp - info.Student.freeMin <= 0 )
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+       
+        public float CalculateTotalCostStudent()
+        {
+            TotalCostInThisTuitionForStudent = TotalCostInThisTuitionForStudent + costPerMinInThisTuition;
 
+            return TotalCostInThisTuitionForStudent;
+        }
+
+        public bool IsCostCountAvailableForTeacher()
+        {
+            if (info.Teacher.Total_Min+ info.StudyTimeInAPp < TeacherPlaceMentTime)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public float CalculateTotalCostTeacher()
+        {
+            costPerMinInThisTuitionForTeacher = costPerMinInThisTuition * .8f;
+            return costPerMinInThisTuitionForTeacher;
+        }
+        /// <summary>
+        /// Common For Teacher And Student
+        /// </summary>
+        public void IsLastMinLimit()
+        {
+            if (((TotalCostInThisTuitionForStudent + costPerMinInThisTuition) > info.Student.RechargedAmount) || (info.Student.freeMin - info.StudyTimeInAPp == 1 && info.Student.RechargedAmount < 2))
+            {
+                //show last min alert
+                cutThisCallNow = true;
+            }
+            else
+            {
+                cutThisCallNow = false;
+            }
+        }
     }
 }

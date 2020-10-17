@@ -54,7 +54,7 @@ namespace Shikkhanobish.Droid
                 mBuilder.SetContentTitle ( title )
                         .SetSound ( sound )
                         .SetAutoCancel ( false )
-                        .SetTimeoutAfter (15000)
+                        .SetTimeoutAfter (25000)
                         .SetContentTitle ( title )
                         .SetContentText ( message )
                         .SetChannelId ( NOTIFICATION_CHANNEL_ID )
