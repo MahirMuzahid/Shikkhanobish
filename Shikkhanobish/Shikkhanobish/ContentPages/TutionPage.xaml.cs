@@ -110,8 +110,9 @@ namespace Shikkhanobish.ContentPages
             {
                 safelbl.IsVisible = true;
                 timerlbl.TextColor = Color.Green;
-                if (sec == 10)
+                if (sec == 15)
                 {
+                    firstTime = false;
                     sec = 0;
                     safelbl.TextColor = Color.DarkSlateBlue;
                     timerlbl.TextColor = Color.Black;
@@ -133,11 +134,7 @@ namespace Shikkhanobish.ContentPages
             }
             if (sec == 31)
             {
-                if(firstTime == true)
-                {
-                    firstTime = false;
-                }
-                else if(firstTime == false)
+                if(firstTime == false)
                 {
                     info.StudyTimeInAPp = min + 1;
                     safelbl.Text = "Cost: " + cal.CalculateCost(info);

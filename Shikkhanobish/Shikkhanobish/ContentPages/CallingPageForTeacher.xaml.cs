@@ -12,6 +12,8 @@ using Shikkhanobish.Model;
 using Shikkhanobish.ViewModel;
 using Newtonsoft.Json;
 using OpenTokSDK;
+using Xamarin.Essentials;
+using Shikkhanobish.Interface;
 
 namespace Shikkhanobish.ContentPages
 {
@@ -25,7 +27,7 @@ namespace Shikkhanobish.ContentPages
         public CallingPageForTeacher ( TransferInfo info )
         {
             InitializeComponent ();
-            isCallCutByStudent = false;
+            isCallCut = false;
             Info = info;
             tnLbl.Text = Info.Student.Name;
             clLbl.Text = Info.Class;
@@ -38,23 +40,19 @@ namespace Shikkhanobish.ContentPages
             Device.StartTimer(TimeSpan.FromSeconds(1.0), startCountdown);
         }
         int sec = 0;
-        bool isCallCutByStudent;
+        bool isCallCut;
         private bool startCountdown()
         {
-            
-            sec++;
-            if (sec > 15)
-            {
-                    StaticPageForOnSleep.isCallPending = false;
-                    setOnTuitionOFFOrOn(0);
-                    ConnectWithStudent(Info.Student.StudentID, Info.Teacher.TeacherID, false);
-                    Application.Current.MainPage.Navigation.PopModalAsync();
-                    return false;                
-            }
-            if (isCallCutByStudent == true)
+            if (isCallCut == true)
             {
                 return false;
             }
+            sec++;
+            if (sec > 15)
+            {
+                popPage();
+                return false;                
+            }           
             else
             {
                 return true;
@@ -63,35 +61,36 @@ namespace Shikkhanobish.ContentPages
         }
         private async void callbtn_Clicked ( object sender , EventArgs e )
         {
+
             if ( !CrossOpenTok.Current.TryStartSession () )
             {
                 return;
             }
             setOnTuitionOFFOrOn ( 1 );
             ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , true );
+            isCallCut = true;
+            MainThread.BeginInvokeOnMainThread(() => { DependencyService.Get<INotification>().ReceiveOrCancleCall(); });
             await Application.Current.MainPage.Navigation.PushModalAsync ( new TuitionPageTeacher ( Info ) ).ConfigureAwait ( false );
         }
         protected override bool OnBackButtonPressed ( )
         {
-            StaticPageForOnSleep.isCallPending = false;
-            setOnTuitionOFFOrOn ( 0 );
-            ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , false );
             popPage ();
             //End Call session
             return true;
         }
         public async void popPage ( )
         {
+            MainThread.BeginInvokeOnMainThread(() => { DependencyService.Get<INotification>().ReceiveOrCancleCall(); });
+            isCallCut = true;
             StaticPageForOnSleep.isCallPending = false;
-            await Application.Current.MainPage.Navigation.PopModalAsync ();
+            setOnTuitionOFFOrOn(0);
+            ConnectWithStudent(Info.Student.StudentID, Info.Teacher.TeacherID, false);
+            await Application.Current.MainPage.Navigation.PopModalAsync();
         }
         //for teacher
         private async void canclebtn_Clicked ( object sender , EventArgs e )
         {
-            StaticPageForOnSleep.isCallPending = false;
-            setOnTuitionOFFOrOn ( 0 );
-            ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , false );
-            await Application.Current.MainPage.Navigation.PopModalAsync ();
+            popPage();
         }
 
         public async Task ConnectWithStudent ( int studentID , int teacherID , bool recivedOrNot )
@@ -147,7 +146,7 @@ namespace Shikkhanobish.ContentPages
                 cutCallFirstTime++;
                 if ( isStudent == true && cutCallFirstTime == 1 && teacherID == Info.Teacher.TeacherID )
                 {
-                    isCallCutByStudent = true;
+                    isCallCut = true;
                     StaticPageForOnSleep.isCallPending = false;
                     setOnTuitionOFFOrOn ( 0 );
                     ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , false );

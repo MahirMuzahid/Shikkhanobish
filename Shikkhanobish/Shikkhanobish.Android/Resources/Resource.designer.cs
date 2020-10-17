@@ -14764,7 +14764,10 @@ namespace Shikkhanobish.Droid
 		{
 			
 			// aapt resource value: 0x7f090000
-			public const int ringtone = 2131296256;
+			public const int recieveorcancle = 2131296256;
+			
+			// aapt resource value: 0x7f090001
+			public const int ringtone = 2131296257;
 			
 			static Raw()
 			{

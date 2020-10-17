@@ -27,7 +27,7 @@ namespace Shikkhanobish.Droid
         private NotificationCompat.Builder mBuilder;
         public static String NOTIFICATION_CHANNEL_ID = "10023";
         public event System.EventHandler NotificationReceived;
-
+        AudioAttributes alarmAttributes;
         public NotificationHelper ( )
         {
             mContext = global::Android.App.Application.Context;
@@ -45,7 +45,7 @@ namespace Shikkhanobish.Droid
 
                 var sound = global::Android.Net.Uri.Parse ( ContentResolver.SchemeAndroidResource + "://" + mContext.PackageName + "/" + Resource.Raw.ringtone );
                 // Creating an Audio Attribute
-                var alarmAttributes = new AudioAttributes.Builder ()
+                alarmAttributes = new AudioAttributes.Builder ()
                     .SetContentType ( AudioContentType.Sonification )
                     .SetUsage ( AudioUsageKind.Notification ).Build ();
 
@@ -62,7 +62,6 @@ namespace Shikkhanobish.Droid
                         .SetVibrate ( new long [ 2 ] )
                         .SetDefaults ( ( int ) NotificationDefaults.Sound | ( int ) NotificationDefaults.Vibrate )
                         .SetVisibility ( ( int ) NotificationVisibility.Public )
-                        .SetSmallIcon ( Resource.Drawable.onlylogo )
                         .SetColor ( 80 )
                         .SetVisibility(50)
                         .SetContentIntent ( pendingIntent );
@@ -97,15 +96,10 @@ namespace Shikkhanobish.Droid
                 //
             }
         }
-
-        public void ReceiveNotification(string title, string message)
+        [Obsolete]
+        public void ReceiveOrCancleCall()
         {
-            var args = new NotificationEventArgs()
-            {
-                Title = title,
-                Message = message,
-            };
-            NotificationReceived?.Invoke(null, args);
+            mBuilder.SetSound(global::Android.Net.Uri.Parse(ContentResolver.SchemeAndroidResource + "://" + mContext.PackageName + "/" + Resource.Raw.recieveorcancle));
         }
     }
 }

@@ -8,5 +8,6 @@ namespace Shikkhanobish.Interface
     {
         event EventHandler NotificationReceived;
         void CreateNotification ( String title , String message );
+        void ReceiveOrCancleCall();
     }
 }
