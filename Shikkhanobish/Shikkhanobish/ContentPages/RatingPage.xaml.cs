@@ -244,7 +244,7 @@ namespace Shikkhanobish.ContentPages
                 Class = tuitionClass ,
                 IsPenidng = 0 ,
                 Teacher_Name = info.Teacher.TeacherName ,
-                StudentCost = 0 ,
+                StudentCost = 0,
                 TeacherEarn = 0,
                 Student_Name = info.Student.Name
             } ); ;

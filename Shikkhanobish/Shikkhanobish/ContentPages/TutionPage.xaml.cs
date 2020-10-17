@@ -24,7 +24,7 @@ namespace Shikkhanobish.ContentPages
         private TransferInfo info = new TransferInfo ();
         int sec, min;
         int ownthing = 0;
-        bool firstTime , isNewTeacher;
+        bool firstTime , safeTimeDone;
         float totalCost;
         float costPerMinInThisTuition, TotalCostInThisTuitionForStudent, costPerMinInThisTuitionForTeacher;
         Calculate calculate = new Calculate();
@@ -37,7 +37,7 @@ namespace Shikkhanobish.ContentPages
         int TeacherPlaceMentTime = 15;
         public TutionPage ( TransferInfo trnsInfo)
         {
-            isNewTeacher = false;
+            safeTimeDone = false;
             cutThisCallNow = false;
             iscut = false;
             cutCallFirstTime = 0;
@@ -69,7 +69,7 @@ namespace Shikkhanobish.ContentPages
         }
         public async void EndCall ()
         {
-            info.StudentCost = calculate.CalculateCost(info);
+            info.StudentCost = TotalCostInThisTuitionForStudent;
             iscut = true;
             CrossOpenTok.Current.EndSession();
             _connection.StopAsync();
@@ -124,18 +124,44 @@ namespace Shikkhanobish.ContentPages
                 min = min + 1;
                 sec = 0;
             }
-            info.StudyTimeInAPp = min;
-            if(sec == 15)
+                                   
+            if (sec == 15 && safeTimeDone == false)
             {
                 StartTime();
-                if(sec == 31 && firstTime == true)
-                {
-                    firstTime = false;
-                }
+                info.StudyTimeInAPp = 1;
                 
+                //Teacher
+                if (IsCostCountAvailableForTeacher())
+                {
+                    CalculateTotalCostTeacher();
+                    SendCostRoTeacher(costPerMinInThisTuitionForTeacher);
+                }
+                else
+                {
+                    SendCostRoTeacher(0);
+                }
+                if (IsCostCountAvailableForStudent())
+                {
+                    var cost = CalculateTotalCostStudent();
+                    safelbl.Text = "Cost: " + cost;
+                    SetCost(0);
+                }
+                else
+                {
+                    SetCost(1);
+                    safelbl.Text = "Cost: " + 0;
+                }
+                safeTimeDone = true;
+                sec = 0;                         
+                safelbl.TextColor = Color.BlueViolet;
             }
-            if (sec == 31 && firstTime == false)
-            {         
+            if (sec == 31 && firstTime == true)
+            {
+                firstTime = false;
+            }
+            else if (sec == 31 && firstTime == false)
+            {
+                info.StudyTimeInAPp = info.StudyTimeInAPp + 1;
                 if (cutThisCallNow)
                 {
                     EndCall();
@@ -178,8 +204,6 @@ namespace Shikkhanobish.ContentPages
             }
             
         }
-
-
 
 
 

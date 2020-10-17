@@ -67,7 +67,7 @@ namespace Shikkhanobish.ContentPages
             setOnTuitionOFFOrOn ( 1 );
             ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , true );
             isCallCut = true;
-            MainThread.BeginInvokeOnMainThread(() => { DependencyService.Get<INotification>().ReceiveOrCancleCall(); });
+            //MainThread.BeginInvokeOnMainThread(() => { DependencyService.Get<INotification>().ReceiveOrCancleCall(); });
             await Application.Current.MainPage.Navigation.PushModalAsync ( new TuitionPageTeacher ( Info ) ).ConfigureAwait ( false );
         }
         protected override bool OnBackButtonPressed ( )

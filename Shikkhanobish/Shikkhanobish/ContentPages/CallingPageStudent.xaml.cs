@@ -117,8 +117,7 @@ namespace Shikkhanobish.ContentPages
             {
                 calllbl.Text = "Cancle Calling...";
             });         
-            CutVideoCAllForTeacher ();          
-            //CrossOpenTok.Current.EndSession ();
+            CutVideoCAllForTeacher ();        
             _connection.StopAsync ();
             
         }
@@ -190,7 +189,6 @@ namespace Shikkhanobish.ContentPages
                         else
                         {
                             await Application.Current.MainPage.Navigation.PopModalAsync ();
-                            CrossOpenTok.Current.EndSession ();
                             _connection.StopAsync ();
                         }
                     }

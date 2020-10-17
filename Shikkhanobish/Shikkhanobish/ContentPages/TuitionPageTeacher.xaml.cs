@@ -23,8 +23,10 @@ namespace Shikkhanobish.ContentPages
         int sec, min;
         int ownthing = 0, i = 0;
         bool firstTime;
+        float teacherEarn;
         public TuitionPageTeacher ( TransferInfo trnsInfo )
         {
+            teacherEarn = 0;
             InitializeComponent ();
             info = trnsInfo;
             sec = 0;
@@ -97,7 +99,6 @@ namespace Shikkhanobish.ContentPages
         bool isConnected = false;
         string connectionStatus = "Closed";
         string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub", msgFromApi = "";
-        int cutCallFirstTime = 0;
         public async Task ConnectToServer ( )
         {
             _connection = new HubConnectionBuilder ()
@@ -130,23 +131,23 @@ namespace Shikkhanobish.ContentPages
             {
                 if ( info.Teacher.TeacherID == teacherID && info.Student.StudentID == studentID )
                 {
+                    teacherEarn = teacherEarn + cost;
                     timerlbl.TextColor = Color.Black;
                     safelbl.TextColor = Color.Green;
-                    safelbl.Text = "Earned: " + cost;
+                    safelbl.Text = "Earned: " + teacherEarn;
                     UpdateMin ();
                 }
 
             } );
             _connection.On<int , int, int, bool> ( "cutCall" , async ( stop , teacherID ,  studentID ,  isStudent ) =>
             {
-                cutCallFirstTime++;
-                if (isStudent == true && cutCallFirstTime == 1 )
+                if (isStudent == true )
                 {
                     if ( info.Teacher.TeacherID == teacherID )
                     {
                         setOnTuitionOFF ();
                         setIsActiveOFF ();
-                        CrossOpenTok.Current.EndSession ();
+                        //CrossOpenTok.Current.EndSession ();
                         _connection.StopAsync ();
                         await Application.Current.MainPage.Navigation.PushModalAsync ( new TeacherProfile ( info.Teacher ) ).ConfigureAwait ( false );
                     }
