@@ -30,10 +30,12 @@ namespace Shikkhanobish
         public Teacher teacher = new Teacher();
         public string text;
         public string _errorText;
+        public bool isError;
         public TransferInfo Trns = new TransferInfo ();
 
         public MainPageViewModel()
         {
+            isError = false;
             StaticPageForOnSleep.isParent = false;
             MainThread.BeginInvokeOnMainThread (( ) =>
             {
@@ -49,6 +51,7 @@ namespace Shikkhanobish
                {
                    try
                    {
+                       ErrorText = "";
                        if (Connectivity.NetworkAccess == NetworkAccess.Internet)
                        {
                            int pagenumber = 0;
@@ -74,57 +77,61 @@ namespace Shikkhanobish
                                    loginText = "Wait...";
                                    await SearchTeacher().ConfigureAwait(false);
                                    await SearchStudent().ConfigureAwait(false);
-                                   //Task.Run ( ()=>SearchTeacher ());
-                                   //Task.Run ( ( ) => SearchStudent () );
-
-                                   if (student.Name == null)
+                                   if(student.Name == null && teacher.TeacherName == null)
                                    {
-                                       await GetPeddingInfo(teacher.TeacherID).ConfigureAwait(false);
-                                       teacher.pendingcount = pending;
-                                       pagenumber = 0;
-                                       //goPage ( 0 );
+                                       ErrorText = "Wrong Useername or Password";
+                                       loginText = "Login";
                                    }
                                    else
                                    {
-                                       if (student.IsPending == 1)
+                                       if (student.Name == null)
                                        {
-                                           string urlT = "https://api.shikkhanobish.com/api/Master/GetPending";
-                                           HttpClient clientT = new HttpClient();
-                                           string jsonDataT = JsonConvert.SerializeObject(new { StudentID = student.StudentID });
-                                           StringContent contentT = new StringContent(jsonDataT, Encoding.UTF8, "application/json");
-                                           HttpResponseMessage responseT = await clientT.PostAsync(urlT, contentT).ConfigureAwait(false);
-                                           string resultT = await responseT.Content.ReadAsStringAsync().ConfigureAwait(false);
-                                           var pendningRating = JsonConvert.DeserializeObject<IsPending>(resultT);
-                                           urlT = "https://api.shikkhanobish.com/api/Master/GetInfoByTeacherID";
-                                           jsonDataT = JsonConvert.SerializeObject(new { TeacherID = pendningRating.TeacherID });
-                                           contentT = new StringContent(jsonDataT, Encoding.UTF8, "application/json");
-                                           responseT = await clientT.PostAsync(urlT, contentT).ConfigureAwait(false);
-                                           resultT = await responseT.Content.ReadAsStringAsync().ConfigureAwait(false);
-                                           var teacher = JsonConvert.DeserializeObject<Teacher>(resultT);
-                                           TransferInfo trns = new TransferInfo();
-                                           trns.Student = student;
-                                           trns.Class = pendningRating.Class;
-                                           trns.Subject = pendningRating.Subject;
-                                           trns.StudentCost = pendningRating.Cost;
-                                           trns.StudyTimeInAPp = pendningRating.Time;
-                                           trns.Teacher = teacher;
-                                           Trns = trns;
-                                           pagenumber = 2;
-                                           // goPage ( 2 );
+                                           await GetPeddingInfo(teacher.TeacherID).ConfigureAwait(false);
+                                           teacher.pendingcount = pending;
+                                           pagenumber = 0;
                                        }
                                        else
                                        {
-                                           pagenumber = 1;
-                                           //goPage ( 1 );
+                                           if (student.IsPending == 1)
+                                           {
+                                               string urlT = "https://api.shikkhanobish.com/api/Master/GetPending";
+                                               HttpClient clientT = new HttpClient();
+                                               string jsonDataT = JsonConvert.SerializeObject(new { StudentID = student.StudentID });
+                                               StringContent contentT = new StringContent(jsonDataT, Encoding.UTF8, "application/json");
+                                               HttpResponseMessage responseT = await clientT.PostAsync(urlT, contentT).ConfigureAwait(false);
+                                               string resultT = await responseT.Content.ReadAsStringAsync().ConfigureAwait(false);
+                                               var pendningRating = JsonConvert.DeserializeObject<IsPending>(resultT);
+                                               urlT = "https://api.shikkhanobish.com/api/Master/GetInfoByTeacherID";
+                                               jsonDataT = JsonConvert.SerializeObject(new { TeacherID = pendningRating.TeacherID });
+                                               contentT = new StringContent(jsonDataT, Encoding.UTF8, "application/json");
+                                               responseT = await clientT.PostAsync(urlT, contentT).ConfigureAwait(false);
+                                               resultT = await responseT.Content.ReadAsStringAsync().ConfigureAwait(false);
+                                               var teacher = JsonConvert.DeserializeObject<Teacher>(resultT);
+                                               TransferInfo trns = new TransferInfo();
+                                               trns.Student = student;
+                                               trns.Class = pendningRating.Class;
+                                               trns.Subject = pendningRating.Subject;
+                                               trns.StudentCost = pendningRating.Cost;
+                                               trns.StudyTimeInAPp = pendningRating.Time;
+                                               trns.Teacher = teacher;
+                                               Trns = trns;
+                                               pagenumber = 2;
+                                           }
+                                           else
+                                           {
+                                               pagenumber = 1;
+                                           }
                                        }
+                                       MainThread.BeginInvokeOnMainThread(() => { goPage(pagenumber); });
                                    }
+                                   
                                }
                                catch
                                {
                                    loginText = "Login";
                                    ErrorText = "Connection Reset! Check internet connection";
                                }
-                               MainThread.BeginInvokeOnMainThread(() => { goPage(pagenumber); });
+                               
                            }
                        }
                        else

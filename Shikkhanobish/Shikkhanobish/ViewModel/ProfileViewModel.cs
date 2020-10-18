@@ -46,7 +46,7 @@ namespace Shikkhanobish
             Class = "Class: " + t.Class;
             InstitutionName = "" + t.InstitutionName;
             IsTeacherorStudent = "Teacher";
-            AmountTxt = "" + t.RechargedAmount + " Taka";
+            AmountTxt = "Coin: " + t.RechargedAmount;
             AvailableMintxt = "" + t.RechargedAmount;
             Fee = "NTY";
             Avarage = System.Math.Round ( total / count , 2 );

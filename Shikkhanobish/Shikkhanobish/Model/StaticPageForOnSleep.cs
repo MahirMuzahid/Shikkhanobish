@@ -12,6 +12,6 @@ namespace Shikkhanobish.Model
         public static bool isParent { get; set; }
         public static bool isCallPending { get; set; }
         public static TransferInfo info { get; set; }
-        public static int CallRecivingTime { get; set; }
+        public static string shortNote { get; set; }
     }
 }

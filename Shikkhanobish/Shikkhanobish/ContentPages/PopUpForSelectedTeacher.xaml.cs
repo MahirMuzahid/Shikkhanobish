@@ -25,10 +25,11 @@ namespace Shikkhanobish.ContentPages
         {
             try
             {
+                await SendShortNote(Info.Teacher.TeacherID, shortnoteentry.Text).ConfigureAwait(false);
                 ConnectWithTeacher(SessionID, Token, Info.Student.StudentID, Info.Teacher.TeacherID, Info.SubjectName, Info.Class, Info.Teacher.Amount, Info.Teacher.TeacherName);
                 MainThread.BeginInvokeOnMainThread(async () =>
                 {
-                    await Application.Current.MainPage.Navigation.PushModalAsync(new CallingPageStudent(Info)).ConfigureAwait(false);
+                    await Application.Current.MainPage.Navigation.PushModalAsync(new CallingPageStudent(Info, shortnoteentry.Text)).ConfigureAwait(false);
                 });
 
                 await Navigation.PopPopupAsync().ConfigureAwait(false);
@@ -48,6 +49,14 @@ namespace Shikkhanobish.ContentPages
             HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
             string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
         }
+        public async Task SendShortNote (int teacherID, string shortNote)
+        {
+            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/SendShortNote?&teacherID=" + teacherID + "&shortNote=" + shortNote;
+            HttpClient client = new HttpClient();
+            StringContent content = new StringContent("", Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(true);
+            string result = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
+        }
         public PopUpForSelectedTeacher ( TransferInfo info,string sid, string token)
         {
             InitializeComponent ();
@@ -58,10 +67,22 @@ namespace Shikkhanobish.ContentPages
             tnLbl.Text = Info.Teacher.TeacherName;
             clLbl.Text = Info.Class;
             subLbl.Text = Info.SubjectName;
-            ctLbl.Text = "Cost: " + Info.Teacher.Amount + " taka/min";;
+            ctLbl.Text = "Cost: " + Info.Teacher.Amount + " taka/min";
+            callbtn.IsEnabled = false;
+            shortnoteentry.TextChanged += isTherAnyText;
         }
         
-        
+        public void isTherAnyText (object sender, TextChangedEventArgs e)
+        {
+            if(shortnoteentry.Text == "" || shortnoteentry.Text == null)
+            {
+                callbtn.IsEnabled = false;
+            }
+            else
+            {
+                callbtn.IsEnabled = true;
+            }
+        }
 
 
 

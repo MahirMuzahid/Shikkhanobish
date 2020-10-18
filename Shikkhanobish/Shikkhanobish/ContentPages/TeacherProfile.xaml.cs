@@ -28,10 +28,12 @@ namespace Shikkhanobish
         private bool takeTuition;
         double total, avg;
         int count;
+        string ShortNote;
         
         public TeacherProfile(Teacher t)
         {
             takeTuition = false;
+            ShortNote = "";
             InitializeComponent ();
             BindingContext = new ProfileViewModel ( t );
             teacher = t;
@@ -287,7 +289,7 @@ namespace Shikkhanobish
                 isConnected = true;
 
             };
-            _connection.On< string , string , int , int , string , string, double, string> ( "CallInfo" , async ( SessionId , UserToken , studentID , teacherID , Class , subject,cost, studentName ) =>
+            _connection.On< string , string , int , int , string , string, double, string> ( "CallInfo" , async ( SessionId , UserToken , studentID , teacherID , Class , subject,cost, studentName) =>
             { 
                 if(takeTuition == true)
                 {
@@ -305,6 +307,7 @@ namespace Shikkhanobish
                         Info.Teacher.Amount = cost;
                         activelbl.Text = "Inactive";
                         activeback.BackgroundColor = Color.FromHex ( "#A7A7A7" );
+                        _connection.StopAsync();
                         ShowOffLineInStudentWindowRealTime (false);
                         if ( StaticPageForOnSleep.isSleep == true)
                         {
@@ -315,7 +318,7 @@ namespace Shikkhanobish
                         else
                         {
                             MainThread.BeginInvokeOnMainThread ( async ( ) => {
-                                await Application.Current.MainPage.Navigation.PushModalAsync ( new CallingPageForTeacher ( Info,0 ) ).ConfigureAwait ( false );
+                                await Application.Current.MainPage.Navigation.PushModalAsync ( new CallingPageForTeacher ( Info,0, ShortNote) ).ConfigureAwait ( false );
                             } );
                         }
                         
@@ -325,6 +328,18 @@ namespace Shikkhanobish
                 
                 
             } );
+
+
+
+            _connection.On<int ,  string>("SendShortNote", async (teacherID, shortNote) =>
+            {
+                if(teacherID == teacher.TeacherID)
+                {
+                    StaticPageForOnSleep.shortNote = shortNote;
+                    ShortNote = shortNote;
+                }
+
+            });
         }
 
         public async void setOnTuitionOFF (  )

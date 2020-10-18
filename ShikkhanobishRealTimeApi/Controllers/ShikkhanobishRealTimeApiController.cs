@@ -21,7 +21,7 @@ namespace ShikkhanobishRealTimeApi.Controllers
         [HttpPost ( "CallTeacher" )]
         public async Task<IActionResult> ClTeacher ( string SessionId , string UserToken , int studentID, int teacherID, string Cls, string subject, double cost, string studentName )
         {
-            await _hubContext.Clients.All.SendAsync ( "CallInfo" , SessionId , UserToken, studentID, teacherID, Cls, subject,cost, studentName );
+            await _hubContext.Clients.All.SendAsync ( "CallInfo" , SessionId , UserToken, studentID, teacherID, Cls, subject,cost, studentName);
 
             return Ok ( "ok" );
         }
@@ -60,6 +60,13 @@ namespace ShikkhanobishRealTimeApi.Controllers
             await _hubContext.Clients.All.SendAsync ( "TurnOffActiveStatus" , TeacherID ,isOnline);
 
             return Ok ( "Turn off active status" );
+        }
+        [HttpPost("SendShortNote")]
+        public async Task<IActionResult> SendShortNote(int teacherID ,string shortNote)
+        {
+            await _hubContext.Clients.All.SendAsync("SendShortNote", teacherID, shortNote);
+
+            return Ok("Short Note Sent");
         }
 
     }

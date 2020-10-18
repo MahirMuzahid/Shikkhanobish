@@ -25,9 +25,10 @@ namespace Shikkhanobish.ContentPages
         private string SessionID, Token;
         private bool isstudent;
         private int fromWhere;
-        public CallingPageForTeacher ( TransferInfo info , int fw)
-        {
+        public CallingPageForTeacher ( TransferInfo info , int fw, string sn)
+        {           
             InitializeComponent ();
+            shortnotelbl.Text = sn;
             fromWhere = fw;
             isCallCut = false;
             Info = info;
@@ -78,7 +79,6 @@ namespace Shikkhanobish.ContentPages
         }
         public async void popPage ( )
         {
-            MainThread.BeginInvokeOnMainThread(() => { DependencyService.Get<INotification>().ReceiveOrCancleCall(); });
             isCallCut = true;
             StaticPageForOnSleep.isCallPending = false;
             setOnTuitionOFFOrOn(0);

@@ -33,22 +33,24 @@ namespace Shikkhanobish.ContentPages
         bool isCallCutByStudent;
         HubConnection _connection = null;
         bool isAcceptedByTeacher = false;
+        string note;
         string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub";
-        public CallingPageStudent ( TransferInfo info )
+        public CallingPageStudent ( TransferInfo info, string shortNote )
         {
-                InitializeComponent();
-                searchdontcount = 0;
-                isCallCutByStudent = false;
-                sec = 0;
-                Info = info;
-                ConnectToServer();
-                tnLbl.Text = Info.Teacher.TeacherName;
-                clLbl.Text = Info.Class;
-                subLbl.Text = Info.SubjectName;
-                ctLbl.Text = "Cost: " + Info.Teacher.Amount + " taka/min";
-                // StaticPageForGeneralUse.TappedTeacherIdForTuition = info.Teacher.TeacherID;
-                Device.StartTimer(TimeSpan.FromSeconds(1.0), startCountdown);                    
-
+            InitializeComponent();
+            searchdontcount = 0;
+            note = shortNote;
+            isCallCutByStudent = false;
+            sec = 0;
+            Info = info;
+            ConnectToServer();
+            tnLbl.Text = Info.Teacher.TeacherName;
+            clLbl.Text = Info.Class;
+            subLbl.Text = Info.SubjectName;
+            ctLbl.Text = "Cost: " + Info.Teacher.Amount + " taka/min";
+            shortnotelbl.Text = shortNote;
+            // StaticPageForGeneralUse.TappedTeacherIdForTuition = info.Teacher.TeacherID;
+            Device.StartTimer(TimeSpan.FromSeconds(1.0), startCountdown);
         }
         int searchdontcount;
         private bool startCountdown ( )

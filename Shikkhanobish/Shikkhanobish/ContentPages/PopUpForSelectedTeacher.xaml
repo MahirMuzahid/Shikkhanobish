@@ -17,22 +17,23 @@
       EasingOut="SinIn"
       HasBackgroundAnimation="True"/>
     </pages:PopupPage.Animation>
-    <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="10">
+    <Frame  VerticalOptions="Center" CornerRadius="10" Margin="60">
         <Grid BackgroundColor="#FFFFFF">
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
 
             <Label x:Name="tnLbl" FontAttributes="Bold" FontSize="16" Text="Teacher name" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center"/>
             <Label x:Name="clLbl" Text="Class" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center"/>
             <Label x:Name="subLbl" Text="Subject" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center"/>
             <Label x:Name="ctLbl" Text="Cost" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center"/>
-            
-            <Button x:Name="callbtn" Text="Call Teacher" Grid.Row="4" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="#B2FFB2" CornerRadius="10" Clicked="Button_Clicked" />
+            <Entry x:Name="shortnoteentry" Placeholder="Short note for your teacher" Grid.Row="4" FontSize="14"/>
+            <Button x:Name="callbtn" Text="Call Teacher" Grid.Row="5" HorizontalOptions="Center" BackgroundColor="#B2FFB2" CornerRadius="10" Clicked="Button_Clicked" FontSize="12"/>
 
         </Grid>
     </Frame>

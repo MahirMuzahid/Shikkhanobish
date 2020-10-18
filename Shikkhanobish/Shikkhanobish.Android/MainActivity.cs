@@ -1,13 +1,10 @@
 ﻿using Android.App;
-using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Plugin.CurrentActivity;
-using Plugin.LocalNotification;
 using System;
-using System.Linq;
 using Xamarin.Forms.OpenTok.Android.Service;
 
 namespace Shikkhanobish.Droid
@@ -26,9 +23,6 @@ namespace Shikkhanobish.Droid
             Xamarin.Essentials.Platform.Init ( this , savedInstanceState );
             global::Xamarin.Forms.Forms.Init ( this , savedInstanceState );
             base.SetTheme ( global::Android.Resource.Style.ThemeHoloLight );
-
-
-
             CrossCurrentActivity.Current.Activity = this;
             Rg.Plugins.Popup.Popup.Init ( this , savedInstanceState );
             LoadApplication ( new App () );

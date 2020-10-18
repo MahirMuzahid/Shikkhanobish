@@ -32,6 +32,7 @@ namespace Shikkhanobish
         private List<Teacher> TeacherList = new List<Teacher> ();
         private List<Teacher> FilteredTeacher = new List<Teacher> ();
         public bool ok;
+        int freemin;
 
         ObservableCollection<string> subjectNameC6to8 = new ObservableCollection<string> ();
         ObservableCollection<string> subjectNameC9to10s = new ObservableCollection<string> ();
@@ -46,8 +47,9 @@ namespace Shikkhanobish
 
 
 
-        public TakeTuition ( int StudentID , string StudentName , string username , string pass , float amount, List<OfferAndVoucherSource> offers)
-        { 
+        public TakeTuition ( int StudentID , string StudentName , string username , string pass , float amount, List<OfferAndVoucherSource> offers, int FreeMin)
+        {
+            freemin = FreeMin;
             subjectNameC6to8.Add ( "Bangla 1st Paper" );
             subjectNameC6to8.Add ( "Bangla 2nd Paper" );
             subjectNameC6to8.Add ( "Englist 1st Paper" );
@@ -700,7 +702,15 @@ namespace Shikkhanobish
                 {
                     FilteredTeacher [ i ].Color = "#CA6AF1";
                 }
-                FilteredTeacher [ i ].Amount = cal.RatingAndCostRange ( FilteredTeacher [ i ].Teacher_Rank , transferNow.ClassCode  );
+                if(freemin > 0)
+                {
+                    FilteredTeacher[i].Amount = 0;
+                }
+                else
+                {
+                    FilteredTeacher[i].Amount = cal.RatingAndCostRange(FilteredTeacher[i].Teacher_Rank, transferNow.ClassCode);
+                }
+                
             }
         }
     }
