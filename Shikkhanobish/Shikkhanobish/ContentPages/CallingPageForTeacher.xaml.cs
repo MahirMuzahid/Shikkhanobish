@@ -28,7 +28,7 @@ namespace Shikkhanobish.ContentPages
         public CallingPageForTeacher ( TransferInfo info , int fw, string sn)
         {           
             InitializeComponent ();
-            shortnotelbl.Text = sn;
+            shortnotelbl.Text = "Note: "+sn;
             fromWhere = fw;
             isCallCut = false;
             Info = info;

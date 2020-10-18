@@ -520,8 +520,9 @@ namespace Shikkhanobish
                     IsCancled = false;
                     Errorlbl.TextColor = Color.DarkSlateGray;
                     Errorlbl.Text = "You can click Search Button, to cancle search.";
-                    Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , searchAgain );
                     Device.StartTimer(TimeSpan.FromSeconds(1.0), updateTimer);
+                    Device.StartTimer ( TimeSpan.FromSeconds ( 1.0 ) , searchAgain );
+                    
                 }
                 else
                 {
@@ -550,7 +551,7 @@ namespace Shikkhanobish
                 }
                 else if (searchdontcount == 2)
                 {
-                    SearchBtn.Text = "Searching.";
+                    SearchBtn.Text = "Searching..";
                 }
                 else if (searchdontcount == 3)
                 {
