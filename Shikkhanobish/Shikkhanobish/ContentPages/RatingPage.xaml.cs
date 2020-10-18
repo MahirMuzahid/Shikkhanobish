@@ -111,7 +111,7 @@ namespace Shikkhanobish.ContentPages
             fply.Fill = Brush.White;
             fiply.Fill = Brush.White;
             info.GivenRating = 2;
-            Ratelbl.Text = "Avarage";
+            Ratelbl.Text = "Average";
             sbtn.IsEnabled = true;
             Ratelbl.TextColor = Color.FromHex ( "#F0BE05" );
             pbar.ProgressColor = Color.FromHex ( "#F0BE05" );
@@ -201,59 +201,68 @@ namespace Shikkhanobish.ContentPages
 
         public async void FinishTHeUpdate()
         {
-            int tuitionPoint = calculate.CalculateTuitionPoint ( info );
-            info.Teacher.OverallTP = tuitionPoint + info.Teacher.Tuition_Point;
-            string tuitionClass = null, rank=  null;
-            if(isft == true)
+            try
             {
-                info.Teacher.Total_Min = info.Teacher.Total_Min + info.StudyTimeInAPp;
-                rank = calculate.CalculateRank(info);
-            }
-            else
-            {
-                calculate.CalculateRank(info);
-            }
-            String Date = DateTime.Now.ToString();
-            for (int i = 0; i < info.Class.Length; i++)
-            {
-                if (info.Class.Length == 7)
+                int tuitionPoint = calculate.CalculateTuitionPoint(info);
+                info.Teacher.OverallTP = tuitionPoint + info.Teacher.Tuition_Point;
+                string tuitionClass = null, rank = null;
+                if (isft == true)
                 {
-                    tuitionClass = "" + info.Class[6];
+                    info.Teacher.Total_Min = info.Teacher.Total_Min + info.StudyTimeInAPp;
+                    rank = calculate.CalculateRank(info);
                 }
-                if (info.Class.Length == 8)
+                else
                 {
-                    tuitionClass = "" + info.Class[7];
-                    tuitionClass = tuitionClass + info.Class[8];
+                    calculate.CalculateRank(info);
                 }
+                String Date = DateTime.Now.ToString();
+                for (int i = 0; i < info.Class.Length; i++)
+                {
+                    if (info.Class.Length == 7)
+                    {
+                        tuitionClass = "" + info.Class[6];
+                    }
+                    if (info.Class.Length == 8)
+                    {
+                        tuitionClass = "" + info.Class[7];
+                        tuitionClass = tuitionClass + info.Class[8];
+                    }
+                }
+                string url = "https://api.shikkhanobish.com/api/Master/UpdateInfo";
+                HttpClient client = new HttpClient();
+                string jsonData = JsonConvert.SerializeObject(new
+                {
+                    TeacherID = info.Teacher.TeacherID,
+                    IsActive = 0,
+                    IsOnTuition = 0,
+                    StudentID = info.Student.StudentID,
+                    Rating = info.GivenRating,
+                    InAppMin = info.StudyTimeInAPp,
+                    Tuition_Point = tuitionPoint,
+                    Teacher_Rank = rank,
+                    Date = Date,
+                    Subject = info.Subject,
+                    SubjectName = info.SubjectName,
+                    Class = tuitionClass,
+                    IsPenidng = 0,
+                    Teacher_Name = info.Teacher.TeacherName,
+                    StudentCost = 0,
+                    TeacherEarn = 0,
+                    Student_Name = info.Student.Name
+                }); ;
+                StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(false);
+                string result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                Response responseData = JsonConvert.DeserializeObject<Response>(result);
+                DeletePending();
+                backtoProfile();
             }
-            string url = "https://api.shikkhanobish.com/api/Master/UpdateInfo";
-            HttpClient client = new HttpClient();
-            string jsonData = JsonConvert.SerializeObject ( new
+            catch(Exception ex)
             {
-                TeacherID = info.Teacher.TeacherID ,
-                IsActive = 0 ,
-                IsOnTuition = 0 ,
-                StudentID = info.Student.StudentID ,
-                Rating = info.GivenRating ,
-                InAppMin = info.StudyTimeInAPp ,
-                Tuition_Point = tuitionPoint ,
-                Teacher_Rank = rank ,
-                Date = Date ,
-                Subject = info.Subject ,
-                SubjectName = info.SubjectName ,
-                Class = tuitionClass ,
-                IsPenidng = 0 ,
-                Teacher_Name = info.Teacher.TeacherName ,
-                StudentCost = 0,
-                TeacherEarn = 0,
-                Student_Name = info.Student.Name
-            } ); ;
-            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait( false );
-            string result = await response.Content.ReadAsStringAsync().ConfigureAwait( false );
-            Response responseData = JsonConvert.DeserializeObject<Response>(result);
-            DeletePending ();
-            backtoProfile ();
+                rptbtn.IsEnabled = true;
+                MainThread.BeginInvokeOnMainThread(() => { Navigation.PushPopupAsync(new PopUpForTextAlert("Error", ex.Message, false)); });
+            }
+            
         }
 
         public async void backtoProfile()
@@ -278,6 +287,7 @@ namespace Shikkhanobish.ContentPages
 
         private void Button_Clicked(object sender, EventArgs e)
         {
+            rptbtn.IsEnabled = false;
             FinishTHeUpdate();
         }
 

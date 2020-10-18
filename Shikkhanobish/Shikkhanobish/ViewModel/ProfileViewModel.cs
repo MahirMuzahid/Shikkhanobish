@@ -52,7 +52,7 @@ namespace Shikkhanobish
             Avarage = System.Math.Round ( total / count , 2 );
             Subject = "NTY";
             TuitionPoint = t.Tuition_Point;
-            OffredTuitionTime = " " + t.Total_Min;
+            OffredTuitionTime = " " + t.Total_Min + " minute" ;
             TotalTuitionCount = "" + t.Number_Of_Tution;
             TeacherRank = t.Teacher_Rank;
             PendingNumber = "" + t.pendingcount;

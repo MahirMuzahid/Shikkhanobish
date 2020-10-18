@@ -28,7 +28,7 @@ namespace Shikkhanobish.ContentPages
         VideoCAllApiInfo api = new VideoCAllApiInfo();
         bool isConnected = false;
         string connectionStatus = "Closed";
-        string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub", msgFromApi = "";
+        string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub";
         int cutCallFirstTime = 0;
         StaticPageForGeneralUse Event = new StaticPageForGeneralUse(); 
         public SearchedTeacher(TransferInfo transInfo, List<Teacher> teacherList)
@@ -37,10 +37,7 @@ namespace Shikkhanobish.ContentPages
             info = transInfo;
             FilteredTeacher = teacherList;
             SetEveryThing ();
-            ConnectToServer ();
-            CrossOpenTok.Current.ApiKey = "" + 46485492;
-            CrossOpenTok.Current.UserToken = api.Token;
-            CrossOpenTok.Current.SessionId = api.Session.Id;            
+            ConnectToServer ();         
         }
 
         
@@ -53,8 +50,7 @@ namespace Shikkhanobish.ContentPages
         {
             var selectedTeacher = e.Item as Teacher;
             info.Teacher = selectedTeacher;
-            isPermiteed();
-            
+            beSure();
         }
 
         public async void beSure()
@@ -66,21 +62,7 @@ namespace Shikkhanobish.ContentPages
             }
                       
         }
-
-        public async void isPermiteed()
-        {
-            var cmStatus = await Permissions.CheckStatusAsync<Permissions.Camera>();
-            var mediaStatus = await Permissions.CheckStatusAsync<Permissions.Media>();
-            if (cmStatus == PermissionStatus.Granted && mediaStatus == PermissionStatus.Granted)
-            {
-                beSure();
-            }
-            else
-            {
-                CrossOpenTok.Current.TryStartSession();
-            }
-
-        }
+      
         public async Task ConnectToServer ( )
         {
 
@@ -100,7 +82,7 @@ namespace Shikkhanobish.ContentPages
                 isConnected = true;
 
             };
-            _connection.On<int,bool > ( "TurnOffActiveStatus" , async ( TeacherID, isOnline ) =>
+            _connection.On<int,bool > ("TurnOffActiveStatus", async ( TeacherID, isOnline ) =>
             {
                 bool isTeacherhere = false;
                 if(isOnline == false)

@@ -29,7 +29,7 @@
         <Label Text="Rate Your Teacher" FontAttributes="Bold" FontSize="16" TextColor="White" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" />
         <Label Text="Teacher Name:" Grid.Column="0" Grid.Row="1" HorizontalOptions="End" VerticalOptions="Center" />
         
-        <Button x:Name="rptbtn" Grid.Column="1"  Text="Report Teacher" Grid.Row="1" FontSize="10" HorizontalOptions="End" VerticalOptions="Center" Clicked="Button_Clicked_1" BackgroundColor="#00000000" TextColor="#5178DE" Margin="4"/>
+        
         
         <Label Text="Teacher ID:" Grid.Column="0" Grid.Row="2" HorizontalOptions="End" VerticalOptions="Center" />
         <Label Text="Class:" Grid.Column="0" Grid.Row="3" HorizontalOptions="End" VerticalOptions="Center" />
@@ -92,7 +92,8 @@
             <ProgressBar x:Name="pbar" Grid.Row="1" Grid.ColumnSpan="5" ScaleY="2"/>
             <Label x:Name="Ratelbl" Grid.Row="2" FontAttributes="Bold" FontSize="17" Grid.ColumnSpan="5" HorizontalOptions="Center" VerticalOptions="Center"/>
             <Button x:Name="sbtn" Text="Submit" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" HorizontalOptions="Center" CornerRadius="10" BackgroundColor="#323232" TextColor="#FFFFFF" Clicked="Button_Clicked" />
-            <Label Text="To achive perfect teacher evaluation system every student MUST rate their teacher after every tuition. You can report your teacher If you face any unexpeted behaviour" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" TextColor="#808080" />
+            <Button x:Name="rptbtn" Grid.ColumnSpan="5"  Text="Report Teacher" Grid.Row="3" FontSize="10" HorizontalOptions="End" VerticalOptions="Center" Clicked="Button_Clicked_1" BackgroundColor="#00000000" TextColor="#CB3A3A" Margin="4"/>
+            <Label Text="To achive perfect teacher evaluation system every student MUST rate their teacher after every tuition. You can report your teacher If you face any unexpected behaviour" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" TextColor="#808080" />
             
 
         </Grid>

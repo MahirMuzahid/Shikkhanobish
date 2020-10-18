@@ -105,6 +105,7 @@ namespace Shikkhanobish.ContentPages
         {
             Device.BeginInvokeOnMainThread ( async ( ) =>
             {
+                info.StudentCost = TotalCostInThisTuitionForStudent;
                 await Application.Current.MainPage.Navigation.PushModalAsync ( new RatingPage ( info , true ) ).ConfigureAwait ( false );
             } );
         }

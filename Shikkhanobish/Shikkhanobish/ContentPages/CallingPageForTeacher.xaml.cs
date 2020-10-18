@@ -65,6 +65,7 @@ namespace Shikkhanobish.ContentPages
         }
         private async void callbtn_Clicked ( object sender , EventArgs e )
         {
+            CrossOpenTok.Current.TryStartSession();
             setOnTuitionOFFOrOn ( 1 );
             ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , true );
             isCallCut = true;

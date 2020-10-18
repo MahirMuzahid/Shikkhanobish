@@ -108,7 +108,7 @@
                             <Label Text="Total Tuition" Grid.Row="0" Grid.Column="2" VerticalOptions="Start" HorizontalOptions="Center" TextColor="#535353" FontSize="11" />
                             <Label Text="Teacher Rank" Grid.Row="3" Grid.Column="0" VerticalOptions="Start" HorizontalOptions="Center" TextColor="#535353" FontSize="11" />
                             <Label Text="Pending Ratting" Grid.Row="3" Grid.Column="1" VerticalOptions="Start" HorizontalOptions="Center" TextColor="#535353" FontSize="11" />
-                            <Label Text="Offred Tuition" Grid.Row="3" Grid.Column="2" VerticalOptions="Start" HorizontalOptions="Center" TextColor="#535353" FontSize="11" />
+                            <Label Text="Tuition Time" Grid.Row="3" Grid.Column="2" VerticalOptions="Start" HorizontalOptions="Center" TextColor="#535353" FontSize="11" />
                             
                             
                             

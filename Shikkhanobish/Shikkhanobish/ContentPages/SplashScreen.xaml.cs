@@ -93,7 +93,7 @@ namespace Shikkhanobish.ContentPages
             string resultT = await responseT.Content.ReadAsStringAsync ();
             var teacher = JsonConvert.DeserializeObject<Teacher> ( resultT );
             MainThread.BeginInvokeOnMainThread ( ( ) => {
-                loadinglbl.Text = "Loging As "+ teacher.TeacherName + "..." ;
+                loadinglbl.Text = "Logging As "+ teacher.TeacherName + "..." ;
             } );
             StaticPageForOnSleep.isStudent = false;
             MainThread.BeginInvokeOnMainThread ( async ( ) => {
@@ -113,7 +113,7 @@ namespace Shikkhanobish.ContentPages
             OldStToNewSt convert = new OldStToNewSt ();
             var student = convert.Sc_TO_S ( studentcl );
             MainThread.BeginInvokeOnMainThread ( ( ) => {
-                loadinglbl.Text = "Loging As " + student.Name + "...";
+                loadinglbl.Text = "Logging As " + student.Name + "...";
             } );
             if ( student.IsPending == 1 )
             {
@@ -166,7 +166,7 @@ namespace Shikkhanobish.ContentPages
             MainThread.BeginInvokeOnMainThread ( async ( ) =>
             {
                 await progress.ProgressTo ( 1 , 300 , Easing.SinIn ).ConfigureAwait ( false );
-                loadinglbl.Text = "Loging As " + parent.ParentName + "...";
+                loadinglbl.Text = "Logging As " + parent.ParentName + "...";
             } );
             MainThread.BeginInvokeOnMainThread ( async ( ) => { await Application.Current.MainPage.Navigation.PushModalAsync ( new ParentsProfile ( parent ) ).ConfigureAwait ( false ); } );
         }
