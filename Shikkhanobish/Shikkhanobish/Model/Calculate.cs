@@ -153,8 +153,11 @@ namespace Shikkhanobish.Model
         }
 
         public string CalculateRank(TransferInfo info)
-        {
-            return RankRange(info.Teacher.OverallTP, info.Teacher.Avarage, info.Teacher.Total_Min);
+        {           
+            double total = info.Teacher.Five_Star * 5 + info.Teacher.Four_Star * 4 + info.Teacher.Three_Star * 3 + info.Teacher.Two_Star * 2 + info.Teacher.One_Star * 1;
+            int count = info.Teacher.Five_Star + info.Teacher.Four_Star + info.Teacher.Three_Star + info.Teacher.Two_Star + info.Teacher.One_Star;
+            var avg = System.Math.Round(total / count, 2);
+            return RankRange(info.Teacher.OverallTP, avg, info.Teacher.Total_Min);
         }
 
 

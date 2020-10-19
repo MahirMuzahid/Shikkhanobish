@@ -39,7 +39,7 @@ namespace Shikkhanobish
             Avarage = "Average: " + student.AvarageRating;
             TotalTaken = "Total Minute: " + student.TotalTuitionTIme;
             TotalTeacher = "Total Tuition: " + student.TotalTeacherCount;
-            AvailableMintxt = student.RechargedAmount * 2 + " - " + student.RechargedAmount * 4 + " min";
+            AvailableMintxt = student.RechargedAmount * 2 + " - " + student.RechargedAmount * 4 + " minute";
             FreeMin = "Free Minuites: " + student.freeMin;
         }
        

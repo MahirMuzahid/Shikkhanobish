@@ -15,6 +15,7 @@ using Shikkhanobish.ViewModel;
 using Xamarin.Essentials;
 using Shikkhanobish.Interface;
 using Xamarin.Forms.OpenTok.Service;
+using Shikkhanobish.ContentPages.Common;
 
 namespace Shikkhanobish
 {
@@ -44,7 +45,6 @@ namespace Shikkhanobish
             setOnTuitionOFF ();
             setIsActiveOffOrOn ( 0 );
             GetPeddingInfo (teacher.TeacherID);
-            ConnectToServer ();
             SetInfoInInternalStorage ( teacher.UserName , teacher.Password , "Teacher" , 0 );
             StaticPageForOnSleep.isCallPending = false;
             isPermiteed();
@@ -199,7 +199,7 @@ namespace Shikkhanobish
 
         protected override bool OnBackButtonPressed()
         {
-            giveAlert();
+            Navigation.PushPopupAsync(new PopUpForTextAlert("", "", true));
             return true;
         }
 
@@ -235,7 +235,8 @@ namespace Shikkhanobish
 
             if(ac%2 == 1)
             {
-                ShowOffLineInStudentWindowRealTime (true);
+                ConnectToServer();
+                ShowOffLineInStudentWindowRealTime ("Online");
                 takeTuition = true;
                 activelbl.Text = "Active";
                 activeback.BackgroundColor = Color.FromHex ( "#54E36B" );
@@ -243,7 +244,8 @@ namespace Shikkhanobish
             }
             else
             {
-                ShowOffLineInStudentWindowRealTime (false);
+                _connection.StopAsync();
+                ShowOffLineInStudentWindowRealTime ("Offline");
                 takeTuition = false;
                 activelbl.Text = "Inactive";
                 activeback.BackgroundColor = Color.FromHex ( "#A7A7A7" );
@@ -308,7 +310,7 @@ namespace Shikkhanobish
                         activelbl.Text = "Inactive";
                         activeback.BackgroundColor = Color.FromHex ( "#A7A7A7" );
                         _connection.StopAsync();
-                        ShowOffLineInStudentWindowRealTime (false);
+                        ShowOffLineInStudentWindowRealTime ("On Tuition");
                         if ( StaticPageForOnSleep.isSleep == true)
                         {
                             StaticPageForOnSleep.isCallPending = true;
@@ -364,7 +366,7 @@ namespace Shikkhanobish
             var response = JsonConvert.DeserializeObject<Response> ( resultT );
         }
 
-        public async Task ShowOffLineInStudentWindowRealTime ( bool isOnline)
+        public async Task ShowOffLineInStudentWindowRealTime ( string isOnline)
         {
             string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/TurnOffActiveStatus?TeacherID=" + teacher.TeacherID + "&isOnline="+ isOnline;
             HttpClient client = new HttpClient ();

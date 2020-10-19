@@ -143,8 +143,8 @@
                         </Grid.ColumnDefinitions>
                         <BoxView Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="#F2F2F2" CornerRadius="10" />
                         <Image Source="teacher.png" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalOptions="Start" Aspect="AspectFill" />
-                        <Label Text="Take Tuition" FontSize="16" TextColor="#696969" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="End" Grid.ColumnSpan="2" VerticalOptions="Start" />
-                        <Button Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="#00FFFFFF" Clicked="Button_Clicked_7" />
+                        <Label Text="Take Tuition" FontSize="14" TextColor="#696969" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="End" Grid.ColumnSpan="2" VerticalOptions="Start" Margin="3"/>
+                        <Button Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="#14767676" Clicked="Button_Clicked_7"  CornerRadius="10"/>
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="1" RowSpacing="0" Padding="7">
                         <Grid.RowDefinitions>
@@ -157,7 +157,7 @@
                         </Grid.ColumnDefinitions>
                         <Image Source="history.png" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Center" Aspect="AspectFill" />
                         <Label Text="History" FontSize="16" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="Center" Grid.ColumnSpan="2" VerticalOptions="Start" TextColor="#696969" />
-                        <Button Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="#00FFFFFF" Clicked="Button_Clicked_5" />
+                        <Button Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="#14767676" Clicked="Button_Clicked_5" CornerRadius="10" />
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="0" RowSpacing="0" Padding="7">
                         <Grid.RowDefinitions>
@@ -166,7 +166,7 @@
                         </Grid.RowDefinitions>
                         <Image Source="paprentsportal.png" Grid.Row="0"  HorizontalOptions="Center" Aspect="AspectFill" />
                         <Label Text="Parents Portal" FontSize="16" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="Center"  VerticalOptions="Start" TextColor="#574B26" />
-                        <Button Grid.RowSpan="1" BackgroundColor="#00FFFFFF" Clicked="Button_Clicked_1" />
+                        <Button Grid.RowSpan="2" BackgroundColor="#14767676" Clicked="Button_Clicked_1" CornerRadius="10" />
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" RowSpacing="0" Padding="7">
                         <Grid.RowDefinitions>
@@ -175,7 +175,7 @@
                         </Grid.RowDefinitions>
                         <Image Source="addcoin.png" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Center" Aspect="AspectFill" />
                         <Label Text="Wallet" FontSize="16" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="Center" Grid.ColumnSpan="2" VerticalOptions="Start" TextColor="#696969" />
-                        <Button Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="#00FFFFFF" Clicked="Button_Clicked_8" />
+                        <Button Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="#14767676" Clicked="Button_Clicked_8"  CornerRadius="10"/>
                     </Grid>
                     <Grid Grid.Row="3" Grid.Column="0" RowSpacing="0" Padding="7">
                         <Grid.RowDefinitions>
@@ -184,7 +184,7 @@
                         </Grid.RowDefinitions>
                         <Image Source="update.png" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Center" Aspect="AspectFill" />
                         <Label Text="Update Info" FontSize="16" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="Center" Grid.ColumnSpan="2" VerticalOptions="Start" TextColor="#696969" />
-                        <Button Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="#00FFFFFF" Clicked="Button_Clicked_6" />
+                        <Button Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="#14767676" Clicked="Button_Clicked_6" CornerRadius="10"/>
                     </Grid>
 
                     <CarouselView x:Name="cvForVoucher" Grid.Row="4" Grid.ColumnSpan="2">

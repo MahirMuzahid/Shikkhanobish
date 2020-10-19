@@ -37,17 +37,16 @@ namespace Shikkhanobish.ContentPages
             safelbl.Text = "Safe Time";
             safelbl.TextColor = Color.Yellow;
             timerlbl.TextColor = Color.Yellow;
-            timerlbl.Text = "0:0";
-           
+            timerlbl.Text = "0:0";            
         }
         protected override bool OnBackButtonPressed ( )
         {
-            Navigation.PushPopupAsync ( new PopUpForTextAlert ( "Do You want to cut the call?" , "If you want to cus the call, press cut video icon" , false ) );
+            Navigation.PushPopupAsync ( new PopUpForTextAlert ( "Do You want to cut the call?" , "If you want to cut the call, press cut video icon" , false ) );
             return true;
         }
         public async Task CutVideoCAll ( )
         {
-            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/cutCall?stop=" + 1 + "&teacherID=" + info.Teacher.TeacherID + "&studentID=" + info.Student.StudentID + "&isStudent=" + false;
+            string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishRealTimeApi/cutCall?stop=" + 1 + "&teacherID=" + info.Teacher.TeacherID + "&studentID=" + info.Student.StudentID + "&isStudent=false";
             HttpClient client = new HttpClient ();
             StringContent content = new StringContent ( "" , Encoding.UTF8 , "application/json" );
             HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( true );
@@ -56,13 +55,17 @@ namespace Shikkhanobish.ContentPages
         }
         private async void OnEndCall ( object sender , EventArgs e )
         {
-            setOnTuitionOFF ();
-            setIsActiveOFF ();
             CutVideoCAll ();
-            _connection.StopAsync ();
-            CrossOpenTok.Current.EndSession ();
-            await Application.Current.MainPage.Navigation.PushModalAsync ( new TeacherProfile ( info.Teacher ) ).ConfigureAwait ( false );
-
+            _connection.StopAsync ();            
+            GoProfile();
+            CrossOpenTok.Current.EndSession();
+        }
+        public void GoProfile ()
+        {
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                await Application.Current.MainPage.Navigation.PushModalAsync(new TeacherProfile(info.Teacher)).ConfigureAwait(false);
+            });
         }
 
         private void OnSwapCamera ( object sender , EventArgs e )
@@ -145,11 +148,16 @@ namespace Shikkhanobish.ContentPages
                 {
                     if ( info.Teacher.TeacherID == teacherID )
                     {
-                        setOnTuitionOFF ();
-                        setIsActiveOFF ();
-                        //CrossOpenTok.Current.EndSession ();
-                        _connection.StopAsync ();
-                        await Application.Current.MainPage.Navigation.PushModalAsync ( new TeacherProfile ( info.Teacher ) ).ConfigureAwait ( false );
+                        setOnTuitionOFF();
+                        setIsActiveOFF();
+                        CrossOpenTok.Current.EndSession();
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            await Application.Current.MainPage.Navigation.PushModalAsync(new TeacherProfile(info.Teacher)).ConfigureAwait(false);
+                        });                        
+                        _connection.StopAsync();
+                       
+                        
                     }
                 }
                 

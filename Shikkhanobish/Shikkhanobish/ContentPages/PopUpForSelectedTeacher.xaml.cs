@@ -25,10 +25,19 @@ namespace Shikkhanobish.ContentPages
         {
             try
             {
+                CrossOpenTok.Current.ApiKey = "46485492";
+                CrossOpenTok.Current.UserToken = Token;
+                CrossOpenTok.Current.SessionId = SessionID;
+                if (!CrossOpenTok.Current.TryStartSession())
+                {
+                    return;
+                }
                 await SendShortNote(Info.Teacher.TeacherID, shortnoteentry.Text).ConfigureAwait(false);
                 ConnectWithTeacher(SessionID, Token, Info.Student.StudentID, Info.Teacher.TeacherID, Info.SubjectName, Info.Class, Info.Teacher.Amount, Info.Teacher.TeacherName);
                 MainThread.BeginInvokeOnMainThread(async () =>
                 {
+                    Info.SessionID = SessionID;
+                    Info.UserToken = Token;
                     await Application.Current.MainPage.Navigation.PushModalAsync(new CallingPageStudent(Info, shortnoteentry.Text)).ConfigureAwait(false);
                 });
 

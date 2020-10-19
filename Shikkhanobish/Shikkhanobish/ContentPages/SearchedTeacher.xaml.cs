@@ -82,10 +82,10 @@ namespace Shikkhanobish.ContentPages
                 isConnected = true;
 
             };
-            _connection.On<int,bool > ("TurnOffActiveStatus", async ( TeacherID, isOnline ) =>
+            _connection.On<int,string > ("TurnOffActiveStatus", async ( TeacherID, isOnline ) =>
             {
                 bool isTeacherhere = false;
-                if(isOnline == false)
+                if(isOnline == "Offline")
                 {
                     for ( int i = 0; i < FilteredTeacher.Count; i++ )
                     {
@@ -110,7 +110,32 @@ namespace Shikkhanobish.ContentPages
                     }
                     
                 }
-                if ( isOnline == true )
+                if (isOnline == "On Tuition")
+                {
+                    for (int i = 0; i < FilteredTeacher.Count; i++)
+                    {
+                        if (FilteredTeacher[i].TeacherID == TeacherID)
+                        {
+                            isTeacherhere = true;
+                            FilteredTeacher[i].IsActive = 0;
+                            FilteredTeacher[i].TeacherStatus = "Offline";
+                            FilteredTeacher[i].TeacherStatusColor = "#939393";
+                        }
+                    }
+                    if (isTeacherhere == true)
+                    {
+                        await Task.Run(() =>
+                        {
+                            MainThread.BeginInvokeOnMainThread(() =>
+                            {
+                                TeacherListView.ItemsSource = null;
+                                TeacherListView.ItemsSource = FilteredTeacher;
+                            });
+                        }).ConfigureAwait(false);
+                    }
+
+                }
+                if ( isOnline == "Online")
                 {
                     for ( int i = 0; i < FilteredTeacher.Count; i++ )
                     {

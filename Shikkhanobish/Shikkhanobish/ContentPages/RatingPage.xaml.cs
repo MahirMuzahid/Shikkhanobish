@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Xamarin.Essentials;
 using System.Net.WebSockets;
+using Xamarin.Forms.OpenTok.Service;
 
 namespace Shikkhanobish.ContentPages
 {
@@ -41,9 +42,11 @@ namespace Shikkhanobish.ContentPages
             else
             {
                 subjectName = info.SubjectName;
+
             }           
             showEverything ();
             CalculateAutomateVoucher ();
+            
         }
         public async void GetSubjectName ()
         {
@@ -213,7 +216,7 @@ namespace Shikkhanobish.ContentPages
                 }
                 else
                 {
-                    calculate.CalculateRank(info);
+                    rank = calculate.CalculateRank(info);
                 }
                 String Date = DateTime.Now.ToString();
                 for (int i = 0; i < info.Class.Length; i++)
@@ -242,14 +245,14 @@ namespace Shikkhanobish.ContentPages
                     Teacher_Rank = rank,
                     Date = Date,
                     Subject = info.Subject,
-                    SubjectName = info.SubjectName,
+                    SubjectName = subjectName,
                     Class = tuitionClass,
                     IsPenidng = 0,
                     Teacher_Name = info.Teacher.TeacherName,
                     StudentCost = 0,
                     TeacherEarn = 0,
                     Student_Name = info.Student.Name
-                }); ;
+                }); 
                 StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(url, content).ConfigureAwait(false);
                 string result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -288,6 +291,7 @@ namespace Shikkhanobish.ContentPages
         private void Button_Clicked(object sender, EventArgs e)
         {
             rptbtn.IsEnabled = false;
+            sbtn.IsEnabled = false;
             FinishTHeUpdate();
         }
 

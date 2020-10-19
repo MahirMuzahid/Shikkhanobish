@@ -37,9 +37,6 @@ namespace Shikkhanobish.ContentPages
             subLbl.Text = Info.SubjectName;
             ctLbl.Text = "Cost: " + Info.Teacher.Amount + " taka/min";
             calllbl.Text = "Student Call...";
-            CrossOpenTok.Current.ApiKey = "46485492";
-            CrossOpenTok.Current.SessionId = info.SessionID;
-            CrossOpenTok.Current.UserToken = info.UserToken;
             ConnectToServer();
             Device.StartTimer(TimeSpan.FromSeconds(1.0), startCountdown);
         }
@@ -65,11 +62,16 @@ namespace Shikkhanobish.ContentPages
         }
         private async void callbtn_Clicked ( object sender , EventArgs e )
         {
-            CrossOpenTok.Current.TryStartSession();
+            CrossOpenTok.Current.ApiKey = "46485492";
+            CrossOpenTok.Current.SessionId = Info.SessionID;
+            CrossOpenTok.Current.UserToken = Info.UserToken;
+            if (!CrossOpenTok.Current.TryStartSession())
+            {
+                return;
+            }
             setOnTuitionOFFOrOn ( 1 );
             ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , true );
             isCallCut = true;
-            //MainThread.BeginInvokeOnMainThread(() => { DependencyService.Get<INotification>().ReceiveOrCancleCall(); });
             await Application.Current.MainPage.Navigation.PushModalAsync ( new TuitionPageTeacher ( Info ) ).ConfigureAwait ( false );
         }
         protected override bool OnBackButtonPressed ( )
@@ -84,7 +86,8 @@ namespace Shikkhanobish.ContentPages
             StaticPageForOnSleep.isCallPending = false;
             setOnTuitionOFFOrOn(0);
             ConnectWithStudent(Info.Student.StudentID, Info.Teacher.TeacherID, false);
-            if(fromWhere == 0)
+            _connection.StopAsync();
+            if (fromWhere == 0)
             {
                 await Application.Current.MainPage.Navigation.PopModalAsync();
             }
@@ -120,7 +123,16 @@ namespace Shikkhanobish.ContentPages
             string resultT = await responseT.Content.ReadAsStringAsync ();
             var response = JsonConvert.DeserializeObject<Response> ( resultT );
         }
-
+        public async void setIsActiveOffOrOn(int state)
+        {
+            string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsActive";
+            HttpClient clientT = new HttpClient();
+            string jsonDataT = JsonConvert.SerializeObject(new { TeacherID = Info.Teacher.TeacherID, state = 0 });
+            StringContent contentT = new StringContent(jsonDataT, Encoding.UTF8, "application/json");
+            HttpResponseMessage responseT = await clientT.PostAsync(urlT, contentT).ConfigureAwait(false);
+            string resultT = await responseT.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<Response>(resultT);
+        }
 
         HubConnection _connection = null;
         string url = "https://shikkhanobishrealtimeapi.shikkhanobish.com/ShikkhanobishHub";
@@ -139,8 +151,7 @@ namespace Shikkhanobish.ContentPages
                 {
                     isCallCut = true;
                     StaticPageForOnSleep.isCallPending = false;
-                    setOnTuitionOFFOrOn ( 0 );
-                    ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , false );
+                    setOnTuitionOFFOrOn ( 0 );                   
                     if (fromWhere == 0)
                     {
                         await Application.Current.MainPage.Navigation.PopModalAsync();

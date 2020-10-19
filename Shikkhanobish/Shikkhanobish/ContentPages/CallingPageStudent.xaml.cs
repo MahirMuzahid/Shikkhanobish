@@ -27,7 +27,6 @@ namespace Shikkhanobish.ContentPages
         private bool isstudent;
         private int i;
         private int sec;
-        VideoCAllApiInfo api = new VideoCAllApiInfo();
         public Session Session { get; protected set; }
         public OpenTok OpenTok { get; protected set; }
         bool isCallCutByStudent;
@@ -53,8 +52,27 @@ namespace Shikkhanobish.ContentPages
             Device.StartTimer(TimeSpan.FromSeconds(1.0), startCountdown);
         }
         int searchdontcount;
+        private bool isConnected;
+        private string connectionStatus;
+
         private bool startCountdown ( )
         {
+            if (sec > 30)
+            {
+                if (isAcceptedByTeacher == false)
+                {
+                    setOnTuitionOFF();
+                    setIsActiveOffOrOn();
+                    callOut();
+                    return false;
+                }
+
+            }
+
+            if (isCallCutByStudent == true)
+            {
+                return false;
+            }
             searchdontcount++;
             if (searchdontcount == 1)
             {
@@ -70,25 +88,12 @@ namespace Shikkhanobish.ContentPages
                 calllbl.Text = "Calling Teacher...";
             }
             sec++;
-            if ( sec > 30 )
-            {
-                if(isAcceptedByTeacher == false)
-                {
-                    setOnTuitionOFF ();
-                    setIsActiveOffOrOn ();
-                    callOut ();
-                    return false;
-                }
-               
-            }
-            if( isCallCutByStudent == true)
-            {
-                return false;
-            }
+           
             return true;
         }
         public async void setOnTuitionOFF ( )
         {
+          
             string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsOnTuition";
             HttpClient clientT = new HttpClient ();
             string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = Info.Teacher.TeacherID , state = 1 } );
@@ -110,23 +115,22 @@ namespace Shikkhanobish.ContentPages
         }
         public async Task callOut ( )
         {
-            MainThread.BeginInvokeOnMainThread(async () =>
-            {
-                await Application.Current.MainPage.Navigation.PopModalAsync().ConfigureAwait(false);
-            });
-            
-            MainThread.BeginInvokeOnMainThread(async () =>
-            {
-                calllbl.Text = "Cancle Calling...";
-            });         
-            CutVideoCAllForTeacher ();        
-            _connection.StopAsync ();
+           
             
         }
         protected override bool OnBackButtonPressed ( )
         {
-            isCallCutByStudent = true;
-            callOut ();
+            isCallCutByStudent = true;            
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                calllbl.Text = "Cancle Calling...";
+            });
+            CutVideoCAllForTeacher();
+            _connection.StopAsync();
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                await Application.Current.MainPage.Navigation.PopModalAsync().ConfigureAwait(false);
+            });
             return true;
         }
 
@@ -142,8 +146,17 @@ namespace Shikkhanobish.ContentPages
 
         private void cancleStbtn_Clicked ( object sender , EventArgs e )
         {
-            isCallCutByStudent = true;
-            callOut ();
+            isCallCutByStudent = true;          
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                calllbl.Text = "Cancle Calling...";
+            });
+            CutVideoCAllForTeacher();
+            _connection.StopAsync();
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                await Application.Current.MainPage.Navigation.PopModalAsync().ConfigureAwait(false);
+            });
         }
         public async Task CutVideoCAllForTeacher ( )
         {
@@ -157,42 +170,50 @@ namespace Shikkhanobish.ContentPages
         }
         public async Task ConnectToServer ( )
         {
-            _connection = new HubConnectionBuilder ()
-                .WithUrl ( url )
-                .Build ();
+            _connection = new HubConnectionBuilder()
+                 .WithUrl(url)
+                 .Build();
 
-            await _connection.StartAsync ();
-           
+            await _connection.StartAsync();
+            isConnected = true;
+            connectionStatus = "Connected";
+
+            _connection.Closed += async (s) =>
+            {
+                isConnected = false;
+                connectionStatus = "Disconnected";
+                await _connection.StartAsync();
+                isConnected = true;
+
+            };
+
             _connection.On<int , int , bool> ( "SendStudentThatCallRecivedOrIgnored" , async ( studentID , teacherID , recivedOrNot ) =>
             {
-                i++;
-                if ( i == 1 )
+                if (Info.Teacher.TeacherID == teacherID && Info.Student.StudentID == studentID)
                 {
-                    if ( Info.Teacher.TeacherID == teacherID && isstudent == false )
+                    if (recivedOrNot == true)
                     {
-                        if ( recivedOrNot == true )
-                        {
-                            isAcceptedByTeacher = true;
-                            string urlT = "https://api.shikkhanobish.com/api/Master/GetInfoByStudentID ";
-                            HttpClient clientT = new HttpClient ();
-                            string jsonDataT = JsonConvert.SerializeObject ( new { StudentID = Info.Student.StudentID } );
-                            StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
-                            HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
-                            string resultT = await responseT.Content.ReadAsStringAsync ();
-                            var studentClass = JsonConvert.DeserializeObject<StudentClass> ( resultT );
+                        isAcceptedByTeacher = true;
+                        string urlT = "https://api.shikkhanobish.com/api/Master/GetInfoByStudentID ";
+                        HttpClient clientT = new HttpClient();
+                        string jsonDataT = JsonConvert.SerializeObject(new { StudentID = Info.Student.StudentID });
+                        StringContent contentT = new StringContent(jsonDataT, Encoding.UTF8, "application/json");
+                        HttpResponseMessage responseT = await clientT.PostAsync(urlT, contentT).ConfigureAwait(false);
+                        string resultT = await responseT.Content.ReadAsStringAsync();
+                        var studentClass = JsonConvert.DeserializeObject<StudentClass>(resultT);
 
-                            OldStToNewSt cn = new OldStToNewSt ();
+                        OldStToNewSt cn = new OldStToNewSt();
+                        
+                        var student = cn.Sc_TO_S(studentClass);
+                        Info.Student = student;
+                        MainThread.BeginInvokeOnMainThread(() => { Application.Current.MainPage.Navigation.PushModalAsync(new TutionPage(Info)).ConfigureAwait(false); });
 
-                            var student = cn.Sc_TO_S ( studentClass );
-                            Info.Student = student;
-                            MainThread.BeginInvokeOnMainThread ( ( ) => {  Application.Current.MainPage.Navigation.PushModalAsync ( new TutionPage ( Info ) ).ConfigureAwait ( false ); } );
-                            
-                        }
-                        else
-                        {
-                            await Application.Current.MainPage.Navigation.PopModalAsync ();
-                            _connection.StopAsync ();
-                        }
+                    }
+                    else
+                    {
+                        isAcceptedByTeacher = true;
+                        await Application.Current.MainPage.Navigation.PopModalAsync();
+                        _connection.StopAsync();
                     }
                 }
 

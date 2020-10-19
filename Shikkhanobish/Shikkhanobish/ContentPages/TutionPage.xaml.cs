@@ -49,7 +49,6 @@ namespace Shikkhanobish.ContentPages
             safelbl.Text = "Safe Time";
             tnamelbl.Text = trnsInfo.Teacher.TeacherName;
             SetIsPending ();
-            //SetSubject ();
             SecureStorage.SetAsync ( "subject_name" , info.SubjectName );
             ConnectToServer ();
             costPerMinInThisTuition = calculate.CalculateCost(info);
@@ -59,22 +58,22 @@ namespace Shikkhanobish.ContentPages
         /// <summary>
         /// Noraml Function
         /// </summary>
-        public async void SetSubject ()
-        {
-            await SecureStorage.SetAsync ( "subject_name" , info.SubjectName ).ConfigureAwait ( false );
-        }
         private async void OnEndCall ( object sender , EventArgs e )
         {
+            CutVideoCAll();
             EndCall();
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                await Application.Current.MainPage.Navigation.PushModalAsync(new RatingPage(info, true)).ConfigureAwait(false);
+            });
         }
         public async void EndCall ()
-        {
+        {            
             info.StudentCost = TotalCostInThisTuitionForStudent;
-            iscut = true;
+            iscut = true;          
             CrossOpenTok.Current.EndSession();
             _connection.StopAsync();
-            await CutVideoCAll().ConfigureAwait(false);
-            gotoRatingPage();
+           
         }
         private void OnSwapCamera ( object sender , EventArgs e )
         {
@@ -101,14 +100,6 @@ namespace Shikkhanobish.ContentPages
             Navigation.PushPopupAsync ( new PopUpForTextAlert ( "Do You want to cut the call?" , "If you want to cut the call, press cut video icon" , false ) );
             return true;
         }
-        public void gotoRatingPage ( )
-        {
-            Device.BeginInvokeOnMainThread ( async ( ) =>
-            {
-                info.StudentCost = TotalCostInThisTuitionForStudent;
-                await Application.Current.MainPage.Navigation.PushModalAsync ( new RatingPage ( info , true ) ).ConfigureAwait ( false );
-            } );
-        }
 
 
 
@@ -119,6 +110,10 @@ namespace Shikkhanobish.ContentPages
         /// </summary>
         private bool UpdateTimerAndInfo()
         {
+            if (iscut == true)
+            {
+                return false;
+            }
             sec = sec + 1;
             if (sec == 60)
             {
@@ -165,6 +160,11 @@ namespace Shikkhanobish.ContentPages
                 info.StudyTimeInAPp = info.StudyTimeInAPp + 1;
                 if (cutThisCallNow)
                 {
+                    MainThread.BeginInvokeOnMainThread(async () =>
+                    {
+                        await Application.Current.MainPage.Navigation.PushModalAsync(new RatingPage(info, true)).ConfigureAwait(false);
+                    });
+                    CutVideoCAll();
                     EndCall();
                 }
                 else
@@ -195,15 +195,7 @@ namespace Shikkhanobish.ContentPages
                 IsLastMinLimit();
             }                      
             timerlbl.Text = min + ":" + sec;
-            if( iscut == false)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-            
+            return true;            
         }
 
 
@@ -230,17 +222,18 @@ namespace Shikkhanobish.ContentPages
                 isConnected = true;
 
             };
-            _connection.On<int , int , int , bool> ( "cutCall" , ( stop , teacherID , studentID , isStudent ) =>
+            _connection.On<int , int , int , bool> ( "cutCall" , async( stop , teacherID , studentID , isStudent ) =>
             {
-                cutCallFirstTime++;
-                if ( isStudent == false  && cutCallFirstTime == 1)
+                if ( isStudent == false)
                 {
                     if ( info.Student.StudentID == studentID )
                     {
-                        CrossOpenTok.Current.EndSession ();
-                        _connection.StopAsync ();
-                        gotoRatingPage ();
+                        EndCall();
                     }
+                    MainThread.BeginInvokeOnMainThread(async () =>
+                    {
+                        await Application.Current.MainPage.Navigation.PushModalAsync(new RatingPage(info, true)).ConfigureAwait(false);
+                    });
                 }
 
             } );
