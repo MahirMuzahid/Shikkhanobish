@@ -28,10 +28,14 @@ namespace Shikkhanobish.ContentPages
                 CrossOpenTok.Current.ApiKey = "46485492";
                 CrossOpenTok.Current.UserToken = Token;
                 CrossOpenTok.Current.SessionId = SessionID;
-                if (!CrossOpenTok.Current.TryStartSession())
+                MainThread.BeginInvokeOnMainThread( () =>
                 {
-                    return;
-                }
+                    if (!CrossOpenTok.Current.TryStartSession())
+                    {
+                        return;
+                    }
+                });
+                
                 await SendShortNote(Info.Teacher.TeacherID, shortnoteentry.Text).ConfigureAwait(false);
                 ConnectWithTeacher(SessionID, Token, Info.Student.StudentID, Info.Teacher.TeacherID, Info.SubjectName, Info.Class, Info.Teacher.Amount, Info.Teacher.TeacherName);
                 MainThread.BeginInvokeOnMainThread(async () =>

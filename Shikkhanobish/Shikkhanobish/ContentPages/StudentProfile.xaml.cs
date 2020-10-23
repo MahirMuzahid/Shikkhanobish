@@ -83,14 +83,13 @@ namespace Shikkhanobish
             catch(Exception ex)
             {
 
-            }
-                    
+            }                   
         }
 
         private async void Button_Clicked_6(object sender, EventArgs e)
         {
             Teacher t = new Teacher();
-            await Application.Current.MainPage.Navigation.PushModalAsync(new UpdateAccount(_Student, t, true)).ConfigureAwait( false );
+            await Application.Current.MainPage.Navigation.PushModalAsync(new UpdateAccount(_Student,t,true)).ConfigureAwait( false );
         }
 
         private async void Button_Clicked_7(object sender, EventArgs e)

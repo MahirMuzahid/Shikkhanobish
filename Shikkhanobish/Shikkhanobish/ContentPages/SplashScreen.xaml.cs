@@ -20,6 +20,7 @@ namespace Shikkhanobish.ContentPages
         public SplashScreen ( )
         {
             InitializeComponent ();
+            NavigationPage.SetHasNavigationBar(this, false);
             loadinglbl.Text = "Loading Shikkhanobish...";
             getInternalStorageInfo ();
         }

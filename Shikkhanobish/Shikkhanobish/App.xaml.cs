@@ -21,18 +21,19 @@ namespace Shikkhanobish
             InitializeComponent ();
             if ( StaticPageForOnSleep.isStudent == false && StaticPageForOnSleep.isParent == false && StaticPageForOnSleep.isCallPending == true && StaticPageForOnSleep.isSleep == true)
             {
-                MainThread.BeginInvokeOnMainThread ( async ( ) => {                   
-                    MainPage = new  CallingPageForTeacher ( StaticPageForOnSleep.info, 1, StaticPageForOnSleep.shortNote);
+                MainThread.BeginInvokeOnMainThread ( async ( ) => {
+                    Application.Current.MainPage = new NavigationPage(new CallingPageForTeacher(StaticPageForOnSleep.info, 1, StaticPageForOnSleep.shortNote)); 
                 } );
             }
             else
             {
                 StaticPageForOnSleep.isSleep = false;
                 StaticPageForOnSleep.isCallPending = false;
-                MainPage = new SplashScreen();
+                Application.Current.MainPage = new NavigationPage(new SplashScreen());
+                
             }
             
-                     
+
         }
         
         protected override void OnStart()

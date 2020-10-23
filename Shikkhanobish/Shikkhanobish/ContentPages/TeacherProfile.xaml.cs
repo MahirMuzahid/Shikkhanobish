@@ -47,17 +47,6 @@ namespace Shikkhanobish
             GetPeddingInfo (teacher.TeacherID);
             SetInfoInInternalStorage ( teacher.UserName , teacher.Password , "Teacher" , 0 );
             StaticPageForOnSleep.isCallPending = false;
-            isPermiteed();
-        }
-        public async void isPermiteed()
-        {
-            var cmStatus = await Permissions.CheckStatusAsync<Permissions.Camera>();
-            var mediaStatus = await Permissions.CheckStatusAsync<Permissions.Media>();
-            if (cmStatus != PermissionStatus.Granted || mediaStatus != PermissionStatus.Granted)
-            {
-                CrossOpenTok.Current.TryStartSession();
-            }
-
         }
         public async Task SetInfoInInternalStorage ( string username , string password , string usertype , int parentCode )
         {

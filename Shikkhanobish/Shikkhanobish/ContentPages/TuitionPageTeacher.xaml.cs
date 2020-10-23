@@ -35,8 +35,8 @@ namespace Shikkhanobish.ContentPages
             ConnectToServer();
             safelbl.IsVisible = true;
             safelbl.Text = "Safe Time";
-            safelbl.TextColor = Color.Yellow;
-            timerlbl.TextColor = Color.Yellow;
+            safelbl.TextColor = Color.DarkGray;
+            timerlbl.TextColor = Color.DarkGray;
             timerlbl.Text = "0:0";            
         }
         protected override bool OnBackButtonPressed ( )
@@ -136,8 +136,17 @@ namespace Shikkhanobish.ContentPages
                 {
                     teacherEarn = teacherEarn + cost;
                     timerlbl.TextColor = Color.Black;
-                    safelbl.TextColor = Color.Green;
-                    safelbl.Text = "Earned: " + teacherEarn;
+                    if(info.Teacher.Total_Min + min < 15)
+                    {
+                        safelbl.TextColor = Color.Gold;
+                        safelbl.Text = "Placement Time";
+                    }
+                    else
+                    {
+                        safelbl.TextColor = Color.Green;
+                        safelbl.Text = "Earned: " + teacherEarn;
+                    }
+                    
                     UpdateMin ();
                 }
 
@@ -148,8 +157,6 @@ namespace Shikkhanobish.ContentPages
                 {
                     if ( info.Teacher.TeacherID == teacherID )
                     {
-                        setOnTuitionOFF();
-                        setIsActiveOFF();
                         CrossOpenTok.Current.EndSession();
                         Device.BeginInvokeOnMainThread(async () =>
                         {

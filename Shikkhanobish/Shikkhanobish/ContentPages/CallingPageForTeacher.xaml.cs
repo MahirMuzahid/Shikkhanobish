@@ -65,10 +65,13 @@ namespace Shikkhanobish.ContentPages
             CrossOpenTok.Current.ApiKey = "46485492";
             CrossOpenTok.Current.SessionId = Info.SessionID;
             CrossOpenTok.Current.UserToken = Info.UserToken;
-            if (!CrossOpenTok.Current.TryStartSession())
+            MainThread.BeginInvokeOnMainThread(() =>
             {
-                return;
-            }
+                if (!CrossOpenTok.Current.TryStartSession())
+                {
+                    return;
+                }
+            });
             setOnTuitionOFFOrOn ( 1 );
             ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , true );
             isCallCut = true;

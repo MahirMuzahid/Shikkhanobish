@@ -47,6 +47,7 @@ namespace Shikkhanobish.ContentPages
             showEverything ();
             CalculateAutomateVoucher ();
             
+
         }
         public async void GetSubjectName ()
         {
@@ -279,8 +280,8 @@ namespace Shikkhanobish.ContentPages
             string result = await response.Content.ReadAsStringAsync();
             student = JsonConvert.DeserializeObject<StudentClass>(result);
             OldStToNewSt chng = new OldStToNewSt ();
-
-            
+            var countPagesToRemove = Application.Current.MainPage.Navigation.ModalStack.Count;
+           
             Device.BeginInvokeOnMainThread ( async ( ) =>
             {
                 await Application.Current.MainPage.Navigation.PushModalAsync ( new StudentProfile ( chng.Sc_TO_S ( student ) ) ).ConfigureAwait ( false );

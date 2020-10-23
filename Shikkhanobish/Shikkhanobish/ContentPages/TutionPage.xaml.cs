@@ -61,7 +61,10 @@ namespace Shikkhanobish.ContentPages
         private async void OnEndCall ( object sender , EventArgs e )
         {
             CutVideoCAll();
-            EndCall();
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                EndCall();
+            });
             MainThread.BeginInvokeOnMainThread(async () =>
             {
                 await Application.Current.MainPage.Navigation.PushModalAsync(new RatingPage(info, true)).ConfigureAwait(false);
@@ -228,12 +231,16 @@ namespace Shikkhanobish.ContentPages
                 {
                     if ( info.Student.StudentID == studentID )
                     {
-                        EndCall();
+                        MainThread.BeginInvokeOnMainThread(async () =>
+                        {
+                            EndCall();
+                        });
+                        MainThread.BeginInvokeOnMainThread(async () =>
+                        {
+                            await Application.Current.MainPage.Navigation.PushModalAsync(new RatingPage(info, true)).ConfigureAwait(false);
+                        });
                     }
-                    MainThread.BeginInvokeOnMainThread(async () =>
-                    {
-                        await Application.Current.MainPage.Navigation.PushModalAsync(new RatingPage(info, true)).ConfigureAwait(false);
-                    });
+                    
                 }
 
             } );
