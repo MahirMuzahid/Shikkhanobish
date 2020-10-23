@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Plugin.Connectivity;
 using Shikkhanobish.Model;
 using Shikkhanobish.ViewModel;
 using System;
@@ -22,7 +23,20 @@ namespace Shikkhanobish.ContentPages
             InitializeComponent ();
             NavigationPage.SetHasNavigationBar(this, false);
             loadinglbl.Text = "Loading Shikkhanobish...";
-            getInternalStorageInfo ();
+            try
+            {
+                if (CrossConnectivity.Current.IsConnected)
+                {
+                    getInternalStorageInfo();
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                loadinglbl.Text = ex.Message+ " Try connecting with internet";
+                loadinglbl.TextColor = Color.Red;
+            }
+           
         }
         public async Task getInternalStorageInfo ( )
         {

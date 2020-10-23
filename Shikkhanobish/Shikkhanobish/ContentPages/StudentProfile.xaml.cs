@@ -57,6 +57,14 @@ namespace Shikkhanobish
             string resultT = await responseT.Content.ReadAsStringAsync ();
             var voucherInfo = JsonConvert.DeserializeObject<List<OfferAndVoucherSource>> ( resultT );
             offers = voucherInfo;
+            for(int i = 0; i < voucherInfo.Count; i++)
+            {
+                if(voucherInfo[i].type == "Goal_Taka_T")
+                {
+                    voucherInfo.Remove(voucherInfo[i]);
+                }
+            }
+            
             cvForVoucher.ItemsSource = voucherInfo;
         }
         protected override bool OnBackButtonPressed ( )

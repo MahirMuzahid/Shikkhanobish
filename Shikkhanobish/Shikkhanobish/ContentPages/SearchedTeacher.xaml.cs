@@ -118,7 +118,7 @@ namespace Shikkhanobish.ContentPages
                         {
                             isTeacherhere = true;
                             FilteredTeacher[i].IsActive = 0;
-                            FilteredTeacher[i].TeacherStatus = "Offline";
+                            FilteredTeacher[i].TeacherStatus = "On Tuition";
                             FilteredTeacher[i].TeacherStatusColor = "#939393";
                         }
                     }

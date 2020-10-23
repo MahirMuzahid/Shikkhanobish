@@ -224,7 +224,6 @@ namespace Shikkhanobish
 
             if(ac%2 == 1)
             {
-                ConnectToServer();
                 ShowOffLineInStudentWindowRealTime ("Online");
                 takeTuition = true;
                 activelbl.Text = "Active";
@@ -233,7 +232,6 @@ namespace Shikkhanobish
             }
             else
             {
-                _connection.StopAsync();
                 ShowOffLineInStudentWindowRealTime ("Offline");
                 takeTuition = false;
                 activelbl.Text = "Inactive";
@@ -298,7 +296,6 @@ namespace Shikkhanobish
                         Info.Teacher.Amount = cost;
                         activelbl.Text = "Inactive";
                         activeback.BackgroundColor = Color.FromHex ( "#A7A7A7" );
-                        _connection.StopAsync();
                         ShowOffLineInStudentWindowRealTime ("On Tuition");
                         if ( StaticPageForOnSleep.isSleep == true)
                         {

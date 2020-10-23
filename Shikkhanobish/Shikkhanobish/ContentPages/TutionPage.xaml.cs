@@ -126,7 +126,7 @@ namespace Shikkhanobish.ContentPages
                                    
             if (sec == 15 && safeTimeDone == false)
             {
-                StartTime();
+                //StartTime();
                 info.StudyTimeInAPp = 1;
                 
                 //Teacher

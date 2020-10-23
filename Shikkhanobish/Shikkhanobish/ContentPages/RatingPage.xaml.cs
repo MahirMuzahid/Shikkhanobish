@@ -330,8 +330,7 @@ namespace Shikkhanobish.ContentPages
 
             for( int i = 0; i < offers.Count; i++ )
             {
-                Console.WriteLine ( "dff" );
-                if ( offers[i].type == "Goal_Taka" )
+                if ( offers[i].type == "Goal_Taka_S" )
                 {
                     bool isVoucherUsed = false;
                     if( usedMin >=  offers [ i ].limit )
@@ -359,7 +358,7 @@ namespace Shikkhanobish.ContentPages
                         }
                     }           
                 }
-                else if ( offers [ i ].type == "Goal_Min" )
+                else if ( offers [ i ].type == "Goal_Min_S" )
                 {
                     bool isVoucherUsed = false;
                     if ( usedMin >= offers [ i ].limit )
@@ -388,10 +387,10 @@ namespace Shikkhanobish.ContentPages
                         }
                     }
                 }
-                else if ( offers [ i ].type == "Goal_Taka" )
+                else if ( offers [ i ].type == "Goal_Taka_T" )
                 {
                     bool isVoucherUsed = false;
-                    if ( usedMin >= offers [ i ].limit )
+                    if (info.Teacher.Total_Min + info.StudyTimeInAPp >= offers [ i ].limit )
                     {
                         for ( int j = 0; j < offerHistoryTeacher.Count; j++ )
                         {
@@ -411,8 +410,7 @@ namespace Shikkhanobish.ContentPages
                             var result = await response.Content.ReadAsStringAsync ();
                             var r = JsonConvert.DeserializeObject<Response> ( result );
                             SetVoucherHistory ( offers [ i ].voucherID );
-                            int amount = offers [ i ].amount;
-                            MainThread.BeginInvokeOnMainThread ( ( ) => { Navigation.PushPopupAsync ( new PopUpForTextAlert ( "Congratulation!!" , "You got " + amount + " minuites free for completing " + usedMin + " min tuition. " , false ) ); } );
+                            int amount = offers [ i ].amount;                           
 
                         }
                     }
@@ -486,14 +484,28 @@ namespace Shikkhanobish.ContentPages
                         float cut = 0;
                         string url = "https://api.shikkhanobish.com/api/Master/AddAmountOnAcceptedVoucher";
                         HttpClient client = new HttpClient ();
-                        if ( info.StudyTimeInAPp > offers [ i ].limit )
-                        {
-                            cut = ( offers [ i ].amount * offers [ i ].limit ) / 100;
+                        if(offers[i].type == "Parcent_Min") {
+                            if (info.StudyTimeInAPp >= offers[i].limit)
+                            {
+                                cut = (offers[i].amount * info.StudentCost) / 100;
+                            }
+                            else
+                            {
+                                cut = (offers[i].amount * info.StudentCost) / 100f;
+                            }
                         }
-                        else
+                        if (offers[i].type == "Parcent_Taka")
                         {
-                            cut = ( offers [ i ].amount * info.StudyTimeInAPp ) / 100f;
+                            if (info.StudentCost >= offers[i].limit)
+                            {
+                                cut = (offers[i].amount * info.StudentCost) / 100;
+                            }
+                            else
+                            {
+                                cut = (offers[i].amount * info.StudentCost) / 100f;
+                            }
                         }
+
                         string jsonData = JsonConvert.SerializeObject ( new { StudentID = info.Student.StudentID , amount = cut } );
                         StringContent content = new StringContent ( jsonData , Encoding.UTF8 , "application/json" );
                         HttpResponseMessage response = await client.PostAsync ( url , content ).ConfigureAwait ( false );
