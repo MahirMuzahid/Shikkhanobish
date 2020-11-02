@@ -39,7 +39,7 @@
         <Label Text="User Name" Grid.Row="1" FontSize="13" FontAttributes="Bold" />
         <Label Text="Password" Grid.Row="3" FontSize="13" FontAttributes="Bold" />
         <Label Text="Confirm Password" Grid.Row="3" Grid.Column="1" FontSize="13" FontAttributes="Bold" />
-        <Label Text="Phonenumber" Grid.Row="5" FontSize="13" FontAttributes="Bold" />
+        <Label Text="Phone Number" Grid.Row="5" FontSize="13" FontAttributes="Bold" />
         <Label Text="Name" Grid.Row="7" FontSize="13" FontAttributes="Bold" />
         <Label Text="Age" Grid.Row="9" FontSize="13" FontAttributes="Bold" />
         <Label Text="Class" Grid.Row="11" FontSize="13" FontAttributes="Bold" />

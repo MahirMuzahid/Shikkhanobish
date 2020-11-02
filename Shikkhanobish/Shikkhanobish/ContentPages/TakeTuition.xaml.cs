@@ -666,7 +666,7 @@ namespace Shikkhanobish
                 }
                 else
                 {
-                    FilteredTeacher [ i ].FoundingTeacherColor = "#F5F5F5";
+                    FilteredTeacher [ i ].FoundingTeacherColor = "White";
                 }
 
 

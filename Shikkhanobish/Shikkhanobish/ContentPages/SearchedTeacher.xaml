@@ -13,26 +13,29 @@
     <Grid BackgroundColor="#FFFFFF">
         <Grid.RowDefinitions>
             <RowDefinition Height=".8*" />
+            <RowDefinition Height="1*" />
             <RowDefinition Height="10*" />
         </Grid.RowDefinitions>
         <BoxView BackgroundColor="#9761FD" Grid.Row="0"/>
         <Label Text="Teacher" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center" FontSize="17" FontAttributes="Bold" TextColor="#FFFFFF" />
-        <ListView x:Name="TeacherListView" Grid.Row="1" IsEnabled="true" RowHeight="150" ItemTapped="TeacherListView_ItemTapped">
-            <ListView.ItemTemplate>
+        <Label x:Name="infolbl" Text="Showing Result For: Class - 6, Sibject - Bangla First Paper, Teacher Found = 20" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" Margin="10"/>
+        <ListView x:Name="TeacherListView" Grid.Row="2" IsEnabled="true" RowHeight="150" ItemTapped="TeacherListView_ItemTapped" >
+            <ListView.ItemTemplate> 
                 <DataTemplate>
                     <ViewCell>
-                        <Frame Padding="15">
-                            <Grid RowSpacing="0" BackgroundColor="#F5F5F5">
+                        <Frame Padding="10">
+                            <Grid RowSpacing="0" BackgroundColor="White">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="5*" />
                                     <RowDefinition Height="1*" />
+                                    <RowDefinition Height=".1*" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="1*" />
                                     <ColumnDefinition Width="1*" />
                                     <ColumnDefinition Width="1.1*" />
                                 </Grid.ColumnDefinitions>
-
+    
                                 <Grid Grid.Row="0" Padding="5" Margin="8,0,0,0" Grid.Column="0" Grid.ColumnSpan="2">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="1.3*" />
@@ -41,7 +44,7 @@
                                         <RowDefinition Height="1*" />
                                     </Grid.RowDefinitions>
                                     <BoxView BackgroundColor="{Binding Color}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" CornerRadius="10" />
-                                    <Label Text="{Binding TeacherName}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" FontAttributes="Bold" />
+                                    <Label Text="{Binding TeacherName}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" FontAttributes="Bold" TextColor="#303030" />
                                     <Label Text="Avarage:" Grid.Row="1" Grid.Column="0" FontSize="11" />
                                     <Label Text="Total Min:" Grid.Row="2" Grid.Column="0" FontSize="11" />
                                     <Label Text="Tution Count:" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" FontSize="11" />
@@ -56,10 +59,10 @@
                                         <RowDefinition Height="4*" />
                                     </Grid.RowDefinitions>
                                     <BoxView BackgroundColor="{Binding FoundingTeacherColor}" Grid.Row="0"  CornerRadius="20"/>
-                                    <Label Text="Founding Teacher" Grid.Row="0"  HorizontalOptions="Center" VerticalOptions="Center" FontSize="11" TextColor="#F5F5F5"/>
+                                    <Label Text="Founding Teacher" Grid.Row="0"  HorizontalOptions="Center" VerticalOptions="Center" FontSize="11" TextColor="White"/>
                                     <Label Text="{Binding Teacher_Rank}" FontAttributes="Bold" FontSize="20" Grid.Row="0" Grid.RowSpan="2" HorizontalOptions="Center" VerticalOptions="Center" TextColor="{Binding Color}" />
                                 </Grid>
-                                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" BackgroundColor="#E9E9E9">
+                                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" BackgroundColor="#FFFFFF">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1*" />
                                         <ColumnDefinition Width="1*" />

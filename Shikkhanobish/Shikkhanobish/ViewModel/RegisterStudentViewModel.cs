@@ -33,8 +33,8 @@ namespace Shikkhanobish
         public RegisterStudentViewModel(INavigation navigation)
         {
             this.navigation = navigation;
-            BindButtonText = "Student Registretion";
-            BindButtonTextTeacher = "Teacher Registretion";
+            BindButtonText = "Register as Student";
+            BindButtonTextTeacher = "Registrt as Teacher";
         }
 
         public Command RegisterStudent
@@ -400,8 +400,6 @@ namespace Shikkhanobish
                 if (value != null)
                 {
                     _phoneNumber = value;
-                    //ProfileViewModel setPhoneNumber = new ProfileViewModel(navigation);
-                    //setPhoneNumber.PhoneNumber = value;
                     OnPropertyChanged();
                 }
             }

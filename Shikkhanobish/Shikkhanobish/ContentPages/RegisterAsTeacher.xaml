@@ -318,7 +318,7 @@
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Label x:Name="ErrorText" Text="" TextColor="Red" Grid.Row="3" FontSize="10" HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Label x:Name="ErrorText" Text="" TextColor="Red" Grid.Row="3" FontSize="11" HorizontalOptions="Center" VerticalOptions="Center" />
                     <Button x:Name="registerbtn" Text="Register Now" BackgroundColor="#B37AFF" FontSize="10" Grid.Row="4" HorizontalOptions="End" VerticalOptions="Center" Clicked="Button_Clicked" Margin="20" CornerRadius="10" TextColor="#FFFFFF" />
                     <Entry x:Name="codeEntrt" Placeholder="Fouding Teacher Code" Grid.Row="4" HorizontalOptions="Start" VerticalOptions="Center" FontSize="14"/>
 

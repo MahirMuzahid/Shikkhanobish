@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
+using Rg.Plugins.Popup.Extensions;
 using Shikkhanobish.ContentPages;
+using Shikkhanobish.ContentPages.Common;
 using Shikkhanobish.Model;
 using System;
 using System.Net.Http;
@@ -26,7 +28,11 @@ namespace Shikkhanobish
             ts = teacherorstudent;
             VerifyUserAsync();
         }
-
+        protected override bool OnBackButtonPressed()
+        {
+            Navigation.PushPopupAsync(new PopUpForTextAlert("Cancle Registration?", "Do you want to cancle registration?", true));
+            return true;
+        }
         public async Task VerifyUserAsync()
         {
             Numberlbl.Text = "" + studentm.PhoneNumber;

@@ -43,6 +43,8 @@ namespace Shikkhanobish.ContentPages
         
         public void SetEveryThing()
         {
+
+            infolbl.Text = "Showing Result For : " + info.Class + ", Subject - " + info.SubjectName+ ", Teacher Found = " + FilteredTeacher.Count;
             TeacherListView.ItemsSource = FilteredTeacher;
         }
 

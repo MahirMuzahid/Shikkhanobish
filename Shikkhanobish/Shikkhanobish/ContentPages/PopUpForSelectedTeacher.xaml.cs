@@ -37,7 +37,10 @@ namespace Shikkhanobish.ContentPages
                 await ConnectWithTeacher(SessionID, Token, Info.Student.StudentID, Info.Teacher.TeacherID, Info.SubjectName, Info.Class, Info.Teacher.Amount, Info.Teacher.TeacherName).ConfigureAwait(false);
                 Info.SessionID = SessionID;
                 Info.UserToken = Token;
-                await Application.Current.MainPage.Navigation.PushModalAsync(new CallingPageStudent(Info, shortnoteentry.Text)).ConfigureAwait(false);
+                MainThread.BeginInvokeOnMainThread(async() =>
+                {
+                    await Application.Current.MainPage.Navigation.PushModalAsync(new CallingPageStudent(Info, shortnoteentry.Text)).ConfigureAwait(false);
+                } ); 
 
                 await Navigation.PopPopupAsync().ConfigureAwait(false);
             }

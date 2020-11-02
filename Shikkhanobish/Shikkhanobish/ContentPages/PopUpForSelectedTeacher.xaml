@@ -32,7 +32,7 @@
             <Label x:Name="clLbl" Text="Class" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center"/>
             <Label x:Name="subLbl" Text="Subject" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center"/>
             <Label x:Name="ctLbl" Text="Cost" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center"/>
-            <Entry x:Name="shortnoteentry" Placeholder="Short note for your teacher" Grid.Row="4" FontSize="14"/>
+            <Entry x:Name="shortnoteentry" Placeholder="Topic name" Grid.Row="4" FontSize="14"/>
             <Button x:Name="callbtn" Text="Call Teacher" Grid.Row="5" HorizontalOptions="Center" BackgroundColor="#B2FFB2" CornerRadius="10" Clicked="Button_Clicked" FontSize="12"/>
 
         </Grid>

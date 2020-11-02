@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -348,23 +349,31 @@ namespace Shikkhanobish
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
+            registerbtn.IsEnabled = false;
             try
             {
                 registerbtn.Text = "Wait...";
                 bool checkCommon = CheckCommon();
                 bool checkGroup = CheckGroup();
                 CheckHighSchool();
-                if(codeEntrt.Text.Length != 0)
+                isFoundingTeacherCodeOK = false;
+                if (codeEntrt.Text.Length != 0)
                 {
                     try
                     {
                         int st = int.Parse(codeEntrt.Text);
-                        CheckFoundingTeacherCode(st);
+                        await CheckFoundingTeacherCode(st).ConfigureAwait(false);
                     }
                     catch(Exception ex)
                     {
                         isFoundingTeacherCodeOK = false;
-                        ErrorText.Text = ex.Message;
+                        MainThread.BeginInvokeOnMainThread(async () =>
+                        {
+                            ErrorText.Text = ex.Message;
+                            registerbtn.Text = "Register";
+                            registerbtn.IsEnabled = true;
+                        });
+                        
                     }
                     
                 }
@@ -372,7 +381,7 @@ namespace Shikkhanobish
                 {
                     isFoundingTeacherCodeOK = true;
                 }
-                if(((codeEntrt.Text.Length != 0 || codeEntrt.Text != null) && isFoundingTeacherCodeOK == true) || (codeEntrt.Text.Length == 0 || codeEntrt.Text == null))
+                if(isFoundingTeacherCodeOK == true)
                 {
                     teacher.InstitutionID = InstituitionID;
                     teacher.StudentID = studentID;
@@ -466,7 +475,7 @@ namespace Shikkhanobish
                                         HttpResponseMessage responseT = await clientT.PostAsync(urlT, contentT).ConfigureAwait(false);
                                         string resultT = await responseT.Content.ReadAsStringAsync().ConfigureAwait(false);
                                         var teacher = JsonConvert.DeserializeObject<Teacher>(resultT);
-                                        if (isFoundingTeacherCodeOK == true)
+                                        if (codeEntrt.Text.Length != 0)
                                         {
                                             urlT = "https://api.shikkhanobish.com/api/Master/SetFoundingTeacherToOne";
                                             using (HttpClient clientN = new HttpClient())
@@ -477,35 +486,46 @@ namespace Shikkhanobish
                                                 resultT = await responseT.Content.ReadAsStringAsync().ConfigureAwait(false);
                                                 var r = JsonConvert.DeserializeObject<Response>(resultT);
                                             }
-                                                
+
                                         }
-                                        
+
                                         MainThread.BeginInvokeOnMainThread(async () =>
                                         {
                                             await Application.Current.MainPage.Navigation.PushModalAsync(new TeacherProfile(teacher)).ConfigureAwait(true);
                                         });
                                     }
-                                    
+
                                 }
-                            }                          
+                            }
                         }
-                        
+
                     }
                 }
+                else
+                {
+                    MainThread.BeginInvokeOnMainThread(async () =>
+                    {
+                        ErrorText.Text = "Invalid founding teacher code. If you are founding teacher, please check your mobile phone message. If you are not founding teacher than leave this box blank.";
+                        registerbtn.Text = "Register Now";
+                        registerbtn.IsEnabled = true;
+                    });
+                }
+                
                 
             }
             catch (Exception ex)
             {
                 ErrorText.Text = ex.Message;
                 registerbtn.Text = "Register Now";
+                registerbtn.IsEnabled = true;
             }
                                 
             
         }
         bool isFoundingTeacherCodeOK;
-        public async void CheckFoundingTeacherCode(int code)
+        public async Task CheckFoundingTeacherCode(int code)
         {
-            string urlT = "https://api.shikkhanobish.com/api/Master/GetFounderTeacherCode";
+            string urlT = "https://api.shikkhanobish.com/api/Master/GetCodesOfFounderTeacher";
             HttpClient clientT = new HttpClient();
             HttpResponseMessage responseT = await clientT.GetAsync(urlT).ConfigureAwait(false);
             string resultT = await responseT.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -533,8 +553,7 @@ namespace Shikkhanobish
                 
             }
             else
-            {
-                ErrorText.Text = "This Founding Teacher code is not valid";
+            {                
                 isFoundingTeacherCodeOK = false;
             }
         }

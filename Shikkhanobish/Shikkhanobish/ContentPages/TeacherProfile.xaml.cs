@@ -33,6 +33,7 @@ namespace Shikkhanobish
         
         public TeacherProfile(Teacher t)
         {
+            ConnectToServer();
             takeTuition = false;
             ShortNote = "";
             InitializeComponent ();
@@ -42,7 +43,7 @@ namespace Shikkhanobish
             var image = new Image { Source = "BackColor.jpg" };
             activelbl.Text = "Inactive";
             setRankInfo ();
-            setOnTuitionOFF ();
+            setOnTuitionOFF (0);
             setIsActiveOffOrOn ( 0 );
             GetPeddingInfo (teacher.TeacherID);
             SetInfoInInternalStorage ( teacher.UserName , teacher.Password , "Teacher" , 0 );
@@ -188,6 +189,7 @@ namespace Shikkhanobish
 
         protected override bool OnBackButtonPressed()
         {
+
             Navigation.PushPopupAsync(new PopUpForTextAlert("", "", true));
             return true;
         }
@@ -203,6 +205,10 @@ namespace Shikkhanobish
 
         private async void Button_Clicked_4(object sender, EventArgs e)
         {
+            ShowOffLineInStudentWindowRealTime("Offline");
+            setIsActiveOffOrOn(0);
+            setOnTuitionOFF(0);
+            _connection.StopAsync();
             SecureStorage.RemoveAll ();
             await Application.Current.MainPage.Navigation.PushModalAsync(new MainPage()).ConfigureAwait( false );
         }
@@ -224,18 +230,27 @@ namespace Shikkhanobish
 
             if(ac%2 == 1)
             {
-                ShowOffLineInStudentWindowRealTime ("Online");
+                _connection.StartAsync();
+                ShowOffLineInStudentWindowRealTime("Online");
                 takeTuition = true;
-                activelbl.Text = "Active";
-                activeback.BackgroundColor = Color.FromHex ( "#54E36B" );
+                MainThread.BeginInvokeOnMainThread(async () =>
+                {
+                    activelbl.Text = "Active";                  
+                });
+                activeback.BackgroundColor = Color.FromHex("#54E36B");
                 setIsActiveOffOrOn ( 1 );
             }
             else
             {
-                ShowOffLineInStudentWindowRealTime ("Offline");
+                
+                ShowOffLineInStudentWindowRealTime("Offline");
                 takeTuition = false;
-                activelbl.Text = "Inactive";
-                activeback.BackgroundColor = Color.FromHex ( "#A7A7A7" );
+                MainThread.BeginInvokeOnMainThread(async () =>
+                {
+                    activelbl.Text = "Inactive";
+                   
+                });
+                activeback.BackgroundColor = Color.FromHex("#A7A7A7");
                 setIsActiveOffOrOn (0);
             }
             
@@ -284,6 +299,8 @@ namespace Shikkhanobish
                 {
                     if ( teacher.TeacherID == teacherID )
                     {
+                        _connection.StopAsync();
+                        ac++;
                         takeTuition = false;
                         TransferInfo Info = new TransferInfo ();
                         Info.Student.Name = studentName;
@@ -297,6 +314,7 @@ namespace Shikkhanobish
                         activelbl.Text = "Inactive";
                         activeback.BackgroundColor = Color.FromHex ( "#A7A7A7" );
                         ShowOffLineInStudentWindowRealTime ("On Tuition");
+                        setOnTuitionOFF(1);
                         if ( StaticPageForOnSleep.isSleep == true)
                         {
                             StaticPageForOnSleep.isCallPending = true;
@@ -312,9 +330,7 @@ namespace Shikkhanobish
                         
                        
                     }
-                }
-                
-                
+                }                              
             } );
 
 
@@ -330,11 +346,11 @@ namespace Shikkhanobish
             });
         }
 
-        public async void setOnTuitionOFF (  )
+        public async void setOnTuitionOFF ( int state )
         {
             string urlT = "https://api.shikkhanobish.com/api/Master/ChangeStateofIsOnTuition";
             HttpClient clientT = new HttpClient ();
-            string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = teacher.TeacherID , state = 0 } );
+            string jsonDataT = JsonConvert.SerializeObject ( new { TeacherID = teacher.TeacherID , state = state } );
             StringContent contentT = new StringContent ( jsonDataT , Encoding.UTF8 , "application/json" );
             HttpResponseMessage responseT = await clientT.PostAsync ( urlT , contentT ).ConfigureAwait ( false );
             string resultT = await responseT.Content.ReadAsStringAsync ();

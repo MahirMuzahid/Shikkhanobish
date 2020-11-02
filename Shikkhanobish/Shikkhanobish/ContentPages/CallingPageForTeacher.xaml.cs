@@ -36,7 +36,7 @@ namespace Shikkhanobish.ContentPages
             clLbl.Text = Info.Class;
             subLbl.Text = Info.SubjectName;
             ctLbl.Text = "Cost: " + Info.Teacher.Amount + " taka/min";
-            calllbl.Text = "Student Call...";
+            calllbl.Text = "Press accept button to take tuition...";
             ConnectToServer();
             Device.StartTimer(TimeSpan.FromSeconds(1.0), startCountdown);
         }
@@ -68,8 +68,7 @@ namespace Shikkhanobish.ContentPages
             if (!CrossOpenTok.Current.TryStartSession())
             {
                 return;
-            }
-            setOnTuitionOFFOrOn ( 1 );
+            }           
             ConnectWithStudent ( Info.Student.StudentID , Info.Teacher.TeacherID , true );
             isCallCut = true;
             await Application.Current.MainPage.Navigation.PushModalAsync ( new TuitionPageTeacher ( Info ) ).ConfigureAwait ( false );
@@ -82,9 +81,10 @@ namespace Shikkhanobish.ContentPages
         }
         public async void popPage ( )
         {
+            setOnTuitionOFFOrOn(0);
+            setIsActiveOffOrOn(0);
             isCallCut = true;
             StaticPageForOnSleep.isCallPending = false;
-            setOnTuitionOFFOrOn(0);
             ConnectWithStudent(Info.Student.StudentID, Info.Teacher.TeacherID, false);
             _connection.StopAsync();
             if (fromWhere == 0)
@@ -151,7 +151,8 @@ namespace Shikkhanobish.ContentPages
                 {
                     isCallCut = true;
                     StaticPageForOnSleep.isCallPending = false;
-                    setOnTuitionOFFOrOn ( 0 );                   
+                    setOnTuitionOFFOrOn ( 0 );
+                    setIsActiveOffOrOn(0);
                     if (fromWhere == 0)
                     {
                         await Application.Current.MainPage.Navigation.PopModalAsync();

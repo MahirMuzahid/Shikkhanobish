@@ -78,7 +78,8 @@
     <AndroidPackageFormat>apk</AndroidPackageFormat>
     <AndroidDexTool>d8</AndroidDexTool>
     <AndroidLinkTool>r8</AndroidLinkTool>
-    <AndroidLinkSkip>Xamarin.Essentials</AndroidLinkSkip>
+    <AndroidLinkSkip>
+    </AndroidLinkSkip>
     <AndroidSigningKeyStore>C:\Users\muzah\AppData\Local\Xamarin\Mono for Android\Keystore\Shikkhanobish\Shikkhanobish.keystore</AndroidSigningKeyStore>
     <AndroidSigningKeyAlias>Shikkhanobish</AndroidSigningKeyAlias>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>

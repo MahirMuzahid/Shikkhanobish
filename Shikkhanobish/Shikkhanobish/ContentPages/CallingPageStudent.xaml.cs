@@ -29,7 +29,7 @@ namespace Shikkhanobish.ContentPages
         private int sec;
         public Session Session { get; protected set; }
         public OpenTok OpenTok { get; protected set; }
-        bool isCallCutByStudent;
+        bool isCallCut;
         HubConnection _connection = null;
         bool isAcceptedByTeacher = false;
         string note;
@@ -39,7 +39,7 @@ namespace Shikkhanobish.ContentPages
             InitializeComponent();
             searchdontcount = 0;
             note = shortNote;
-            isCallCutByStudent = false;
+            isCallCut = false;
             sec = 0;
             Info = info;
             ConnectToServer();
@@ -57,35 +57,43 @@ namespace Shikkhanobish.ContentPages
 
         private bool startCountdown ( )
         {
+            if (isCallCut == true)
+            {
+                return false;
+            }
             if (sec > 30)
             {
                 if (isAcceptedByTeacher == false)
                 {
+                    _connection.StopAsync();
                     setOnTuitionOFF();
                     setIsActiveOffOrOn();
-                    callOut();
+                    MainThread.BeginInvokeOnMainThread(async () =>
+                    {
+                        calllbl.Text = "Cancle Calling...";
+                    });
+                    MainThread.BeginInvokeOnMainThread(async () =>
+                    {
+                        await Application.Current.MainPage.Navigation.PopModalAsync().ConfigureAwait(false);
+                    });
                     return false;
                 }
 
             }
-
-            if (isCallCutByStudent == true)
-            {
-                return false;
-            }
+           
             searchdontcount++;
             if (searchdontcount == 1)
             {
-                calllbl.Text = "Calling Teacher.";
+                calllbl.Text = "Connection with teacher.";
             }
             else if (searchdontcount == 2)
             {
-                calllbl.Text = "Calling Teacher..";
+                calllbl.Text = "Connection with Teacher..";
             }
             else if (searchdontcount == 3)
             {
                 searchdontcount = 0;
-                calllbl.Text = "Calling Teacher...";
+                calllbl.Text = "Connection with Teacher...";
             }
             sec++;
            
@@ -120,7 +128,7 @@ namespace Shikkhanobish.ContentPages
         }
         protected override bool OnBackButtonPressed ( )
         {
-            isCallCutByStudent = true;            
+            isCallCut = true;            
             MainThread.BeginInvokeOnMainThread(async () =>
             {
                 calllbl.Text = "Cancle Calling...";
@@ -146,7 +154,7 @@ namespace Shikkhanobish.ContentPages
 
         private void cancleStbtn_Clicked ( object sender , EventArgs e )
         {
-            isCallCutByStudent = true;          
+            isCallCut = true;          
             MainThread.BeginInvokeOnMainThread(async () =>
             {
                 calllbl.Text = "Cancle Calling...";
@@ -211,6 +219,7 @@ namespace Shikkhanobish.ContentPages
                     }
                     else
                     {
+                        isCallCut = true;
                         isAcceptedByTeacher = true;
                         await Application.Current.MainPage.Navigation.PopModalAsync();
                         _connection.StopAsync();

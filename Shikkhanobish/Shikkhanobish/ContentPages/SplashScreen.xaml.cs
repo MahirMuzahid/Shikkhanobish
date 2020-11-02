@@ -29,6 +29,11 @@ namespace Shikkhanobish.ContentPages
                 {
                     getInternalStorageInfo();
                 }
+                else
+                {
+                    loadinglbl.Text = " Try connecting with internet and open this app again ";
+                    loadinglbl.TextColor = Color.Red;
+                }
                 
             }
             catch (Exception ex)
